@@ -11,19 +11,31 @@
     --gold:#d4af37;
     --gold-soft:rgba(212,175,55,.55);
     --ink:#243242;
-    --card-w:114px;
-    --card-h:168px;
-    --pivot:224px;
+    --card-w:118px;
+    --card-h:196px;
+    --pivot:260px;
   }
   *{ box-sizing:border-box; }
   html,body{
     margin:0; padding:0;
     width:100%; height:100%;
     background:
+      radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.5) 100%),
       radial-gradient(circle at 50% 30%, var(--felt-2), var(--felt) 70%);
     color:#e8ede9;
     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     overflow:hidden;
+    position:relative;
+  }
+  /* 细微绒毯纹理 */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity:.05;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+    z-index:0;
   }
   body{
     display:flex;
@@ -31,47 +43,57 @@
     align-items:center;
   }
 
-  /* ---------- 外层金色相框（仅竖屏出现） ---------- */
+  /* ---------- 外层容器 ---------- */
   .frame{
     position:relative;
+    z-index:1;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:14px;
+    gap:18px;
     padding:18px 14px 16px;
   }
 
-  /* ---------- 顶部切换开关 ---------- */
+  /* ---------- 顶部切换：筹码造型 ---------- */
   .switch-container{
     display:flex;
-    background:rgba(0,0,0,.32);
-    padding:4px;
-    border-radius:20px;
-    box-shadow:inset 0 2px 4px rgba(0,0,0,.4);
+    gap:20px;
   }
   .switch-btn{
-    background:transparent;
+    position:relative;
+    width:60px; height:60px;
+    border-radius:50%;
     border:none;
-    color:#b9d6c4;
-    padding:7px 15px;
-    font-size:12.5px;
-    font-weight:600;
-    letter-spacing:.2px;
     cursor:pointer;
-    border-radius:16px;
-    transition:background .25s ease,color .25s ease;
+    background:
+      repeating-conic-gradient(from 0deg, rgba(255,255,255,.10) 0deg 7deg, transparent 7deg 14deg),
+      radial-gradient(circle at 50% 38%, #2a4a32, #12200e 78%);
+    box-shadow:0 3px 8px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.07), inset 0 -2px 4px rgba(0,0,0,.35);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:1px;
+    transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
   }
+  .switch-btn .chip-suit{ font-size:19px; line-height:1; }
+  .switch-btn .chip-label{ font-size:7.5px; letter-spacing:.4px; color:#d9e6dd; opacity:.85; }
+  .switch-btn:nth-child(1) .chip-suit{ color:#e2685c; }
+  .switch-btn:nth-child(2) .chip-suit{ color:#9fc3ea; }
   .switch-btn.active{
-    background:var(--gold);
-    color:#1a3322;
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
+    transform:translateY(-4px);
+    box-shadow:0 8px 16px rgba(0,0,0,.5), 0 0 0 2px var(--gold), inset 0 0 0 2px rgba(255,255,255,.15);
   }
 
-  /* ---------- 舞台：竖屏一次一组，横屏并排两组 ---------- */
-  .stage{ display:flex; }
+  /* ---------- 舞台 ---------- */
+  .stage{ position:relative; display:flex; }
 
-  .fan-section{ display:none; flex-direction:column; align-items:center; gap:8px; }
-  .fan-section.active-section{ display:flex; }
+  .fan-section{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
 
   .deck-label{
     display:none;
@@ -84,6 +106,11 @@
   .deck-label.hearts-theme{ color:#f0a8a0; }
   .deck-label.spades-theme{ color:#a9c8ea; }
 
+  /* 中央分隔（横屏专用） */
+  .versus{
+    display:none;
+  }
+
   /* ---------- 扇形容器 ---------- */
   .fan-wrap{
     position:relative;
@@ -94,10 +121,12 @@
   .card-deck{
     position:absolute;
     inset:0;
-    transition:opacity .3s ease;
   }
-  .card-deck.hidden-deck{ opacity:0; pointer-events:none; }
-  .card-deck.active-deck{ opacity:1; pointer-events:auto; }
+
+  .card-deck.shuffling .card{
+    transform:rotate(0deg) translateY(6px) scale(.8) !important;
+    box-shadow:-1px 2px 6px rgba(0,0,0,.3) !important;
+  }
 
   .card{
     position:absolute;
@@ -112,11 +141,21 @@
     box-shadow:-3px 5px 12px rgba(0,0,0,.3);
     transform-origin:50% var(--pivot);
     transform:rotate(var(--r)) translateY(0) scale(1);
-    transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
     cursor:pointer;
     padding:10px 9px 8px;
     display:flex;
     flex-direction:column;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+    opacity:.035;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
   }
   .card:nth-child(1){ --r:-22deg; z-index:1; }
   .card:nth-child(2){ --r:-11deg; z-index:2; }
@@ -132,7 +171,8 @@
   }
 
   .suit-corner{
-    position:absolute;
+    position:relative;
+    z-index:1;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -140,8 +180,8 @@
     font-size:13px;
     line-height:.9;
   }
-  .suit-corner.top-left{ top:7px; left:7px; }
-  .suit-corner.bottom-right{ bottom:7px; right:7px; transform:rotate(180deg); }
+  .suit-corner.top-left{ position:absolute; top:7px; left:7px; }
+  .suit-corner.bottom-right{ position:absolute; bottom:7px; right:7px; transform:rotate(180deg); }
   .suit-corner span:last-child{ font-size:10px; margin-top:2px; }
 
   .hearts-theme .suit-corner,
@@ -193,6 +233,17 @@
     align-items:baseline;
     gap:5px;
   }
+  .deal-row.featured{
+    background:linear-gradient(90deg, rgba(212,175,55,.18), transparent 85%);
+    border-radius:4px;
+    margin:-1px -3px 0;
+    padding:1px 3px;
+  }
+  .deal-row.featured .deal-item::before{
+    content:"★ ";
+    color:var(--gold);
+    font-size:8px;
+  }
   .deal-item{
     flex:1;
     min-width:0;
@@ -202,6 +253,7 @@
     overflow:hidden;
     text-overflow:ellipsis;
   }
+  .deal-row.featured .deal-item{ color:#3a2c14; font-weight:600; }
   .deal-price{
     flex-shrink:0;
     font-size:9.6px;
@@ -210,21 +262,58 @@
   .hearts-theme .deal-price{ color:#d63031; }
   .spades-theme .deal-price{ color:#0984e3; }
 
-  .tip{
-    margin:0;
-    text-align:center;
-    color:#8fb39d;
-    font-size:11px;
+  /* ---------- 竖屏签名（左上角，下移半张牌高度） ---------- */
+  .signature{
+    position:fixed;
+    top:calc(10px + var(--card-h) / 2);
+    left:12px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--gold);
     letter-spacing:.3px;
+    opacity:.9;
+    display:none;
+    z-index:50;
   }
 
-  /* ================= 竖屏：单组扇形 + 金色细边框 ================= */
+  /* ---------- 静音开关 ---------- */
+  .sound-toggle{
+    position:fixed;
+    top:10px; right:12px;
+    z-index:50;
+    width:30px; height:30px;
+    border-radius:50%;
+    border:1px solid var(--gold-soft);
+    background:rgba(0,0,0,.35);
+    color:var(--gold);
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+
+  /* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
   @media (orientation:portrait){
-    .frame{
-      border:1.5px solid var(--gold-soft);
-      box-shadow:0 0 0 4px rgba(212,175,55,.08), inset 0 0 14px rgba(212,175,55,.06);
+    .stage{
+      flex-direction:column;
+      align-items:center;
+      width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
+      height:calc(var(--card-h) + 22px + 26px);
     }
-    .stage{ flex-direction:column; align-items:center; }
+    .fan-section{
+      position:absolute;
+      top:0; left:50%;
+      transform:translateX(-50%);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease;
+    }
+    .fan-section.active-section{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .signature{ display:block; }
   }
 
   /* ================= 横屏：中西同花顺并列 ================= */
@@ -233,23 +322,51 @@
     .frame{ padding:10px 20px; gap:10px; }
     .stage{
       flex-direction:row;
-      gap:56px;
+      gap:36px;
       align-items:flex-start;
     }
-    .fan-section{ display:flex !important; }
+    .fan-section{ display:flex; }
     .deck-label{ display:block; }
-    .card-deck.hidden-deck{ opacity:1; pointer-events:auto; }
-    .tip{ display:none; }
+    .versus{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      align-self:stretch;
+      gap:6px;
+      padding-top:26px;
+      padding-bottom:6px;
+    }
+    .versus-line{
+      flex:1;
+      width:1px;
+      min-height:16px;
+      background:linear-gradient(to bottom, transparent, var(--gold-soft), transparent);
+    }
+    .versus-badge{
+      font-size:13px;
+      letter-spacing:1px;
+      color:var(--gold);
+      opacity:.9;
+    }
   }
 </style>
 </head>
 <body>
 
+<span class="signature">TP制作🐈🏷️</span>
+<button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
+
 <div class="frame">
 
   <div class="switch-container">
-    <button class="switch-btn active" data-target="chinese">华人超市 (红心♥)</button>
-    <button class="switch-btn" data-target="western">西人超市 (黑桃♠)</button>
+    <button class="switch-btn active" data-target="chinese">
+      <span class="chip-suit">♥</span>
+      <span class="chip-label">华人</span>
+    </button>
+    <button class="switch-btn" data-target="western">
+      <span class="chip-suit">♠</span>
+      <span class="chip-label">西人</span>
+    </button>
   </div>
 
   <div class="stage">
@@ -258,7 +375,7 @@
     <section class="fan-section active-section" id="chinese-section">
       <h2 class="deck-label hearts-theme">华人超市 · 红心同花顺</h2>
       <div class="fan-wrap">
-        <div class="card-deck active-deck hearts-theme" id="chinese-deck">
+        <div class="card-deck hearts-theme" id="chinese-deck">
 
           <div class="card">
             <div class="suit-corner top-left"><span>10</span><span>♥</span></div>
@@ -266,7 +383,7 @@
             <div class="content">
               <h3 class="supermarket-name">建兴超市</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">特级大米 5kg</span><span class="deal-price">$12.99</span></div>
+                <div class="deal-row featured"><span class="deal-item">特级大米 5kg</span><span class="deal-price">$12.99</span></div>
                 <div class="deal-row"><span class="deal-item">新鲜生菜 2把</span><span class="deal-price">$1.99</span></div>
                 <div class="deal-row"><span class="deal-item">冷冻虾仁 1kg</span><span class="deal-price">$9.99</span></div>
               </div>
@@ -280,7 +397,7 @@
             <div class="content">
               <h3 class="supermarket-name">百福超市</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">新鲜排骨</span><span class="deal-price">$4.99/lb</span></div>
+                <div class="deal-row featured"><span class="deal-item">新鲜排骨</span><span class="deal-price">$4.99/lb</span></div>
                 <div class="deal-row"><span class="deal-item">老豆腐 3件</span><span class="deal-price">$2.00</span></div>
                 <div class="deal-row"><span class="deal-item">广式腊肠</span><span class="deal-price">$6.99</span></div>
               </div>
@@ -294,7 +411,7 @@
             <div class="content">
               <h3 class="supermarket-name">鼎泰超市</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">红富士苹果</span><span class="deal-price">$1.29/lb</span></div>
+                <div class="deal-row featured"><span class="deal-item">红富士苹果</span><span class="deal-price">$1.29/lb</span></div>
                 <div class="deal-row"><span class="deal-item">娃娃菜 3包</span><span class="deal-price">$3.00</span></div>
                 <div class="deal-row"><span class="deal-item">冰鲜带鱼</span><span class="deal-price">$5.99/lb</span></div>
               </div>
@@ -308,7 +425,7 @@
             <div class="content">
               <h3 class="supermarket-name">丰泰超市</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">活鲜龙虾</span><span class="deal-price">$8.99/lb</span></div>
+                <div class="deal-row featured"><span class="deal-item">活鲜龙虾</span><span class="deal-price">$8.99/lb</span></div>
                 <div class="deal-row"><span class="deal-item">大闸蟹 6只</span><span class="deal-price">$18.99</span></div>
                 <div class="deal-row"><span class="deal-item">鲜活基围虾</span><span class="deal-price">$7.99/lb</span></div>
               </div>
@@ -322,7 +439,7 @@
             <div class="content">
               <h3 class="supermarket-name">大统华</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">特选肥牛片</span><span class="deal-price">$6.99</span></div>
+                <div class="deal-row featured"><span class="deal-item">特选肥牛片</span><span class="deal-price">$6.99</span></div>
                 <div class="deal-row"><span class="deal-item">日式拉面 3包</span><span class="deal-price">$5.00</span></div>
                 <div class="deal-row"><span class="deal-item">三文鱼刺身</span><span class="deal-price">$12.99/lb</span></div>
               </div>
@@ -334,11 +451,17 @@
       </div>
     </section>
 
+    <div class="versus">
+      <span class="versus-line"></span>
+      <span class="versus-badge">♠<br>♥</span>
+      <span class="versus-line"></span>
+    </div>
+
     <!-- 西人超市 -->
     <section class="fan-section" id="western-section">
       <h2 class="deck-label spades-theme">西人超市 · 黑桃同花顺</h2>
       <div class="fan-wrap">
-        <div class="card-deck hidden-deck spades-theme" id="western-deck">
+        <div class="card-deck spades-theme" id="western-deck">
 
           <div class="card">
             <div class="suit-corner top-left"><span>10</span><span>♠</span></div>
@@ -346,7 +469,7 @@
             <div class="content">
               <h3 class="supermarket-name">Walmart</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">牛奶 4L</span><span class="deal-price">$5.47</span></div>
+                <div class="deal-row featured"><span class="deal-item">牛奶 4L</span><span class="deal-price">$5.47</span></div>
                 <div class="deal-row"><span class="deal-item">鸡蛋 12只</span><span class="deal-price">$3.97</span></div>
                 <div class="deal-row"><span class="deal-item">白面包</span><span class="deal-price">$2.47</span></div>
               </div>
@@ -360,7 +483,7 @@
             <div class="content">
               <h3 class="supermarket-name">Loblaws</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">有机鸡蛋</span><span class="deal-price">$4.99</span></div>
+                <div class="deal-row featured"><span class="deal-item">有机鸡蛋</span><span class="deal-price">$4.99</span></div>
                 <div class="deal-row"><span class="deal-item">全麦面包</span><span class="deal-price">$3.49</span></div>
                 <div class="deal-row"><span class="deal-item">新鲜蓝莓</span><span class="deal-price">$4.99</span></div>
               </div>
@@ -374,7 +497,7 @@
             <div class="content">
               <h3 class="supermarket-name">Metro</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">新鲜三文鱼</span><span class="deal-price">$9.99/lb</span></div>
+                <div class="deal-row featured"><span class="deal-item">新鲜三文鱼</span><span class="deal-price">$9.99/lb</span></div>
                 <div class="deal-row"><span class="deal-item">牛排</span><span class="deal-price">$8.99/lb</span></div>
                 <div class="deal-row"><span class="deal-item">意大利面 2盒</span><span class="deal-price">$4.00</span></div>
               </div>
@@ -388,7 +511,7 @@
             <div class="content">
               <h3 class="supermarket-name">No Frills</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">无骨鸡胸肉</span><span class="deal-price">$3.99/lb</span></div>
+                <div class="deal-row featured"><span class="deal-item">无骨鸡胸肉</span><span class="deal-price">$3.99/lb</span></div>
                 <div class="deal-row"><span class="deal-item">洋葱 3lb</span><span class="deal-price">$2.99</span></div>
                 <div class="deal-row"><span class="deal-item">罐头番茄</span><span class="deal-price">$1.49</span></div>
               </div>
@@ -402,7 +525,7 @@
             <div class="content">
               <h3 class="supermarket-name">Food Basics</h3>
               <div class="deals">
-                <div class="deal-row"><span class="deal-item">牛油果 3个</span><span class="deal-price">$2.00</span></div>
+                <div class="deal-row featured"><span class="deal-item">牛油果 3个</span><span class="deal-price">$2.00</span></div>
                 <div class="deal-row"><span class="deal-item">香蕉</span><span class="deal-price">$0.59/lb</span></div>
                 <div class="deal-row"><span class="deal-item">酸奶 4L</span><span class="deal-price">$4.99</span></div>
               </div>
@@ -416,11 +539,61 @@
 
   </div>
 
-  <p class="tip">轻触卡片查看放大 · 顶部按钮切换超市</p>
-
 </div>
 
 <script>
+  // ---------- 音效（简洁电子音，Web Audio 合成，无需外部文件） ----------
+  let audioCtx = null;
+  let soundOn = true;
+
+  function ensureCtx(){
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playTick(){
+    if(!soundOn) return;
+    const ctx = ensureCtx();
+    const t = ctx.currentTime;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(720, t);
+    o.frequency.exponentialRampToValueAtTime(980, t + 0.05);
+    g.gain.setValueAtTime(0.16, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t + 0.1);
+  }
+
+  function playShuffle(){
+    if(!soundOn) return;
+    const ctx = ensureCtx();
+    const now = ctx.currentTime;
+    const freqs = [560, 720, 900, 1080];
+    freqs.forEach((f, i) => {
+      const t = now + i * 0.045;
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'square';
+      o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.08, t + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t); o.stop(t + 0.06);
+    });
+  }
+
+  const soundToggle = document.getElementById('soundToggle');
+  soundToggle.addEventListener('click', () => {
+    soundOn = !soundOn;
+    soundToggle.textContent = soundOn ? '🔊' : '🔇';
+    if(soundOn) ensureCtx();
+  });
+
+  // ---------- 切换超市：洗牌收拢 -> 换组 -> 重新展开 ----------
   const switchBtns = document.querySelectorAll('.switch-btn');
   const sections = {
     chinese: document.getElementById('chinese-section'),
@@ -430,25 +603,41 @@
     chinese: document.getElementById('chinese-deck'),
     western: document.getElementById('western-deck')
   };
+  let current = 'chinese';
+
+  function switchTo(target){
+    if(target === current) return;
+    playShuffle();
+
+    switchBtns.forEach(b => b.classList.toggle('active', b.dataset.target === target));
+
+    const fromKey = current, toKey = target;
+    decks[fromKey].classList.add('shuffling');
+    decks[toKey].classList.add('shuffling');
+
+    setTimeout(() => {
+      sections[fromKey].classList.remove('active-section');
+      sections[toKey].classList.add('active-section');
+      void decks[toKey].offsetWidth;
+      decks[fromKey].classList.remove('shuffling');
+      decks[toKey].classList.remove('shuffling');
+      current = target;
+    }, 200);
+  }
 
   switchBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.target;
-      switchBtns.forEach(b => b.classList.toggle('active', b === btn));
-      Object.keys(sections).forEach(key => {
-        sections[key].classList.toggle('active-section', key === target);
-        decks[key].classList.toggle('active-deck', key === target);
-        decks[key].classList.toggle('hidden-deck', key !== target);
-      });
-    });
+    btn.addEventListener('click', () => switchTo(btn.dataset.target));
   });
 
-  // 触屏点按卡片：单独放大提取，再次点击/点其他卡片收回
+  // ---------- 触屏点按卡片：单独放大提取，再次点击/点其他卡片收回 ----------
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', (e) => {
       const wasSelected = card.classList.contains('selected');
       document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-      if (!wasSelected) card.classList.add('selected');
+      if (!wasSelected){
+        card.classList.add('selected');
+        playTick();
+      }
       e.stopPropagation();
     });
   });
