@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markham Weekly Specials | 高级特价看板</title>
+    <!-- 引入高级感字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 莫兰迪/高级灰配色体系 */
+            --bg-body: #F9FAFB;
+            --bg-surface: #FFFFFF;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --text-tertiary: #9CA3AF;
+            --border-light: #F3F4F6;
+            --border-base: #E5E7EB;
+            
+            /* 高级强调色 */
+            --accent-western: #0F766E; /* 典雅深青色 */
+            --bg-western: #F0FDFA;
+            --accent-asian: #BE123C;  /* 典雅绛红色 */
+            --bg-asian: #FFF1F2;
+            --accent-neutral: #111827;
+            
+            /* 阴影体系 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-pill: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 顶部导航 */
+        nav {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-base);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-location {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 英雄区 (Hero Section) */
+        header.hero {
+            padding: 64px 24px 48px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .update-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--border-light);
+            color: var(--text-secondary);
+            padding: 6px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-base);
+        }
+
+        .update-badge .dot {
+            width: 6px;
+            height: 6px;
+            background-color: #10B981; /* 翡翠绿 */
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        h1.hero-title {
+            font-size: 2.75rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            color: #000;
+        }
+
+        p.hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 核心容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* 高级筛选器 */
+        .filter-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+            background: var(--bg-surface);
+            padding: 6px;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-sm);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--border-base);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            border-radius: var(--radius-pill);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-neutral);
+            color: #fff;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 布局网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* 卡片设计 - 极致细节 */
+        .store-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-base);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .store-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-light);
+        }
+
+        /* 按顺序延迟动画 */
+        .store-card:nth-child(1) { animation-delay: 0.1s; }
+        .store-card:nth-child(2) { animation-delay: 0.2s; }
+        .store-card:nth-child(3) { animation-delay: 0.3s; }
+        .store-card:nth-child(4) { animation-delay: 0.4s; }
+        .store-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .card-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .store-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .store-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .store-info h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .store-info p {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            letter-spacing: 0.05em;
+        }
+
+        .tag.western { background: var(--bg-western); color: var(--accent-western); }
+        .tag.asian { background: var(--bg-asian); color: var(--accent-asian); }
+        
+        .store-card[data-type="western"] .store-icon { background: var(--bg-western); color: var(--accent-western); }
+        .store-card[data-type="asian"] .store-icon { background: var(--bg-asian); color: var(--accent-asian); }
+
+        .card-body {
+            padding: 0 24px 24px;
+            flex-grow: 1;
+        }
+
+        .deals-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .deal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .deal-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .deal-name {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .deal-price {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .store-card[data-type="western"] .deal-price { color: var(--accent-western); }
+        .store-card[data-type="asian"] .deal-price { color: var(--accent-asian); }
+
+        .card-footer {
+            padding: 16px 24px;
+            background: #FAFAFA;
+            border-top: 1px solid var(--border-base);
+            display: flex;
+            justify-content: center;
+        }
+
+        .action-link {
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .action-link:hover {
+            color: var(--text-secondary);
+            gap: 10px; /* 箭头悬浮效果 */
+        }
+
+        .action-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-base);
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* 动画关键帧 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 隐藏类 */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            Markham Specials
+        </div>
+        <div class="nav-location">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Markham, ON
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <header class="hero">
+        <div class="update-badge">
+            <span class="dot"></span>
+            本周已更新 (Sept 2026)
+        </div>
+        <h1 class="hero-title">万锦精选特价指南</h1>
+        <p class="hero-subtitle">专业收录万锦 5 家主流西超与 5 家核心中超。剔除繁杂，直达每周最具性价比的核心折扣。</p>
+    </header>
+
+    <main class="container">
+        <!-- 动态筛选器 -->
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">全览 (10)</button>
+            <button class="filter-btn" data-filter="western">西方超市 (5)</button>
+            <button class="filter-btn" data-filter="asian">华人超市 (5)</button>
+        </div>
+
+        <!-- 卡片网格 -->
+        <div class="grid" id="store-grid">
+            
+            <!-- ====== 西超区 ====== -->
+            
+            <div class="store-card" data-type="western">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">F</div>
+                        <div class="store-info">
+                            <h3>Food Basics</h3>
+                            <p>本周主打新鲜肉类</p>
+                        </div>
+                    </div>
+                    <span class="tag western">WESTERN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item">
+                            <span class="deal-name">无骨去皮鸡胸肉</span>
+                            <span class="deal-price">$4.88/lb</span>
+                        </li>
+                        <li class="deal-item">
+                            <span class="deal-name">大西洋新鲜三文鱼柳</span>
+                            <span class="deal-price">$9.99/lb</span>
+                        </li>
+                        <li class="deal-item">
+                            <span class="deal-name">精选牛油果 (一袋)</span>
+                            <span class="deal-price">$2.99</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.foodbasics.com/flyer" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="western">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">F</div>
+                        <div class="store-info">
+                            <h3>FreshCo</h3>
+                            <p>低价保证优选</p>
+                        </div>
+                    </div>
+                    <span class="tag western">WESTERN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">瘦猪肉碎 (Lean Ground)</span><span class="deal-price">$2.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">富士苹果 (Fuji)</span><span class="deal-price">$1.49/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">切达干酪块 (400g)</span><span class="deal-price">$4.49</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://freshco.com/flyer/" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="western">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">W</div>
+                        <div class="store-info">
+                            <h3>Walmart</h3>
+                            <p>一站式综合特价</p>
+                        </div>
+                    </div>
+                    <span class="tag western">WESTERN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">大号白鸡蛋 (12只装)</span><span class="deal-price">$3.27</span></li>
+                        <li class="deal-item"><span class="deal-name">AAA级牛肉卷</span><span class="deal-price">$4.97/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">Dempster's 面包</span><span class="deal-price">$2.27</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.walmart.ca/flyer" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="western">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">N</div>
+                        <div class="store-info">
+                            <h3>No Frills</h3>
+                            <p>硬折扣首选</p>
+                        </div>
+                    </div>
+                    <span class="tag western">WESTERN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">安省黄心土豆 (10磅)</span><span class="deal-price">$2.97</span></li>
+                        <li class="deal-item"><span class="deal-name">鲜切五花肉 (Pork Belly)</span><span class="deal-price">$5.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">特选长粒香米 (8kg)</span><span class="deal-price">$13.99</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.nofrills.ca/flyer" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="western">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">C</div>
+                        <div class="store-info">
+                            <h3>Costco Wholesale</h3>
+                            <p>仓储式量贩优惠</p>
+                        </div>
+                    </div>
+                    <span class="tag western">WESTERN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">有机草饲鸡蛋 (24只装)</span><span class="deal-price">$8.99</span></li>
+                        <li class="deal-item"><span class="deal-name">Kirkland 矿泉水 (35瓶)</span><span class="deal-price">$3.99</span></li>
+                        <li class="deal-item"><span class="deal-name">进口特级干贝礼盒</span><span class="deal-price">-$5.00 OFF</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.costco.ca/flyer.html" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ====== 中超区 ====== -->
+
+            <div class="store-card" data-type="asian">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">建</div>
+                        <div class="store-info">
+                            <h3>FreshWay 建兴</h3>
+                            <p>本地新鲜蔬果肉类</p>
+                        </div>
+                    </div>
+                    <span class="tag asian">ASIAN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">新鲜唐生菜 / 小油菜</span><span class="deal-price">$0.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">精选新鲜猪排骨</span><span class="deal-price">$3.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">金针菇 / 杏鲍菇</span><span class="deal-price">$0.89/袋</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="action-link" onclick="alert('即将上线该超市电子海报链接'); return false;">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="asian">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">鼎</div>
+                        <div class="store-info">
+                            <h3>FoodyMart 鼎泰</h3>
+                            <p>丰富亚洲杂货海鲜</p>
+                        </div>
+                    </div>
+                    <span class="tag asian">ASIAN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">游水罗非鱼 (Tilapia)</span><span class="deal-price">$2.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">红富士苹果 (大箱装)</span><span class="deal-price">$12.99/箱</span></li>
+                        <li class="deal-item"><span class="deal-name">台湾高丽菜</span><span class="deal-price">$0.79/lb</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="action-link" onclick="alert('即将上线该超市电子海报链接'); return false;">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="asian">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">W</div>
+                        <div class="store-info">
+                            <h3>Winco 宏-永昌</h3>
+                            <p>实惠之选</p>
+                        </div>
+                    </div>
+                    <span class="tag asian">ASIAN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">鲜嫩特级牛腱肉</span><span class="deal-price">$6.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">农场白萝卜 / 胡萝卜</span><span class="deal-price">$0.69/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">急冻大虾仁 (特大号)</span><span class="deal-price">$7.99/袋</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="action-link" onclick="alert('即将上线该超市电子海报链接'); return false;">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="asian">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">冠</div>
+                        <div class="store-info">
+                            <h3>冠业超市 (C&C)</h3>
+                            <p>老牌华人超市</p>
+                        </div>
+                    </div>
+                    <span class="tag asian">ASIAN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">唐山大白菜 (Napa)</span><span class="deal-price">$0.59/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">冰鲜鸡全腿 (散装)</span><span class="deal-price">$1.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">日清出前一丁 (5包入)</span><span class="deal-price">$2.49</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="action-link" onclick="alert('即将上线该超市电子海报链接'); return false;">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="store-card" data-type="asian">
+                <div class="card-header">
+                    <div class="store-identity">
+                        <div class="store-icon">T</div>
+                        <div class="store-info">
+                            <h3>T&T 大统华 (16街)</h3>
+                            <p>高端精品中超</p>
+                        </div>
+                    </div>
+                    <span class="tag asian">ASIAN</span>
+                </div>
+                <div class="card-body">
+                    <ul class="deals-list">
+                        <li class="deal-item"><span class="deal-name">台山靓大米 (15lb)</span><span class="deal-price">$14.99</span></li>
+                        <li class="deal-item"><span class="deal-name">精品厚切三文鱼段</span><span class="deal-price">$10.99/lb</span></li>
+                        <li class="deal-item"><span class="deal-name">泰国香水椰子</span><span class="deal-price">$2.99/个</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.tntsupermarket.com/flyer" target="_blank" class="action-link">
+                        查看官方 Flyer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Markham Grocery Specials. UI Designed for Premium Experience.</p>
+    </footer>
+
+    <script>
+        // 优雅的过滤逻辑
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.store-card');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 移除激活状态
+                    buttons.forEach(b => b.classList.remove('active'));
+                    // 激活当前按钮
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    // 过滤卡片并重置动画
+                    cards.forEach((card, index) => {
+                        const type = card.getAttribute('data-type');
+                        
+                        // 重置动画
+                        card.style.animation = 'none';
+                        card.offsetHeight; /* 触发重绘 */
+                        
+                        if (filter === 'all' || filter === type) {
+                            card.classList.remove('hidden');
+                            // 重新赋予递增动画延迟，确保过滤后依然顺畅
+                            card.style.animation = `fadeInUp 0.6s ease-out forwards`;
+                            card.style.animationDelay = `${(index % 5) * 0.1}s`;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
