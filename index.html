@@ -27,7 +27,6 @@
     overflow:hidden;
     position:relative;
   }
-  /* 细微绒毯纹理 */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -42,6 +41,17 @@
     justify-content:center;
     align-items:center;
   }
+
+  /* ---------- 背景暗幕遮罩（卡片放大时出现） ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,.55);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+    z-index:900;
+  }
+  .overlay.show{ opacity:1; pointer-events:auto; }
 
   /* ---------- 外层容器 ---------- */
   .frame{
@@ -95,22 +105,6 @@
     gap:8px;
   }
 
-  .deck-label{
-    display:none;
-    margin:0;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.3px;
-    color:#cfe3d6;
-  }
-  .deck-label.hearts-theme{ color:#f0a8a0; }
-  .deck-label.spades-theme{ color:#a9c8ea; }
-
-  /* 中央分隔（横屏专用） */
-  .versus{
-    display:none;
-  }
-
   /* ---------- 扇形容器 ---------- */
   .fan-wrap{
     position:relative;
@@ -123,9 +117,11 @@
     inset:0;
   }
 
+  /* 洗牌/发牌：卡片先收拢成一叠 */
   .card-deck.shuffling .card{
-    transform:rotate(0deg) translateY(6px) scale(.8) !important;
+    transform:rotate(0deg) translateY(6px) scale(.78) !important;
     box-shadow:-1px 2px 6px rgba(0,0,0,.3) !important;
+    transition:transform .32s cubic-bezier(.5,0,.5,1), box-shadow .3s ease !important;
   }
 
   .card{
@@ -163,11 +159,18 @@
   .card:nth-child(4){ --r:11deg;  z-index:4; }
   .card:nth-child(5){ --r:22deg;  z-index:5; }
 
-  .card:hover,
-  .card.selected{
+  .card:hover{
     transform:rotate(var(--r)) translateY(-22px) scale(1.1);
     box-shadow:-4px 10px 22px rgba(0,0,0,.4);
-    z-index:20 !important;
+    z-index:20;
+  }
+
+  /* 抽出放大：脱离扇形角度，居中放大呈现 */
+  .card.selected{
+    transform:rotate(0deg) translateY(-46px) scale(1.9) !important;
+    box-shadow:0 24px 54px rgba(0,0,0,.55) !important;
+    transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease !important;
+    z-index:1000 !important;
   }
 
   .suit-corner{
@@ -262,7 +265,7 @@
   .hearts-theme .deal-price{ color:#d63031; }
   .spades-theme .deal-price{ color:#0984e3; }
 
-  /* ---------- 竖屏签名（左上角，下移半张牌高度） ---------- */
+  /* ---------- 竖屏签名 ---------- */
   .signature{
     position:fixed;
     top:calc(10px + var(--card-h) / 2);
@@ -273,14 +276,14 @@
     letter-spacing:.3px;
     opacity:.9;
     display:none;
-    z-index:50;
+    z-index:950;
   }
 
   /* ---------- 静音开关 ---------- */
   .sound-toggle{
     position:fixed;
     top:10px; right:12px;
-    z-index:50;
+    z-index:950;
     width:30px; height:30px;
     border-radius:50%;
     border:1px solid var(--gold-soft);
@@ -291,6 +294,19 @@
     align-items:center;
     justify-content:center;
     cursor:pointer;
+  }
+
+  /* ---------- 更新时间戳 / 特价有效期 ---------- */
+  .update-stamp{
+    position:fixed;
+    bottom:10px;
+    left:12px;
+    z-index:950;
+    font-size:9.5px;
+    color:rgba(212,175,55,.8);
+    letter-spacing:.2px;
+    line-height:1.4;
+    pointer-events:none;
   }
 
   /* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
@@ -316,45 +332,32 @@
     .signature{ display:block; }
   }
 
-  /* ================= 横屏：中西同花顺并列 ================= */
+  /* ================= 横屏：中西同花顺并列，向中心收拢，整体必须完整可见 ================= */
   @media (orientation:landscape){
+    :root{
+      --card-w:clamp(70px, 13vw, 100px);
+      --card-h:calc(var(--card-w) * 1.661);
+      --pivot:calc(var(--card-w) * 2.204);
+    }
     .switch-container{ display:none; }
-    .frame{ padding:10px 20px; gap:10px; }
+    .frame{ padding:8px 16px; gap:6px; }
     .stage{
       flex-direction:row;
-      gap:36px;
+      gap:clamp(20px, 5vw, 48px);
       align-items:flex-start;
+      justify-content:center;
     }
     .fan-section{ display:flex; }
-    .deck-label{ display:block; }
-    .versus{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      align-self:stretch;
-      gap:6px;
-      padding-top:26px;
-      padding-bottom:6px;
-    }
-    .versus-line{
-      flex:1;
-      width:1px;
-      min-height:16px;
-      background:linear-gradient(to bottom, transparent, var(--gold-soft), transparent);
-    }
-    .versus-badge{
-      font-size:13px;
-      letter-spacing:1px;
-      color:var(--gold);
-      opacity:.9;
-    }
   }
 </style>
 </head>
 <body>
 
+<div class="overlay" id="overlay"></div>
+
 <span class="signature">TP制作🐈🏷️</span>
 <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
+<span class="update-stamp" id="updateStamp"></span>
 
 <div class="frame">
 
@@ -365,7 +368,7 @@
     </button>
     <button class="switch-btn" data-target="western">
       <span class="chip-suit">♠</span>
-      <span class="chip-label">西人</span>
+      <span class="chip-label">Western</span>
     </button>
   </div>
 
@@ -373,9 +376,8 @@
 
     <!-- 华人超市 -->
     <section class="fan-section active-section" id="chinese-section">
-      <h2 class="deck-label hearts-theme">华人超市 · 红心同花顺</h2>
       <div class="fan-wrap">
-        <div class="card-deck hearts-theme" id="chinese-deck">
+        <div class="card-deck hearts-theme shuffling" id="chinese-deck">
 
           <div class="card">
             <div class="suit-corner top-left"><span>10</span><span>♥</span></div>
@@ -451,17 +453,10 @@
       </div>
     </section>
 
-    <div class="versus">
-      <span class="versus-line"></span>
-      <span class="versus-badge">♠<br>♥</span>
-      <span class="versus-line"></span>
-    </div>
-
     <!-- 西人超市 -->
     <section class="fan-section" id="western-section">
-      <h2 class="deck-label spades-theme">西人超市 · 黑桃同花顺</h2>
       <div class="fan-wrap">
-        <div class="card-deck spades-theme" id="western-deck">
+        <div class="card-deck spades-theme shuffling" id="western-deck">
 
           <div class="card">
             <div class="suit-corner top-left"><span>10</span><span>♠</span></div>
@@ -542,7 +537,26 @@
 </div>
 
 <script>
-  // ---------- 音效（简洁电子音，Web Audio 合成，无需外部文件） ----------
+  // ---------- 更新时间戳 / 本周特价有效期 ----------
+  (function(){
+    const pad = n => String(n).padStart(2, '0');
+    const now = new Date();
+    const updated = pad(now.getMonth() + 1) + '/' + pad(now.getDate());
+
+    const day = now.getDay(); // 0=周日
+    const diffToMonday = (day === 0 ? -6 : 1 - day);
+    const monday = new Date(now);
+    monday.setDate(now.getDate() + diffToMonday);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    const period = pad(monday.getMonth() + 1) + '/' + pad(monday.getDate()) + '–' +
+                   pad(sunday.getMonth() + 1) + '/' + pad(sunday.getDate());
+
+    document.getElementById('updateStamp').textContent =
+      `更新于 ${updated} · 特价有效期 ${period}`;
+  })();
+
+  // ---------- 音效（简洁电子音，Web Audio 合成） ----------
   let audioCtx = null;
   let soundOn = true;
 
@@ -629,21 +643,40 @@
     btn.addEventListener('click', () => switchTo(btn.dataset.target));
   });
 
-  // ---------- 触屏点按卡片：单独放大提取，再次点击/点其他卡片收回 ----------
+  // ---------- 首次进场：发牌动画（收拢 -> 展开） ----------
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      decks.chinese.classList.remove('shuffling');
+      decks.western.classList.remove('shuffling');
+    }, 260);
+  });
+
+  // ---------- 点击卡片：抽出居中放大 + 背景遮罩 ----------
+  const overlay = document.getElementById('overlay');
+
+  function openCard(card){
+    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    overlay.classList.add('show');
+    playTick();
+  }
+  function closeCards(){
+    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+    overlay.classList.remove('show');
+  }
+
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', (e) => {
-      const wasSelected = card.classList.contains('selected');
-      document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-      if (!wasSelected){
-        card.classList.add('selected');
-        playTick();
-      }
       e.stopPropagation();
+      if(card.classList.contains('selected')){
+        closeCards();
+      } else {
+        openCard(card);
+      }
     });
   });
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-  });
+  overlay.addEventListener('click', closeCards);
+  document.addEventListener('click', closeCards);
 </script>
 
 </body>
