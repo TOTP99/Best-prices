@@ -1,0 +1,347 @@
+:root{
+  --felt:#1a3322;
+  --felt-2:#152a1c;
+  --gold:#d4af37;
+  --gold-soft:rgba(212,175,55,.55);
+  --ink:#243242;
+  --card-w:118px;
+  --card-h:196px;
+  --pivot:260px;
+}
+*{ box-sizing:border-box; }
+html,body{
+  margin:0; padding:0;
+  width:100%; height:100%;
+  background:
+    radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.5) 100%),
+    radial-gradient(circle at 50% 30%, var(--felt-2), var(--felt) 70%);
+  color:#e8ede9;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  overflow:hidden;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity:.05;
+  mix-blend-mode:overlay;
+  pointer-events:none;
+  z-index:0;
+}
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ---------- 外层容器 ---------- */
+.frame{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  padding:18px 14px 16px;
+}
+
+/* ---------- 顶部切换：筹码造型 ---------- */
+.switch-container{
+  display:flex;
+  gap:20px;
+}
+.switch-btn{
+  position:relative;
+  width:60px; height:60px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:
+    repeating-conic-gradient(from 0deg, rgba(255,255,255,.10) 0deg 7deg, transparent 7deg 14deg),
+    radial-gradient(circle at 50% 38%, #2a4a32, #12200e 78%);
+  box-shadow:0 3px 8px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.07), inset 0 -2px 4px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+}
+.switch-btn .chip-suit{ font-size:19px; line-height:1; }
+.switch-btn .chip-label{ font-size:7.5px; letter-spacing:.4px; color:#d9e6dd; opacity:.85; }
+.switch-btn:nth-child(1) .chip-suit{ color:#e2685c; }
+.switch-btn:nth-child(2) .chip-suit{ color:#9fc3ea; }
+.switch-btn.active{
+  transform:translateY(-4px);
+  box-shadow:0 8px 16px rgba(0,0,0,.5), 0 0 0 2px var(--gold), inset 0 0 0 2px rgba(255,255,255,.15);
+}
+
+/* ---------- 舞台 ---------- */
+.stage{ position:relative; display:flex; }
+
+.fan-section{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+
+/* ---------- 扇形容器 ---------- */
+.fan-wrap{
+  position:relative;
+  width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
+  height:calc(var(--card-h) + 22px);
+  padding-top:14px;
+}
+.card-deck{
+  position:absolute;
+  inset:0;
+}
+
+/* 洗牌/发牌：卡片先收拢成一叠 */
+.card-deck.shuffling .card{
+  transform:rotate(0deg) translateY(6px) scale(.78) !important;
+  box-shadow:-1px 2px 6px rgba(0,0,0,.3) !important;
+  transition:transform .32s cubic-bezier(.5,0,.5,1), box-shadow .3s ease !important;
+}
+
+.card{
+  position:absolute;
+  top:14px;
+  left:50%;
+  width:var(--card-w);
+  height:var(--card-h);
+  margin-left:calc(var(--card-w) / -2);
+  background:#fffdf8;
+  border-radius:9px;
+  border:1px solid #e3ddce;
+  box-shadow:-3px 5px 12px rgba(0,0,0,.3);
+  transform-origin:50% var(--pivot);
+  transform:rotate(var(--r)) translateY(0) scale(1);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  cursor:pointer;
+  padding:10px 9px 8px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.card::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  opacity:.035;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  z-index:0;
+}
+.card:nth-child(1){ --r:-22deg; z-index:1; }
+.card:nth-child(2){ --r:-11deg; z-index:2; }
+.card:nth-child(3){ --r:0deg;   z-index:3; }
+.card:nth-child(4){ --r:11deg;  z-index:4; }
+.card:nth-child(5){ --r:22deg;  z-index:5; }
+
+.card:hover{
+  transform:rotate(var(--r)) translateY(-22px) scale(1.1);
+  box-shadow:-4px 10px 22px rgba(0,0,0,.4);
+  z-index:20;
+}
+
+/* 点击"伸出来"：摆正、抬高、置顶，完整可见，不遮挡、不放大成大卡片、无暗幕 */
+.card.popped{
+  transform:rotate(0deg) translateY(-42px) scale(1.12) !important;
+  box-shadow:-6px 16px 32px rgba(0,0,0,.45) !important;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease !important;
+  z-index:1000 !important;
+}
+
+.suit-corner{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-weight:900;
+  font-size:13px;
+  line-height:.9;
+}
+.suit-corner.top-left{ position:absolute; top:7px; left:7px; }
+.suit-corner.bottom-right{ position:absolute; bottom:7px; right:7px; transform:rotate(180deg); }
+.suit-corner span:last-child{ font-size:10px; margin-top:2px; }
+
+.hearts-theme .suit-corner,
+.hearts-theme .center-logo{ color:#c0392b; }
+.clubs-theme .suit-corner,
+.clubs-theme .center-logo{ color:#2c3e50; }
+
+.center-logo{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-size:64px;
+  opacity:.045;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ---------- 卡面内容：超市名 + 本周精选特价（deals.js 填充） ---------- */
+.content{
+  position:relative;
+  z-index:1;
+  margin-top:16px;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+}
+.supermarket-name{
+  margin:0 0 5px;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:.2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.deals{
+  margin:0;
+  padding-top:5px;
+  border-top:1px solid rgba(44,62,80,.12);
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+}
+.deals::-webkit-scrollbar{ display:none; }
+.deal-row{
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+  flex-shrink:0;
+}
+.deal-row.featured{
+  background:linear-gradient(90deg, rgba(212,175,55,.18), transparent 85%);
+  border-radius:4px;
+  margin:-1px -3px 0;
+  padding:1px 3px;
+}
+.deal-row.featured .deal-item::before{
+  content:"★ ";
+  color:var(--gold);
+  font-size:8px;
+}
+.deal-item{
+  flex:1;
+  min-width:0;
+  font-size:8.6px;
+  color:#5a6472;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.deal-row.featured .deal-item{ color:#3a2c14; font-weight:600; }
+.deal-price{
+  flex-shrink:0;
+  font-size:9.6px;
+  font-weight:700;
+}
+.hearts-theme .deal-price{ color:#d63031; }
+.clubs-theme .deal-price{ color:#0984e3; }
+
+/* ---------- 竖屏签名 ---------- */
+.signature{
+  position:fixed;
+  top:calc(10px + var(--card-h) / 2);
+  left:12px;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--gold);
+  letter-spacing:.3px;
+  opacity:.9;
+  display:none;
+  z-index:950;
+}
+
+/* ---------- 静音开关 ---------- */
+.sound-toggle{
+  position:fixed;
+  top:10px; right:12px;
+  z-index:950;
+  width:30px; height:30px;
+  border-radius:50%;
+  border:1px solid var(--gold-soft);
+  background:rgba(0,0,0,.35);
+  color:var(--gold);
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+/* ---------- 更新日期戳（几月几号🆕，不再显示特价有效期）---------- */
+.update-stamp{
+  position:fixed;
+  z-index:950;
+  font-size:11px;
+  font-weight:600;
+  color:rgba(212,175,55,.85);
+  letter-spacing:.2px;
+  pointer-events:none;
+  white-space:nowrap;
+}
+
+/* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
+@media (orientation:portrait){
+  .stage{
+    flex-direction:column;
+    align-items:center;
+    width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
+    height:calc(var(--card-h) + 22px + 26px);
+  }
+  .fan-section{
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .fan-section.active-section{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .signature{ display:block; }
+  /* 日期戳放在 TP制作 签名下方 */
+  .update-stamp{
+    top:calc(10px + var(--card-h) / 2 + 20px);
+    left:12px;
+  }
+}
+
+/* ================= 横屏：中西同花顺并列，向中心收拢，整体必须完整可见 ================= */
+@media (orientation:landscape){
+  :root{
+    --card-w:clamp(70px, 13vw, 100px);
+    --card-h:calc(var(--card-w) * 1.661);
+    --pivot:calc(var(--card-w) * 2.204);
+  }
+  .switch-container{ display:none; }
+  .frame{ padding:8px 16px; gap:6px; }
+  .stage{
+    flex-direction:row;
+    gap:clamp(20px, 5vw, 48px);
+    align-items:flex-start;
+    justify-content:center;
+  }
+  .fan-section{ display:flex; }
+  /* 日期戳放在二副牌中间，靠下沿 */
+  .update-stamp{
+    left:50%;
+    bottom:8px;
+    transform:translateX(-50%);
+  }
+}

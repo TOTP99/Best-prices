@@ -4,341 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Poker Fan Supermarkets / 扑克同花顺切换</title>
-<style>
-  :root{
-    --felt:#1a3322;
-    --felt-2:#152a1c;
-    --gold:#d4af37;
-    --gold-soft:rgba(212,175,55,.55);
-    --ink:#243242;
-    --card-w:118px;
-    --card-h:196px;
-    --pivot:260px;
-  }
-  *{ box-sizing:border-box; }
-  html,body{
-    margin:0; padding:0;
-    width:100%; height:100%;
-    background:
-      radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.5) 100%),
-      radial-gradient(circle at 50% 30%, var(--felt-2), var(--felt) 70%);
-    color:#e8ede9;
-    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    overflow:hidden;
-    position:relative;
-  }
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity:.05;
-    mix-blend-mode:overlay;
-    pointer-events:none;
-    z-index:0;
-  }
-  body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-  }
-
-  /* ---------- 外层容器 ---------- */
-  .frame{
-    position:relative;
-    z-index:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:18px;
-    padding:18px 14px 16px;
-  }
-
-  /* ---------- 顶部切换：筹码造型 ---------- */
-  .switch-container{
-    display:flex;
-    gap:20px;
-  }
-  .switch-btn{
-    position:relative;
-    width:60px; height:60px;
-    border-radius:50%;
-    border:none;
-    cursor:pointer;
-    background:
-      repeating-conic-gradient(from 0deg, rgba(255,255,255,.10) 0deg 7deg, transparent 7deg 14deg),
-      radial-gradient(circle at 50% 38%, #2a4a32, #12200e 78%);
-    box-shadow:0 3px 8px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.07), inset 0 -2px 4px rgba(0,0,0,.35);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:1px;
-    transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
-  }
-  .switch-btn .chip-suit{ font-size:19px; line-height:1; }
-  .switch-btn .chip-label{ font-size:7.5px; letter-spacing:.4px; color:#d9e6dd; opacity:.85; }
-  .switch-btn:nth-child(1) .chip-suit{ color:#e2685c; }
-  .switch-btn:nth-child(2) .chip-suit{ color:#9fc3ea; }
-  .switch-btn.active{
-    transform:translateY(-4px);
-    box-shadow:0 8px 16px rgba(0,0,0,.5), 0 0 0 2px var(--gold), inset 0 0 0 2px rgba(255,255,255,.15);
-  }
-
-  /* ---------- 舞台 ---------- */
-  .stage{ position:relative; display:flex; }
-
-  .fan-section{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-  }
-
-  /* ---------- 扇形容器 ---------- */
-  .fan-wrap{
-    position:relative;
-    width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-    height:calc(var(--card-h) + 22px);
-    padding-top:14px;
-  }
-  .card-deck{
-    position:absolute;
-    inset:0;
-  }
-
-  /* 洗牌/发牌：卡片先收拢成一叠 */
-  .card-deck.shuffling .card{
-    transform:rotate(0deg) translateY(6px) scale(.78) !important;
-    box-shadow:-1px 2px 6px rgba(0,0,0,.3) !important;
-    transition:transform .32s cubic-bezier(.5,0,.5,1), box-shadow .3s ease !important;
-  }
-
-  .card{
-    position:absolute;
-    top:14px;
-    left:50%;
-    width:var(--card-w);
-    height:var(--card-h);
-    margin-left:calc(var(--card-w) / -2);
-    background:#fffdf8;
-    border-radius:9px;
-    border:1px solid #e3ddce;
-    box-shadow:-3px 5px 12px rgba(0,0,0,.3);
-    transform-origin:50% var(--pivot);
-    transform:rotate(var(--r)) translateY(0) scale(1);
-    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
-    cursor:pointer;
-    padding:10px 9px 8px;
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-  }
-  .card::before{
-    content:"";
-    position:absolute; inset:0;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
-    opacity:.035;
-    mix-blend-mode:multiply;
-    pointer-events:none;
-    z-index:0;
-  }
-  .card:nth-child(1){ --r:-22deg; z-index:1; }
-  .card:nth-child(2){ --r:-11deg; z-index:2; }
-  .card:nth-child(3){ --r:0deg;   z-index:3; }
-  .card:nth-child(4){ --r:11deg;  z-index:4; }
-  .card:nth-child(5){ --r:22deg;  z-index:5; }
-
-  .card:hover{
-    transform:rotate(var(--r)) translateY(-16px) scale(1.05);
-    box-shadow:-4px 10px 22px rgba(0,0,0,.4);
-    z-index:20;
-  }
-
-  /* 点击选中：原地轻微提高，不缩放、不飞走、无遮罩 */
-  .card.selected{
-    transform:rotate(var(--r)) translateY(-26px) scale(1) !important;
-    box-shadow:-4px 14px 28px rgba(0,0,0,.5) !important;
-    transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease !important;
-    z-index:1000 !important;
-  }
-
-  .suit-corner{
-    position:relative;
-    z-index:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    font-weight:900;
-    font-size:13px;
-    line-height:.9;
-  }
-  .suit-corner.top-left{ position:absolute; top:7px; left:7px; }
-  .suit-corner.bottom-right{ position:absolute; bottom:7px; right:7px; transform:rotate(180deg); }
-  .suit-corner span:last-child{ font-size:10px; margin-top:2px; }
-
-  .hearts-theme .suit-corner,
-  .hearts-theme .center-logo{ color:#c0392b; }
-  .spades-theme .suit-corner,
-  .spades-theme .center-logo{ color:#2c3e50; }
-
-  .center-logo{
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    font-size:64px;
-    opacity:.045;
-    z-index:0;
-    pointer-events:none;
-  }
-
-  /* ---------- 卡面内容：超市名 + 本周全部特价 ---------- */
-  .content{
-    position:relative;
-    z-index:1;
-    margin-top:16px;
-    display:flex;
-    flex-direction:column;
-    height:100%;
-    min-height:0;
-  }
-  .supermarket-name{
-    margin:0 0 5px;
-    font-size:12.5px;
-    font-weight:700;
-    color:var(--ink);
-    letter-spacing:.2px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .deals{
-    margin:0;
-    padding-top:5px;
-    border-top:1px solid rgba(44,62,80,.12);
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    overflow:hidden;
-  }
-  .deal-row{
-    display:flex;
-    align-items:baseline;
-    gap:5px;
-  }
-  .deal-row.featured{
-    background:linear-gradient(90deg, rgba(212,175,55,.18), transparent 85%);
-    border-radius:4px;
-    margin:-1px -3px 0;
-    padding:1px 3px;
-  }
-  .deal-row.featured .deal-item::before{
-    content:"★ ";
-    color:var(--gold);
-    font-size:8px;
-  }
-  .deal-item{
-    flex:1;
-    min-width:0;
-    font-size:8.6px;
-    color:#5a6472;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .deal-row.featured .deal-item{ color:#3a2c14; font-weight:600; }
-  .deal-price{
-    flex-shrink:0;
-    font-size:9.6px;
-    font-weight:700;
-  }
-  .hearts-theme .deal-price{ color:#d63031; }
-  .spades-theme .deal-price{ color:#0984e3; }
-
-  /* ---------- 竖屏签名 ---------- */
-  .signature{
-    position:fixed;
-    top:calc(10px + var(--card-h) / 2);
-    left:12px;
-    font-size:12.5px;
-    font-weight:600;
-    color:var(--gold);
-    letter-spacing:.3px;
-    opacity:.9;
-    display:none;
-    z-index:950;
-  }
-
-  /* ---------- 静音开关 ---------- */
-  .sound-toggle{
-    position:fixed;
-    top:10px; right:12px;
-    z-index:950;
-    width:30px; height:30px;
-    border-radius:50%;
-    border:1px solid var(--gold-soft);
-    background:rgba(0,0,0,.35);
-    color:var(--gold);
-    font-size:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-  }
-
-  /* ---------- 更新时间戳 / 特价有效期 ---------- */
-  .update-stamp{
-    position:fixed;
-    bottom:10px;
-    left:12px;
-    z-index:950;
-    font-size:9.5px;
-    color:rgba(212,175,55,.8);
-    letter-spacing:.2px;
-    line-height:1.4;
-    pointer-events:none;
-  }
-
-  /* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
-  @media (orientation:portrait){
-    .stage{
-      flex-direction:column;
-      align-items:center;
-      width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-      height:calc(var(--card-h) + 22px + 26px);
-    }
-    .fan-section{
-      position:absolute;
-      top:0; left:50%;
-      transform:translateX(-50%);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .2s ease;
-    }
-    .fan-section.active-section{
-      opacity:1;
-      pointer-events:auto;
-    }
-    .signature{ display:block; }
-  }
-
-  /* ================= 横屏：中西同花顺并列，向中心收拢，整体必须完整可见 ================= */
-  @media (orientation:landscape){
-    :root{
-      --card-w:clamp(70px, 13vw, 100px);
-      --card-h:calc(var(--card-w) * 1.661);
-      --pivot:calc(var(--card-w) * 2.204);
-    }
-    .switch-container{ display:none; }
-    .frame{ padding:8px 16px; gap:6px; }
-    .stage{
-      flex-direction:row;
-      gap:clamp(20px, 5vw, 48px);
-      align-items:flex-start;
-      justify-content:center;
-    }
-    .fan-section{ display:flex; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -351,87 +17,67 @@
   <div class="switch-container">
     <button class="switch-btn active" data-target="chinese">
       <span class="chip-suit">♥</span>
-      <span class="chip-label">华人</span>
+      <span class="chip-label">华超</span>
     </button>
     <button class="switch-btn" data-target="western">
-      <span class="chip-suit">♠</span>
-      <span class="chip-label">Western</span>
+      <span class="chip-suit">♣</span>
+      <span class="chip-label">西超</span>
     </button>
   </div>
 
   <div class="stage">
 
-    <!-- 华人超市 -->
+    <!-- 华人超市：内容由 deals.js 按 data-store-id 填充 -->
     <section class="fan-section active-section" id="chinese-section">
       <div class="fan-wrap">
         <div class="card-deck hearts-theme shuffling" id="chinese-deck">
 
-          <div class="card">
+          <div class="card" data-store-id="tnt16">
             <div class="suit-corner top-left"><span>10</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
-              <h3 class="supermarket-name">建兴超市</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">特级大米 5kg</span><span class="deal-price">$12.99</span></div>
-                <div class="deal-row"><span class="deal-item">新鲜生菜 2把</span><span class="deal-price">$1.99</span></div>
-                <div class="deal-row"><span class="deal-item">冷冻虾仁 1kg</span><span class="deal-price">$9.99</span></div>
-              </div>
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
             </div>
             <div class="suit-corner bottom-right"><span>10</span><span>♥</span></div>
           </div>
 
-          <div class="card">
+          <div class="card" data-store-id="guanye">
             <div class="suit-corner top-left"><span>J</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
-              <h3 class="supermarket-name">百福超市</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">新鲜排骨</span><span class="deal-price">$4.99/lb</span></div>
-                <div class="deal-row"><span class="deal-item">老豆腐 3件</span><span class="deal-price">$2.00</span></div>
-                <div class="deal-row"><span class="deal-item">广式腊肠</span><span class="deal-price">$6.99</span></div>
-              </div>
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
             </div>
             <div class="suit-corner bottom-right"><span>J</span><span>♥</span></div>
           </div>
 
-          <div class="card">
+          <div class="card" data-store-id="dingtai">
             <div class="suit-corner top-left"><span>Q</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
-              <h3 class="supermarket-name">鼎泰超市</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">红富士苹果</span><span class="deal-price">$1.29/lb</span></div>
-                <div class="deal-row"><span class="deal-item">娃娃菜 3包</span><span class="deal-price">$3.00</span></div>
-                <div class="deal-row"><span class="deal-item">冰鲜带鱼</span><span class="deal-price">$5.99/lb</span></div>
-              </div>
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
             </div>
             <div class="suit-corner bottom-right"><span>Q</span><span>♥</span></div>
           </div>
 
-          <div class="card">
+          <div class="card" data-store-id="fuyao">
             <div class="suit-corner top-left"><span>K</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
-              <h3 class="supermarket-name">丰泰超市</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">活鲜龙虾</span><span class="deal-price">$8.99/lb</span></div>
-                <div class="deal-row"><span class="deal-item">大闸蟹 6只</span><span class="deal-price">$18.99</span></div>
-                <div class="deal-row"><span class="deal-item">鲜活基围虾</span><span class="deal-price">$7.99/lb</span></div>
-              </div>
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
             </div>
             <div class="suit-corner bottom-right"><span>K</span><span>♥</span></div>
           </div>
 
-          <div class="card">
+          <div class="card" data-store-id="dingxian">
             <div class="suit-corner top-left"><span>A</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
-              <h3 class="supermarket-name">大统华</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">特选肥牛片</span><span class="deal-price">$6.99</span></div>
-                <div class="deal-row"><span class="deal-item">日式拉面 3包</span><span class="deal-price">$5.00</span></div>
-                <div class="deal-row"><span class="deal-item">三文鱼刺身</span><span class="deal-price">$12.99/lb</span></div>
-              </div>
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
             </div>
             <div class="suit-corner bottom-right"><span>A</span><span>♥</span></div>
           </div>
@@ -440,79 +86,59 @@
       </div>
     </section>
 
-    <!-- 西人超市 -->
+    <!-- 西人超市：内容由 deals.js 按 data-store-id 填充 -->
     <section class="fan-section" id="western-section">
       <div class="fan-wrap">
-        <div class="card-deck spades-theme shuffling" id="western-deck">
+        <div class="card-deck clubs-theme shuffling" id="western-deck">
 
-          <div class="card">
-            <div class="suit-corner top-left"><span>10</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
+          <div class="card" data-store-id="walmart">
+            <div class="suit-corner top-left"><span>10</span><span>♣</span></div>
+            <div class="center-logo">♣</div>
             <div class="content">
-              <h3 class="supermarket-name">Walmart</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">牛奶 4L</span><span class="deal-price">$5.47</span></div>
-                <div class="deal-row"><span class="deal-item">鸡蛋 12只</span><span class="deal-price">$3.97</span></div>
-                <div class="deal-row"><span class="deal-item">白面包</span><span class="deal-price">$2.47</span></div>
-              </div>
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>10</span><span>♠</span></div>
+            <div class="suit-corner bottom-right"><span>10</span><span>♣</span></div>
           </div>
 
-          <div class="card">
-            <div class="suit-corner top-left"><span>J</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
+          <div class="card" data-store-id="loblaws">
+            <div class="suit-corner top-left"><span>J</span><span>♣</span></div>
+            <div class="center-logo">♣</div>
             <div class="content">
-              <h3 class="supermarket-name">Loblaws</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">有机鸡蛋</span><span class="deal-price">$4.99</span></div>
-                <div class="deal-row"><span class="deal-item">全麦面包</span><span class="deal-price">$3.49</span></div>
-                <div class="deal-row"><span class="deal-item">新鲜蓝莓</span><span class="deal-price">$4.99</span></div>
-              </div>
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>J</span><span>♠</span></div>
+            <div class="suit-corner bottom-right"><span>J</span><span>♣</span></div>
           </div>
 
-          <div class="card">
-            <div class="suit-corner top-left"><span>Q</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
+          <div class="card" data-store-id="metro">
+            <div class="suit-corner top-left"><span>Q</span><span>♣</span></div>
+            <div class="center-logo">♣</div>
             <div class="content">
-              <h3 class="supermarket-name">Metro</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">新鲜三文鱼</span><span class="deal-price">$9.99/lb</span></div>
-                <div class="deal-row"><span class="deal-item">牛排</span><span class="deal-price">$8.99/lb</span></div>
-                <div class="deal-row"><span class="deal-item">意大利面 2盒</span><span class="deal-price">$4.00</span></div>
-              </div>
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>Q</span><span>♠</span></div>
+            <div class="suit-corner bottom-right"><span>Q</span><span>♣</span></div>
           </div>
 
-          <div class="card">
-            <div class="suit-corner top-left"><span>K</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
+          <div class="card" data-store-id="nofrills">
+            <div class="suit-corner top-left"><span>K</span><span>♣</span></div>
+            <div class="center-logo">♣</div>
             <div class="content">
-              <h3 class="supermarket-name">No Frills</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">无骨鸡胸肉</span><span class="deal-price">$3.99/lb</span></div>
-                <div class="deal-row"><span class="deal-item">洋葱 3lb</span><span class="deal-price">$2.99</span></div>
-                <div class="deal-row"><span class="deal-item">罐头番茄</span><span class="deal-price">$1.49</span></div>
-              </div>
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>K</span><span>♠</span></div>
+            <div class="suit-corner bottom-right"><span>K</span><span>♣</span></div>
           </div>
 
-          <div class="card">
-            <div class="suit-corner top-left"><span>A</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
+          <div class="card" data-store-id="foodbasics">
+            <div class="suit-corner top-left"><span>A</span><span>♣</span></div>
+            <div class="center-logo">♣</div>
             <div class="content">
-              <h3 class="supermarket-name">Food Basics</h3>
-              <div class="deals">
-                <div class="deal-row featured"><span class="deal-item">牛油果 3个</span><span class="deal-price">$2.00</span></div>
-                <div class="deal-row"><span class="deal-item">香蕉</span><span class="deal-price">$0.59/lb</span></div>
-                <div class="deal-row"><span class="deal-item">酸奶 4L</span><span class="deal-price">$4.99</span></div>
-              </div>
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>A</span><span>♠</span></div>
+            <div class="suit-corner bottom-right"><span>A</span><span>♣</span></div>
           </div>
 
         </div>
@@ -523,24 +149,14 @@
 
 </div>
 
+<!-- 抓取/整理"最新特价"的逻辑单独放在 deals.js 中，主页只负责调用 -->
+<script src="deals.js"></script>
 <script>
-  // ---------- 更新时间戳 / 本周特价有效期 ----------
+  // ---------- 更新日期戳：几月几号🆕（不再显示"特价有效期"）----------
   (function(){
-    const pad = n => String(n).padStart(2, '0');
     const now = new Date();
-    const updated = pad(now.getMonth() + 1) + '/' + pad(now.getDate());
-
-    const day = now.getDay(); // 0=周日
-    const diffToMonday = (day === 0 ? -6 : 1 - day);
-    const monday = new Date(now);
-    monday.setDate(now.getDate() + diffToMonday);
-    const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
-    const period = pad(monday.getMonth() + 1) + '/' + pad(monday.getDate()) + '–' +
-                   pad(sunday.getMonth() + 1) + '/' + pad(sunday.getDate());
-
     document.getElementById('updateStamp').textContent =
-      `更新于 ${updated} · 特价有效期 ${period}`;
+      `${now.getMonth() + 1}/${now.getDate()} 🆕`;
   })();
 
   // ---------- 音效（简洁电子音，Web Audio 合成） ----------
@@ -594,7 +210,7 @@
     if(soundOn) ensureCtx();
   });
 
-  // ---------- 切换超市：洗牌收拢 -> 换组 -> 重新展开 ----------
+  // ---------- 切换华超/西超：洗牌收拢 -> 换组 -> 重新展开 ----------
   const switchBtns = document.querySelectorAll('.switch-btn');
   const sections = {
     chinese: document.getElementById('chinese-section'),
@@ -638,27 +254,28 @@
     }, 260);
   });
 
-  // ---------- 点击卡片：原地抬高（无遮罩） ----------
-  function openCard(card){
-    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
+  // ---------- 点击卡片：从扇形里"伸出来"，完整不被遮挡地展示 ----------
+  // 不放大成大卡片、不加暗色遮罩；只是把这张卡片从牌堆里挑出来：
+  // 摆正角度、往上抬、置于最上层，其余卡片保持原样不受影响。
+  // 再点一下同一张卡片，或点别处，收回去。
+  function popCard(card){
+    document.querySelectorAll('.card.popped').forEach(c => {
+      if(c !== card) c.classList.remove('popped');
+    });
+    card.classList.toggle('popped');
     playTick();
-  }
-  function closeCards(){
-    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
   }
 
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', (e) => {
       e.stopPropagation();
-      if(card.classList.contains('selected')){
-        closeCards();
-      } else {
-        openCard(card);
-      }
+      popCard(card);
     });
   });
-  document.addEventListener('click', closeCards);
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
+  });
 </script>
 
 </body>
