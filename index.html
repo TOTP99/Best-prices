@@ -261,7 +261,6 @@
   function popCard(card){
     const alreadyPopped = card.classList.contains('popped');
     document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
-    // 再点同一张已弹出卡片 → 收回（和点空白一样）；点其他卡 → 弹出新的
     if (!alreadyPopped) card.classList.add('popped');
     playTick();
   }

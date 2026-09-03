@@ -63,9 +63,7 @@
     { id:'foodbasics', group:'western', nameCN:'Food Basics', nameEN:'Food Basics',
       url:'https://www.foodbasics.ca/flyers' },
   ];
-  // Flyer 链接（点卡片底部按钮打开，点卡片本身不跳转）：
-  // T&T → 官方 store-flyer；鼎泰 → GoFlyer 详情；福耀 → Facebook 官方页
-  // 冠业/鼎鲜 → GoFlyer 首页；西人五家 → 各自官网 flyer
+  // Flyer 链接（点卡片底部按钮打开）：T&T 官方 / 鼎泰 GoFlyer / 福耀 Facebook / 其余见上
 
   // ---------------------------------------------------------------
   // 2. 占位特价数据（每家 6 条，第 1 条标记为 featured 精选）
@@ -223,7 +221,6 @@
       });
     }
 
-    // 底部「看完整 Flyer」：只有点按钮才打开链接
     if(contentEl){
       let btn = contentEl.querySelector('.flyer-btn');
       if(!btn){
