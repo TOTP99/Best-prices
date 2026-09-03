@@ -189,7 +189,8 @@
   }
 
   // ---------------------------------------------------------------
-  // 5. 渲染：把某家店最佳的 6 条特价写进对应卡片
+  // 5. 渲染：把某家店最佳的 6 条特价写进对应卡片，并在卡片底部固定
+  //    一个"看完整 Flyer"按钮（对应 style.css 里的 .flyer-btn）
   // ---------------------------------------------------------------
   function renderStore(store, dealsSource){
     const card = document.querySelector(`.card[data-store-id="${store.id}"]`);

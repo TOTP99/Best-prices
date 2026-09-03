@@ -185,6 +185,8 @@ body{
   text-overflow:ellipsis;
 }
 .deals{
+  flex:1;
+  min-height:0;
   margin:0;
   padding-top:5px;
   border-top:1px solid rgba(44,62,80,.12);
@@ -230,6 +232,27 @@ body{
 }
 .hearts-theme .deal-price{ color:#d63031; }
 .clubs-theme .deal-price{ color:#0984e3; }
+
+/* "看完整 Flyer" 按钮：deals.js 里动态创建、挂在 .content 末尾，固定在卡片底部不参与滚动 */
+.flyer-btn{
+  flex-shrink:0;
+  margin-top:6px;
+  padding:4px 0;
+  width:100%;
+  border:none;
+  border-radius:5px;
+  font-size:8.4px;
+  font-weight:700;
+  letter-spacing:.2px;
+  font-family:inherit;
+  cursor:pointer;
+  background:rgba(44,62,80,.07);
+  transition:background .15s ease;
+}
+.hearts-theme .flyer-btn{ color:#c0392b; }
+.hearts-theme .flyer-btn:hover{ background:rgba(192,57,43,.14); }
+.clubs-theme .flyer-btn{ color:#2c3e50; }
+.clubs-theme .flyer-btn:hover{ background:rgba(44,62,80,.14); }
 
 /* ---------- 竖屏签名 ---------- */
 .signature{

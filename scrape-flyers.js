@@ -6,12 +6,21 @@
 const fs = require('fs');
 const path = require('path');
 
+/* STORES 里的 type 决定 scrapeStore() 走哪条抓取路径：
+ *   'goflyer'   —— 先尝试 GoFlyer 的结构化 API（需要 goflyerSlug；没有
+ *                   slug 时会退化成下面的 'html' 通用抓取）
+ *   'html'      —— 直接 fetch 页面 HTML，用正则粗略抓"名称 + 价格"
+ *   'js-widget' —— 已知是纯 JS 渲染/SPA，抓了也是空的，直接跳过
+ * fuyao 的特价发在 Facebook 帖子里，不走 GoFlyer，所以标 'html'。
+ * guanye / dingxian 暂时没有确认到的 GoFlyer 门店 slug，先留
+ * goflyerSlug:null（回退到通用 HTML 抓取，抓自家首页基本抓不到东西，
+ * 是已知限制），等确认到具体 slug 后把 goflyerSlug 填上即可生效。 */
 const STORES = [
   { id:'tnt16', type:'html', url:'https://www.tntsupermarket.com/store-flyer/' },
   { id:'guanye', type:'goflyer', goflyerSlug:null, url:'https://goflyer.ca/' },
   { id:'dingtai', type:'goflyer', goflyerSlug:'foodymart-hwy7-hwy-7',
     url:'https://goflyer.ca/storedetails/foodymart-hwy7-hwy-7' },
-  { id:'fuyao', type:'goflyer', goflyerSlug:null, url:'https://www.facebook.com/100063747660975' },
+  { id:'fuyao', type:'html', url:'https://www.facebook.com/100063747660975' },
   { id:'dingxian', type:'goflyer', goflyerSlug:null, url:'https://goflyer.ca/' },
   { id:'walmart', type:'js-widget', url:'https://www.walmart.ca/en/flyer' },
   { id:'loblaws', type:'js-widget', url:'https://www.loblaws.ca/flyer' },
@@ -110,6 +119,7 @@ async function scrapeStore(store) {
         return deals;
       }
     }
+    // 'html'，或没有 goflyerSlug 的 'goflyer' 店，都走这条通用 HTML 抓取兜底
     const res = await fetchWithTimeout(store.url);
     const found = parseGenericHtml(await res.text());
     if (!found.length) {
