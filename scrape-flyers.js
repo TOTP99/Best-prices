@@ -1,123 +1,184 @@
 /* =====================================================================
- * scrape-flyers.js — 服务器端 / Node 抓取脚本（参考实现，非浏览器代码）
+ * scrape-flyers.js — Markham 超市特价抓取（Node 18+，零依赖）
  * =====================================================================
- * 用法：
- *   node scrape-flyers.js
- * 需要 Node.js 18+（自带 fetch，不用额外装包）。
- * 运行后会在当前目录生成 deals-data.json，deals.js 会自动读取它。
+ * 用法：node scrape-flyers.js
+ * 输出：deals-data.json（deals.js 会自动读取覆盖 FALLBACK_DEALS）
  *
- * 建议配合定时任务每天跑一次，例如 Linux/Mac 的 crontab，或者放到
- * GitHub Actions 的 schedule 里，跑完把 deals-data.json 和 index.html/
- * style.css/deals.js 一起部署到你的网站空间。
+ * 策略：
+ * 1. 有 GoFlyer slug 的店 → 直接打后端 API（结构化中文名+价格）
+ * 2. 其余 HTML 页 → 启发式正则（多数 SPA/图片页会空，属正常）
+ * 3. 西人 JS 互动页直接跳过（需 Puppeteer/Flipp，超出本脚本范围）
+ * 4. 失败的店不写进 json → deals.js 回退占位数据，页面不空窗
  *
- * ⚠️ 诚实的技术说明（务必读完再用）：
- * 1. 这十家店里，不少"Flyer"本质上是图片或翻页 PDF（尤其是华人超市，
- *    包括 T&T 在内很多都是这种形式），网页 HTML 里根本没有商品名和
- *    价格的文字，纯文本抓取抓不到任何东西——想自动化就得接 OCR
- *    （比如 Tesseract 或云端图像识别 API），这已经超出"写一份 js
- *    抓取"的范畴，是另一个独立的工程量，这份脚本没有包含 OCR。
- * 2. 冠业 / 福耀 / 鼎鲜 这几家小型连锁，我没能确认它们有结构化、可
- *    直接文字抓取的官方页面；目前多是在 goflyer.ca / superlife.ca
- *    这类第三方聚合站上出现，但这些聚合站前端是 JS 单页应用（SPA），
- *    数据是页面加载后再异步请求接口填进去的，直接 fetch 页面 HTML
- *    只会拿到一个空壳，需要先用浏览器开发者工具的网络面板，找到它
- *    实际调用的数据接口（API），再针对那个接口写抓取逻辑——这一步
- *    需要你（或后续开发）用真实浏览器实际操作一次去确认，我在这个
- *    沙盒环境里没有可视化浏览器，没法帮你抓包确认。
- * 3. 下面 parseGenericHtml() 是一个"尽力而为"的通用启发式解析器：
- *    在纯文字型网页里，用正则找"商品名 + 紧跟着的 $价格"这种模式。
- *    对文字型的 Flyer 页面可能有效，对图片型/SPA型的页面基本抓不到
- *    东西，会自动跳过并保留 deals.js 里的占位数据。
- * 4. Walmart / Loblaws / Metro / No Frills / Food Basics 这五家官网的
- *    Flyer 页面也大多是 JS 渲染的互动翻页组件，同样不是简单的静态
- *    HTML 文本，直接 fetch 大概率也抓不到结构化商品数据。真正稳定
- *    的做法通常是：
- *      a) 走 Flipp 这类聚合平台的官方/合作 API（多数收费，如 Apify
- *         上的 Flipp Scraper），或
- *      b) 用 Puppeteer/Playwright 起一个无头浏览器，等页面渲染完
- *         再读 DOM——这个脚本没有引入这类重依赖，保持"零安装即可跑"，
- *         但也因此拿不到这些站点的真实结构化数据。
- *
- * 结论：这份脚本是一个诚实、可运行、可扩展的起点，而不是"开箱即用
- * 保证抓到十家店最新特价"的成品。真正做到稳定可靠，大概率需要：
- * 浏览器抓包找接口 + （如需要）OCR + 定期检查页面结构是否变化。
+ * 数据补充主路径仍是：小红书 / Facebook / 人工更新 FALLBACK_DEALS
  * =================================================================== */
 
 const fs = require('fs');
 const path = require('path');
 
-// 与 deals.js 里的 STORE_CONFIG 保持一致（id 必须对应）
 const STORES = [
-  { id:'tnt16',      label:'T&T 16街',      url:'https://www.tntsupermarket.com/eng/weekly-special-er.html', type:'unknown' },
-  { id:'guanye',     label:'冠业Kennedy',   url:'https://goflyer.ca/',                                         type:'spa' },
-  { id:'dingtai',    label:'鼎泰Hwy7',      url:'https://goflyer.ca/storedetails/foodymart-hwy7-hwy-7',       type:'spa' },
-  { id:'fuyao',      label:'福耀Hwy7',      url:'https://goflyer.ca/',                                         type:'spa' },
-  { id:'dingxian',   label:'鼎鲜Woodbine',  url:'https://goflyer.ca/',                                         type:'spa' },
-  { id:'walmart',    label:'Walmart',       url:'https://www.walmart.ca/en/flyer',                             type:'js-widget' },
-  { id:'loblaws',    label:'Loblaws',       url:'https://www.loblaws.ca/flyer',                                type:'js-widget' },
-  { id:'metro',      label:'Metro',         url:'https://www.metro.ca/en/flyer',                               type:'js-widget' },
-  { id:'nofrills',   label:'No Frills',     url:'https://www.nofrills.ca/flyer',                               type:'js-widget' },
-  { id:'foodbasics', label:'Food Basics',   url:'https://www.foodbasics.ca/flyers',                            type:'js-widget' },
+  { id:'tnt16',      type:'html',      url:'https://www.tntsupermarket.com/store-flyer/' },
+  { id:'guanye',     type:'goflyer',   goflyerSlug:null, url:'https://goflyer.ca/' },
+  { id:'dingtai',    type:'goflyer',   goflyerSlug:'foodymart-hwy7-hwy-7',
+    url:'https://goflyer.ca/storedetails/foodymart-hwy7-hwy-7' },
+  { id:'fuyao',      type:'goflyer',   goflyerSlug:null, url:'https://www.facebook.com/100063747660975' },
+  { id:'dingxian',   type:'goflyer',   goflyerSlug:null, url:'https://goflyer.ca/' },
+  { id:'walmart',    type:'js-widget', url:'https://www.walmart.ca/en/flyer' },
+  { id:'loblaws',    type:'js-widget', url:'https://www.loblaws.ca/flyer' },
+  { id:'metro',      type:'js-widget', url:'https://www.metro.ca/en/flyer' },
+  { id:'nofrills',   type:'js-widget', url:'https://www.nofrills.ca/flyer' },
+  { id:'foodbasics', type:'js-widget', url:'https://www.foodbasics.ca/flyers' },
 ];
 
-// 通用启发式解析：在纯文本 HTML 里找"商品名紧跟着 $价格"的片段。
-// 只对少数仍然是服务端渲染纯文本的页面有效，type 为 'spa' 或
-// 'js-widget' 的站点基本会返回空数组（正常现象，见文件头说明）。
-function parseGenericHtml(html){
-  const results = [];
-  const priceRegex = /([A-Za-z\u4e00-\u9fa5][^\$\n<>]{2,40}?)\s*\$(\d+\.\d{2})(\/lb|\/kg|\/100g)?/g;
-  let match;
-  while((match = priceRegex.exec(html)) && results.length < 20){
-    const item = match[1].replace(/\s+/g, ' ').trim();
-    if(item.length < 2) continue;
-    results.push({
-      item,
-      price: `$${match[2]}${match[3] || ''}`,
+const GOFLYER_API = 'https://backend-prod.goflyer.ca';
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+const TIMEOUT_MS = 12000;
+const MAX_DEALS = 6;
+const CONCURRENCY = 3;
+
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+async function fetchWithTimeout(url, options = {}, retries = 1){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try{
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'application/json, text/html, */*',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        ...(options.headers || {}),
+      },
     });
+    clearTimeout(timer);
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res;
+  }catch(err){
+    clearTimeout(timer);
+    if(retries > 0){
+      await sleep(400 + Math.random() * 400);
+      return fetchWithTimeout(url, options, retries - 1);
+    }
+    throw err;
+  }
+}
+
+function parseGoFlyerItems(items){
+  if(!Array.isArray(items) || !items.length) return [];
+  const sorted = [...items].sort((a, b) => (b.topSale?1:0) - (a.topSale?1:0));
+  const results = [];
+  for(const it of sorted){
+    if(results.length >= MAX_DEALS) break;
+    const name = (it.nameChinese || it.name || '').trim();
+    if(name.length < 2) continue;
+    let priceStr;
+    if(typeof it.salePrice === 'number'){
+      const unit = (it.unit || '').toLowerCase();
+      const suffix = unit && unit !== 'ea' && unit !== 'each' ? `/${unit}` : '';
+      priceStr = `$${Number(it.salePrice).toFixed(2)}${suffix}`;
+    }else if(it.regularPriceString){
+      priceStr = it.regularPriceString.startsWith('$') ? it.regularPriceString : `$${it.regularPriceString}`;
+    }else continue;
+    results.push({ item:name, price:priceStr, featured:!!it.topSale });
   }
   return results;
 }
 
+function parseGenericHtml(html){
+  const results = [];
+  const re = /([A-Za-z\u4e00-\u9fa5][^\$\n<>]{1,45}?)\s*[：:\s]*\$?\s*(\d+\.\d{2})\s*(\/lb|\/kg|\/100g|\/ea|\/磅)?/gi;
+  let m;
+  while((m = re.exec(html)) && results.length < 20){
+    let item = m[1].replace(/\s+/g, ' ').trim().replace(/[：:\-\|]+$/, '').trim();
+    if(item.length < 4 || item.length > 40) continue;
+    if(/^(http|www|page|click|view|more|登录|注册)/i.test(item)) continue;
+    if(/[\{\}\[\]<>]|\.[0-9]|c-|a\.|H[0-9]|s-|l-|m-|viewBox|transform/i.test(item)) continue;
+    const hasCN = /[\u4e00-\u9fa5]/.test(item);
+    const hasWord = /[A-Za-z]{4,}/.test(item);
+    if(!hasCN && !hasWord) continue;
+    results.push({ item, price:`$${m[2]}${m[3]||''}` });
+  }
+  return results;
+}
+
+async function scrapeGoFlyer(store){
+  if(!store.goflyerSlug) return null;
+  const res = await fetchWithTimeout(`${GOFLYER_API}/gf-flyer-item/findAllByStore/${store.goflyerSlug}`);
+  const deals = parseGoFlyerItems(await res.json());
+  if(!deals.length){
+    console.warn(`[${store.id}] GoFlyer API 0 items`);
+    return null;
+  }
+  console.log(`[${store.id}] GoFlyer → ${deals.length} deals`);
+  return deals;
+}
+
+async function scrapeHtml(store){
+  const res = await fetchWithTimeout(store.url);
+  const found = parseGenericHtml(await res.text());
+  if(!found.length){
+    console.warn(`[${store.id}] HTML 无可用文字特价`);
+    return null;
+  }
+  console.log(`[${store.id}] HTML → ${Math.min(MAX_DEALS, found.length)} deals`);
+  return found.slice(0, MAX_DEALS).map((d, i) => ({ ...d, featured: i === 0 }));
+}
+
 async function scrapeStore(store){
   try{
-    const res = await fetch(store.url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DealsBot/1.0)' },
-    });
-    if(!res.ok){
-      console.warn(`[${store.id}] HTTP ${res.status}，跳过`);
+    if(store.type === 'js-widget'){
+      console.warn(`[${store.id}] js-widget 跳过（需 Puppeteer/Flipp）`);
       return null;
     }
-    const html = await res.text();
-    const found = parseGenericHtml(html);
-    if(found.length === 0){
-      console.warn(`[${store.id}] 没有解析出结构化特价（大概率是图片/SPA 页面，见文件头说明），跳过`);
-      return null;
+    if(store.type === 'goflyer'){
+      const api = await scrapeGoFlyer(store);
+      if(api) return api;
+      return await scrapeHtml(store);
     }
-    console.log(`[${store.id}] 解析到 ${found.length} 条候选，取前 6 条`);
-    return found.slice(0, 6);
+    return await scrapeHtml(store);
   }catch(err){
-    console.warn(`[${store.id}] 抓取失败：${err.message}`);
+    console.warn(`[${store.id}] ${err.message}`);
     return null;
   }
 }
 
-async function main(){
-  const output = {};
-  for(const store of STORES){
-    const deals = await scrapeStore(store);
-    if(deals) output[store.id] = deals;
-    // 简单限速，别对同一个域名连续高频请求
-    await new Promise(r => setTimeout(r, 500));
+async function mapPool(items, concurrency, fn){
+  const results = new Array(items.length);
+  let idx = 0;
+  async function worker(){
+    while(idx < items.length){
+      const i = idx++;
+      results[i] = await fn(items[i], i);
+    }
   }
-
-  const outPath = path.join(__dirname, 'deals-data.json');
-  fs.writeFileSync(outPath, JSON.stringify(output, null, 2), 'utf-8');
-
-  const okCount = Object.keys(output).length;
-  console.log(`\n完成：成功抓到 ${okCount}/${STORES.length} 家店的数据 → ${outPath}`);
-  if(okCount < STORES.length){
-    console.log('没抓到的店，deals.js 会自动回退用内置占位数据，不影响页面正常显示。');
-  }
+  await Promise.all(Array.from({ length: concurrency }, () => worker()));
+  return results;
 }
 
-main();
+async function main(){
+  console.log('=== Markham Flyer Scraper ===\n');
+  const raw = await mapPool(STORES, CONCURRENCY, async (store) => {
+    const deals = await scrapeStore(store);
+    await sleep(300 + Math.random() * 400);
+    return { id: store.id, deals };
+  });
+
+  const output = {
+    scrapedAt: new Date().toISOString(),
+    note: 'Missing stores fall back to FALLBACK_DEALS in deals.js',
+  };
+  let ok = 0;
+  for(const { id, deals } of raw){
+    if(deals && deals.length){
+      output[id] = deals;
+      ok++;
+    }
+  }
+  const outPath = path.join(__dirname, 'deals-data.json');
+  fs.writeFileSync(outPath, JSON.stringify(output, null, 2), 'utf-8');
+  console.log(`\nDone: ${ok}/${STORES.length} → ${outPath}`);
+}
+
+main().catch(err => { console.error(err); process.exit(1); });

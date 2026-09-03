@@ -259,10 +259,10 @@
   // 摆正角度、往上抬、置于最上层，其余卡片保持原样不受影响。
   // 再点一下同一张卡片，或点别处，收回去。
   function popCard(card){
-    document.querySelectorAll('.card.popped').forEach(c => {
-      if(c !== card) c.classList.remove('popped');
-    });
-    card.classList.toggle('popped');
+    const alreadyPopped = card.classList.contains('popped');
+    document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
+    // 再点同一张已弹出卡片 → 收回（和点空白一样）；点其他卡 → 弹出新的
+    if (!alreadyPopped) card.classList.add('popped');
     playTick();
   }
 

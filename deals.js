@@ -42,13 +42,13 @@
   // ---------------------------------------------------------------
   const STORE_CONFIG = [
     { id:'tnt16',      group:'chinese', nameCN:'T&T 16街',      nameEN:'T&T Supermarket',
-      url:'https://www.tntsupermarket.com/eng/weekly-special-er.html' },
+      url:'https://www.tntsupermarket.com/store-flyer/' },
     { id:'guanye',     group:'chinese', nameCN:'冠业Kennedy',   nameEN:'First Choice Supermarket',
       url:'https://goflyer.ca/' },
     { id:'dingtai',    group:'chinese', nameCN:'鼎泰Hwy7',      nameEN:'Foody Hwy7 Supermarket',
       url:'https://goflyer.ca/storedetails/foodymart-hwy7-hwy-7' },
-    { id:'fuyao',      group:'chinese', nameCN:'福耀Hwy7',      nameEN:'Fuyao Supermarket',
-      url:'https://goflyer.ca/' },
+    { id:'fuyao',      group:'chinese', nameCN:'福耀Hwy7',      nameEN:'Winco Food Mart',
+      url:'https://www.facebook.com/100063747660975' },
     { id:'dingxian',   group:'chinese', nameCN:'鼎鲜Woodbine',  nameEN:'Full Fresh Supermarket',
       url:'https://goflyer.ca/' },
 
@@ -63,10 +63,9 @@
     { id:'foodbasics', group:'western', nameCN:'Food Basics', nameEN:'Food Basics',
       url:'https://www.foodbasics.ca/flyers' },
   ];
-  // 注：冠业 / 福耀 / 鼎鲜 三家暂时指向聚合站首页 goflyer.ca ——没能
-  // 确认它们各自在聚合站上的独立详情页链接，建议核实后替换成精确链接
-  // （格式参考"鼎泰Hwy7"那一行）。西人超市的官方 Flyer 链接也建议
-  // 定期核实，超市偶尔会改版换路径。
+  // Flyer 链接（点卡片底部按钮打开，点卡片本身不跳转）：
+  // T&T → 官方 store-flyer；鼎泰 → GoFlyer 详情；福耀 → Facebook 官方页
+  // 冠业/鼎鲜 → GoFlyer 首页；西人五家 → 各自官网 flyer
 
   // ---------------------------------------------------------------
   // 2. 占位特价数据（每家 6 条，第 1 条标记为 featured 精选）
@@ -204,6 +203,7 @@
     const nameEl = card.querySelector('.supermarket-name');
     if(nameEl) nameEl.textContent = isChinese ? store.nameCN : store.nameEN;
 
+    const contentEl = card.querySelector('.content');
     const dealsEl = card.querySelector('.deals');
     if(!dealsEl) return;
     dealsEl.innerHTML = '';
@@ -214,15 +214,33 @@
       empty.className = 'deal-row';
       empty.innerHTML = `<span class="deal-item">${isChinese ? '暂无特价数据' : 'No deals available'}</span>`;
       dealsEl.appendChild(empty);
-      return;
+    } else {
+      bestSix.forEach((deal, i) => {
+        const row = document.createElement('div');
+        row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
+        row.innerHTML = `<span class="deal-item">${deal.item}</span><span class="deal-price">${deal.price}</span>`;
+        dealsEl.appendChild(row);
+      });
     }
 
-    bestSix.forEach((deal, i) => {
-      const row = document.createElement('div');
-      row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
-      row.innerHTML = `<span class="deal-item">${deal.item}</span><span class="deal-price">${deal.price}</span>`;
-      dealsEl.appendChild(row);
-    });
+    // 底部「看完整 Flyer」：只有点按钮才打开链接
+    if(contentEl){
+      let btn = contentEl.querySelector('.flyer-btn');
+      if(!btn){
+        btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'flyer-btn';
+        contentEl.appendChild(btn);
+      }
+      btn.textContent = isChinese ? '看完整 Flyer' : 'Full Flyer';
+      btn.dataset.url = store.url;
+      btn.onclick = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        const u = btn.dataset.url || card.dataset.url;
+        if(u) window.open(u, '_blank', 'noopener,noreferrer');
+      };
+    }
   }
 
   function renderAll(dataset){
