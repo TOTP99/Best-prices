@@ -276,6 +276,7 @@ body{
 
 /* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
 @media (orientation:portrait){
+  .frame{ gap:14px; }
   .stage{
     flex-direction:column;
     align-items:center;
@@ -294,7 +295,7 @@ body{
     opacity:1;
     pointer-events:auto;
   }
-  .switch-container{ display:none; }
+  .switch-container{ display:flex; margin-top:2px; }
   .signature{ display:block; }
   /* 日期戳放在 TP制作 签名下方 */
   .update-stamp{
@@ -310,7 +311,7 @@ body{
     --card-h:calc(var(--card-w) * 1.661);
     --pivot:calc(var(--card-w) * 2.204);
   }
-  .switch-container{ display:flex; }
+  .switch-container{ display:none; }
   .frame{ padding:8px 16px; gap:6px; }
   .stage{
     flex-direction:row;
