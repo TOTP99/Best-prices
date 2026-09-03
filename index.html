@@ -15,13 +15,12 @@
 <div class="frame">
 
   <div class="switch-container">
-    <button class="switch-btn active" data-target="chinese">
-      <span class="chip-suit">♥</span>
-      <span class="chip-label">华超</span>
-    </button>
-    <button class="switch-btn" data-target="western">
-      <span class="chip-suit">♣</span>
-      <span class="chip-label">西超</span>
+    <button class="switch-btn" id="landscapeSwitch" aria-label="切换华超/西超" aria-pressed="false">
+      <span class="switch-track">
+        <span class="switch-option switch-option-left">♥ 华超</span>
+        <span class="switch-option switch-option-right">♣ 西超</span>
+        <span class="switch-thumb"></span>
+      </span>
     </button>
   </div>
 
@@ -210,28 +209,23 @@
     if(soundOn) ensureCtx();
   });
 
-  // ---------- 切换华超/西超：洗牌收拢 -> 换组 -> 重新展开 ----------
-  const switchBtns = document.querySelectorAll('.switch-btn');
-  const sections = {
-    chinese: document.getElementById('chinese-section'),
-    western: document.getElementById('western-section')
-  };
-  const decks = {
-    chinese: document.getElementById('chinese-deck'),
-    western: document.getElementById('western-deck')
-  };
+  // ---------- 切换华超/西超：单一 switch -> 洗牌收拢 -> 换组 -> 重新展开 ----------
+  const landscapeSwitch = document.getElementById('landscapeSwitch');
+  const sections = { chinese: document.getElementById('chinese-section'), western: document.getElementById('western-section') };
+  const decks = { chinese: document.getElementById('chinese-deck'), western: document.getElementById('western-deck') };
   let current = 'chinese';
+
+  function updateLandscapeSwitch(){
+    landscapeSwitch.classList.toggle('western-active', current === 'western');
+    landscapeSwitch.setAttribute('aria-pressed', current === 'western' ? 'true' : 'false');
+  }
 
   function switchTo(target){
     if(target === current) return;
     playShuffle();
-
-    switchBtns.forEach(b => b.classList.toggle('active', b.dataset.target === target));
-
     const fromKey = current, toKey = target;
     decks[fromKey].classList.add('shuffling');
     decks[toKey].classList.add('shuffling');
-
     setTimeout(() => {
       sections[fromKey].classList.remove('active-section');
       sections[toKey].classList.add('active-section');
@@ -239,12 +233,15 @@
       decks[fromKey].classList.remove('shuffling');
       decks[toKey].classList.remove('shuffling');
       current = target;
+      updateLandscapeSwitch();
     }, 200);
   }
 
-  switchBtns.forEach(btn => {
-    btn.addEventListener('click', () => switchTo(btn.dataset.target));
+  landscapeSwitch.addEventListener('click', () => {
+    switchTo(current === 'chinese' ? 'western' : 'chinese');
   });
+
+  updateLandscapeSwitch();
 
   // ---------- 首次进场：发牌动画（收拢 -> 展开） ----------
   window.addEventListener('load', () => {
