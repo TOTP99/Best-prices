@@ -74,22 +74,23 @@ body{
   border-radius:999px;
 
   /* 水晶主体透明度 */
-  background:rgba(255,255,255,.22);
-  backdrop-filter:blur(12px) saturate(180%);
-  -webkit-backdrop-filter:blur(12px) saturate(180%);
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(14px) saturate(200%);
+  -webkit-backdrop-filter:blur(14px) saturate(200%);
 
-  /* 水晶折射光 + 强化金边 */
+  /* ★★★ 关键：让金边浮出来 ★★★ */
   box-shadow:
-    0 3px 10px rgba(0,0,0,.45),          /* 外部阴影 */
-    0 0 0 2.4px rgba(212,175,55,1),      /* ★ 强化金边（更亮、更清晰） */
-    0 0 6px rgba(212,175,55,.55),        /* ★ 金色外发光（让金边浮出来） */
-    inset 0 0 10px rgba(255,255,255,.55),/* 水晶折射亮光 */
-    inset 0 0 4px rgba(255,255,255,.35); /* 内部柔光 */
+    0 0 0 2.8px rgba(212,175,55,1),     /* 更粗更亮的金边 */
+    0 0 8px rgba(212,175,55,.65),       /* 金色外发光，让边框从深色背景中浮出来 */
+    0 3px 10px rgba(0,0,0,.45),         /* 外部阴影 */
+    inset 0 0 12px rgba(255,255,255,.55), /* 水晶折射亮光 */
+    inset 0 0 5px rgba(255,255,255,.35);  /* 内部柔光 */
 
   transition:transform .22s cubic-bezier(.34,1.56,.64,1);
-  z-index:2;
+  z-index:3; /* ★ 提升层级，避免被 track 吞掉 */
   pointer-events:none;
 }
+
 
 .switch-btn:not(.western-active) .switch-option-left,.switch-btn.western-active .switch-option-right{opacity:1;}
 .switch-btn.western-active .switch-thumb{transform:translateX(60px);}
