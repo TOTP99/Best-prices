@@ -65,7 +65,31 @@ body{
 .switch-track{position:relative;display:block;width:100%;height:100%;border-radius:999px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 2px,transparent 2px 7px),linear-gradient(180deg,#294731,#12200e);box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.35);overflow:hidden;}
 .switch-option{position:absolute;top:0;width:50%;height:100%;display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:700;letter-spacing:.2px;color:#d9e6dd;opacity:.72;z-index:1;transition:opacity .2s ease;}
 .switch-option-left{left:0}.switch-option-right{right:0}
-.switch-thumb{position:absolute;top:3px;left:3px;width:62px;height:32px;border-radius:999px;background:linear-gradient(180deg,#3b6144,#203b28);box-shadow:0 3px 7px rgba(0,0,0,.45),0 0 0 2px var(--gold),inset 0 0 0 1px rgba(255,255,255,.14);transition:transform .22s cubic-bezier(.34,1.56,.64,1);z-index:2;pointer-events:none;}
+..switch-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:62px;
+  height:32px;
+  border-radius:999px;
+
+  /* 水晶主体透明度 */
+  background:rgba(255,255,255,.22);
+  backdrop-filter:blur(12px) saturate(180%);
+  -webkit-backdrop-filter:blur(12px) saturate(180%);
+
+  /* 水晶折射光 + 金边 */
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.45),          /* 外部阴影 */
+    0 0 0 2px var(--gold),               /* 金色外边框 */
+    inset 0 0 8px rgba(255,255,255,.45), /* 内部折射亮光 */
+    inset 0 0 3px rgba(255,255,255,.25); /* 内部柔光 */
+
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1);
+  z-index:2;
+  pointer-events:none;
+}
+
 .switch-btn:not(.western-active) .switch-option-left,.switch-btn.western-active .switch-option-right{opacity:1;}
 .switch-btn.western-active .switch-thumb{transform:translateX(60px);}
 .switch-btn:active .switch-thumb{transform:scale(.96);}.switch-btn.western-active:active .switch-thumb{transform:translateX(60px) scale(.96);}
