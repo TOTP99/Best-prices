@@ -20,10 +20,13 @@
  *
  *   deals-data.json 格式：{
  *     "deals": { "tnt16": [ {item, price, featured?, discountPct?}, ... ], ... },
- *     "benchmarkPrices": { "tnt16": { "eggs": {value, display}, ... }, ... }
+ *     "benchmarkPrices": { "tnt16": { "eggs": {value, display}, ... }, ... },
+ *     "updatedAt": { "tnt16": "2026-09-04", ... }
  *   }
- *   两个字段都可选，只提供其中一个、或者只提供部分店铺也可以，缺的部分
- *   照样留空。
+ *   三个字段都可选，只提供其中一个、或者只提供部分店铺也可以，缺的部分
+ *   照样留空。updatedAt 是"这家店的数据是哪天更新的"，用来在卡片牌面
+ *   角标后面显示新鲜度星标（例如"A*****"）：当天更新 5 星，之后每过一个
+ *   自然日少一颗，5 天后不再显示；没填 updatedAt 的店不显示星标。
  *
  * 每周更新特价时，只需要改 deals-data.json 这一个文件，index.html /
  * style.css / deals.js 都不用碰。
@@ -36,26 +39,26 @@
   //    url = 点击卡片后跳出的目标页面（该店完整特价 / Flyer 页）
   // ---------------------------------------------------------------
   const STORE_CONFIG = [
-    { id:'tnt16',      group:'chinese', nameCN:'T&T 16街',      nameEN:'T&T Supermarket',
+    { id:'tnt16',      group:'chinese', rank:'10', nameCN:'T&T 16街',      nameEN:'T&T Supermarket',
       url:'https://tntsupermarket.com/weekly-flyer' },
-    { id:'guanye',     group:'chinese', nameCN:'冠业Kennedy',   nameEN:'First Choice Supermarket',
+    { id:'guanye',     group:'chinese', rank:'J',  nameCN:'冠业Kennedy',   nameEN:'First Choice Supermarket',
       url:'https://goflyer.ca/store/first-choice-supermarket' },
-    { id:'dingtai',    group:'chinese', nameCN:'鼎泰Hwy7',      nameEN:'Foody Hwy7 Supermarket',
+    { id:'dingtai',    group:'chinese', rank:'Q',  nameCN:'鼎泰Hwy7',      nameEN:'Foody Hwy7 Supermarket',
       url:'https://goflyer.ca/store/tone-tai-supermarket' },
-    { id:'fuyao',      group:'chinese', nameCN:'福耀Hwy7',      nameEN:'Winco Food Mart',
+    { id:'fuyao',      group:'chinese', rank:'K',  nameCN:'福耀Hwy7',      nameEN:'Winco Food Mart',
       url:'https://goflyer.ca/store/winco-food-mart' },
-    { id:'dingxian',   group:'chinese', nameCN:'鼎鲜Woodbine',  nameEN:'Full Fresh Supermarket',
+    { id:'dingxian',   group:'chinese', rank:'A',  nameCN:'鼎鲜Woodbine',  nameEN:'Full Fresh Supermarket',
       url:'https://goflyer.ca/store/full-fresh-supermarket' },
 
-    { id:'walmart',    group:'western', nameCN:'Walmart',     nameEN:'Walmart',
+    { id:'walmart',    group:'western', rank:'10', nameCN:'Walmart',     nameEN:'Walmart',
       url:'https://www.walmart.ca/flyer' },
-    { id:'freshco',    group:'western', nameCN:'FreshCo',     nameEN:'FreshCo',
+    { id:'freshco',    group:'western', rank:'J',  nameCN:'FreshCo',     nameEN:'FreshCo',
       url:'https://www.freshco.com/weekly-flyer/' },
-    { id:'costco',     group:'western', nameCN:'Costco',      nameEN:'Costco',
+    { id:'costco',     group:'western', rank:'Q',  nameCN:'Costco',      nameEN:'Costco',
       url:'https://www.costco.ca/warehouse-locations/1-yorktech-dr-markham-on.html' },
-    { id:'nofrills',   group:'western', nameCN:'No Frills',   nameEN:'No Frills',
+    { id:'nofrills',   group:'western', rank:'K',  nameCN:'No Frills',   nameEN:'No Frills',
       url:'https://www.nofrills.ca/flyer.en.html' },
-    { id:'foodbasics', group:'western', nameCN:'Food Basics', nameEN:'Food Basics',
+    { id:'foodbasics', group:'western', rank:'A',  nameCN:'Food Basics', nameEN:'Food Basics',
       url:'https://www.foodbasics.ca/flyer.en.html' },
   ];
   // Flyer 链接：华超5家均为官方/GoFlyer单店页；西超里 Costco 目前存的是
@@ -101,6 +104,24 @@
   }
 
   // ---------------------------------------------------------------
+  // 3.5 "最新更新"星标：deals-data.json 里每家店可以带一个 updatedAt
+  //     日期（"YYYY-MM-DD"，按更新那天填），卡片左上/右下角的牌面
+  //     字母后面会跟着显示 1-5 个 "*"：当天更新 5 个，每过一个自然日
+  //     （本地时间凌晨 00:00）少一个，5 天后（含）不再显示。没有
+  //     updatedAt 的店不显示任何星标。
+  // ---------------------------------------------------------------
+  function freshnessStars(updatedAt){
+    if(!updatedAt) return 0;
+    const updated = new Date(updatedAt + 'T00:00:00');
+    if(isNaN(updated.getTime())) return 0;
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const updatedDay = new Date(updated.getFullYear(), updated.getMonth(), updated.getDate());
+    const daysSince = Math.round((today - updatedDay) / 86400000);
+    return Math.max(0, Math.min(5, 5 - daysSince));
+  }
+
+  // ---------------------------------------------------------------
   // 3. "取最佳几条"的排序规则：featured 优先，其次按折扣力度
   //    （discountPct，若数据里有）从高到低，其余保持原始顺序。
   //    普通特价固定截取前 4 条（数据不够 4 条就有几条显示几条，
@@ -143,12 +164,22 @@
   //    （对应 style.css 里的 .flyer-btn）。没有特价数据时，deals
   //    区域完全留空——店名和 Flyer 按钮始终会显示，跟有没有数据无关。
   // ---------------------------------------------------------------
-  function renderStore(store, dealsSource, benchmarkHighlights){
+  function renderStore(store, dealsSource, benchmarkHighlights, updatedAt){
     const card = document.querySelector(`.card[data-store-id="${store.id}"]`);
     if(!card) return;
 
     const isChinese = store.group === 'chinese';
     card.dataset.url = store.url;
+
+    // 牌面角标：rank + 新鲜度星标（例如 "A*****"），星标单独用绿色，
+    // 两个角都要同步更新
+    const starCount = freshnessStars(updatedAt);
+    const starsHTML = starCount > 0
+      ? `<span class="freshness-stars">${'*'.repeat(starCount)}</span>`
+      : '';
+    card.querySelectorAll('.suit-corner span:first-child').forEach(el => {
+      el.innerHTML = store.rank + starsHTML;
+    });
 
     const nameEl = card.querySelector('.supermarket-name');
     if(nameEl) nameEl.textContent = isChinese ? store.nameCN : store.nameEN;
@@ -196,9 +227,10 @@
   function renderAll(dataset){
     const deals = (dataset && dataset.deals) || {};
     const prices = (dataset && dataset.benchmarkPrices) || {};
+    const updatedAtMap = (dataset && dataset.updatedAt) || {};
     const winners = computeBenchmarkWinners(prices);
     STORE_CONFIG.forEach(store => {
-      renderStore(store, deals[store.id] || [], winners[store.id]);
+      renderStore(store, deals[store.id] || [], winners[store.id], updatedAtMap[store.id]);
     });
   }
 

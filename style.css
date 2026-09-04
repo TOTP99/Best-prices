@@ -292,6 +292,12 @@ body {
   margin-top: 2px;
 }
 
+/* 新鲜度星标（deals.js 按 updatedAt 自动加在牌面字母后面），跟主题色
+   区分开，用绿色表示"最近更新" */
+.freshness-stars {
+  color: #27ae60;
+}
+
 .hearts-theme .suit-corner,
 .hearts-theme .center-logo {
   color: #c0392b;
