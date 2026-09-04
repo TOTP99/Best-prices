@@ -1,387 +1,558 @@
-:root{
-  --felt:#1a3322;
-  --felt-2:#152a1c;
-  --gold:#d4af37;
-  --gold-soft:rgba(212,175,55,.55);
-  --ink:#243242;
-  --card-w:118px;
-  --card-h:196px;
-  --pivot:260px;
+:root {
+  --felt: #1a3322;
+  --felt-2: #152a1c;
+  --gold: #d4af37;
+  --gold-soft: rgba(212, 175, 55, .55);
+  --ink: #243242;
+  --card-w: 118px;
+  --card-h: 196px;
+  --pivot: 260px;
 }
-*{ box-sizing:border-box; }
-html,body{
-  margin:0; padding:0;
-  width:100%; height:100%;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   background:
-    radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.5) 100%),
+    radial-gradient(ellipse at center, transparent 38%, rgba(0, 0, 0, .5) 100%),
     radial-gradient(circle at 50% 30%, var(--felt-2), var(--felt) 70%);
-  color:#e8ede9;
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  overflow:hidden;
-  position:relative;
-}
-body::before{
-  content:"";
-  position:fixed; inset:0;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  opacity:.05;
-  mix-blend-mode:overlay;
-  pointer-events:none;
-  z-index:0;
-}
-body{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  color: #e8ede9;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
 }
 
-/* ---------- 外层容器 ---------- */
-.frame{
-  position:relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:18px;
-  padding:18px 14px 16px;
-}
-/* 卡片"伸出来"(popped)时，把整个 .frame 的层级抬到固定按钮(音效开关/签名/日期戳,
-   z-index:950)之上，否则 popped 卡片的 z-index:1000 只在 .frame 内部生效，
-   仍会被这些 fixed 元素挡住 —— 这就是竖屏放大卡片被按钮挡住的原因。 */
-.frame.has-popped{
-  z-index:1000;
-}
-/* 弹出卡片时，把舞台抬到 switch 之上，避免上移的卡片被顶部的 switch 挡住 */
-.frame.has-popped .switch-container{
-  z-index:1;
-}
-.frame.has-popped .stage{
-  z-index:10;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: .05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ---------- 顶部切换：单一 switch ---------- */
-.switch-container{display:flex;align-items:center;justify-content:center;}
-.switch-btn{position:relative;width:128px;height:38px;padding:0;border:none;border-radius:999px;cursor:pointer;background:transparent;}
-.switch-track{position:relative;display:block;width:100%;height:100%;border-radius:999px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 2px,transparent 2px 7px),linear-gradient(180deg,#294731,#12200e);box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.35);overflow:hidden;}
-.switch-option{position:absolute;top:0;width:50%;height:100%;display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:700;letter-spacing:.2px;color:#d9e6dd;opacity:.72;z-index:1;transition:opacity .2s ease;}
-.switch-option-left{left:0}.switch-option-right{right:0}
-.switch-thumb{
-  position:absolute;
-  top:3px;
-  left:3px;
-  width:62px;
-  height:32px;
-  border-radius:999px;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* 完全透明背景，不挡字 */
-  background:transparent;
+/* Outer frame */
+.frame {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 14px 16px;
+}
 
-  /* 发光金边（核心） */
+.frame.has-popped {
+  z-index: 1000;
+}
+
+.frame.has-popped .switch-container {
+  z-index: 1;
+}
+
+.frame.has-popped .stage {
+  z-index: 10;
+}
+
+/* Top switch */
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch-btn {
+  position: relative;
+  width: 128px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.switch-track {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, #294731, #12200e);
   box-shadow:
-    0 0 0 2.4px rgba(212,175,55,1),   /* 金色边框 */
-    0 0 8px rgba(212,175,55,.55);     /* 金色外发光 */
-
-  transition:transform .22s cubic-bezier(.34,1.56,.64,1);
-  z-index:3;
-  pointer-events:none;
+    0 3px 8px rgba(0, 0, 0, .45),
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    inset 0 -2px 4px rgba(0, 0, 0, .35);
+  overflow: hidden;
 }
 
-
-
-.switch-btn:not(.western-active) .switch-option-left,.switch-btn.western-active .switch-option-right{opacity:1;}
-.switch-btn.western-active .switch-thumb{transform:translateX(60px);}
-.switch-btn:active .switch-thumb{transform:scale(.96);}.switch-btn.western-active:active .switch-thumb{transform:translateX(60px) scale(.96);}
-
-/* ---------- 舞台 ---------- */
-.stage{ position:relative; display:flex; }
-
-.fan-section{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
+.switch-option {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #d9e6dd;
+  opacity: .72;
+  z-index: 1;
+  transition: opacity .2s ease;
 }
 
-/* ---------- 扇形容器 ---------- */
-.fan-wrap{
-  position:relative;
-  width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-  height:calc(var(--card-h) + 22px);
-  padding-top:14px;
-}
-.card-deck{
-  position:absolute;
-  inset:0;
+.switch-option-left {
+  left: 0;
 }
 
-/* 洗牌/发牌：卡片先收拢成一叠 */
-.card-deck.shuffling .card{
-  transform:rotate(0deg) translateY(6px) scale(.78) !important;
-  box-shadow:-1px 2px 6px rgba(0,0,0,.3) !important;
-  transition:transform .32s cubic-bezier(.5,0,.5,1), box-shadow .3s ease !important;
+.switch-option-right {
+  right: 0;
 }
 
-.card{
-  position:absolute;
-  top:14px;
-  left:50%;
-  width:var(--card-w);
-  height:var(--card-h);
-  margin-left:calc(var(--card-w) / -2);
-  background:#fffdf8;
-  border-radius:9px;
-  border:1px solid #e3ddce;
-  box-shadow:-3px 5px 12px rgba(0,0,0,.3);
-  transform-origin:50% var(--pivot);
-  transform:rotate(var(--r)) translateY(0) scale(1);
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
-  cursor:pointer;
-  padding:10px 9px 8px;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
-.card::before{
-  content:"";
-  position:absolute; inset:0;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
-  opacity:.035;
-  mix-blend-mode:multiply;
-  pointer-events:none;
-  z-index:0;
-}
-.card:nth-child(1){ --r:-22deg; z-index:1; }
-.card:nth-child(2){ --r:-11deg; z-index:2; }
-.card:nth-child(3){ --r:0deg;   z-index:3; }
-.card:nth-child(4){ --r:11deg;  z-index:4; }
-.card:nth-child(5){ --r:22deg;  z-index:5; }
-
-.card:hover{
-  transform:rotate(var(--r)) translateY(-22px) scale(1.1);
-  box-shadow:-4px 10px 22px rgba(0,0,0,.4);
-  z-index:20;
+.switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 62px;
+  height: 32px;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow:
+    0 0 0 2.4px rgba(212, 175, 55, 1),
+    0 0 8px rgba(212, 175, 55, .55);
+  transition: transform .22s cubic-bezier(.34, 1.56, .64, 1);
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* 点击"伸出来"：摆正、抬高、置顶，完整可见，不遮挡、不放大成大卡片、无暗幕 */
-.card.popped{
-  transform:rotate(0deg) translateY(-42px) scale(1.12) !important;
-  box-shadow:-6px 16px 32px rgba(0,0,0,.45) !important;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease !important;
-  z-index:1000 !important;
+.switch-btn:not(.western-active) .switch-option-left,
+.switch-btn.western-active .switch-option-right {
+  opacity: 1;
 }
 
-.suit-corner{
-  position:relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-weight:900;
-  font-size:13px;
-  line-height:.9;
+.switch-btn.western-active .switch-thumb {
+  transform: translateX(60px);
 }
-.suit-corner.top-left{ position:absolute; top:7px; left:7px; }
-.suit-corner.bottom-right{ position:absolute; bottom:7px; right:7px; transform:rotate(180deg); }
-.suit-corner span:last-child{ font-size:10px; margin-top:2px; }
+
+.switch-btn:active .switch-thumb {
+  transform: scale(.96);
+}
+
+.switch-btn.western-active:active .switch-thumb {
+  transform: translateX(60px) scale(.96);
+}
+
+/* Stage */
+.stage {
+  position: relative;
+  display: flex;
+}
+
+.fan-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Fan container */
+.fan-wrap {
+  position: relative;
+  width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
+  height: calc(var(--card-h) + 22px);
+  padding-top: 14px;
+}
+
+.card-deck {
+  position: absolute;
+  inset: 0;
+}
+
+.card-deck.shuffling .card {
+  transform: rotate(0deg) translateY(6px) scale(.78) !important;
+  box-shadow: -1px 2px 6px rgba(0, 0, 0, .3) !important;
+  transition: transform .32s cubic-bezier(.5, 0, .5, 1), box-shadow .3s ease !important;
+}
+
+.card {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  margin-left: calc(var(--card-w) / -2);
+  background: #fffdf8;
+  border-radius: 9px;
+  border: 1px solid #e3ddce;
+  box-shadow: -3px 5px 12px rgba(0, 0, 0, .3);
+  transform-origin: 50% var(--pivot);
+  transform: rotate(var(--r)) translateY(0) scale(1);
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+  cursor: pointer;
+  padding: 10px 9px 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  opacity: .035;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:nth-child(1) {
+  --r: -22deg;
+  z-index: 1;
+}
+
+.card:nth-child(2) {
+  --r: -11deg;
+  z-index: 2;
+}
+
+.card:nth-child(3) {
+  --r: 0deg;
+  z-index: 3;
+}
+
+.card:nth-child(4) {
+  --r: 11deg;
+  z-index: 4;
+}
+
+.card:nth-child(5) {
+  --r: 22deg;
+  z-index: 5;
+}
+
+.card:hover {
+  transform: rotate(var(--r)) translateY(-22px) scale(1.1);
+  box-shadow: -4px 10px 22px rgba(0, 0, 0, .4);
+  z-index: 20;
+}
+
+.card.popped {
+  transform: rotate(0deg) translateY(-42px) scale(1.12) !important;
+  box-shadow: -6px 16px 32px rgba(0, 0, 0, .45) !important;
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .35s ease !important;
+  z-index: 1000 !important;
+}
+
+.suit-corner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 900;
+  font-size: 13px;
+  line-height: .9;
+}
+
+.suit-corner.top-left {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+}
+
+.suit-corner.bottom-right {
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  transform: rotate(180deg);
+}
+
+.suit-corner span:last-child {
+  font-size: 10px;
+  margin-top: 2px;
+}
 
 .hearts-theme .suit-corner,
-.hearts-theme .center-logo{ color:#c0392b; }
+.hearts-theme .center-logo {
+  color: #c0392b;
+}
+
 .clubs-theme .suit-corner,
-.clubs-theme .center-logo{ color:#2c3e50; }
-
-.center-logo{
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  font-size:64px;
-  opacity:.045;
-  z-index:0;
-  pointer-events:none;
+.clubs-theme .center-logo {
+  color: #2c3e50;
 }
 
-/* ---------- 卡面内容：超市名 + 本周精选特价（deals.js 填充） ---------- */
-.content{
-  position:relative;
-  z-index:1;
-  margin-top:16px;
-  display:flex;
-  flex-direction:column;
-  height:100%;
-  min-height:0;
-}
-.supermarket-name{
-  margin:0 0 5px;
-  font-size:12.5px;
-  font-weight:700;
-  color:var(--ink);
-  letter-spacing:.2px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.deals{
-  flex:1;
-  min-height:0;
-  margin:0;
-  padding-top:5px;
-  border-top:1px solid rgba(44,62,80,.12);
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  scrollbar-width:none;
-}
-.deals::-webkit-scrollbar{ display:none; }
-.deal-row{
-  display:flex;
-  align-items:baseline;
-  gap:5px;
-  flex-shrink:0;
-}
-.deal-row.featured{
-  background:linear-gradient(90deg, rgba(212,175,55,.18), transparent 85%);
-  border-radius:4px;
-  margin:-1px -3px 0;
-  padding:1px 3px;
-}
-.deal-row.featured .deal-item::before{
-  content:"★ ";
-  color:var(--gold);
-  font-size:8px;
-}
-.deal-item{
-  flex:1;
-  min-width:0;
-  font-size:8.6px;
-  color:#5a6472;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.deal-row.featured .deal-item{ color:#3a2c14; font-weight:600; }
-.deal-price{
-  flex-shrink:0;
-  font-size:9.6px;
-  font-weight:700;
-}
-.hearts-theme .deal-price{ color:#d63031; }
-.clubs-theme .deal-price{ color:#0984e3; }
-
-/* "看完整 Flyer" 按钮：deals.js 里动态创建、挂在 .content 末尾，固定在卡片底部不参与滚动 */
-.flyer-btn{
-  flex-shrink:0;
-  margin-top:6px;
-  padding:4px 0;
-  width:100%;
-  border:none;
-  border-radius:5px;
-  font-size:8.4px;
-  font-weight:700;
-  letter-spacing:.2px;
-  font-family:inherit;
-  cursor:pointer;
-  background:rgba(44,62,80,.07);
-  transition:background .15s ease;
-}
-.hearts-theme .flyer-btn{ color:#c0392b; }
-.hearts-theme .flyer-btn:hover{ background:rgba(192,57,43,.14); }
-.clubs-theme .flyer-btn{ color:#2c3e50; }
-.clubs-theme .flyer-btn:hover{ background:rgba(44,62,80,.14); }
-
-/* ---------- 竖屏签名 ---------- */
-.signature{
-  position:fixed;
-  top:calc(10px + var(--card-h) / 2);
-  left:12px;
-  font-size:12.5px;
-  font-weight:600;
-  color:var(--gold);
-  letter-spacing:.3px;
-  opacity:.9;
-  display:none;
-  z-index:950;
+.center-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  opacity: .045;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* ---------- 静音开关 ---------- */
-.sound-toggle{
-  position:fixed;
-  top:10px; right:12px;
-  z-index:950;
-  width:30px; height:30px;
-  border-radius:50%;
-  border:1px solid var(--gold-soft);
-  background:rgba(0,0,0,.35);
-  color:var(--gold);
-  font-size:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
+/* Card content */
+.content {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
-/* ---------- 更新日期戳（几月几号🆕，不再显示特价有效期）---------- */
-.update-stamp{
-  position:fixed;
-  z-index:950;
-  font-size:11px;
-  font-weight:600;
-  color:rgba(212,175,55,.85);
-  letter-spacing:.2px;
-  pointer-events:none;
-  white-space:nowrap;
+.supermarket-name {
+  margin: 0 0 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ================= 竖屏：单组扇形，绝对叠放做洗牌切换 ================= */
-@media (orientation:portrait){
-  .frame{ gap:14px; }
-  .stage{
-    flex-direction:column;
-    align-items:center;
-    width:calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-    height:calc(var(--card-h) + 22px + 26px);
+.deals {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding-top: 5px;
+  border-top: 1px solid rgba(44, 62, 80, .12);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.deals::-webkit-scrollbar {
+  display: none;
+}
+
+.deal-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.deal-row.featured {
+  background: linear-gradient(90deg, rgba(212, 175, 55, .18), transparent 85%);
+  border-radius: 4px;
+  margin: -1px -3px 0;
+  padding: 1px 3px;
+}
+
+.deal-row.featured .deal-item::before {
+  content: "★ ";
+  color: var(--gold);
+  font-size: 8px;
+}
+
+.deal-item {
+  flex: 1;
+  min-width: 0;
+  font-size: 8.6px;
+  color: #5a6472;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deal-row.featured .deal-item {
+  color: #3a2c14;
+  font-weight: 600;
+}
+
+.deal-price {
+  flex-shrink: 0;
+  font-size: 9.6px;
+  font-weight: 700;
+}
+
+.hearts-theme .deal-price {
+  color: #d63031;
+}
+
+.clubs-theme .deal-price {
+  color: #0984e3;
+}
+
+.flyer-btn {
+  flex-shrink: 0;
+  margin-top: 6px;
+  padding: 4px 0;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 8.4px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-family: inherit;
+  cursor: pointer;
+  background: rgba(44, 62, 80, .07);
+  transition: background .15s ease;
+}
+
+.hearts-theme .flyer-btn {
+  color: #c0392b;
+}
+
+.hearts-theme .flyer-btn:hover {
+  background: rgba(192, 57, 43, .14);
+}
+
+.clubs-theme .flyer-btn {
+  color: #2c3e50;
+}
+
+.clubs-theme .flyer-btn:hover {
+  background: rgba(44, 62, 80, .14);
+}
+
+/* Signature (portrait) */
+.signature {
+  position: fixed;
+  top: calc(10px + var(--card-h) / 2);
+  left: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: .3px;
+  opacity: .9;
+  display: none;
+  z-index: 950;
+}
+
+/* Sound toggle */
+.sound-toggle {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 950;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-soft);
+  background: rgba(0, 0, 0, .35);
+  color: var(--gold);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Update stamp */
+.update-stamp {
+  position: fixed;
+  z-index: 950;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, .85);
+  letter-spacing: .2px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Portrait */
+@media (orientation: portrait) {
+  .frame {
+    gap: 14px;
   }
-  .fan-section{
-    position:absolute;
-    top:0; left:50%;
-    transform:translateX(-50%);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .2s ease;
+
+  .stage {
+    flex-direction: column;
+    align-items: center;
+    width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
+    height: calc(var(--card-h) + 22px + 26px);
   }
-  .fan-section.active-section{
-    opacity:1;
-    pointer-events:auto;
+
+  .fan-section {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
   }
-  .switch-container{ display:flex; margin-top:2px; }
-  .signature{ display:block; }
-  /* 日期戳放在 TP制作 签名下方 */
-  .update-stamp{
-    top:calc(10px + var(--card-h) / 2 + 20px);
-    left:12px;
+
+  .fan-section.active-section {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .switch-container {
+    display: flex;
+    margin-top: 2px;
+  }
+
+  .signature {
+    display: block;
+  }
+
+  .update-stamp {
+    top: calc(10px + var(--card-h) / 2 + 20px);
+    left: 12px;
   }
 }
 
-/* ================= 横屏：中西同花顺并列，向中心收拢，整体必须完整可见 ================= */
-@media (orientation:landscape){
-  :root{
-    --card-w:clamp(70px, 13vw, 100px);
-    --card-h:calc(var(--card-w) * 1.661);
-    --pivot:calc(var(--card-w) * 2.204);
+/* Landscape */
+@media (orientation: landscape) {
+  :root {
+    --card-w: clamp(70px, 13vw, 100px);
+    --card-h: calc(var(--card-w) * 1.661);
+    --pivot: calc(var(--card-w) * 2.204);
   }
-  .switch-container{ display:none; }
-  .frame{ padding:8px 16px; gap:6px; }
-  .stage{
-    flex-direction:row;
-    gap:clamp(20px, 5vw, 48px);
-    align-items:flex-start;
-    justify-content:center;
+
+  .switch-container {
+    display: none;
   }
-  .fan-section{ display:flex; }
-  /* 日期戳放在二副牌中间，垂直居中（上移，不再贴底） */
-  .update-stamp{
-    left:50%;
-    top:50%;
-    transform:translate(-50%, -50%);
+
+  .frame {
+    padding: 8px 16px;
+    gap: 6px;
+  }
+
+  .stage {
+    flex-direction: row;
+    gap: clamp(20px, 5vw, 48px);
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .fan-section {
+    display: flex;
+  }
+
+  .update-stamp {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }
