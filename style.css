@@ -51,6 +51,13 @@ body{
 .frame.has-popped{
   z-index:1000;
 }
+/* 弹出卡片时，把舞台抬到 switch 之上，避免上移的卡片被顶部的 switch 挡住 */
+.frame.has-popped .switch-container{
+  z-index:1;
+}
+.frame.has-popped .stage{
+  z-index:10;
+}
 
 /* ---------- 顶部切换：单一 switch ---------- */
 .switch-container{display:flex;align-items:center;justify-content:center;}
