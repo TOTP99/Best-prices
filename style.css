@@ -4,9 +4,12 @@
   --gold: #d4af37;
   --gold-soft: rgba(212, 175, 55, .55);
   --ink: #243242;
-  --card-w: 118px;
-  --card-h: 196px;
-  --pivot: 260px;
+  /* Portrait base: ~12% larger than original 118×196.
+     Fan span ≈2.58×card-w → 132px ≈340px wide (fits ≥360px phones with margin;
+     older 320px SE still usable, slight side crop rare). Height room ample. */
+  --card-w: 132px;
+  --card-h: 219px;
+  --pivot: 291px;
 }
 
 * {
@@ -174,12 +177,14 @@ body {
   gap: 8px;
 }
 
-/* Fan container */
+/* Fan container
+   Extra height (≈36px) matches rotated outer-card top/bottom extents
+   so the fan never clips and pop/hover have breathing room. */
 .fan-wrap {
   position: relative;
   width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-  height: calc(var(--card-h) + 22px);
-  padding-top: 14px;
+  height: calc(var(--card-h) + 36px);
+  padding-top: 16px;
 }
 
 .card-deck {
@@ -195,20 +200,20 @@ body {
 
 .card {
   position: absolute;
-  top: 14px;
+  top: 16px;
   left: 50%;
   width: var(--card-w);
   height: var(--card-h);
   margin-left: calc(var(--card-w) / -2);
   background: #fffdf8;
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1px solid #e3ddce;
   box-shadow: -3px 5px 12px rgba(0, 0, 0, .3);
   transform-origin: 50% var(--pivot);
   transform: rotate(var(--r)) translateY(0) scale(1);
   transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
   cursor: pointer;
-  padding: 10px 9px 8px;
+  padding: 11px 10px 9px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -251,14 +256,14 @@ body {
 }
 
 .card:hover {
-  transform: rotate(var(--r)) translateY(-22px) scale(1.1);
-  box-shadow: -4px 10px 22px rgba(0, 0, 0, .4);
+  transform: rotate(var(--r)) translateY(-26px) scale(1.09);
+  box-shadow: -4px 12px 24px rgba(0, 0, 0, .42);
   z-index: 20;
 }
 
 .card.popped {
-  transform: rotate(0deg) translateY(-42px) scale(1.12) !important;
-  box-shadow: -6px 16px 32px rgba(0, 0, 0, .45) !important;
+  transform: rotate(0deg) translateY(-48px) scale(1.13) !important;
+  box-shadow: -6px 18px 34px rgba(0, 0, 0, .48) !important;
   transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .35s ease !important;
   z-index: 1000 !important;
 }
@@ -270,25 +275,25 @@ body {
   flex-direction: column;
   align-items: center;
   font-weight: 900;
-  font-size: 13px;
+  font-size: 14px;
   line-height: .9;
 }
 
 .suit-corner.top-left {
   position: absolute;
-  top: 7px;
-  left: 7px;
+  top: 8px;
+  left: 8px;
 }
 
 .suit-corner.bottom-right {
   position: absolute;
-  bottom: 7px;
-  right: 7px;
+  bottom: 8px;
+  right: 8px;
   transform: rotate(180deg);
 }
 
 .suit-corner span:last-child {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 2px;
 }
 
@@ -307,7 +312,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 64px;
+  font-size: 72px;
   opacity: .045;
   z-index: 0;
   pointer-events: none;
@@ -317,7 +322,7 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  margin-top: 16px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -325,14 +330,27 @@ body {
 }
 
 .supermarket-name {
-  margin: 0 0 5px;
-  font-size: 12.5px;
+  margin: 0 0 6px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--ink);
   letter-spacing: .2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* English names: one size smaller + allow up to 2 lines when needed */
+.clubs-theme .supermarket-name {
+  font-size: 11.5px;
+  line-height: 1.2;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 2.4em;
 }
 
 .deals {
@@ -399,21 +417,21 @@ body {
 .deal-item {
   flex: 1;
   min-width: 0;
-  font-size: 8.6px;
+  font-size: 9.3px;
   color: #5a6472;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 西超（英文）文字容易比中文长，太长时改小字体、允许换成两行显示 */
+/* 西超英文商品名：再小一号，必要时自动分两行 */
 .clubs-theme .deal-row {
   align-items: flex-start;
 }
 
 .clubs-theme .deal-item {
   font-size: 7.4px;
-  line-height: 1.15;
+  line-height: 1.18;
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -424,12 +442,13 @@ body {
 
 .deal-price {
   flex-shrink: 0;
-  font-size: 9.6px;
+  font-size: 10.4px;
   font-weight: 700;
 }
 
 .clubs-theme .deal-price {
   margin-top: 1px;
+  font-size: 9.6px;
   color: #0984e3;
 }
 
@@ -439,12 +458,12 @@ body {
 
 .flyer-btn {
   flex-shrink: 0;
-  margin-top: 6px;
-  padding: 4px 0;
+  margin-top: 7px;
+  padding: 5px 0;
   width: 100%;
   border: none;
-  border-radius: 5px;
-  font-size: 8.4px;
+  border-radius: 6px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: .2px;
   font-family: inherit;
@@ -514,17 +533,21 @@ body {
   white-space: nowrap;
 }
 
-/* Portrait */
+/* Portrait
+   Larger cards need a bit more vertical breathing room between switch
+   and fan so the popped card (translateY -48px) never collides with the
+   switch or the signature/stamp on the left. */
 @media (orientation: portrait) {
   .frame {
-    gap: 14px;
+    gap: 20px;
+    padding: 16px 12px 18px;
   }
 
   .stage {
     flex-direction: column;
     align-items: center;
     width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-    height: calc(var(--card-h) + 22px + 26px);
+    height: calc(var(--card-h) + 36px + 28px);
   }
 
   .fan-section {
@@ -544,7 +567,7 @@ body {
 
   .switch-container {
     display: flex;
-    margin-top: 2px;
+    margin-top: 4px;
   }
 
   .signature {
@@ -552,15 +575,19 @@ body {
   }
 
   .update-stamp {
-    top: calc(10px + var(--card-h) / 2 + 20px);
+    top: calc(12px + var(--card-h) / 2 + 22px);
     left: 12px;
   }
 }
 
-/* Landscape */
+/* Landscape
+   Height is the tighter constraint on phones (≈360–420px tall).
+   Max card-w ≈120–128 keeps two fans + gap inside the viewport and
+   leaves headroom for the popped scale(1.13)/translateY(-48px).
+   Desktop gets the upper clamp. */
 @media (orientation: landscape) {
   :root {
-    --card-w: clamp(70px, 13vw, 100px);
+    --card-w: clamp(76px, 11.8vw, 126px);
     --card-h: calc(var(--card-w) * 1.661);
     --pivot: calc(var(--card-w) * 2.204);
   }
@@ -570,13 +597,13 @@ body {
   }
 
   .frame {
-    padding: 8px 16px;
-    gap: 6px;
+    padding: 10px 18px;
+    gap: 8px;
   }
 
   .stage {
     flex-direction: row;
-    gap: clamp(20px, 5vw, 48px);
+    gap: clamp(28px, 4.8vw, 64px);
     align-items: flex-start;
     justify-content: center;
   }
