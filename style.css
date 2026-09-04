@@ -373,6 +373,29 @@ body {
   font-size: 8px;
 }
 
+.deal-row.featured .deal-item {
+  color: #3a2c14;
+  font-weight: 600;
+}
+
+/* 第5-6条：全场比价（六样基准商品）里该店最便宜的标注，跟首条featured
+   的金色区分开，用绿色系表示"全场最低价" */
+.deal-row.benchmark {
+  background: linear-gradient(90deg, rgba(39, 174, 96, .2), transparent 85%);
+  border-radius: 4px;
+  margin: -1px -3px 0;
+  padding: 1px 3px;
+}
+
+.deal-row.benchmark .deal-item,
+.deal-row.benchmark .deal-price {
+  color: #1e7e4a;
+}
+
+.deal-row.benchmark .deal-item {
+  font-weight: 700;
+}
+
 .deal-item {
   flex: 1;
   min-width: 0;
@@ -383,9 +406,20 @@ body {
   text-overflow: ellipsis;
 }
 
-.deal-row.featured .deal-item {
-  color: #3a2c14;
-  font-weight: 600;
+/* 西超（英文）文字容易比中文长，太长时改小字体、允许换成两行显示 */
+.clubs-theme .deal-row {
+  align-items: flex-start;
+}
+
+.clubs-theme .deal-item {
+  font-size: 7.4px;
+  line-height: 1.15;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .deal-price {
@@ -394,12 +428,13 @@ body {
   font-weight: 700;
 }
 
-.hearts-theme .deal-price {
-  color: #d63031;
+.clubs-theme .deal-price {
+  margin-top: 1px;
+  color: #0984e3;
 }
 
-.clubs-theme .deal-price {
-  color: #0984e3;
+.hearts-theme .deal-price {
+  color: #d63031;
 }
 
 .flyer-btn {
