@@ -73,23 +73,19 @@ body{
   height:32px;
   border-radius:999px;
 
-  /* 水晶主体透明度 */
-  background:rgba(255,255,255,.03);
-  backdrop-filter:blur(14px) saturate(200%);
-  -webkit-backdrop-filter:blur(14px) saturate(200%);
+  /* 完全透明背景，不挡字 */
+  background:transparent;
 
-  /* ★★★ 关键：让金边浮出来 ★★★ */
+  /* 发光金边（核心） */
   box-shadow:
-    0 0 0 2.8px rgba(212,175,55,1),     /* 更粗更亮的金边 */
-    0 0 8px rgba(212,175,55,.65),       /* 金色外发光，让边框从深色背景中浮出来 */
-    0 3px 10px rgba(0,0,0,.45),         /* 外部阴影 */
-    inset 0 0 12px rgba(255,255,255,.55), /* 水晶折射亮光 */
-    inset 0 0 5px rgba(255,255,255,.35);  /* 内部柔光 */
+    0 0 0 2.4px rgba(212,175,55,1),   /* 金色边框 */
+    0 0 8px rgba(212,175,55,.55);     /* 金色外发光 */
 
   transition:transform .22s cubic-bezier(.34,1.56,.64,1);
-  z-index:3; /* ★ 提升层级，避免被 track 吞掉 */
+  z-index:3;
   pointer-events:none;
 }
+
 
 
 .switch-btn:not(.western-active) .switch-option-left,.switch-btn.western-active .switch-option-right{opacity:1;}
