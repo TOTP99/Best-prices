@@ -1,1 +1,52 @@
+{
+  "deals": {
+    "guanye": [
+      { "item": "Live Canada Lobster 4–6lb", "price": "$13.99/lb", "discountPct": 12.5 },
+      { "item": "Sea Cucumber", "price": "$22.00/lb", "discountPct": 21.4 },
+      { "item": "Frozen Saury Fish", "price": "$1.69/lb", "discountPct": 43.5 },
+      { "item": "Live Tilapia", "price": "$7.99/lb", "discountPct": 20.0 }
+    ],
+    "foodbasics": [
+      { "item": "10lb Potatoes", "price": "$1.88", "discountPct": null },
+      { "item": "Chicken Breast", "price": "$4.98/lb", "discountPct": null },
+      { "item": "Fresh Salmon Fillet", "price": "$9.99/lb", "discountPct": null },
+      { "item": "Juice (Medium Bottle)", "price": "$1.25", "discountPct": null }
+    ],
+    "nofrills": [
+      { "item": "Watermelon", "price": "$3.44", "discountPct": null },
+      { "item": "Ocean’s Tuna Can", "price": "$1.00", "discountPct": null },
+      { "item": "Sweet Oranges 2lb", "price": "$2.99", "discountPct": null },
+      { "item": "Pork Chop", "price": "$2.22/lb", "discountPct": null }
+    ],
+    "freshco": [
+      { "item": "30 Eggs (Member)", "price": "$6.99", "discountPct": null },
+      { "item": "8 Chicken Drumsticks", "price": "$5.00", "discountPct": null },
+      { "item": "Cantaloupe (Large)", "price": "$1.88", "discountPct": null },
+      { "item": "Hotdog", "price": "$2.99", "discountPct": null }
+    ]
+  },
+
+  "benchmarkPrices": {
+    "guanye": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" }
+    },
+    "foodbasics": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" },
+      "chocolate": { "value": 7.98, "display": "$7.98 (50pcs)" }
+    },
+    "nofrills": {
+      "banana": { "value": 3.44, "display": "$3.44 watermelon (proxy)" }
+    },
+    "freshco": {
+      "eggs": { "value": 6.99, "display": "$6.99 (30pcs)" }
+    }
+  },
+
+  "updatedAt": {
+    "guanye": "2026-09-04",
+    "foodbasics": "2026-09-04",
+    "nofrills": "2026-09-04",
+    "freshco": "2026-09-04"
+  }
+}
 
