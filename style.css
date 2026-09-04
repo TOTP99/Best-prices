@@ -45,6 +45,12 @@ body{
   gap:18px;
   padding:18px 14px 16px;
 }
+/* 卡片"伸出来"(popped)时，把整个 .frame 的层级抬到固定按钮(音效开关/签名/日期戳,
+   z-index:950)之上，否则 popped 卡片的 z-index:1000 只在 .frame 内部生效，
+   仍会被这些 fixed 元素挡住 —— 这就是竖屏放大卡片被按钮挡住的原因。 */
+.frame.has-popped{
+  z-index:1000;
+}
 
 /* ---------- 顶部切换：单一 switch ---------- */
 .switch-container{display:flex;align-items:center;justify-content:center;}

@@ -12,7 +12,7 @@
 <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
 <span class="update-stamp" id="updateStamp"></span>
 
-<div class="frame">
+<div class="frame" id="frame">
 
   <div class="switch-container">
     <button class="switch-btn" id="landscapeSwitch" aria-label="切换华超/西超" aria-pressed="false">
@@ -27,7 +27,7 @@
   <div class="stage">
 
     <!-- 华人超市：内容由 deals.js 按 data-store-id 填充 -->
-    <section class="fan-section active-section" id="chinese-section">
+    <section class="fan-section" id="chinese-section">
       <div class="fan-wrap">
         <div class="card-deck hearts-theme shuffling" id="chinese-deck">
 
@@ -86,7 +86,7 @@
     </section>
 
     <!-- 西人超市：内容由 deals.js 按 data-store-id 填充 -->
-    <section class="fan-section" id="western-section">
+    <section class="fan-section active-section" id="western-section">
       <div class="fan-wrap">
         <div class="card-deck clubs-theme shuffling" id="western-deck">
 
@@ -148,7 +148,7 @@
 
 </div>
 
-<!-- 抓取/整理"最新特价"的逻辑单独放在 deals.js 中，主页只负责调用 -->
+<!-- 特价数据整理/渲染逻辑单独放在 deals.js 中，主页只负责调用 -->
 <script src="deals.js"></script>
 <script>
   // ---------- 更新日期戳：几月几号🆕（不再显示"特价有效期"）----------
@@ -213,7 +213,7 @@
   const landscapeSwitch = document.getElementById('landscapeSwitch');
   const sections = { chinese: document.getElementById('chinese-section'), western: document.getElementById('western-section') };
   const decks = { chinese: document.getElementById('chinese-deck'), western: document.getElementById('western-deck') };
-  let current = 'chinese';
+  let current = 'western';
 
   function updateLandscapeSwitch(){
     landscapeSwitch.classList.toggle('western-active', current === 'western');
@@ -255,11 +255,20 @@
   // 不放大成大卡片、不加暗色遮罩；只是把这张卡片从牌堆里挑出来：
   // 摆正角度、往上抬、置于最上层，其余卡片保持原样不受影响。
   // 再点一下同一张卡片，或点别处，收回去。
+  const frameEl = document.getElementById('frame');
+
+  function syncFramePoppedState(){
+    // 有卡片弹出时，把 .frame 整体的层级抬到音效开关/签名/日期戳这些
+    // fixed 元素之上，否则弹出的卡片会被这些按钮挡住（竖屏尤其明显）。
+    frameEl.classList.toggle('has-popped', !!document.querySelector('.card.popped'));
+  }
+
   function popCard(card){
     document.querySelectorAll('.card.popped').forEach(c => {
       if(c !== card) c.classList.remove('popped');
     });
     card.classList.toggle('popped');
+    syncFramePoppedState();
     playTick();
   }
 
@@ -272,6 +281,7 @@
 
   document.addEventListener('click', () => {
     document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
+    syncFramePoppedState();
   });
 </script>
 
