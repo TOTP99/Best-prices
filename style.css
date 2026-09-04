@@ -65,7 +65,7 @@ body{
 .switch-track{position:relative;display:block;width:100%;height:100%;border-radius:999px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 2px,transparent 2px 7px),linear-gradient(180deg,#294731,#12200e);box-shadow:0 3px 8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.35);overflow:hidden;}
 .switch-option{position:absolute;top:0;width:50%;height:100%;display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:700;letter-spacing:.2px;color:#d9e6dd;opacity:.72;z-index:1;transition:opacity .2s ease;}
 .switch-option-left{left:0}.switch-option-right{right:0}
-..switch-thumb{
+.switch-thumb{
   position:absolute;
   top:3px;
   left:3px;
@@ -78,14 +78,13 @@ body{
   backdrop-filter:blur(12px) saturate(180%);
   -webkit-backdrop-filter:blur(12px) saturate(180%);
 
-  /* 水晶折射光 + 金边 */
+  /* 水晶折射光 + 强化金边 */
   box-shadow:
     0 3px 10px rgba(0,0,0,.45),          /* 外部阴影 */
-    0 0 0 2.4px rgba(212,175,55,1),     /* ★ 强化金边 */
-    0 0 6px rgba(212,175,55,.55),       /* ★ 金色外发光（可选） */
-    inset 0 0 10px rgba(255,255,255,.55),
-    inset 0 0 8px rgba(255,255,255,.45), /* 内部折射亮光 */
-    inset 0 0 3px rgba(255,255,255,.25); /* 内部柔光 */
+    0 0 0 2.4px rgba(212,175,55,1),      /* ★ 强化金边（更亮、更清晰） */
+    0 0 6px rgba(212,175,55,.55),        /* ★ 金色外发光（让金边浮出来） */
+    inset 0 0 10px rgba(255,255,255,.55),/* 水晶折射亮光 */
+    inset 0 0 4px rgba(255,255,255,.35); /* 内部柔光 */
 
   transition:transform .22s cubic-bezier(.34,1.56,.64,1);
   z-index:2;
