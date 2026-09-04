@@ -9,12 +9,9 @@
   --pivot: 260px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -45,7 +42,6 @@ body {
   align-items: center;
 }
 
-/* Outer frame */
 .frame {
   position: relative;
   z-index: 1;
@@ -56,19 +52,10 @@ body {
   padding: 18px 14px 16px;
 }
 
-.frame.has-popped {
-  z-index: 1000;
-}
+.frame.has-popped { z-index: 1000; }
+.frame.has-popped .switch-container { z-index: 1; }
+.frame.has-popped .stage { z-index: 10; }
 
-.frame.has-popped .switch-container {
-  z-index: 1;
-}
-
-.frame.has-popped .stage {
-  z-index: 10;
-}
-
-/* Top switch */
 .switch-container {
   display: flex;
   align-items: center;
@@ -120,13 +107,8 @@ body {
   transition: opacity .2s ease;
 }
 
-.switch-option-left {
-  left: 0;
-}
-
-.switch-option-right {
-  right: 0;
-}
+.switch-option-left { left: 0; }
+.switch-option-right { right: 0; }
 
 .switch-thumb {
   position: absolute;
@@ -145,27 +127,13 @@ body {
 }
 
 .switch-btn:not(.western-active) .switch-option-left,
-.switch-btn.western-active .switch-option-right {
-  opacity: 1;
-}
+.switch-btn.western-active .switch-option-right { opacity: 1; }
 
-.switch-btn.western-active .switch-thumb {
-  transform: translateX(60px);
-}
+.switch-btn.western-active .switch-thumb { transform: translateX(60px); }
+.switch-btn:active .switch-thumb { transform: scale(.96); }
+.switch-btn.western-active:active .switch-thumb { transform: translateX(60px) scale(.96); }
 
-.switch-btn:active .switch-thumb {
-  transform: scale(.96);
-}
-
-.switch-btn.western-active:active .switch-thumb {
-  transform: translateX(60px) scale(.96);
-}
-
-/* Stage */
-.stage {
-  position: relative;
-  display: flex;
-}
+.stage { position: relative; display: flex; }
 
 .fan-section {
   display: flex;
@@ -174,7 +142,6 @@ body {
   gap: 8px;
 }
 
-/* Fan container */
 .fan-wrap {
   position: relative;
   width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
@@ -182,10 +149,7 @@ body {
   padding-top: 14px;
 }
 
-.card-deck {
-  position: absolute;
-  inset: 0;
-}
+.card-deck { position: absolute; inset: 0; }
 
 .card-deck.shuffling .card {
   transform: rotate(0deg) translateY(6px) scale(.78) !important;
@@ -225,30 +189,11 @@ body {
   z-index: 0;
 }
 
-.card:nth-child(1) {
-  --r: -22deg;
-  z-index: 1;
-}
-
-.card:nth-child(2) {
-  --r: -11deg;
-  z-index: 2;
-}
-
-.card:nth-child(3) {
-  --r: 0deg;
-  z-index: 3;
-}
-
-.card:nth-child(4) {
-  --r: 11deg;
-  z-index: 4;
-}
-
-.card:nth-child(5) {
-  --r: 22deg;
-  z-index: 5;
-}
+.card:nth-child(1) { --r: -22deg; z-index: 1; }
+.card:nth-child(2) { --r: -11deg; z-index: 2; }
+.card:nth-child(3) { --r: 0deg; z-index: 3; }
+.card:nth-child(4) { --r: 11deg; z-index: 4; }
+.card:nth-child(5) { --r: 22deg; z-index: 5; }
 
 .card:hover {
   transform: rotate(var(--r)) translateY(-22px) scale(1.1);
@@ -274,12 +219,7 @@ body {
   line-height: .9;
 }
 
-.suit-corner.top-left {
-  position: absolute;
-  top: 7px;
-  left: 7px;
-}
-
+.suit-corner.top-left { position: absolute; top: 7px; left: 7px; }
 .suit-corner.bottom-right {
   position: absolute;
   bottom: 7px;
@@ -292,21 +232,13 @@ body {
   margin-top: 2px;
 }
 
-/* 新鲜度星标（deals.js 按 updatedAt 自动加在牌面字母后面），跟主题色
-   区分开，用绿色表示"最近更新" */
-.freshness-stars {
-  color: #27ae60;
-}
+.freshness-stars { color: #27ae60; }
 
 .hearts-theme .suit-corner,
-.hearts-theme .center-logo {
-  color: #c0392b;
-}
+.hearts-theme .center-logo { color: #c0392b; }
 
 .clubs-theme .suit-corner,
-.clubs-theme .center-logo {
-  color: #2c3e50;
-}
+.clubs-theme .center-logo { color: #2c3e50; }
 
 .center-logo {
   position: absolute;
@@ -319,7 +251,6 @@ body {
   pointer-events: none;
 }
 
-/* Card content */
 .content {
   position: relative;
   z-index: 1;
@@ -355,9 +286,7 @@ body {
   scrollbar-width: none;
 }
 
-.deals::-webkit-scrollbar {
-  display: none;
-}
+.deals::-webkit-scrollbar { display: none; }
 
 .deal-row {
   display: flex;
@@ -384,8 +313,6 @@ body {
   font-weight: 600;
 }
 
-/* 第5-6条：全场比价（六样基准商品）里该店最便宜的标注，跟首条featured
-   的金色区分开，用绿色系表示"全场最低价" */
 .deal-row.benchmark {
   background: linear-gradient(90deg, rgba(39, 174, 96, .2), transparent 85%);
   border-radius: 4px;
@@ -394,13 +321,9 @@ body {
 }
 
 .deal-row.benchmark .deal-item,
-.deal-row.benchmark .deal-price {
-  color: #1e7e4a;
-}
+.deal-row.benchmark .deal-price { color: #1e7e4a; }
 
-.deal-row.benchmark .deal-item {
-  font-weight: 700;
-}
+.deal-row.benchmark .deal-item { font-weight: 700; }
 
 .deal-item {
   flex: 1;
@@ -412,10 +335,7 @@ body {
   text-overflow: ellipsis;
 }
 
-/* 西超（英文）文字容易比中文长，太长时改小字体、允许换成两行显示 */
-.clubs-theme .deal-row {
-  align-items: flex-start;
-}
+.clubs-theme .deal-row { align-items: flex-start; }
 
 .clubs-theme .deal-item {
   font-size: 7.4px;
@@ -439,9 +359,7 @@ body {
   color: #0984e3;
 }
 
-.hearts-theme .deal-price {
-  color: #d63031;
-}
+.hearts-theme .deal-price { color: #d63031; }
 
 .flyer-btn {
   flex-shrink: 0;
@@ -459,23 +377,11 @@ body {
   transition: background .15s ease;
 }
 
-.hearts-theme .flyer-btn {
-  color: #c0392b;
-}
+.hearts-theme .flyer-btn { color: #c0392b; }
+.hearts-theme .flyer-btn:hover { background: rgba(192, 57, 43, .14); }
+.clubs-theme .flyer-btn { color: #2c3e50; }
+.clubs-theme .flyer-btn:hover { background: rgba(44, 62, 80, .14); }
 
-.hearts-theme .flyer-btn:hover {
-  background: rgba(192, 57, 43, .14);
-}
-
-.clubs-theme .flyer-btn {
-  color: #2c3e50;
-}
-
-.clubs-theme .flyer-btn:hover {
-  background: rgba(44, 62, 80, .14);
-}
-
-/* Signature (portrait) */
 .signature {
   position: fixed;
   top: calc(10px + var(--card-h) / 2);
@@ -489,7 +395,6 @@ body {
   z-index: 950;
 }
 
-/* Sound toggle */
 .sound-toggle {
   position: fixed;
   top: 10px;
@@ -508,7 +413,6 @@ body {
   cursor: pointer;
 }
 
-/* Update stamp */
 .update-stamp {
   position: fixed;
   z-index: 950;
@@ -520,11 +424,8 @@ body {
   white-space: nowrap;
 }
 
-/* Portrait */
 @media (orientation: portrait) {
-  .frame {
-    gap: 14px;
-  }
+  .frame { gap: 14px; }
 
   .stage {
     flex-direction: column;
@@ -553,9 +454,7 @@ body {
     margin-top: 2px;
   }
 
-  .signature {
-    display: block;
-  }
+  .signature { display: block; }
 
   .update-stamp {
     top: calc(10px + var(--card-h) / 2 + 20px);
@@ -563,7 +462,6 @@ body {
   }
 }
 
-/* Landscape */
 @media (orientation: landscape) {
   :root {
     --card-w: clamp(70px, 13vw, 100px);
@@ -571,9 +469,7 @@ body {
     --pivot: calc(var(--card-w) * 2.204);
   }
 
-  .switch-container {
-    display: none;
-  }
+  .switch-container { display: none; }
 
   .frame {
     padding: 8px 16px;
@@ -587,9 +483,7 @@ body {
     justify-content: center;
   }
 
-  .fan-section {
-    display: flex;
-  }
+  .fan-section { display: flex; }
 
   .update-stamp {
     left: 50%;

@@ -26,7 +26,6 @@
 
   <div class="stage">
 
-    <!-- 华人超市：内容由 deals.js 按 data-store-id 填充 -->
     <section class="fan-section" id="chinese-section">
       <div class="fan-wrap">
         <div class="card-deck hearts-theme shuffling" id="chinese-deck">
@@ -85,7 +84,6 @@
       </div>
     </section>
 
-    <!-- 西人超市：内容由 deals.js 按 data-store-id 填充 -->
     <section class="fan-section active-section" id="western-section">
       <div class="fan-wrap">
         <div class="card-deck clubs-theme shuffling" id="western-deck">
@@ -148,28 +146,26 @@
 
 </div>
 
-<!-- 特价数据整理/渲染逻辑单独放在 deals.js 中，主页只负责调用 -->
 <script src="deals.js"></script>
 <script>
-  // ---------- 更新日期戳：几月几号🆕（不再显示"特价有效期"）----------
-  (function(){
+  // 更新日期戳
+  (function () {
     const now = new Date();
-    document.getElementById('updateStamp').textContent =
-      `${now.getMonth() + 1}/${now.getDate()} 🆕`;
+    document.getElementById('updateStamp').textContent = `${now.getMonth() + 1}/${now.getDate()} 🆕`;
   })();
 
-  // ---------- 音效（简洁电子音，Web Audio 合成） ----------
+  // 音效
   let audioCtx = null;
   let soundOn = true;
 
-  function ensureCtx(){
-    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if(audioCtx.state === 'suspended') audioCtx.resume();
+  function ensureCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     return audioCtx;
   }
 
-  function playTick(){
-    if(!soundOn) return;
+  function playTick() {
+    if (!soundOn) return;
     const ctx = ensureCtx();
     const t = ctx.currentTime;
     const o = ctx.createOscillator();
@@ -183,12 +179,11 @@
     o.start(t); o.stop(t + 0.1);
   }
 
-  function playShuffle(){
-    if(!soundOn) return;
+  function playShuffle() {
+    if (!soundOn) return;
     const ctx = ensureCtx();
     const now = ctx.currentTime;
-    const freqs = [560, 720, 900, 1080];
-    freqs.forEach((f, i) => {
+    [560, 720, 900, 1080].forEach((f, i) => {
       const t = now + i * 0.045;
       const o = ctx.createOscillator();
       const g = ctx.createGain();
@@ -206,22 +201,22 @@
   soundToggle.addEventListener('click', () => {
     soundOn = !soundOn;
     soundToggle.textContent = soundOn ? '🔊' : '🔇';
-    if(soundOn) ensureCtx();
+    if (soundOn) ensureCtx();
   });
 
-  // ---------- 切换华超/西超：单一 switch -> 洗牌收拢 -> 换组 -> 重新展开 ----------
+  // 华超/西超切换
   const landscapeSwitch = document.getElementById('landscapeSwitch');
   const sections = { chinese: document.getElementById('chinese-section'), western: document.getElementById('western-section') };
   const decks = { chinese: document.getElementById('chinese-deck'), western: document.getElementById('western-deck') };
   let current = 'western';
 
-  function updateLandscapeSwitch(){
+  function updateLandscapeSwitch() {
     landscapeSwitch.classList.toggle('western-active', current === 'western');
     landscapeSwitch.setAttribute('aria-pressed', current === 'western' ? 'true' : 'false');
   }
 
-  function switchTo(target){
-    if(target === current) return;
+  function switchTo(target) {
+    if (target === current) return;
     playShuffle();
     const fromKey = current, toKey = target;
     decks[fromKey].classList.add('shuffling');
@@ -243,7 +238,7 @@
 
   updateLandscapeSwitch();
 
-  // ---------- 首次进场：发牌动画（收拢 -> 展开） ----------
+  // 首次发牌动画
   window.addEventListener('load', () => {
     setTimeout(() => {
       decks.chinese.classList.remove('shuffling');
@@ -251,21 +246,16 @@
     }, 260);
   });
 
-  // ---------- 点击卡片：从扇形里"伸出来"，完整不被遮挡地展示 ----------
-  // 不放大成大卡片、不加暗色遮罩；只是把这张卡片从牌堆里挑出来：
-  // 摆正角度、往上抬、置于最上层，其余卡片保持原样不受影响。
-  // 再点一下同一张卡片，或点别处，收回去。
+  // 卡片弹出
   const frameEl = document.getElementById('frame');
 
-  function syncFramePoppedState(){
-    // 有卡片弹出时，把 .frame 整体的层级抬到音效开关/签名/日期戳这些
-    // fixed 元素之上，否则弹出的卡片会被这些按钮挡住（竖屏尤其明显）。
+  function syncFramePoppedState() {
     frameEl.classList.toggle('has-popped', !!document.querySelector('.card.popped'));
   }
 
-  function popCard(card){
+  function popCard(card) {
     document.querySelectorAll('.card.popped').forEach(c => {
-      if(c !== card) c.classList.remove('popped');
+      if (c !== card) c.classList.remove('popped');
     });
     card.classList.toggle('popped');
     syncFramePoppedState();
@@ -273,7 +263,7 @@
   }
 
   document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', (e) => {
+    card.addEventListener('click', e => {
       e.stopPropagation();
       popCard(card);
     });
