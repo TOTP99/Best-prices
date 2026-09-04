@@ -142,17 +142,5 @@
       "grape": { "value": 1.49, "display": "$1.49/lb" },
       "chocolate": { "value": 4.59, "display": "$4.59" }
     }
-  },
-  "updatedAt": {
-    "tnt16": "2026-09-04",
-    "guanye": "2026-09-04",
-    "dingtai": "2026-09-04",
-    "fuyao": "2026-09-04",
-    "dingxian": "2026-09-04",
-    "walmart": "2026-09-04",
-    "freshco": "2026-09-04",
-    "costco": "2026-09-04",
-    "nofrills": "2026-09-04",
-    "foodbasics": "2026-09-04"
   }
 }
