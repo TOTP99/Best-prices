@@ -60,6 +60,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .switch-btn {
@@ -469,7 +470,16 @@ body {
     --pivot: calc(var(--card-w) * 2.204);
   }
 
-  .switch-container { display: none; }
+  .switch-container {
+    display: block;
+    position: fixed;
+    left: 50%;
+    top: calc(50% + 26px);
+    transform: translateX(-50%);
+    z-index: 950;
+  }
+
+  .switch-container .switch-btn { display: none; }
 
   .frame {
     padding: 8px 16px;
@@ -498,12 +508,10 @@ body {
    =================================================================== */
 
 .analysis-trigger {
-  position: fixed;
-  right: 12px;
-  bottom: 14px;
-  z-index: 950;
-  width: 40px;
-  height: 40px;
+  position: static;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid var(--gold-soft);
   background: rgba(0, 0, 0, .35);
