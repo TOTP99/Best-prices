@@ -11,11 +11,9 @@
 <div class="frame" id="frame">
 
   <div class="topline" id="topline">
+    <span class="signature">TP🐈🏷️</span>
+    <span class="update-stamp" id="updateStamp"></span>
     <button class="lang-toggle" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
-    <div class="topline-info">
-      <span class="signature">TP🐈🏷️</span>
-      <span class="update-stamp" id="updateStamp"></span>
-    </div>
   </div>
 
   <div class="switch-container">
@@ -175,7 +173,20 @@
 <script>
 (function () {
   // 语言状态与文案
-  let uiLang = 'zh';
+  const LANG_STORAGE_KEY = 'poker-fan-lang';
+  function readSavedLang() {
+    try {
+      const v = localStorage.getItem(LANG_STORAGE_KEY);
+      return (v === 'zh' || v === 'en') ? v : null;
+    } catch {
+      return null;
+    }
+  }
+  function saveLang(v) {
+    try { localStorage.setItem(LANG_STORAGE_KEY, v); } catch {}
+  }
+
+  let uiLang = readSavedLang() || 'zh';
 
   const UI_TEXT = {
     zh: {
@@ -309,6 +320,7 @@
 
   langToggle.addEventListener('click', () => {
     uiLang = uiLang === 'zh' ? 'en' : 'zh';
+    saveLang(uiLang);
     applyLang();
   });
 
