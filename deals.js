@@ -1,8 +1,4 @@
-/* deals.js — 十家超市特价渲染
- * 数据唯一来源：同目录 deals-data.json（每周只改这个文件）
- * 无数据时特价区域留空，不显示任何兜底/假数据。
- * updatedAt 控制牌面绿色星标：当天 5 星，每过一天减 1，5 天后消失。
- */
+/* deals.js — 数据来源：deals-data.json（每周只改该文件） */
 (function () {
   const STORE_CONFIG = [
     { id: 'tnt16', group: 'chinese', rank: '10', nameCN: 'T&T 16街', nameEN: 'T&T Supermarket', url: 'https://tntsupermarket.com/weekly-flyer' },
@@ -23,24 +19,27 @@
     { id: 'tomato', cn: '西红柿', en: 'Tomatoes' },
     { id: 'banana', cn: '香蕉', en: 'Bananas' },
     { id: 'grape', cn: '葡萄', en: 'Grapes' },
-    { id: 'chocolate', cn: '黑巧克力', en: 'Dark Chocolate' }
+    { id: 'chocolate', cn: '黑巧克力', en: 'Dark Chocolate' },
+    { id: 'porkchop', cn: '猪排', en: 'Pork Chop' },
+    { id: 'orange', cn: '橙子', en: 'Oranges' },
+    { id: 'chickenwing', cn: '鸡翅', en: 'Chicken Wing' }
   ];
 
   function computeBenchmarkWinners(prices) {
     const winners = {};
     BENCHMARK_ITEMS.forEach(item => {
-      let bestStoreId = null, bestValue = Infinity, bestDisplay = null;
+      let bestId = null, bestVal = Infinity, bestDisplay = null;
       Object.keys(prices).forEach(storeId => {
         const entry = prices[storeId]?.[item.id];
-        if (entry && typeof entry.value === 'number' && entry.value < bestValue) {
-          bestValue = entry.value;
-          bestStoreId = storeId;
+        if (entry && typeof entry.value === 'number' && entry.value < bestVal) {
+          bestVal = entry.value;
+          bestId = storeId;
           bestDisplay = entry.display;
         }
       });
-      if (bestStoreId) {
-        if (!winners[bestStoreId]) winners[bestStoreId] = [];
-        winners[bestStoreId].push({ id: item.id, cn: item.cn, en: item.en, display: bestDisplay });
+      if (bestId) {
+        if (!winners[bestId]) winners[bestId] = [];
+        winners[bestId].push({ id: item.id, cn: item.cn, en: item.en, display: bestDisplay });
       }
     });
     return winners;
@@ -48,20 +47,18 @@
 
   function freshnessStars(updatedAt) {
     if (!updatedAt) return 0;
-    const updated = new Date(updatedAt + 'T00:00:00');
-    if (isNaN(updated.getTime())) return 0;
+    const d = new Date(updatedAt + 'T00:00:00');
+    if (isNaN(d.getTime())) return 0;
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const updatedDay = new Date(updated.getFullYear(), updated.getMonth(), updated.getDate());
-    const daysSince = Math.round((today - updatedDay) / 86400000);
-    return Math.max(0, Math.min(5, 5 - daysSince));
+    const day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    return Math.max(0, Math.min(5, 5 - Math.round((today - day) / 86400000)));
   }
 
   function pickBestFour(list) {
     if (!Array.isArray(list)) return [];
     return [...list].sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
       if (typeof a.discountPct === 'number' && typeof b.discountPct === 'number') {
         return b.discountPct - a.discountPct;
       }
@@ -69,87 +66,82 @@
     }).slice(0, 4);
   }
 
-  async function loadFromLocalJSON() {
+  async function loadData() {
     try {
       const res = await fetch('./deals-data.json', { cache: 'no-store' });
       if (!res.ok) return null;
       const data = await res.json();
       return data && typeof data === 'object' ? data : null;
     } catch {
-      return null; // file:// 或缺失时正常留空
+      return null;
     }
   }
 
-  function renderStore(store, dealsSource, benchmarkHighlights, updatedAt) {
+  function renderStore(store, deals, highlights, updatedAt) {
     const card = document.querySelector(`.card[data-store-id="${store.id}"]`);
     if (!card) return;
 
-    const isChinese = store.group === 'chinese';
+    const isCN = store.group === 'chinese';
     card.dataset.url = store.url;
 
-    const starCount = freshnessStars(updatedAt);
-    const starsHTML = starCount > 0 ? `<span class="freshness-stars">${'*'.repeat(starCount)}</span>` : '';
+    const stars = freshnessStars(updatedAt);
+    const starsHTML = stars > 0 ? `<span class="freshness-stars">${'★'.repeat(stars)}</span>` : '';
     card.querySelectorAll('.suit-corner span:first-child').forEach(el => {
       el.innerHTML = store.rank + starsHTML;
     });
 
     const nameEl = card.querySelector('.supermarket-name');
-    if (nameEl) nameEl.textContent = isChinese ? store.nameCN : store.nameEN;
+    if (nameEl) nameEl.textContent = isCN ? store.nameCN : store.nameEN;
 
     const dealsEl = card.querySelector('.deals');
     if (!dealsEl) return;
     dealsEl.innerHTML = '';
 
-    pickBestFour(dealsSource).forEach((deal, i) => {
+    pickBestFour(deals).forEach((deal, i) => {
       const row = document.createElement('div');
       row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
       row.innerHTML = `<span class="deal-item">${deal.item}</span><span class="deal-price">${deal.price}</span>`;
       dealsEl.appendChild(row);
     });
 
-    (benchmarkHighlights || []).slice(0, 2).forEach(hl => {
-      const name = isChinese ? hl.cn : hl.en;
+    (highlights || []).slice(0, 2).forEach(hl => {
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
-      row.innerHTML = `<span class="deal-item">${name} ⬇️🆕</span><span class="deal-price">${hl.display}</span>`;
+      row.innerHTML = `<span class="deal-item">${isCN ? hl.cn : hl.en} ⬇️🆕</span><span class="deal-price">${hl.display}</span>`;
       dealsEl.appendChild(row);
     });
 
-    const contentEl = card.querySelector('.content');
-    if (contentEl) {
-      let btn = contentEl.querySelector('.flyer-btn');
-      if (!btn) {
-        btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'flyer-btn';
-        contentEl.appendChild(btn);
-      }
-      btn.textContent = isChinese ? '看完整 Flyer' : 'Full Flyer';
-      btn.dataset.url = store.url;
-      btn.onclick = e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const u = btn.dataset.url || card.dataset.url;
-        if (u) window.open(u, '_blank', 'noopener,noreferrer');
-      };
+    const content = card.querySelector('.content');
+    if (!content) return;
+    let btn = content.querySelector('.flyer-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'flyer-btn';
+      content.appendChild(btn);
     }
+    btn.textContent = isCN ? '看完整 Flyer' : 'Full Flyer';
+    btn.onclick = e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const u = store.url || card.dataset.url;
+      if (u) window.open(u, '_blank', 'noopener,noreferrer');
+    };
   }
 
   function renderAll(dataset) {
     const deals = dataset?.deals || {};
     const prices = dataset?.benchmarkPrices || {};
-    const updatedAtMap = dataset?.updatedAt || {};
+    const updated = dataset?.updatedAt || {};
     const winners = computeBenchmarkWinners(prices);
-    STORE_CONFIG.forEach(store => {
-      renderStore(store, deals[store.id] || [], winners[store.id], updatedAtMap[store.id]);
+    STORE_CONFIG.forEach(s => {
+      renderStore(s, deals[s.id] || [], winners[s.id], updated[s.id]);
     });
   }
 
   function init() {
-    renderAll(null); // 先显示店名 + Flyer 按钮，特价区空着
-    loadFromLocalJSON().then(data => {
-      if (data) renderAll(data);
-    });
+    renderAll(null);
+    loadData().then(data => { if (data) renderAll(data); });
   }
 
   if (document.readyState === 'loading') {

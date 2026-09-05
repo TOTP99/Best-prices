@@ -8,8 +8,7 @@
 </head>
 <body>
 
-<span class="signature">TP制作🐈🏷️</span>
-<button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
+<span class="signature">TP🐈🏷️</span>
 <span class="update-stamp" id="updateStamp"></span>
 
 
@@ -24,6 +23,7 @@
       </span>
     </button>
     <button class="analysis-trigger" id="analysisTrigger" aria-label="数据分析">📊</button>
+    <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
   </div>
 
   <div class="stage">
@@ -150,6 +150,7 @@
 
 <div class="analysis-overlay" id="analysisOverlay">
   <div class="analysis-panel" role="dialog" aria-modal="true" aria-label="数据分析">
+    <div class="analysis-handle" aria-hidden="true"></div>
     <div class="analysis-header">
       <h2 class="analysis-title">📊 数据分析</h2>
       <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
@@ -168,11 +169,10 @@
 
 <script src="deals.js"></script>
 <script>
-  // 更新日期戳
-  (function () {
-    const now = new Date();
-    document.getElementById('updateStamp').textContent = `${now.getMonth() + 1}/${now.getDate()} 🆕`;
-  })();
+(function () {
+  // 日期戳
+  const now = new Date();
+  document.getElementById('updateStamp').textContent = `${now.getMonth() + 1}/${now.getDate()} 🆕`;
 
   // 音效
   let audioCtx = null;
@@ -195,8 +195,10 @@
     o.frequency.exponentialRampToValueAtTime(980, t + 0.05);
     g.gain.setValueAtTime(0.16, t);
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-    o.connect(g); g.connect(ctx.destination);
-    o.start(t); o.stop(t + 0.1);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start(t);
+    o.stop(t + 0.1);
   }
 
   function playShuffle() {
@@ -212,8 +214,10 @@
       g.gain.setValueAtTime(0.0001, t);
       g.gain.exponentialRampToValueAtTime(0.08, t + 0.008);
       g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(t); o.stop(t + 0.06);
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start(t);
+      o.stop(t + 0.06);
     });
   }
 
@@ -224,10 +228,16 @@
     if (soundOn) ensureCtx();
   });
 
-  // 华超/西超切换
+  // 华超 / 西超切换
   const landscapeSwitch = document.getElementById('landscapeSwitch');
-  const sections = { chinese: document.getElementById('chinese-section'), western: document.getElementById('western-section') };
-  const decks = { chinese: document.getElementById('chinese-deck'), western: document.getElementById('western-deck') };
+  const sections = {
+    chinese: document.getElementById('chinese-section'),
+    western: document.getElementById('western-section')
+  };
+  const decks = {
+    chinese: document.getElementById('chinese-deck'),
+    western: document.getElementById('western-deck')
+  };
   let current = 'western';
 
   function updateLandscapeSwitch() {
@@ -238,15 +248,15 @@
   function switchTo(target) {
     if (target === current) return;
     playShuffle();
-    const fromKey = current, toKey = target;
-    decks[fromKey].classList.add('shuffling');
-    decks[toKey].classList.add('shuffling');
+    const from = current, to = target;
+    decks[from].classList.add('shuffling');
+    decks[to].classList.add('shuffling');
     setTimeout(() => {
-      sections[fromKey].classList.remove('active-section');
-      sections[toKey].classList.add('active-section');
-      void decks[toKey].offsetWidth;
-      decks[fromKey].classList.remove('shuffling');
-      decks[toKey].classList.remove('shuffling');
+      sections[from].classList.remove('active-section');
+      sections[to].classList.add('active-section');
+      void decks[to].offsetWidth;
+      decks[from].classList.remove('shuffling');
+      decks[to].classList.remove('shuffling');
       current = target;
       updateLandscapeSwitch();
     }, 200);
@@ -255,10 +265,8 @@
   landscapeSwitch.addEventListener('click', () => {
     switchTo(current === 'chinese' ? 'western' : 'chinese');
   });
-
   updateLandscapeSwitch();
 
-  // 首次发牌动画
   window.addEventListener('load', () => {
     setTimeout(() => {
       decks.chinese.classList.remove('shuffling');
@@ -293,121 +301,109 @@
     document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
     syncFramePoppedState();
   });
+
+  // 数据分析弹层
+  const STORE_NAMES = {
+    tnt16: 'T&T 16街',
+    guanye: '冠业Kennedy',
+    dingtai: '鼎泰Hwy7',
+    fuyao: '福耀Hwy7',
+    dingxian: '鼎鲜Woodbine',
+    walmart: 'Walmart',
+    freshco: 'FreshCo',
+    costco: 'Costco',
+    nofrills: 'No Frills',
+    foodbasics: 'Food Basics'
+  };
+
+  function storeName(id) { return STORE_NAMES[id] || id; }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+    );
+  }
+
+  const trigger = document.getElementById('analysisTrigger');
+  const overlay = document.getElementById('analysisOverlay');
+  const closeBtn = document.getElementById('analysisClose');
+  const tabsWrap = document.getElementById('analysisTabs');
+  const body = document.getElementById('analysisBody');
+  let analysisData = null;
+  let activeTab = 'bestDeals';
+
+  function row(label, text) {
+    return `<div class="analysis-row"><span class="analysis-row-store">${esc(label)}</span><span class="analysis-row-text">${esc(text)}</span></div>`;
+  }
+
+  function renderBestDeals(data) {
+    return Object.entries(data || {}).map(([s, t]) => row(storeName(s), t)).join('');
+  }
+
+  function renderDiscounts(list) {
+    if (!list || !list.length) return '';
+    return list.map(d =>
+      `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(d.item)} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
+    ).join('');
+  }
+
+  function renderCategoryWinners(data) {
+    return Object.entries(data || {}).map(([cat, t]) => row(cat, t)).join('');
+  }
+
+  function renderCheapest(data, benchmarks) {
+    let html = Object.entries(data || {}).map(([k, t]) => row(k, t)).join('');
+    const b = Object.entries(benchmarks || {});
+    if (b.length) {
+      html += '<div class="analysis-subhead">基准价对比</div>';
+      html += b.map(([k, t]) => row(k, t)).join('');
+    }
+    return html;
+  }
+
+  function renderTab() {
+    if (!analysisData) return;
+    let html = '';
+    if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
+    else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
+    else if (activeTab === 'categoryWinners') html = renderCategoryWinners(analysisData.categoryWinners);
+    else if (activeTab === 'cheapestStoreSummary') {
+      html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
+    }
+    body.innerHTML = html || '<p class="analysis-empty">暂无数据</p>';
+  }
+
+  tabsWrap.addEventListener('click', e => {
+    const btn = e.target.closest('.analysis-tab');
+    if (!btn) return;
+    tabsWrap.querySelectorAll('.analysis-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    renderTab();
+  });
+
+  function loadAnalysis() {
+    body.innerHTML = '<p class="analysis-loading">加载中…</p>';
+    fetch('deals-data.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(json => {
+        analysisData = json.analysis || {};
+        renderTab();
+      })
+      .catch(() => {
+        body.innerHTML = '<p class="analysis-empty">数据加载失败</p>';
+      });
+  }
+
+  trigger.addEventListener('click', e => {
+    e.stopPropagation();
+    overlay.classList.add('open');
+    if (!analysisData) loadAnalysis();
+  });
+  closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+})();
 </script>
-
-<script>
-  // ===== 数据分析弹层（独立新增，不改动/依赖上面任何原有逻辑）=====
-  (function () {
-    const STORE_NAMES = {
-      guanye: '冠业 Guanye',
-      foodbasics: 'Food Basics',
-      nofrills: 'No Frills',
-      freshco: 'FreshCo',
-      foodymart: '鼎泰 Foodymart',
-      tnt16: 'T&T 16街',
-      walmart: 'Walmart',
-      costco: 'Costco',
-      dingtai: '鼎泰',
-      fuyao: '福耀',
-      dingxian: '鼎鲜'
-    };
-    function storeName(id) { return STORE_NAMES[id] || id; }
-    function esc(s) {
-      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    }
-
-    const trigger = document.getElementById('analysisTrigger');
-    const overlay = document.getElementById('analysisOverlay');
-    const closeBtn = document.getElementById('analysisClose');
-    const tabsWrap = document.getElementById('analysisTabs');
-    const body = document.getElementById('analysisBody');
-
-    let analysisData = null;
-    let activeTab = 'bestDeals';
-
-    function row(label, text) {
-      return `<div class="analysis-row"><span class="analysis-row-store">${esc(label)}</span><span class="analysis-row-text">${esc(text)}</span></div>`;
-    }
-
-    function renderBestDeals(data) {
-      const entries = Object.entries(data || {});
-      if (!entries.length) return '';
-      return entries.map(([store, text]) => row(storeName(store), text)).join('');
-    }
-
-    function renderDiscounts(list) {
-      if (!list || !list.length) return '';
-      return list.map(d =>
-        `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(d.item)} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
-      ).join('');
-    }
-
-    function renderCategoryWinners(data) {
-      const entries = Object.entries(data || {});
-      if (!entries.length) return '';
-      return entries.map(([cat, text]) => row(cat, text)).join('');
-    }
-
-    function renderCheapest(data, benchmarks) {
-      let html = Object.entries(data || {}).map(([label, text]) => row(label, text)).join('');
-      const bEntries = Object.entries(benchmarks || {});
-      if (bEntries.length) {
-        html += '<div class="analysis-subhead">基准价对比</div>';
-        html += bEntries.map(([k, text]) => row(k, text)).join('');
-      }
-      return html;
-    }
-
-    function renderTab() {
-      if (!analysisData) return;
-      let html = '';
-      if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
-      else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
-      else if (activeTab === 'categoryWinners') html = renderCategoryWinners(analysisData.categoryWinners);
-      else if (activeTab === 'cheapestStoreSummary') html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
-      body.innerHTML = html || '<p class="analysis-empty">暂无数据</p>';
-    }
-
-    tabsWrap.addEventListener('click', e => {
-      const btn = e.target.closest('.analysis-tab');
-      if (!btn) return;
-      tabsWrap.querySelectorAll('.analysis-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeTab = btn.dataset.tab;
-      renderTab();
-    });
-
-    function loadData() {
-      body.innerHTML = '<p class="analysis-loading">加载中…</p>';
-      fetch('deals-data.json', { cache: 'no-store' })
-        .then(r => r.json())
-        .then(json => {
-          analysisData = json.analysis || {};
-          renderTab();
-        })
-        .catch(() => {
-          body.innerHTML = '<p class="analysis-empty">数据加载失败</p>';
-        });
-    }
-
-    function openPanel() {
-      overlay.classList.add('open');
-      if (!analysisData) loadData();
-    }
-    function closePanel() {
-      overlay.classList.remove('open');
-    }
-
-    trigger.addEventListener('click', e => {
-      e.stopPropagation();
-      openPanel();
-    });
-    closeBtn.addEventListener('click', closePanel);
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) closePanel();
-    });
-  })();
-</script>
-
 </body>
 </html>

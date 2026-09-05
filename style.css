@@ -397,17 +397,15 @@ body {
 }
 
 .sound-toggle {
-  position: fixed;
-  top: 10px;
-  right: 12px;
-  z-index: 950;
-  width: 30px;
-  height: 30px;
+  position: static;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid var(--gold-soft);
   background: rgba(0, 0, 0, .35);
   color: var(--gold);
-  font-size: 14px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -471,7 +469,10 @@ body {
   }
 
   .switch-container {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     position: fixed;
     left: 50%;
     top: calc(50% + 26px);
@@ -502,10 +503,7 @@ body {
   }
 }
 
-/* ===================================================================
-   数据分析弹层 (Analysis Overlay) —— 全部为独立新增的类名与固定定位元素，
-   不修改、不覆盖上面任何已有选择器，横竖屏布局完全不受影响。
-   =================================================================== */
+/* —— 数据分析弹层 —— */
 
 .analysis-trigger {
   position: static;
@@ -530,6 +528,7 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
   background: rgba(0, 0, 0, 0);
   pointer-events: none;
   transition: background .25s ease;
@@ -541,9 +540,10 @@ body {
 }
 
 .analysis-panel {
+  /* 固定高度：同一空间、切换 Tab 不跳动 */
   width: 100%;
   max-width: 480px;
-  max-height: 78vh;
+  height: min(72vh, 560px);
   background: linear-gradient(180deg, #1f3a28, #142219);
   border: 1px solid var(--gold-soft);
   border-bottom: none;
@@ -554,17 +554,31 @@ body {
   transform: translateY(100%);
   transition: transform .28s cubic-bezier(.34, 1.56, .64, 1);
   overflow: hidden;
+  /* 底部呼吸空间 + 安全区 */
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
 }
 
 .analysis-overlay.open .analysis-panel {
   transform: translateY(0);
 }
 
+/* 顶部滑杆（拖动手柄） */
+.analysis-handle {
+  flex-shrink: 0;
+  width: 40px;
+  height: 4px;
+  margin: 10px auto 2px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, .45);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, .15);
+}
+
 .analysis-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px 8px;
+  padding: 6px 16px 8px;
   flex-shrink: 0;
 }
 
@@ -580,22 +594,26 @@ body {
   border: none;
   background: rgba(255, 255, 255, .08);
   color: #e8ede9;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .analysis-tabs {
   display: flex;
   gap: 6px;
-  padding: 0 12px 10px;
+  padding: 0 14px 10px;
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .analysis-tabs::-webkit-scrollbar { display: none; }
@@ -607,7 +625,7 @@ body {
   color: #cfd8d1;
   font-size: 12px;
   font-weight: 600;
-  padding: 6px 10px;
+  padding: 6px 11px;
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
@@ -621,18 +639,35 @@ body {
 }
 
 .analysis-body {
-  padding: 4px 16px 18px;
+  flex: 1;
+  min-height: 0;
+  padding: 4px 14px 8px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  /* 轻微滑杆，不刺眼 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, .35) transparent;
+}
+
+.analysis-body::-webkit-scrollbar {
+  width: 4px;
+}
+.analysis-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.analysis-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, .35);
+  border-radius: 999px;
 }
 
 .analysis-row {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  padding: 7px 10px;
+  padding: 8px 11px;
   background: rgba(255, 255, 255, .04);
   border-radius: 8px;
   border-left: 2px solid var(--gold-soft);
@@ -668,9 +703,26 @@ body {
   text-align: center;
   color: rgba(232, 237, 233, .6);
   font-size: 12.5px;
-  padding: 20px 0;
+  padding: 28px 0;
+  margin: auto 0;
 }
 
 @media (orientation: landscape) {
-  .analysis-panel { max-width: 420px; }
+  .analysis-panel {
+    max-width: 420px;
+    height: min(78vh, 420px);
+  }
+  .analysis-handle {
+    margin: 8px auto 0;
+  }
+  .analysis-header {
+    padding: 4px 14px 6px;
+  }
+  .analysis-tabs {
+    padding: 0 12px 8px;
+  }
+  .analysis-body {
+    padding: 2px 12px 6px;
+    gap: 6px;
+  }
 }
