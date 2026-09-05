@@ -12,6 +12,8 @@
 <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
 <span class="update-stamp" id="updateStamp"></span>
 
+<button class="analysis-trigger" id="analysisTrigger" aria-label="数据分析">📊</button>
+
 <div class="frame" id="frame">
 
   <div class="switch-container">
@@ -146,6 +148,24 @@
 
 </div>
 
+<div class="analysis-overlay" id="analysisOverlay">
+  <div class="analysis-panel" role="dialog" aria-modal="true" aria-label="数据分析">
+    <div class="analysis-header">
+      <h2 class="analysis-title">📊 数据分析</h2>
+      <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
+    </div>
+    <div class="analysis-tabs" id="analysisTabs">
+      <button class="analysis-tab active" data-tab="bestDeals" type="button">⭐ Best Deals</button>
+      <button class="analysis-tab" data-tab="deepestDiscounts" type="button">📉 Discounts</button>
+      <button class="analysis-tab" data-tab="categoryWinners" type="button">🏆 Category Winners</button>
+      <button class="analysis-tab" data-tab="cheapestStoreSummary" type="button">🏪 Cheapest Stores</button>
+    </div>
+    <div class="analysis-body" id="analysisBody">
+      <p class="analysis-loading">加载中…</p>
+    </div>
+  </div>
+</div>
+
 <script src="deals.js"></script>
 <script>
   // 更新日期戳
@@ -273,6 +293,120 @@
     document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
     syncFramePoppedState();
   });
+</script>
+
+<script>
+  // ===== 数据分析弹层（独立新增，不改动/依赖上面任何原有逻辑）=====
+  (function () {
+    const STORE_NAMES = {
+      guanye: '冠业 Guanye',
+      foodbasics: 'Food Basics',
+      nofrills: 'No Frills',
+      freshco: 'FreshCo',
+      foodymart: '鼎泰 Foodymart',
+      tnt16: 'T&T 16街',
+      walmart: 'Walmart',
+      costco: 'Costco',
+      dingtai: '鼎泰',
+      fuyao: '福耀',
+      dingxian: '鼎鲜'
+    };
+    function storeName(id) { return STORE_NAMES[id] || id; }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    const trigger = document.getElementById('analysisTrigger');
+    const overlay = document.getElementById('analysisOverlay');
+    const closeBtn = document.getElementById('analysisClose');
+    const tabsWrap = document.getElementById('analysisTabs');
+    const body = document.getElementById('analysisBody');
+
+    let analysisData = null;
+    let activeTab = 'bestDeals';
+
+    function row(label, text) {
+      return `<div class="analysis-row"><span class="analysis-row-store">${esc(label)}</span><span class="analysis-row-text">${esc(text)}</span></div>`;
+    }
+
+    function renderBestDeals(data) {
+      const entries = Object.entries(data || {});
+      if (!entries.length) return '';
+      return entries.map(([store, text]) => row(storeName(store), text)).join('');
+    }
+
+    function renderDiscounts(list) {
+      if (!list || !list.length) return '';
+      return list.map(d =>
+        `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(d.item)} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
+      ).join('');
+    }
+
+    function renderCategoryWinners(data) {
+      const entries = Object.entries(data || {});
+      if (!entries.length) return '';
+      return entries.map(([cat, text]) => row(cat, text)).join('');
+    }
+
+    function renderCheapest(data, benchmarks) {
+      let html = Object.entries(data || {}).map(([label, text]) => row(label, text)).join('');
+      const bEntries = Object.entries(benchmarks || {});
+      if (bEntries.length) {
+        html += '<div class="analysis-subhead">基准价对比</div>';
+        html += bEntries.map(([k, text]) => row(k, text)).join('');
+      }
+      return html;
+    }
+
+    function renderTab() {
+      if (!analysisData) return;
+      let html = '';
+      if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
+      else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
+      else if (activeTab === 'categoryWinners') html = renderCategoryWinners(analysisData.categoryWinners);
+      else if (activeTab === 'cheapestStoreSummary') html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
+      body.innerHTML = html || '<p class="analysis-empty">暂无数据</p>';
+    }
+
+    tabsWrap.addEventListener('click', e => {
+      const btn = e.target.closest('.analysis-tab');
+      if (!btn) return;
+      tabsWrap.querySelectorAll('.analysis-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTab = btn.dataset.tab;
+      renderTab();
+    });
+
+    function loadData() {
+      body.innerHTML = '<p class="analysis-loading">加载中…</p>';
+      fetch('deals-data.json', { cache: 'no-store' })
+        .then(r => r.json())
+        .then(json => {
+          analysisData = json.analysis || {};
+          renderTab();
+        })
+        .catch(() => {
+          body.innerHTML = '<p class="analysis-empty">数据加载失败</p>';
+        });
+    }
+
+    function openPanel() {
+      overlay.classList.add('open');
+      if (!analysisData) loadData();
+    }
+    function closePanel() {
+      overlay.classList.remove('open');
+    }
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      openPanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closePanel();
+    });
+  })();
 </script>
 
 </body>

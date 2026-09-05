@@ -491,3 +491,178 @@ body {
     transform: translate(-50%, -50%);
   }
 }
+
+/* ===================================================================
+   数据分析弹层 (Analysis Overlay) —— 全部为独立新增的类名与固定定位元素，
+   不修改、不覆盖上面任何已有选择器，横竖屏布局完全不受影响。
+   =================================================================== */
+
+.analysis-trigger {
+  position: fixed;
+  right: 12px;
+  bottom: 14px;
+  z-index: 950;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-soft);
+  background: rgba(0, 0, 0, .35);
+  color: var(--gold);
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.analysis-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background .25s ease;
+}
+
+.analysis-overlay.open {
+  background: rgba(0, 0, 0, .55);
+  pointer-events: auto;
+}
+
+.analysis-panel {
+  width: 100%;
+  max-width: 480px;
+  max-height: 78vh;
+  background: linear-gradient(180deg, #1f3a28, #142219);
+  border: 1px solid var(--gold-soft);
+  border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, .5);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform .28s cubic-bezier(.34, 1.56, .64, 1);
+  overflow: hidden;
+}
+
+.analysis-overlay.open .analysis-panel {
+  transform: translateY(0);
+}
+
+.analysis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 8px;
+  flex-shrink: 0;
+}
+
+.analysis-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: .2px;
+}
+
+.analysis-close {
+  border: none;
+  background: rgba(255, 255, 255, .08);
+  color: #e8ede9;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.analysis-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 12px 10px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.analysis-tabs::-webkit-scrollbar { display: none; }
+
+.analysis-tab {
+  flex-shrink: 0;
+  border: 1px solid rgba(212, 175, 55, .3);
+  background: rgba(255, 255, 255, .04);
+  color: #cfd8d1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.analysis-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #1a2a1c;
+}
+
+.analysis-body {
+  padding: 4px 16px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.analysis-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, .04);
+  border-radius: 8px;
+  border-left: 2px solid var(--gold-soft);
+}
+
+.analysis-row-store {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.analysis-row-text {
+  font-size: 12.5px;
+  color: #e8ede9;
+  line-height: 1.4;
+}
+
+.analysis-pct {
+  color: #ff8a80;
+  font-weight: 800;
+}
+
+.analysis-subhead {
+  margin: 6px 0 -2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(232, 237, 233, .6);
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.analysis-empty, .analysis-loading {
+  text-align: center;
+  color: rgba(232, 237, 233, .6);
+  font-size: 12.5px;
+  padding: 20px 0;
+}
+
+@media (orientation: landscape) {
+  .analysis-panel { max-width: 420px; }
+}
