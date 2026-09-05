@@ -1,0 +1,129 @@
+{
+  "deals": {
+    "guanye": [
+      { "item": "Live Canada Lobster 4–6lb", "price": "$13.99/lb", "discountPct": 12.5 },
+      { "item": "Sea Cucumber", "price": "$22.00/lb", "discountPct": 21.4 },
+      { "item": "Frozen Saury Fish", "price": "$1.69/lb", "discountPct": 43.5 },
+      { "item": "Live Tilapia", "price": "$7.99/lb", "discountPct": 20.0 }
+    ],
+    "foodbasics": [
+      { "item": "10lb Potatoes", "price": "$1.88", "discountPct": null },
+      { "item": "Chicken Breast", "price": "$4.98/lb", "discountPct": null },
+      { "item": "Fresh Salmon Fillet", "price": "$9.99/lb", "discountPct": null },
+      { "item": "Juice (Medium Bottle)", "price": "$1.25", "discountPct": null }
+    ],
+    "nofrills": [
+      { "item": "Watermelon", "price": "$3.44", "discountPct": null },
+      { "item": "Ocean’s Tuna Can", "price": "$1.00", "discountPct": null },
+      { "item": "Sweet Oranges 2lb", "price": "$2.99", "discountPct": null },
+      { "item": "Pork Chop", "price": "$2.22/lb", "discountPct": null }
+    ],
+    "freshco": [
+      { "item": "30 Eggs (Member)", "price": "$6.99", "discountPct": null },
+      { "item": "8 Chicken Drumsticks", "price": "$5.00", "discountPct": null },
+      { "item": "Cantaloupe (Large)", "price": "$1.88", "discountPct": null },
+      { "item": "Hotdog", "price": "$2.99", "discountPct": null }
+    ],
+    "foodymart": [
+      { "item": "LKK Panda Oyster Sauce 907g", "was": "$7.99", "sale": "$3.98", "unit": "ea" },
+      { "item": "Y&Y Premium Thai Jasmine Rice 8kg", "was": "$19.99", "sale": "$15.98", "unit": "bag" },
+      { "item": "Fu Yang Black Tiger Shrimp 31/40 400g", "was": "$8.99", "sale": "$5.98", "unit": "ea" },
+      { "item": "Pinwei Handmade Dumpling Wonton Series 350g", "was": "$8.99", "sale": "2/$12.98", "unit": "multi" },
+      { "item": "Korean Cabbage", "was": "$0.99/lb", "sale": "$0.38/lb", "unit": "lb" },
+      { "item": "Mama Squash", "was": "$0.99/lb", "sale": "$0.58/lb", "unit": "lb" },
+      { "item": "South Africa Orange", "was": "$1.59/lb", "sale": "$0.88/lb", "unit": "lb" },
+      { "item": "Hami Melon", "was": "$1.29/lb", "sale": "$0.88/lb", "unit": "lb" },
+      { "item": "Fresh Pork Chop", "was": "$3.99/lb", "sale": "$1.68/lb", "unit": "lb" },
+      { "item": "Fresh Chicken Mid Wing", "was": "$5.99/lb", "sale": "$3.98/lb", "unit": "lb" },
+      { "item": "Live Striped Bass", "was": "$15.99/lb", "sale": "$11.98/lb", "unit": "lb", "note": "Fri–Sun only" },
+      { "item": "Live Blue Crab", "was": "$7.99/lb", "sale": "$5.98/lb", "unit": "lb", "note": "While quantities last" }
+    ],
+    "tnt16": [
+      { "item": "Hami Melon (USA)", "price": "$0.68/lb", "discountPct": null },
+      { "item": "Fuzzy Squash (Mexico)", "price": "$0.98/lb", "discountPct": null },
+      { "item": "Norwegian Salmon Steak (Fresh)", "price": "$8.98/lb", "discountPct": null },
+      { "item": "Broiled Eel (Frozen, 14oz)", "price": "$8.88/ea", "discountPct": null },
+      { "item": "Chicken Leg (Fresh, Back Attached)", "price": "$2.39/lb", "discountPct": null },
+      { "item": "Chicken Wing (Value Pack, Fresh)", "price": "$2.99/lb", "discountPct": null },
+      { "item": "Sekka Premium Medium Grain Rice (15lbs)", "price": "$13.97/ea", "discountPct": null },
+      { "item": "Nissin Instant Noodle (5 packs)", "price": "$2.97/ea", "discountPct": null },
+      { "item": "T&T Mixed Nuts / Unsalted Almond", "price": "$13.97–$14.97/ea", "discountPct": null },
+      { "item": "DDS Jumbo Shrimp Wonton Dumpling (300g)", "price": "$12.97/ea", "discountPct": null },
+      { "item": "Fruit King Frozen Seedless Durian", "price": "$15.97/ea", "discountPct": null }
+    ]
+  },
+
+  "benchmarkPrices": {
+    "guanye": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" }
+    },
+    "foodbasics": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" },
+      "chocolate": { "value": 7.98, "display": "$7.98 (50pcs)" }
+    },
+    "nofrills": {
+      "banana": { "value": 3.44, "display": "$3.44 watermelon (proxy)" }
+    },
+    "freshco": {
+      "eggs": { "value": 6.99, "display": "$6.99 (30pcs)" }
+    },
+    "foodymart": {
+      "porkchop": { "value": 1.68, "display": "$1.68/lb" },
+      "orange": { "value": 0.88, "display": "$0.88/lb" }
+    },
+    "tnt16": {
+      "salmon": { "value": 8.98, "display": "$8.98/lb" },
+      "chickenwing": { "value": 2.99, "display": "$2.99/lb" }
+    }
+  },
+
+  "updatedAt": {
+    "guanye": "2026-09-04",
+    "foodbasics": "2026-09-04",
+    "nofrills": "2026-09-04",
+    "freshco": "2026-09-04",
+    "foodymart": "2026-09-04",
+    "tnt16": "2026-09-04"
+  },
+
+  "analysis": {
+    "bestDeals": {
+      "guanye": "Frozen Saury Fish $1.69/lb (43.5% off)",
+      "foodbasics": "10lb Potatoes $1.88",
+      "nofrills": "Ocean’s Tuna $1.00",
+      "freshco": "Cantaloupe $1.88",
+      "foodymart": "Fresh Pork Chop $1.68/lb (57.9% off)",
+      "tnt16": "Hami Melon (USA) $0.68/lb"
+    },
+
+    "deepestDiscounts": [
+      { "item": "Frozen Saury Fish", "store": "guanye", "discountPct": 43.5 },
+      { "item": "Korean Cabbage", "store": "foodymart", "discountPct": 61.6 },
+      { "item": "Fresh Pork Chop", "store": "foodymart", "discountPct": 57.9 },
+      { "item": "South Africa Orange", "store": "foodymart", "discountPct": 44.7 },
+      { "item": "Mama Squash", "store": "foodymart", "discountPct": 41.4 }
+    ],
+
+    "categoryWinners": {
+      "meat": "Fresh Pork Chop $1.68/lb (Foodymart)",
+      "seafood": "Frozen Saury $1.69/lb (Guanye)",
+      "produce": "Hami Melon $0.68/lb (T&T)",
+      "staples": "LKK Oyster Sauce $3.98 (Foodymart)"
+    },
+
+    "benchmarksComparison": {
+      "salmon": "T&T beats benchmark ($8.98 vs $9.99)",
+      "porkchop": "Foodymart matches benchmark ($1.68/lb)",
+      "orange": "Foodymart matches benchmark ($0.88/lb)",
+      "chickenwing": "T&T matches benchmark ($2.99/lb)",
+      "eggs": "FreshCo matches benchmark ($6.99)"
+    },
+
+    "cheapestStoreSummary": {
+      "overallCheapestProduce": "T&T (Hami Melon $0.68/lb)",
+      "overallCheapestMeat": "Foodymart (Pork Chop $1.68/lb)",
+      "overallCheapestSeafood": "Guanye (Saury $1.69/lb)",
+      "overallCheapestStaples": "Foodymart (Oyster Sauce $3.98)"
+    }
+  }
+}
