@@ -82,13 +82,18 @@
     if (!card) return;
 
     const isCN = store.group === 'chinese';
+    const suit = isCN ? '♥' : '♣';
     card.dataset.url = store.url;
 
+    // 左上角：点数+花色连写，星标紧跟 → A♥★★★★★；右下角去掉（避免挡 Full Flyer）
     const stars = freshnessStars(updatedAt);
     const starsHTML = stars > 0 ? `<span class="freshness-stars">${'★'.repeat(stars)}</span>` : '';
-    card.querySelectorAll('.suit-corner span:first-child').forEach(el => {
-      el.innerHTML = store.rank + starsHTML;
-    });
+    const topLeft = card.querySelector('.suit-corner.top-left');
+    if (topLeft) {
+      topLeft.innerHTML = `<span class="rank-suit">${store.rank}${suit}</span>${starsHTML}`;
+    }
+    const bottomRight = card.querySelector('.suit-corner.bottom-right');
+    if (bottomRight) bottomRight.innerHTML = '';
 
     const nameEl = card.querySelector('.supermarket-name');
     if (nameEl) nameEl.textContent = isCN ? store.nameCN : store.nameEN;
@@ -111,6 +116,7 @@
       dealsEl.appendChild(row);
     });
 
+    // Full Flyer 按钮保留
     const content = card.querySelector('.content');
     if (!content) return;
     let btn = content.querySelector('.flyer-btn');

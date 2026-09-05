@@ -217,23 +217,24 @@ body {
   align-items: center;
   font-weight: 900;
   font-size: 13px;
-  line-height: .9;
+  line-height: 1.05;
 }
 
 .suit-corner.top-left { position: absolute; top: 7px; left: 7px; }
-.suit-corner.bottom-right {
-  position: absolute;
-  bottom: 7px;
-  right: 7px;
-  transform: rotate(180deg);
+.suit-corner.bottom-right { display: none; }
+
+.suit-corner .rank-suit {
+  letter-spacing: .02em;
 }
 
-.suit-corner span:last-child {
-  font-size: 10px;
-  margin-top: 2px;
+.freshness-stars {
+  color: #27ae60;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-top: 1px;
 }
-
-.freshness-stars { color: #27ae60; }
 
 .hearts-theme .suit-corner,
 .hearts-theme .center-logo { color: #c0392b; }
