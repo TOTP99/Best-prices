@@ -2,247 +2,247 @@
   "deals": {
     "guanye": [
       {
-        "item": "Live Canada Lobster 4–6lb",
+        "item": { "en": "Live Canada Lobster 4–6lb", "cn": "加拿大活龙虾 4-6磅" },
         "price": "$13.99/lb",
         "discountPct": 12.5
       },
       {
-        "item": "Sea Cucumber",
+        "item": { "en": "Sea Cucumber", "cn": "海参" },
         "price": "$22.00/lb",
         "discountPct": 21.4
       },
       {
-        "item": "Frozen Saury Fish",
+        "item": { "en": "Frozen Saury Fish", "cn": "冷冻秋刀鱼" },
         "price": "$1.69/lb",
         "discountPct": 43.5
       },
       {
-        "item": "Live Tilapia",
+        "item": { "en": "Live Tilapia", "cn": "活罗非鱼" },
         "price": "$7.99/lb",
         "discountPct": 20.0
       }
     ],
     "foodbasics": [
       {
-        "item": "10lb Potatoes",
+        "item": { "en": "10lb Potatoes", "cn": "土豆 10磅装" },
         "price": "$1.88",
         "discountPct": null
       },
       {
-        "item": "Chicken Breast",
+        "item": { "en": "Chicken Breast", "cn": "鸡胸肉" },
         "price": "$4.98/lb",
         "discountPct": null
       },
       {
-        "item": "Fresh Salmon Fillet",
+        "item": { "en": "Fresh Salmon Fillet", "cn": "新鲜三文鱼柳" },
         "price": "$9.99/lb",
         "discountPct": null
       },
       {
-        "item": "Juice (Medium Bottle)",
+        "item": { "en": "Juice (Medium Bottle)", "cn": "果汁（中瓶装）" },
         "price": "$1.25",
         "discountPct": null
       }
     ],
     "nofrills": [
       {
-        "item": "Watermelon",
+        "item": { "en": "Watermelon", "cn": "西瓜" },
         "price": "$3.44",
         "discountPct": null
       },
       {
-        "item": "Ocean’s Tuna Can",
+        "item": { "en": "Ocean’s Tuna Can", "cn": "Ocean's金枪鱼罐头" },
         "price": "$1.00",
         "discountPct": null
       },
       {
-        "item": "Sweet Oranges 2lb",
+        "item": { "en": "Sweet Oranges 2lb", "cn": "甜橙 2磅装" },
         "price": "$2.99",
         "discountPct": null
       },
       {
-        "item": "Pork Chop",
+        "item": { "en": "Pork Chop", "cn": "猪排" },
         "price": "$2.22/lb",
         "discountPct": null
       }
     ],
     "freshco": [
       {
-        "item": "30 Eggs (Member)",
+        "item": { "en": "30 Eggs (Member)", "cn": "30枚鸡蛋（会员价）" },
         "price": "$6.99",
         "discountPct": null
       },
       {
-        "item": "8 Chicken Drumsticks",
+        "item": { "en": "8 Chicken Drumsticks", "cn": "鸡腿 8只装" },
         "price": "$5.00",
         "discountPct": null
       },
       {
-        "item": "Cantaloupe (Large)",
+        "item": { "en": "Cantaloupe (Large)", "cn": "哈密瓜（大）" },
         "price": "$1.88",
         "discountPct": null
       },
       {
-        "item": "Hotdog",
+        "item": { "en": "Hotdog", "cn": "热狗" },
         "price": "$2.99",
         "discountPct": null
       }
     ],
     "dingtai": [
       {
-        "item": "LKK Panda Oyster Sauce 907g",
+        "item": { "en": "LKK Panda Oyster Sauce 907g", "cn": "李锦记熊猫蚝油 907g" },
         "price": "$3.98/ea",
         "discountPct": 50.2
       },
       {
-        "item": "Y&Y Premium Thai Jasmine Rice 8kg",
+        "item": { "en": "Y&Y Premium Thai Jasmine Rice 8kg", "cn": "Y&Y特级泰国茉莉香米 8kg" },
         "price": "$15.98/bag",
         "discountPct": 20.1
       },
       {
-        "item": "Fu Yang Black Tiger Shrimp 31/40 400g",
+        "item": { "en": "Fu Yang Black Tiger Shrimp 31/40 400g", "cn": "富阳黑虎虾 31/40 400g" },
         "price": "$5.98/ea",
         "discountPct": 33.5
       },
       {
-        "item": "Pinwei Handmade Dumpling Wonton Series 350g",
+        "item": { "en": "Pinwei Handmade Dumpling Wonton Series 350g", "cn": "品味手工水饺/馄饨系列 350g" },
         "price": "2/$12.98",
         "discountPct": null
       },
       {
-        "item": "Korean Cabbage",
+        "item": { "en": "Korean Cabbage", "cn": "韩国白菜" },
         "price": "$0.38/lb",
         "discountPct": 61.6
       },
       {
-        "item": "Mama Squash",
+        "item": { "en": "Mama Squash", "cn": "妈妈瓜（南瓜）" },
         "price": "$0.58/lb",
         "discountPct": 41.4
       },
       {
-        "item": "South Africa Orange",
+        "item": { "en": "South Africa Orange", "cn": "南非橙" },
         "price": "$0.88/lb",
         "discountPct": 44.7
       },
       {
-        "item": "Hami Melon",
+        "item": { "en": "Hami Melon", "cn": "哈密瓜" },
         "price": "$0.88/lb",
         "discountPct": 31.8
       },
       {
-        "item": "Fresh Pork Chop",
+        "item": { "en": "Fresh Pork Chop", "cn": "新鲜猪排" },
         "price": "$1.68/lb",
         "discountPct": 57.9
       },
       {
-        "item": "Fresh Chicken Mid Wing",
+        "item": { "en": "Fresh Chicken Mid Wing", "cn": "新鲜鸡中翅" },
         "price": "$3.98/lb",
         "discountPct": 33.6
       },
       {
-        "item": "Live Striped Bass (Fri–Sun only)",
+        "item": { "en": "Live Striped Bass (Fri–Sun only)", "cn": "活鲈鱼（仅限周五至周日）" },
         "price": "$11.98/lb",
         "discountPct": 25.1
       },
       {
-        "item": "Live Blue Crab (while quantities last)",
+        "item": { "en": "Live Blue Crab (while quantities last)", "cn": "活蓝蟹（售完即止）" },
         "price": "$5.98/lb",
         "discountPct": 25.2
       }
     ],
     "dingxian": [
       {
-        "item": "Korean Cabbage",
+        "item": { "en": "Korean Cabbage", "cn": "韩国白菜" },
         "price": "$0.68/lb",
         "discountPct": null
       },
       {
-        "item": "Wintermelon",
+        "item": { "en": "Wintermelon", "cn": "冬瓜" },
         "price": "$1.28/lb",
         "discountPct": null
       },
       {
-        "item": "Yellow Enoki Mushroom",
+        "item": { "en": "Yellow Enoki Mushroom", "cn": "黄金针菇" },
         "price": "$1.88/ea",
         "discountPct": null
       },
       {
-        "item": "Carrots 2lb",
+        "item": { "en": "Carrots 2lb", "cn": "胡萝卜 2磅" },
         "price": "2/$2.00",
         "discountPct": null
       },
       {
-        "item": "Muscadine Black Grapes",
+        "item": { "en": "Muscadine Black Grapes", "cn": "黑提子" },
         "price": "$3.59/lb",
         "discountPct": null
       },
       {
-        "item": "Mini Watermelon",
+        "item": { "en": "Mini Watermelon", "cn": "迷你西瓜" },
         "price": "$3.99/ea",
         "discountPct": null
       },
       {
-        "item": "Chicken Drumsticks",
+        "item": { "en": "Chicken Drumsticks", "cn": "鸡腿" },
         "price": "$1.69/lb",
         "discountPct": null
       },
       {
-        "item": "Beef Bone",
+        "item": { "en": "Beef Bone", "cn": "牛骨" },
         "price": "$1.99/lb",
         "discountPct": null
       },
       {
-        "item": "Pork Stomach",
+        "item": { "en": "Pork Stomach", "cn": "猪肚" },
         "price": "$2.99/lb",
         "discountPct": null
       },
       {
-        "item": "Beef Honey Comb Tripe",
+        "item": { "en": "Beef Honey Comb Tripe", "cn": "牛蜂窝肚" },
         "price": "$5.99/lb",
         "discountPct": null
       },
       {
-        "item": "Free Range Chicken",
+        "item": { "en": "Free Range Chicken", "cn": "走地鸡" },
         "price": "$10.99/ea",
         "discountPct": null
       },
       {
-        "item": "Angus Chuck Eye Roll",
+        "item": { "en": "Angus Chuck Eye Roll", "cn": "安格斯牛眼肉卷" },
         "price": "$8.99/lb",
         "discountPct": null
       },
       {
-        "item": "Boneless Lamb Leg",
+        "item": { "en": "Boneless Lamb Leg", "cn": "去骨羊腿" },
         "price": "$7.99/lb",
         "discountPct": null
       },
       {
-        "item": "Black Lamb Belly",
+        "item": { "en": "Black Lamb Belly", "cn": "黑山羊腩" },
         "price": "$10.99/lb",
         "discountPct": null
       },
       {
-        "item": "Live Vietnamese Crab",
+        "item": { "en": "Live Vietnamese Crab", "cn": "越南活蟹" },
         "price": "$35.99/lb",
         "discountPct": null
       },
       {
-        "item": "Live Turbot",
+        "item": { "en": "Live Turbot", "cn": "活多宝鱼" },
         "price": "$33.99/lb",
         "discountPct": null
       },
       {
-        "item": "Previously Frozen Saury",
+        "item": { "en": "Previously Frozen Saury", "cn": "解冻秋刀鱼" },
         "price": "$1.99/lb",
         "discountPct": null
       },
       {
-        "item": "Grade A Jellyfish",
+        "item": { "en": "Grade A Jellyfish", "cn": "特级海蜇" },
         "price": "$3.99/lb",
         "discountPct": null
       },
       {
-        "item": "Live Blue Crab",
+        "item": { "en": "Live Blue Crab", "cn": "活蓝蟹" },
         "price": "$5.99/lb",
         "discountPct": null,
         "note": "Fri–Sun only"
@@ -250,75 +250,75 @@
     ],
     "fuyao": [
       {
-        "item": "Favor Swallow Kong Moon Rice Stick 400g",
+        "item": { "en": "Favor Swallow Kong Moon Rice Stick 400g", "cn": "燕子江门排粉 400g" },
         "price": "$0.99/ea",
         "discountPct": 61.8
       },
       {
-        "item": "Sing Bridge Brand Rock Sugar 454g",
+        "item": { "en": "Sing Bridge Brand Rock Sugar 454g", "cn": "新桥牌冰糖 454g" },
         "price": "$0.99/ea",
         "discountPct": 66.9
       },
       {
-        "item": "China Maid Preserved Duck Eggs 375g",
+        "item": { "en": "China Maid Preserved Duck Eggs 375g", "cn": "中华皮蛋 375g" },
         "price": "$2.99/ea",
         "discountPct": 40.1
       },
       {
-        "item": "Haday Premium Soy Sauce 1.9L",
+        "item": { "en": "Haday Premium Soy Sauce 1.9L", "cn": "海天特级酱油 1.9L" },
         "price": "$4.99/ea",
         "discountPct": 16.7
       },
       {
-        "item": "Ounce Honey 1000g",
+        "item": { "en": "Ounce Honey 1000g", "cn": "蜂蜜 1000g" },
         "price": "$5.99/ea",
         "discountPct": 40.0
       },
       {
-        "item": "Fresh Beef Chuck Short Ribs",
+        "item": { "en": "Fresh Beef Chuck Short Ribs", "cn": "新鲜牛小排" },
         "price": "$8.99/lb",
         "discountPct": 25.0
       },
       {
-        "item": "Fresh Chicken Drumstick",
+        "item": { "en": "Fresh Chicken Drumstick", "cn": "新鲜鸡腿" },
         "price": "$1.69/lb",
         "discountPct": 43.5
       },
       {
-        "item": "G&L Frozen Golden Pompano",
+        "item": { "en": "G&L Frozen Golden Pompano", "cn": "冷冻金鲳鱼" },
         "price": "$2.99/lb",
         "discountPct": 40.1
       },
       {
-        "item": "D.Y. Seafood Whole Abalone 200g",
+        "item": { "en": "D.Y. Seafood Whole Abalone 200g", "cn": "整只鲍鱼 200g" },
         "price": "$3.99/ea",
         "discountPct": 33.4
       },
       {
-        "item": "Live Blue Crabs",
+        "item": { "en": "Live Blue Crabs", "cn": "活蓝蟹" },
         "price": "$4.99/lb",
         "discountPct": 28.6
       },
       {
-        "item": "Fresh Green Beans",
+        "item": { "en": "Fresh Green Beans", "cn": "新鲜四季豆" },
         "price": "$1.27/lb",
         "discountPct": 36.2,
         "note": "Fri–Sun only"
       },
       {
-        "item": "Fresh Baby Neo Bok Choy",
+        "item": { "en": "Fresh Baby Neo Bok Choy", "cn": "新鲜小白菜" },
         "price": "$1.27/lb",
         "discountPct": 36.2,
         "note": "Fri–Sun only"
       },
       {
-        "item": "Fresh Green Grape",
+        "item": { "en": "Fresh Green Grape", "cn": "新鲜青提" },
         "price": "$2.99/ea",
         "discountPct": 25.1,
         "note": "Fri–Sun only"
       },
       {
-        "item": "Fresh Avocado",
+        "item": { "en": "Fresh Avocado", "cn": "新鲜牛油果" },
         "price": "$1.99/ea",
         "discountPct": 50.1,
         "note": "Fri–Sun only"
@@ -326,135 +326,135 @@
     ],
     "tnt16": [
       {
-        "item": "Hami Melon (USA)",
+        "item": { "en": "Hami Melon (USA)", "cn": "哈密瓜（美国）" },
         "price": "$0.68/lb",
         "discountPct": null
       },
       {
-        "item": "Fuzzy Squash (Mexico)",
+        "item": { "en": "Fuzzy Squash (Mexico)", "cn": "节瓜（墨西哥）" },
         "price": "$0.98/lb",
         "discountPct": null
       },
       {
-        "item": "Norwegian Salmon Steak (Fresh)",
+        "item": { "en": "Norwegian Salmon Steak (Fresh)", "cn": "挪威三文鱼扒（新鲜）" },
         "price": "$8.98/lb",
         "discountPct": null
       },
       {
-        "item": "Broiled Eel (Frozen, 14oz)",
+        "item": { "en": "Broiled Eel (Frozen, 14oz)", "cn": "烤鳗鱼（冷冻，14oz）" },
         "price": "$8.88/ea",
         "discountPct": null
       },
       {
-        "item": "Chicken Leg (Fresh, Back Attached)",
+        "item": { "en": "Chicken Leg (Fresh, Back Attached)", "cn": "带背鸡腿（新鲜）" },
         "price": "$2.39/lb",
         "discountPct": null
       },
       {
-        "item": "Chicken Wing (Value Pack, Fresh)",
+        "item": { "en": "Chicken Wing (Value Pack, Fresh)", "cn": "鸡翅（超值装，新鲜）" },
         "price": "$2.99/lb",
         "discountPct": null
       },
       {
-        "item": "Sekka Premium Medium Grain Rice (15lbs)",
+        "item": { "en": "Sekka Premium Medium Grain Rice (15lbs)", "cn": "雪花特级中粒米（15磅）" },
         "price": "$13.97/ea",
         "discountPct": null
       },
       {
-        "item": "Nissin Instant Noodle (5 packs)",
+        "item": { "en": "Nissin Instant Noodle (5 packs)", "cn": "日清方便面（5包装）" },
         "price": "$2.97/ea",
         "discountPct": null
       },
       {
-        "item": "T&T Mixed Nuts / Unsalted Almond",
+        "item": { "en": "T&T Mixed Nuts / Unsalted Almond", "cn": "T&T混合坚果/无盐杏仁" },
         "price": "$13.97–$14.97/ea",
         "discountPct": null
       },
       {
-        "item": "DDS Jumbo Shrimp Wonton Dumpling (300g)",
+        "item": { "en": "DDS Jumbo Shrimp Wonton Dumpling (300g)", "cn": "大虾云吞水饺（300g）" },
         "price": "$12.97/ea",
         "discountPct": null
       },
       {
-        "item": "Fruit King Frozen Seedless Durian",
+        "item": { "en": "Fruit King Frozen Seedless Durian", "cn": "果王冷冻无核榴莲" },
         "price": "$15.97/ea",
         "discountPct": null
       }
     ],
     "costco": [
       {
-        "item": "Kirkland Signature Organic Roasted Seaweed Snack, 10-count",
+        "item": { "en": "Kirkland Signature Organic Roasted Seaweed Snack, 10-count", "cn": "Kirkland Signature 有机烤海苔零食，10包装" },
         "price": "$18.99",
         "discountPct": null
       },
       {
-        "item": "Nongshim Tonkotsu Ramen, 6 x 101 g",
+        "item": { "en": "Nongshim Tonkotsu Ramen, 6 x 101 g", "cn": "农心豚骨拉面，6x101g" },
         "price": "$16.99",
         "discountPct": 19.1,
         "note": "After $4 OFF, was $20.99"
       },
       {
-        "item": "Hi-Chew Candy",
+        "item": { "en": "Hi-Chew Candy", "cn": "Hi-Chew 糖果" },
         "price": "$9.99",
         "discountPct": 16.7,
         "note": "After $2 OFF, was $11.99"
       },
       {
-        "item": "Kirkland Signature 100% Italian Extra Virgin Olive Oil, 2 L",
+        "item": { "en": "Kirkland Signature 100% Italian Extra Virgin Olive Oil, 2 L", "cn": "Kirkland Signature 100%意大利特级初榨橄榄油，2L" },
         "price": "$34.99",
         "discountPct": null
       }
     ],
     "walmart": [
       {
-        "item": "Bulk Jumbo Carrots (Canada)",
+        "item": { "en": "Bulk Jumbo Carrots (Canada)", "cn": "散装特大胡萝卜（加拿大）" },
         "price": "$0.94/lb",
         "discountPct": null
       },
       {
-        "item": "Napa or Flat Cabbage (Canada)",
+        "item": { "en": "Napa or Flat Cabbage (Canada)", "cn": "大白菜或平卷心菜（加拿大）" },
         "price": "$1.28/lb",
         "discountPct": null
       },
       {
-        "item": "Eddoes (Ecuador)",
+        "item": { "en": "Eddoes (Ecuador)", "cn": "小芋头（厄瓜多尔）" },
         "price": "$1.97/lb",
         "discountPct": null
       },
       {
-        "item": "Dragon Fruit (Ecuador)",
+        "item": { "en": "Dragon Fruit (Ecuador)", "cn": "火龙果（厄瓜多尔）" },
         "price": "$2.28/ea",
         "discountPct": null
       },
       {
-        "item": "Asian Pears or Fuji Apples",
+        "item": { "en": "Asian Pears or Fuji Apples", "cn": "亚洲梨或富士苹果" },
         "price": "$2.28/lb",
         "discountPct": null
       },
       {
-        "item": "Pomelo (China/Vietnam)",
+        "item": { "en": "Pomelo (China/Vietnam)", "cn": "柚子（中国/越南）" },
         "price": "$3.28/ea",
         "discountPct": null
       },
       {
-        "item": "Pocky Strawberry or Chocolate Biscuit Sticks (144-156g)",
+        "item": { "en": "Pocky Strawberry or Chocolate Biscuit Sticks (144-156g)", "cn": "百奇草莓/巧克力饼干棒（144-156g）" },
         "price": "$3.98",
         "discountPct": 19.9,
         "note": "Rollback, was $4.97"
       },
       {
-        "item": "Golden Happiness Bun / Specialty Bun (100g)",
+        "item": { "en": "Golden Happiness Bun / Specialty Bun (100g)", "cn": "金喜饼/特色面包（100g）" },
         "price": "$1.42",
         "discountPct": null
       },
       {
-        "item": "ChaCheer Sunflower Seeds (260g selected)",
+        "item": { "en": "ChaCheer Sunflower Seeds (260g selected)", "cn": "洽洽瓜子（精选260g）" },
         "price": "$2.28",
         "discountPct": 23.2,
         "note": "Rollback, was $2.97"
       },
       {
-        "item": "H&H Mango Bites (454g)",
+        "item": { "en": "H&H Mango Bites (454g)", "cn": "H&H芒果干（454g）" },
         "price": "$6.98",
         "discountPct": 12.4,
         "note": "Rollback, was $7.97"

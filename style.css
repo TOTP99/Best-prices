@@ -56,6 +56,13 @@ body {
 .frame.has-popped .switch-container { z-index: 1; }
 .frame.has-popped .stage { z-index: 10; }
 
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 .switch-container {
   display: flex;
   align-items: center;
@@ -385,16 +392,11 @@ body {
 .clubs-theme .flyer-btn:hover { background: rgba(44, 62, 80, .14); }
 
 .signature {
-  position: fixed;
-  top: calc(10px + var(--card-h) / 2);
-  left: 12px;
   font-size: 12.5px;
   font-weight: 600;
   color: var(--gold);
   letter-spacing: .3px;
   opacity: .9;
-  display: none;
-  z-index: 950;
 }
 
 .sound-toggle {
@@ -413,19 +415,31 @@ body {
   cursor: pointer;
 }
 
+.lang-toggle {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 2px;
+  display: flex;
+  align-items: center;
+}
+
 .update-stamp {
-  position: fixed;
-  z-index: 950;
   font-size: 11px;
   font-weight: 600;
   color: rgba(212, 175, 55, .85);
   letter-spacing: .2px;
-  pointer-events: none;
   white-space: nowrap;
 }
 
 @media (orientation: portrait) {
   .frame { gap: 14px; }
+
+  /* frame gap is 14px; pull back to 3px between topline and switch-container */
+  .topline { margin-bottom: -11px; }
 
   .stage {
     flex-direction: column;
@@ -453,13 +467,6 @@ body {
     display: flex;
     margin-top: 2px;
   }
-
-  .signature { display: block; }
-
-  .update-stamp {
-    top: calc(10px + var(--card-h) / 2 + 20px);
-    left: 12px;
-  }
 }
 
 @media (orientation: landscape) {
@@ -483,6 +490,14 @@ body {
 
   .switch-container .switch-btn { display: none; }
 
+  .topline {
+    position: fixed;
+    left: 50%;
+    top: calc(50% + 26px);
+    transform: translate(-50%, calc(-100% - 3px));
+    z-index: 950;
+  }
+
   .frame {
     padding: 8px 16px;
     gap: 6px;
@@ -496,12 +511,6 @@ body {
   }
 
   .fan-section { display: flex; }
-
-  .update-stamp {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
 }
 
 /* —— 数据分析弹层 —— */

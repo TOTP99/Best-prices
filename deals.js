@@ -25,6 +25,17 @@
     { id: 'chickenwing', cn: '鸡翅', en: 'Chicken Wing' }
   ];
 
+  // 卡片语言：只影响商品名称/权益标签/按钮文案；店名固定按 group 显示，不受此影响
+  let cardLang = 'zh';
+  let lastDataset = null;
+
+  function itemText(item) {
+    if (item && typeof item === 'object') {
+      return (cardLang === 'zh' ? item.cn : item.en) || item.en || item.cn || '';
+    }
+    return item || '';
+  }
+
   function computeBenchmarkWinners(prices) {
     const winners = {};
     BENCHMARK_ITEMS.forEach(item => {
@@ -95,6 +106,7 @@
     const bottomRight = card.querySelector('.suit-corner.bottom-right');
     if (bottomRight) bottomRight.innerHTML = '';
 
+    // 店名固定按华超/西超分组显示，不随语言切换变化
     const nameEl = card.querySelector('.supermarket-name');
     if (nameEl) nameEl.textContent = isCN ? store.nameCN : store.nameEN;
 
@@ -105,14 +117,15 @@
     pickBestFour(deals).forEach((deal, i) => {
       const row = document.createElement('div');
       row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
-      row.innerHTML = `<span class="deal-item">${deal.item}</span><span class="deal-price">${deal.price}</span>`;
+      row.innerHTML = `<span class="deal-item">${itemText(deal.item)}</span><span class="deal-price">${deal.price}</span>`;
       dealsEl.appendChild(row);
     });
 
     (highlights || []).slice(0, 2).forEach(hl => {
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
-      row.innerHTML = `<span class="deal-item">${isCN ? hl.cn : hl.en} ⬇️🆕</span><span class="deal-price">${hl.display}</span>`;
+      const hlText = cardLang === 'zh' ? hl.cn : hl.en;
+      row.innerHTML = `<span class="deal-item">${hlText} ⬇️🆕</span><span class="deal-price">${hl.display}</span>`;
       dealsEl.appendChild(row);
     });
 
@@ -126,7 +139,7 @@
       btn.className = 'flyer-btn';
       content.appendChild(btn);
     }
-    btn.textContent = isCN ? '看完整 Flyer' : 'Full Flyer';
+    btn.textContent = cardLang === 'zh' ? '看完整 Flyer' : 'Full Flyer';
     btn.onclick = e => {
       e.preventDefault();
       e.stopPropagation();
@@ -136,13 +149,21 @@
   }
 
   function renderAll(dataset) {
-    const deals = dataset?.deals || {};
-    const prices = dataset?.benchmarkPrices || {};
-    const updated = dataset?.updatedAt || {};
+    if (dataset) lastDataset = dataset;
+    const src = dataset || lastDataset;
+    const deals = src?.deals || {};
+    const prices = src?.benchmarkPrices || {};
+    const updated = src?.updatedAt || {};
     const winners = computeBenchmarkWinners(prices);
     STORE_CONFIG.forEach(s => {
       renderStore(s, deals[s.id] || [], winners[s.id], updated[s.id]);
     });
+  }
+
+  function setLang(lang) {
+    if (lang !== 'zh' && lang !== 'en') return;
+    cardLang = lang;
+    renderAll(lastDataset);
   }
 
   function init() {
@@ -156,5 +177,5 @@
     init();
   }
 
-  window.SupermarketDeals = { config: STORE_CONFIG, benchmarkItems: BENCHMARK_ITEMS, refresh: init };
+  window.SupermarketDeals = { config: STORE_CONFIG, benchmarkItems: BENCHMARK_ITEMS, refresh: init, setLang, getLang: () => cardLang };
 })();

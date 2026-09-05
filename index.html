@@ -8,11 +8,13 @@
 </head>
 <body>
 
-<span class="signature">TP🐈🏷️</span>
-<span class="update-stamp" id="updateStamp"></span>
-
-
 <div class="frame" id="frame">
+
+  <div class="topline" id="topline">
+    <span class="signature">TP🐈🏷️</span>
+    <span class="update-stamp" id="updateStamp"></span>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
+  </div>
 
   <div class="switch-container">
     <button class="switch-btn western-active" id="landscapeSwitch" aria-label="切换华超/西超" aria-pressed="true">
@@ -170,6 +172,42 @@
 <script src="deals.js"></script>
 <script>
 (function () {
+  // 语言状态与文案
+  let uiLang = 'zh';
+
+  const UI_TEXT = {
+    zh: {
+      analysisTitle: '📊 数据分析',
+      tabs: { bestDeals: '⭐ 精选特价', deepestDiscounts: '📉 折扣力度', categoryWinners: '🏆 品类冠军', cheapestStoreSummary: '🏪 最低价店铺' },
+      loading: '加载中…',
+      empty: '暂无数据',
+      failed: '数据加载失败',
+      benchmarkHead: '基准价对比',
+      switchLeft: '♥ 华超',
+      switchRight: '♣ 西超',
+      switchAria: '切换华超/西超',
+      analysisAria: '数据分析',
+      soundAria: '音效开关',
+      closeAria: '关闭',
+      langAria: '切换中英文'
+    },
+    en: {
+      analysisTitle: '📊 Analysis',
+      tabs: { bestDeals: '⭐ Best Deals', deepestDiscounts: '📉 Discounts', categoryWinners: '🏆 Category Winners', cheapestStoreSummary: '🏪 Cheapest Stores' },
+      loading: 'Loading…',
+      empty: 'No data',
+      failed: 'Failed to load',
+      benchmarkHead: 'Benchmark Comparison',
+      switchLeft: '♥ CN',
+      switchRight: '♣ West',
+      switchAria: 'Switch Chinese/Western',
+      analysisAria: 'Analysis',
+      soundAria: 'Sound toggle',
+      closeAria: 'Close',
+      langAria: 'Switch language'
+    }
+  };
+
   // 日期戳
   const now = new Date();
   document.getElementById('updateStamp').textContent = `${now.getMonth() + 1}/${now.getDate()} 🆕`;
@@ -226,6 +264,50 @@
     soundOn = !soundOn;
     soundToggle.textContent = soundOn ? '🔊' : '🔇';
     if (soundOn) ensureCtx();
+  });
+
+  // 中英文切换
+  const langToggle = document.getElementById('langToggle');
+  const analysisTitleEl = document.querySelector('.analysis-title');
+  const switchLeftEl = document.querySelector('.switch-option-left');
+  const switchRightEl = document.querySelector('.switch-option-right');
+
+  function applyLang() {
+    const t = UI_TEXT[uiLang];
+    document.documentElement.lang = uiLang;
+
+    langToggle.textContent = uiLang === 'zh' ? '🇨🇳' : '🇨🇦';
+    langToggle.setAttribute('aria-label', t.langAria);
+
+    landscapeSwitch.setAttribute('aria-label', t.switchAria);
+    switchLeftEl.textContent = t.switchLeft;
+    switchRightEl.textContent = t.switchRight;
+
+    trigger.setAttribute('aria-label', t.analysisAria);
+    soundToggle.setAttribute('aria-label', t.soundAria);
+    closeBtn.setAttribute('aria-label', t.closeAria);
+
+    analysisTitleEl.textContent = t.analysisTitle;
+    document.querySelectorAll('.analysis-tab').forEach(btn => {
+      const key = btn.dataset.tab;
+      if (t.tabs[key]) btn.textContent = t.tabs[key];
+    });
+
+    if (window.SupermarketDeals && typeof window.SupermarketDeals.setLang === 'function') {
+      window.SupermarketDeals.setLang(uiLang);
+    }
+
+    if (analysisData) {
+      renderTab();
+    } else {
+      const p = body.querySelector('.analysis-loading, .analysis-empty, .analysis-failed');
+      if (p) p.textContent = t.loading;
+    }
+  }
+
+  langToggle.addEventListener('click', () => {
+    uiLang = uiLang === 'zh' ? 'en' : 'zh';
+    applyLang();
   });
 
   // 华超 / 西超切换
@@ -303,20 +385,12 @@
   });
 
   // 数据分析弹层
-  const STORE_NAMES = {
-    tnt16: 'T&T 16街',
-    guanye: '冠业Kennedy',
-    dingtai: '鼎泰Hwy7',
-    fuyao: '福耀Hwy7',
-    dingxian: '鼎鲜Woodbine',
-    walmart: 'Walmart',
-    freshco: 'FreshCo',
-    costco: 'Costco',
-    nofrills: 'No Frills',
-    foodbasics: 'Food Basics'
-  };
-
-  function storeName(id) { return STORE_NAMES[id] || id; }
+  // 店名固定：直接读 deals.js 里的 STORE_CONFIG，按华超/西超分组显示，不随语言切换翻译
+  function storeName(id) {
+    const cfg = (window.SupermarketDeals && window.SupermarketDeals.config || []).find(s => s.id === id);
+    if (!cfg) return id;
+    return cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
+  }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
@@ -354,7 +428,7 @@
     let html = Object.entries(data || {}).map(([k, t]) => row(k, t)).join('');
     const b = Object.entries(benchmarks || {});
     if (b.length) {
-      html += '<div class="analysis-subhead">基准价对比</div>';
+      html += `<div class="analysis-subhead">${UI_TEXT[uiLang].benchmarkHead}</div>`;
       html += b.map(([k, t]) => row(k, t)).join('');
     }
     return html;
@@ -369,7 +443,7 @@
     else if (activeTab === 'cheapestStoreSummary') {
       html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
     }
-    body.innerHTML = html || '<p class="analysis-empty">暂无数据</p>';
+    body.innerHTML = html || `<p class="analysis-empty">${UI_TEXT[uiLang].empty}</p>`;
   }
 
   tabsWrap.addEventListener('click', e => {
@@ -382,7 +456,7 @@
   });
 
   function loadAnalysis() {
-    body.innerHTML = '<p class="analysis-loading">加载中…</p>';
+    body.innerHTML = `<p class="analysis-loading">${UI_TEXT[uiLang].loading}</p>`;
     fetch('deals-data.json', { cache: 'no-store' })
       .then(r => r.json())
       .then(json => {
@@ -390,7 +464,7 @@
         renderTab();
       })
       .catch(() => {
-        body.innerHTML = '<p class="analysis-empty">数据加载失败</p>';
+        body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].failed}</p>`;
       });
   }
 
@@ -403,6 +477,8 @@
   overlay.addEventListener('click', e => {
     if (e.target === overlay) overlay.classList.remove('open');
   });
+
+  applyLang();
 })();
 </script>
 </body>
