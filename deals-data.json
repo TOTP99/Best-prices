@@ -1,0 +1,174 @@
+{
+  "deals": {
+    "guanye": [
+      { "item": "Live Canada Lobster 4–6lb", "price": "$13.99/lb", "discountPct": 12.5 },
+      { "item": "Sea Cucumber", "price": "$22.00/lb", "discountPct": 21.4 },
+      { "item": "Frozen Saury Fish", "price": "$1.69/lb", "discountPct": 43.5 },
+      { "item": "Live Tilapia", "price": "$7.99/lb", "discountPct": 20.0 }
+    ],
+    "foodbasics": [
+      { "item": "10lb Potatoes", "price": "$1.88", "discountPct": null },
+      { "item": "Chicken Breast", "price": "$4.98/lb", "discountPct": null },
+      { "item": "Fresh Salmon Fillet", "price": "$9.99/lb", "discountPct": null },
+      { "item": "Juice (Medium Bottle)", "price": "$1.25", "discountPct": null }
+    ],
+    "nofrills": [
+      { "item": "Watermelon", "price": "$3.44", "discountPct": null },
+      { "item": "Ocean’s Tuna Can", "price": "$1.00", "discountPct": null },
+      { "item": "Sweet Oranges 2lb", "price": "$2.99", "discountPct": null },
+      { "item": "Pork Chop", "price": "$2.22/lb", "discountPct": null }
+    ],
+    "freshco": [
+      { "item": "30 Eggs (Member)", "price": "$6.99", "discountPct": null },
+      { "item": "8 Chicken Drumsticks", "price": "$5.00", "discountPct": null },
+      { "item": "Cantaloupe (Large)", "price": "$1.88", "discountPct": null },
+      { "item": "Hotdog", "price": "$2.99", "discountPct": null }
+    ],
+    "dingtai": [
+      { "item": "LKK Panda Oyster Sauce 907g", "price": "$3.98/ea", "discountPct": 50.2 },
+      { "item": "Y&Y Premium Thai Jasmine Rice 8kg", "price": "$15.98/bag", "discountPct": 20.1 },
+      { "item": "Fu Yang Black Tiger Shrimp 31/40 400g", "price": "$5.98/ea", "discountPct": 33.5 },
+      { "item": "Pinwei Handmade Dumpling Wonton Series 350g", "price": "2/$12.98", "discountPct": null },
+      { "item": "Korean Cabbage", "price": "$0.38/lb", "discountPct": 61.6 },
+      { "item": "Mama Squash", "price": "$0.58/lb", "discountPct": 41.4 },
+      { "item": "South Africa Orange", "price": "$0.88/lb", "discountPct": 44.7 },
+      { "item": "Hami Melon", "price": "$0.88/lb", "discountPct": 31.8 },
+      { "item": "Fresh Pork Chop", "price": "$1.68/lb", "discountPct": 57.9 },
+      { "item": "Fresh Chicken Mid Wing", "price": "$3.98/lb", "discountPct": 33.6 },
+      { "item": "Live Striped Bass (Fri–Sun only)", "price": "$11.98/lb", "discountPct": 25.1 },
+      { "item": "Live Blue Crab (while quantities last)", "price": "$5.98/lb", "discountPct": 25.2 }
+    ],
+    "dingxian": [
+      { "item": "Korean Cabbage", "price": "$0.68/lb", "discountPct": null },
+      { "item": "Wintermelon", "price": "$1.28/lb", "discountPct": null },
+      { "item": "Yellow Enoki Mushroom", "price": "$1.88/ea", "discountPct": null },
+      { "item": "Carrots 2lb", "price": "2/$2.00", "discountPct": null },
+      { "item": "Muscadine Black Grapes", "price": "$3.59/lb", "discountPct": null },
+      { "item": "Mini Watermelon", "price": "$3.99/ea", "discountPct": null },
+      { "item": "Chicken Drumsticks", "price": "$1.69/lb", "discountPct": null },
+      { "item": "Beef Bone", "price": "$1.99/lb", "discountPct": null },
+      { "item": "Pork Stomach", "price": "$2.99/lb", "discountPct": null },
+      { "item": "Beef Honey Comb Tripe", "price": "$5.99/lb", "discountPct": null },
+      { "item": "Free Range Chicken", "price": "$10.99/ea", "discountPct": null },
+      { "item": "Angus Chuck Eye Roll", "price": "$8.99/lb", "discountPct": null },
+      { "item": "Boneless Lamb Leg", "price": "$7.99/lb", "discountPct": null },
+      { "item": "Black Lamb Belly", "price": "$10.99/lb", "discountPct": null },
+      { "item": "Live Vietnamese Crab", "price": "$35.99/lb", "discountPct": null },
+      { "item": "Live Turbot", "price": "$33.99/lb", "discountPct": null },
+      { "item": "Previously Frozen Saury", "price": "$1.99/lb", "discountPct": null },
+      { "item": "Grade A Jellyfish", "price": "$3.99/lb", "discountPct": null },
+      { "item": "Live Blue Crab", "price": "$5.99/lb", "discountPct": null, "note": "Fri–Sun only" }
+    ],
+    "fuyao": [
+      { "item": "Favor Swallow Kong Moon Rice Stick 400g", "price": "$0.99/ea", "discountPct": 61.8 },
+      { "item": "Sing Bridge Brand Rock Sugar 454g", "price": "$0.99/ea", "discountPct": 66.9 },
+      { "item": "China Maid Preserved Duck Eggs 375g", "price": "$2.99/ea", "discountPct": 40.1 },
+      { "item": "Haday Premium Soy Sauce 1.9L", "price": "$4.99/ea", "discountPct": 16.7 },
+      { "item": "Ounce Honey 1000g", "price": "$5.99/ea", "discountPct": 40.0 },
+      { "item": "Fresh Beef Chuck Short Ribs", "price": "$8.99/lb", "discountPct": 25.0 },
+      { "item": "Fresh Chicken Drumstick", "price": "$1.69/lb", "discountPct": 43.5 },
+      { "item": "G&L Frozen Golden Pompano", "price": "$2.99/lb", "discountPct": 40.1 },
+      { "item": "D.Y. Seafood Whole Abalone 200g", "price": "$3.99/ea", "discountPct": 33.4 },
+      { "item": "Live Blue Crabs", "price": "$4.99/lb", "discountPct": 28.6 },
+      { "item": "Fresh Green Beans", "price": "$1.27/lb", "discountPct": 36.2, "note": "Fri–Sun only" },
+      { "item": "Fresh Baby Neo Bok Choy", "price": "$1.27/lb", "discountPct": 36.2, "note": "Fri–Sun only" },
+      { "item": "Fresh Green Grape", "price": "$2.99/ea", "discountPct": 25.1, "note": "Fri–Sun only" },
+      { "item": "Fresh Avocado", "price": "$1.99/ea", "discountPct": 50.1, "note": "Fri–Sun only" }
+    ],
+    "tnt16": [
+      { "item": "Hami Melon (USA)", "price": "$0.68/lb", "discountPct": null },
+      { "item": "Fuzzy Squash (Mexico)", "price": "$0.98/lb", "discountPct": null },
+      { "item": "Norwegian Salmon Steak (Fresh)", "price": "$8.98/lb", "discountPct": null },
+      { "item": "Broiled Eel (Frozen, 14oz)", "price": "$8.88/ea", "discountPct": null },
+      { "item": "Chicken Leg (Fresh, Back Attached)", "price": "$2.39/lb", "discountPct": null },
+      { "item": "Chicken Wing (Value Pack, Fresh)", "price": "$2.99/lb", "discountPct": null },
+      { "item": "Sekka Premium Medium Grain Rice (15lbs)", "price": "$13.97/ea", "discountPct": null },
+      { "item": "Nissin Instant Noodle (5 packs)", "price": "$2.97/ea", "discountPct": null },
+      { "item": "T&T Mixed Nuts / Unsalted Almond", "price": "$13.97–$14.97/ea", "discountPct": null },
+      { "item": "DDS Jumbo Shrimp Wonton Dumpling (300g)", "price": "$12.97/ea", "discountPct": null },
+      { "item": "Fruit King Frozen Seedless Durian", "price": "$15.97/ea", "discountPct": null }
+    ]
+  },
+
+  "benchmarkPrices": {
+    "guanye": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" }
+    },
+    "foodbasics": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" },
+      "chocolate": { "value": 7.98, "display": "$7.98 (50pcs)" }
+    },
+    "nofrills": {
+      "banana": { "value": 3.44, "display": "$3.44 watermelon (proxy)" }
+    },
+    "freshco": {
+      "eggs": { "value": 6.99, "display": "$6.99 (30pcs)" }
+    },
+    "dingtai": {
+      "porkchop": { "value": 1.68, "display": "$1.68/lb" },
+      "orange": { "value": 0.88, "display": "$0.88/lb" }
+    },
+    "tnt16": {
+      "salmon": { "value": 8.98, "display": "$8.98/lb" },
+      "chickenwing": { "value": 2.99, "display": "$2.99/lb" }
+    }
+  },
+
+  "updatedAt": {
+    "guanye": "2026-09-04",
+    "foodbasics": "2026-09-04",
+    "nofrills": "2026-09-04",
+    "freshco": "2026-09-04",
+    "dingtai": "2026-09-04",
+    "dingxian": "2026-09-04",
+    "fuyao": "2026-09-04",
+    "tnt16": "2026-09-04"
+  },
+
+  "analysis": {
+    "bestDeals": {
+      "guanye": "Frozen Saury Fish $1.69/lb (43.5% off)",
+      "foodbasics": "10lb Potatoes $1.88",
+      "nofrills": "Ocean’s Tuna $1.00",
+      "freshco": "Cantaloupe $1.88",
+      "dingtai": "Fresh Pork Chop $1.68/lb (57.9% off)",
+      "dingxian": "Korean Cabbage $0.68/lb",
+      "fuyao": "Sing Bridge Rock Sugar $0.99 (66.9% off)",
+      "tnt16": "Hami Melon (USA) $0.68/lb"
+    },
+
+    "deepestDiscounts": [
+      { "item": "Sing Bridge Brand Rock Sugar", "store": "fuyao", "discountPct": 66.9 },
+      { "item": "Favor Swallow Kong Moon Rice Stick", "store": "fuyao", "discountPct": 61.8 },
+      { "item": "Korean Cabbage", "store": "dingtai", "discountPct": 61.6 },
+      { "item": "Fresh Pork Chop", "store": "dingtai", "discountPct": 57.9 },
+      { "item": "Fresh Avocado", "store": "fuyao", "discountPct": 50.1 },
+      { "item": "Frozen Saury Fish", "store": "guanye", "discountPct": 43.5 },
+      { "item": "Fresh Chicken Drumstick", "store": "fuyao", "discountPct": 43.5 },
+      { "item": "South Africa Orange", "store": "dingtai", "discountPct": 44.7 },
+      { "item": "Mama Squash", "store": "dingtai", "discountPct": 41.4 }
+    ],
+
+    "categoryWinners": {
+      "meat": "Fresh Pork Chop $1.68/lb (鼎泰)",
+      "seafood": "Frozen Saury $1.69/lb (冠业)",
+      "produce": "Hami Melon $0.68/lb (T&T)",
+      "staples": "Sing Bridge Rock Sugar $0.99 (福耀)"
+    },
+
+    "benchmarksComparison": {
+      "salmon": "T&T beats benchmark ($8.98 vs $9.99)",
+      "porkchop": "鼎泰matches benchmark ($1.68/lb)",
+      "orange": "鼎泰matches benchmark ($0.88/lb)",
+      "chickenwing": "T&T matches benchmark ($2.99/lb)",
+      "eggs": "FreshCo matches benchmark ($6.99)"
+    },
+
+    "cheapestStoreSummary": {
+      "overallCheapestProduce": "T&T (Hami Melon $0.68/lb) / 建兴 (Korean Cabbage $0.68/lb)",
+      "overallCheapestMeat": "鼎泰 (Pork Chop $1.68/lb)",
+      "overallCheapestSeafood": "冠业 (Saury $1.69/lb)",
+      "overallCheapestStaples": "福耀 (Rock Sugar $0.99, 66.9% off)"
+    }
+  }
+}
