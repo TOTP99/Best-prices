@@ -525,82 +525,82 @@
   },
   "analysis": {
     "bestDeals": {
-      "guanye": "Frozen Saury Fish $1.69/lb (43.5% off)",
-      "foodbasics": "10lb Potatoes $1.88",
-      "nofrills": "Ocean’s Tuna $1.00",
-      "freshco": "Cantaloupe $1.88",
-      "dingtai": "Fresh Pork Chop $1.68/lb (57.9% off)",
-      "dingxian": "Korean Cabbage $0.68/lb",
-      "fuyao": "Sing Bridge Rock Sugar $0.99 (66.9% off)",
-      "tnt16": "Hami Melon (USA) $0.68/lb",
-      "costco": "Nongshim Tonkotsu Ramen $16.99 (After $4 OFF)",
-      "walmart": "Bulk Jumbo Carrots $0.94/lb"
+      "guanye": { "en": "Frozen Saury Fish $1.69/lb (43.5% off)", "cn": "冷冻秋刀鱼 $1.69/lb（省43.5%）" },
+      "foodbasics": { "en": "10lb Potatoes $1.88", "cn": "土豆10磅 $1.88" },
+      "nofrills": { "en": "Ocean’s Tuna $1.00", "cn": "Ocean's金枪鱼罐头 $1.00" },
+      "freshco": { "en": "Cantaloupe $1.88", "cn": "哈密瓜 $1.88" },
+      "dingtai": { "en": "Fresh Pork Chop $1.68/lb (57.9% off)", "cn": "新鲜猪排 $1.68/lb（省57.9%）" },
+      "dingxian": { "en": "Korean Cabbage $0.68/lb", "cn": "韩国白菜 $0.68/lb" },
+      "fuyao": { "en": "Sing Bridge Rock Sugar $0.99 (66.9% off)", "cn": "新桥牌冰糖 $0.99（省66.9%）" },
+      "tnt16": { "en": "Hami Melon (USA) $0.68/lb", "cn": "哈密瓜（美国）$0.68/lb" },
+      "costco": { "en": "Nongshim Tonkotsu Ramen $16.99 (After $4 OFF)", "cn": "农心豚骨拉面 $16.99（减$4后）" },
+      "walmart": { "en": "Bulk Jumbo Carrots $0.94/lb", "cn": "散装特大胡萝卜 $0.94/lb" }
     },
     "deepestDiscounts": [
       {
-        "item": "Sing Bridge Brand Rock Sugar",
+        "item": { "en": "Sing Bridge Brand Rock Sugar", "cn": "新桥牌冰糖" },
         "store": "fuyao",
         "discountPct": 66.9
       },
       {
-        "item": "Favor Swallow Kong Moon Rice Stick",
+        "item": { "en": "Favor Swallow Kong Moon Rice Stick", "cn": "燕子江门排粉" },
         "store": "fuyao",
         "discountPct": 61.8
       },
       {
-        "item": "Korean Cabbage",
+        "item": { "en": "Korean Cabbage", "cn": "韩国白菜" },
         "store": "dingtai",
         "discountPct": 61.6
       },
       {
-        "item": "Fresh Pork Chop",
+        "item": { "en": "Fresh Pork Chop", "cn": "新鲜猪排" },
         "store": "dingtai",
         "discountPct": 57.9
       },
       {
-        "item": "Fresh Avocado",
+        "item": { "en": "Fresh Avocado", "cn": "新鲜牛油果" },
         "store": "fuyao",
         "discountPct": 50.1
       },
       {
-        "item": "Frozen Saury Fish",
+        "item": { "en": "Frozen Saury Fish", "cn": "冷冻秋刀鱼" },
         "store": "guanye",
         "discountPct": 43.5
       },
       {
-        "item": "Fresh Chicken Drumstick",
+        "item": { "en": "Fresh Chicken Drumstick", "cn": "新鲜鸡腿" },
         "store": "fuyao",
         "discountPct": 43.5
       },
       {
-        "item": "South Africa Orange",
+        "item": { "en": "South Africa Orange", "cn": "南非橙" },
         "store": "dingtai",
         "discountPct": 44.7
       },
       {
-        "item": "Mama Squash",
+        "item": { "en": "Mama Squash", "cn": "妈妈瓜（南瓜）" },
         "store": "dingtai",
         "discountPct": 41.4
       }
     ],
     "categoryWinners": {
-      "meat": "Fresh Pork Chop $1.68/lb (鼎泰)",
-      "seafood": "Frozen Saury $1.69/lb (冠业)",
-      "produce": "Hami Melon $0.68/lb (T&T)",
-      "staples": "Sing Bridge Rock Sugar $0.99 (福耀)"
+      "meat": { "en": "Fresh Pork Chop $1.68/lb (Ding Tai)", "cn": "新鲜猪排 $1.68/lb（鼎泰）" },
+      "seafood": { "en": "Frozen Saury $1.69/lb (Guan Ye)", "cn": "冷冻秋刀鱼 $1.69/lb（冠业）" },
+      "produce": { "en": "Hami Melon $0.68/lb (T&T)", "cn": "哈密瓜 $0.68/lb（T&T）" },
+      "staples": { "en": "Sing Bridge Rock Sugar $0.99 (Fu Yao)", "cn": "新桥牌冰糖 $0.99（福耀）" }
     },
     "benchmarksComparison": {
-      "salmon": "T&T beats benchmark ($8.98 vs $9.99)",
-      "porkchop": "鼎泰matches benchmark ($1.68/lb)",
-      "orange": "鼎泰matches benchmark ($0.88/lb)",
-      "chickenwing": "T&T matches benchmark ($2.99/lb)",
-      "eggs": "FreshCo matches benchmark ($6.99)"
+      "salmon": { "en": "T&T beats benchmark ($8.98 vs $9.99)", "cn": "T&T优于基准价（$8.98 对比 $9.99）" },
+      "porkchop": { "en": "Ding Tai matches benchmark ($1.68/lb)", "cn": "鼎泰达到基准价（$1.68/lb）" },
+      "orange": { "en": "Ding Tai matches benchmark ($0.88/lb)", "cn": "鼎泰达到基准价（$0.88/lb）" },
+      "chickenwing": { "en": "T&T matches benchmark ($2.99/lb)", "cn": "T&T达到基准价（$2.99/lb）" },
+      "eggs": { "en": "FreshCo matches benchmark ($6.99)", "cn": "FreshCo达到基准价（$6.99）" }
     },
     "cheapestStoreSummary": {
-      "overallCheapestProduce": "T&T (Hami Melon $0.68/lb) / 鼎鲜 (Korean Cabbage $0.68/lb)",
-      "overallCheapestMeat": "鼎泰 (Pork Chop $1.68/lb)",
-      "overallCheapestSeafood": "冠业 (Saury $1.69/lb)",
-      "overallCheapestStaples": "福耀 (Rock Sugar $0.99, 66.9% off)"
+      "overallCheapestProduce": { "en": "T&T (Hami Melon $0.68/lb) / Ding Xian (Korean Cabbage $0.68/lb)", "cn": "T&T（哈密瓜 $0.68/lb）/ 鼎鲜（韩国白菜 $0.68/lb）" },
+      "overallCheapestMeat": { "en": "Ding Tai (Pork Chop $1.68/lb)", "cn": "鼎泰（猪排 $1.68/lb）" },
+      "overallCheapestSeafood": { "en": "Guan Ye (Saury $1.69/lb)", "cn": "冠业（秋刀鱼 $1.69/lb）" },
+      "overallCheapestStaples": { "en": "Fu Yao (Rock Sugar $0.99, 66.9% off)", "cn": "福耀（冰糖 $0.99，省66.9%）" }
     }
   }
 }

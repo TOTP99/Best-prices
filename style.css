@@ -58,6 +58,13 @@ body {
 
 .topline {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.topline-info {
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
@@ -497,6 +504,9 @@ body {
     transform: translate(-50%, calc(-100% - 3px));
     z-index: 950;
   }
+
+  /* 横屏不显示 TP 制作签名，只保留时间戳 + 语言切换 */
+  .signature { display: none; }
 
   .frame {
     padding: 8px 16px;

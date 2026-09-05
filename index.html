@@ -11,9 +11,11 @@
 <div class="frame" id="frame">
 
   <div class="topline" id="topline">
-    <span class="signature">TP🐈🏷️</span>
-    <span class="update-stamp" id="updateStamp"></span>
     <button class="lang-toggle" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
+    <div class="topline-info">
+      <span class="signature">TP🐈🏷️</span>
+      <span class="update-stamp" id="updateStamp"></span>
+    </div>
   </div>
 
   <div class="switch-container">
@@ -391,6 +393,47 @@
     if (!cfg) return id;
     return cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
   }
+
+  // 分析面板内容双语：{en, cn} 对象按当前语言取值；cn 缺失时查 deals.js 里的翻译记忆库
+  function analysisText(val) {
+    if (val && typeof val === 'object') {
+      const en = val.en || '';
+      const cn = val.cn || (window.SupermarketDeals && window.SupermarketDeals.glossary[String(en).trim().toLowerCase()]) || en;
+      return (uiLang === 'zh' ? cn : en) || en || cn || '';
+    }
+    if (val == null) return '';
+    const en = String(val);
+    const cn = (window.SupermarketDeals && window.SupermarketDeals.glossary[en.trim().toLowerCase()]) || en;
+    return uiLang === 'zh' ? cn : en;
+  }
+
+  const CATEGORY_LABELS = {
+    meat: { en: 'Meat', cn: '肉类' },
+    seafood: { en: 'Seafood', cn: '海鲜' },
+    produce: { en: 'Produce', cn: '蔬果' },
+    staples: { en: 'Staples', cn: '干货调味' }
+  };
+
+  const SUMMARY_LABELS = {
+    overallCheapestProduce: { en: 'Cheapest Produce', cn: '蔬果最低价' },
+    overallCheapestMeat: { en: 'Cheapest Meat', cn: '肉类最低价' },
+    overallCheapestSeafood: { en: 'Cheapest Seafood', cn: '海鲜最低价' },
+    overallCheapestStaples: { en: 'Cheapest Staples', cn: '干货最低价' }
+  };
+
+  function labelText(map, key) {
+    const m = map[key];
+    if (!m) return key;
+    return (uiLang === 'zh' ? m.cn : m.en) || m.en || m.cn || key;
+  }
+
+  function benchmarkLabel(id) {
+    const items = (window.SupermarketDeals && window.SupermarketDeals.benchmarkItems) || [];
+    const found = items.find(i => i.id === id);
+    if (!found) return id;
+    return (uiLang === 'zh' ? found.cn : found.en) || found.en || found.cn || id;
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
@@ -410,26 +453,26 @@
   }
 
   function renderBestDeals(data) {
-    return Object.entries(data || {}).map(([s, t]) => row(storeName(s), t)).join('');
+    return Object.entries(data || {}).map(([s, t]) => row(storeName(s), analysisText(t))).join('');
   }
 
   function renderDiscounts(list) {
     if (!list || !list.length) return '';
     return list.map(d =>
-      `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(d.item)} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
+      `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(analysisText(d.item))} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
     ).join('');
   }
 
   function renderCategoryWinners(data) {
-    return Object.entries(data || {}).map(([cat, t]) => row(cat, t)).join('');
+    return Object.entries(data || {}).map(([cat, t]) => row(labelText(CATEGORY_LABELS, cat), analysisText(t))).join('');
   }
 
   function renderCheapest(data, benchmarks) {
-    let html = Object.entries(data || {}).map(([k, t]) => row(k, t)).join('');
+    let html = Object.entries(data || {}).map(([k, t]) => row(labelText(SUMMARY_LABELS, k), analysisText(t))).join('');
     const b = Object.entries(benchmarks || {});
     if (b.length) {
       html += `<div class="analysis-subhead">${UI_TEXT[uiLang].benchmarkHead}</div>`;
-      html += b.map(([k, t]) => row(k, t)).join('');
+      html += b.map(([k, t]) => row(benchmarkLabel(k), analysisText(t))).join('');
     }
     return html;
   }
