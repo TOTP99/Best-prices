@@ -1,4 +1,4 @@
-/* deals.js — 数据来源：deals-data.json（每周只改该文件） */
+/* deals.js — data from deals-data.json (edit that file weekly) */
 (function () {
   const SUIT_INFO = {
     hearts:   { symbol: '♥', color: 'red' },
@@ -27,10 +27,19 @@
     { id: 'chickenwing', cn: '鸡翅', en: 'Chicken Wing' }
   ];
 
-  // —— 商品名翻译记忆库 ——
-  // 只要某个英文商品名在这里出现过一次，以后每周 deals-data.json 里再出现同样的英文名
-  // （哪怕只写了英文、没配中文），都会自动带出中文翻译，不需要每次手动重新配对。
-  // 以后遇到全新商品，翻译一次后顺手加进这张表，就"永久生效"了。
+  /* Must always show on card if present (matched against en/cn). */
+  const PRIORITY_KEYWORDS = [
+    ['egg', 'eggs', '鸡蛋'],
+    ['tomato', 'tomatoes', '西红柿', '番茄'],
+    ['salmon', '三文鱼'],
+    ['peach', 'peaches', '桃'],
+    ['chicken breast', '鸡胸'],
+    ['chocolate', '巧克力', '黑巧克力'],
+    ['onion', 'onions', '圆葱', '洋葱'],
+    ['apple', 'apples', '苹果'],
+    ['cucumber', 'cucumbers', '黄瓜']
+  ];
+
   const ITEM_GLOSSARY = {
     'live canada lobster 4–6lb': '加拿大活龙虾 4-6磅',
     'sea cucumber': '海参',
@@ -42,7 +51,7 @@
     'juice (medium bottle)': '果汁（中瓶装）',
     'watermelon': '西瓜',
     'ocean’s tuna can': "Ocean's金枪鱼罐头",
-    'ocean\'s tuna can': "Ocean's金枪鱼罐头",
+    "ocean's tuna can": "Ocean's金枪鱼罐头",
     'sweet oranges 2lb': '甜橙 2磅装',
     'pork chop': '猪排',
     '30 eggs (member)': '30枚鸡蛋（会员价）',
@@ -119,7 +128,20 @@
     'pocky strawberry or chocolate biscuit sticks (144-156g)': '百奇草莓/巧克力饼干棒（144-156g）',
     'golden happiness bun / specialty bun (100g)': '金喜饼/特色面包（100g）',
     'chacheer sunflower seeds (260g selected)': '洽洽瓜子（精选260g）',
-    'h&h mango bites (454g)': 'H&H芒果干（454g）'
+    'h&h mango bites (454g)': 'H&H芒果干（454g）',
+    'aroy-d thai rice sticks 454g': 'Aroy-D泰国尖竹汶粿条 454g',
+    'haday premium light soy sauce 500ml': '海天鲜味生抽 500ml',
+    'ksf classic instant noodles 5×103g': '康师傅经典方便面 5×103g',
+    'vietnamese banana': '越南蕉',
+    'pork loin bone': '猪扒骨',
+    'u.s. fuji apples': '美国富士苹果',
+    'elephant thai sour mustard 300g': '象牌泰国酸芥菜 300g',
+    'holiday luncheon meat 340g': '假日午餐肉 340g',
+    'ground beef': '免治牛肉',
+    'white bread': '白面包',
+    '2% milk 4l': '2%牛奶 4L',
+    'avocado': '牛油果',
+    'chicken wings': '鸡翅'
   };
 
   function normalizeKey(s) {
@@ -130,21 +152,81 @@
     return ITEM_GLOSSARY[normalizeKey(enText)] || null;
   }
 
-  // 卡片语言：只影响商品名称/权益标签/按钮文案；店名固定按 group 显示，不受此影响
+  function itemEnCn(item) {
+    if (item && typeof item === 'object') {
+      const en = item.en || '';
+      const cn = item.cn || glossaryLookup(en) || en;
+      return { en, cn };
+    }
+    const en = String(item || '');
+    return { en, cn: glossaryLookup(en) || en };
+  }
+
   let cardLang = 'zh';
   let lastDataset = null;
 
   function itemText(item) {
-    // 新格式 {en, cn}：cn 缺失时先查翻译记忆库，再退回英文本身
-    if (item && typeof item === 'object') {
-      const en = item.en || '';
-      const cn = item.cn || glossaryLookup(en) || en;
-      return cardLang === 'zh' ? cn : en;
-    }
-    // 兼容旧格式（纯字符串，视为英文）：同样查记忆库
-    const en = item || '';
-    const cn = glossaryLookup(en) || en;
+    const { en, cn } = itemEnCn(item);
     return cardLang === 'zh' ? cn : en;
+  }
+
+  function dealSearchText(deal) {
+    const { en, cn } = itemEnCn(deal.item);
+    return (en + ' ' + cn).toLowerCase();
+  }
+
+  function matchesKeyword(text, key) {
+    const k = key.toLowerCase();
+    if (/[\u4e00-\u9fff]/.test(k)) return text.includes(k);
+    if (k === 'cucumber' || k === 'cucumbers') {
+      return /(?:^|[^a-z0-9])cucumber(?:s)?(?:[^a-z0-9]|$)/i.test(text) && !/sea\s+cucumber(?:s)?/i.test(text);
+    }
+    if (k === 'egg' || k === 'eggs') {
+      return /(?:^|[^a-z0-9])eggs?(?:[^a-z0-9]|$)/i.test(text);
+    }
+    if (k === 'peach' || k === 'peaches') {
+      return /(?:^|[^a-z0-9])peach(?:es)?(?:[^a-z0-9]|$)/i.test(text);
+    }
+    const escaped = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('(?:^|[^a-z0-9])' + escaped + '(?:[^a-z0-9]|$)', 'i').test(text);
+  }
+
+  function isPriorityDeal(deal) {
+    const text = dealSearchText(deal);
+    return PRIORITY_KEYWORDS.some(keys => keys.some(k => matchesKeyword(text, k)));
+  }
+
+  function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function pickDisplayFive(list) {
+    if (!Array.isArray(list) || !list.length) return [];
+    const priority = [];
+    const rest = [];
+    list.forEach(d => (isPriorityDeal(d) ? priority : rest).push(d));
+    priority.sort((a, b) => {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return (b.discountPct || 0) - (a.discountPct || 0);
+    });
+    const chosen = priority.slice(0, 5);
+    if (chosen.length < 5) {
+      const fillers = shuffleArr(rest);
+      fillers.sort((a, b) => {
+        if (a.featured !== b.featured) return a.featured ? -1 : 1;
+        return 0;
+      });
+      for (const d of fillers) {
+        if (chosen.length >= 5) break;
+        chosen.push(d);
+      }
+    }
+    return chosen;
   }
 
   function computeBenchmarkWinners(prices) {
@@ -152,7 +234,7 @@
     BENCHMARK_ITEMS.forEach(item => {
       let bestId = null, bestVal = Infinity, bestDisplay = null;
       Object.keys(prices).forEach(storeId => {
-        const entry = prices[storeId]?.[item.id];
+        const entry = prices[storeId] && prices[storeId][item.id];
         if (entry && typeof entry.value === 'number' && entry.value < bestVal) {
           bestVal = entry.value;
           bestId = storeId;
@@ -177,17 +259,6 @@
     return Math.max(0, Math.min(5, 5 - Math.round((today - day) / 86400000)));
   }
 
-  function pickBestSix(list) {
-    if (!Array.isArray(list)) return [];
-    return [...list].sort((a, b) => {
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
-      if (typeof a.discountPct === 'number' && typeof b.discountPct === 'number') {
-        return b.discountPct - a.discountPct;
-      }
-      return 0;
-    }).slice(0, 6);
-  }
-
   async function loadData() {
     try {
       const res = await fetch('./deals-data.json', { cache: 'no-store' });
@@ -200,7 +271,7 @@
   }
 
   function renderStore(store, deals, highlights, updatedAt) {
-    const card = document.querySelector(`.card[data-store-id="${store.id}"]`);
+    const card = document.querySelector('.card[data-store-id="' + store.id + '"]');
     if (!card) return;
 
     const suitInfo = SUIT_INFO[store.suit] || SUIT_INFO.spades;
@@ -209,12 +280,11 @@
     card.classList.toggle('suit-black', suitInfo.color === 'black');
     card.dataset.url = store.url;
 
-    // 左上角：点数+花色连写，星标紧跟 → A♥★★★★★；右下角去掉（避免挡 Full Flyer）
     const stars = freshnessStars(updatedAt);
-    const starsHTML = stars > 0 ? `<span class="freshness-stars">${'★'.repeat(stars)}</span>` : '';
+    const starsHTML = stars > 0 ? '<span class="freshness-stars">' + '★'.repeat(stars) + '</span>' : '';
     const topLeft = card.querySelector('.suit-corner.top-left');
     if (topLeft) {
-      topLeft.innerHTML = `<span class="rank-suit">${store.rank}${suit}</span>${starsHTML}`;
+      topLeft.innerHTML = '<span class="rank-suit">' + store.rank + suit + '</span>' + starsHTML;
     }
     const bottomRight = card.querySelector('.suit-corner.bottom-right');
     if (bottomRight) bottomRight.innerHTML = '';
@@ -222,19 +292,17 @@
     const centerLogo = card.querySelector('.center-logo');
     if (centerLogo) centerLogo.textContent = suit;
 
-    // 店名固定按华超/西超分组显示，不随语言切换变化
-    const isCN = store.group === 'chinese';
     const nameEl = card.querySelector('.supermarket-name');
-    if (nameEl) nameEl.textContent = isCN ? store.nameCN : store.nameEN;
+    if (nameEl) nameEl.textContent = store.group === 'chinese' ? store.nameCN : store.nameEN;
 
     const dealsEl = card.querySelector('.deals');
     if (!dealsEl) return;
     dealsEl.innerHTML = '';
 
-    pickBestSix(deals).forEach((deal, i) => {
+    pickDisplayFive(deals).forEach((deal, i) => {
       const row = document.createElement('div');
       row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
-      row.innerHTML = `<span class="deal-item">${itemText(deal.item)}</span><span class="deal-price">${deal.price}</span>`;
+      row.innerHTML = '<span class="deal-item">' + itemText(deal.item) + '</span><span class="deal-price">' + deal.price + '</span>';
       dealsEl.appendChild(row);
     });
 
@@ -242,11 +310,10 @@
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
       const hlText = cardLang === 'zh' ? hl.cn : hl.en;
-      row.innerHTML = `<span class="deal-item">${hlText} ⬇️🆕</span><span class="deal-price">${hl.display}</span>`;
+      row.innerHTML = '<span class="deal-item">' + hlText + ' ⬇️🆕</span><span class="deal-price">' + hl.display + '</span>';
       dealsEl.appendChild(row);
     });
 
-    // Full Flyer 按钮保留
     const content = card.querySelector('.content');
     if (!content) return;
     let btn = content.querySelector('.flyer-btn');
@@ -257,7 +324,7 @@
       content.appendChild(btn);
     }
     btn.textContent = cardLang === 'zh' ? '看完整 Flyer' : 'Full Flyer';
-    btn.onclick = e => {
+    btn.onclick = function (e) {
       e.preventDefault();
       e.stopPropagation();
       const u = store.url || card.dataset.url;
@@ -268,11 +335,11 @@
   function renderAll(dataset) {
     if (dataset) lastDataset = dataset;
     const src = dataset || lastDataset;
-    const deals = src?.deals || {};
-    const prices = src?.benchmarkPrices || {};
-    const updated = src?.updatedAt || {};
+    const deals = (src && src.deals) || {};
+    const prices = (src && src.benchmarkPrices) || {};
+    const updated = (src && src.updatedAt) || {};
     const winners = computeBenchmarkWinners(prices);
-    STORE_CONFIG.forEach(s => {
+    STORE_CONFIG.forEach(function (s) {
       renderStore(s, deals[s.id] || [], winners[s.id], updated[s.id]);
     });
   }
@@ -283,9 +350,13 @@
     renderAll(lastDataset);
   }
 
+  function refreshDisplay() {
+    renderAll(lastDataset);
+  }
+
   function init() {
     renderAll(null);
-    loadData().then(data => { if (data) renderAll(data); });
+    loadData().then(function (data) { if (data) renderAll(data); });
   }
 
   if (document.readyState === 'loading') {
@@ -298,10 +369,11 @@
     config: STORE_CONFIG,
     benchmarkItems: BENCHMARK_ITEMS,
     refresh: init,
-    setLang,
-    getLang: () => cardLang,
-    getData: () => lastDataset,
+    refreshDisplay: refreshDisplay,
+    setLang: setLang,
+    getLang: function () { return cardLang; },
+    getData: function () { return lastDataset; },
     glossary: ITEM_GLOSSARY,
-    addToGlossary(en, cn) { ITEM_GLOSSARY[normalizeKey(en)] = cn; }
+    addToGlossary: function (en, cn) { ITEM_GLOSSARY[normalizeKey(en)] = cn; }
   };
 })();

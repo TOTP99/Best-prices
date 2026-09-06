@@ -25,6 +25,7 @@
       </span>
     </button>
     <button class="analysis-trigger" id="analysisTrigger" aria-label="数据分析">📊</button>
+    <button class="refresh-btn" id="refreshBtn" type="button" aria-label="刷新商品显示">🔄</button>
     <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
   </div>
 
@@ -101,7 +102,12 @@
 
     </div>
 
-    <button class="landscape-arrow" id="landscapeNext" type="button" aria-label="下一张">➡️</button>
+    <div class="landscape-controls" id="landscapeControls">
+      <button class="landscape-arrow" id="landscapeNext" type="button" aria-label="下一张">➡️</button>
+      <button class="analysis-trigger landscape-only" id="analysisTriggerLand" aria-label="数据分析">📊</button>
+      <button class="refresh-btn landscape-only" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
+      <button class="sound-toggle landscape-only" id="soundToggleLand" aria-label="音效开关">🔊</button>
+    </div>
   </div>
 
 </div>
@@ -129,15 +135,12 @@
 <script src="deals.js"></script>
 <script>
 (function () {
-  // 语言状态与文案
   const LANG_STORAGE_KEY = 'poker-fan-lang';
   function readSavedLang() {
     try {
       const v = localStorage.getItem(LANG_STORAGE_KEY);
       return (v === 'zh' || v === 'en') ? v : null;
-    } catch {
-      return null;
-    }
+    } catch { return null; }
   }
   function saveLang(v) {
     try { localStorage.setItem(LANG_STORAGE_KEY, v); } catch {}
@@ -158,6 +161,7 @@
       switchAria: '切换华超/西超',
       analysisAria: '数据分析',
       soundAria: '音效开关',
+      refreshAria: '刷新商品显示',
       closeAria: '关闭',
       langAria: '切换中英文'
     },
@@ -173,16 +177,15 @@
       switchAria: 'Switch Chinese/Western',
       analysisAria: 'Analysis',
       soundAria: 'Sound toggle',
+      refreshAria: 'Refresh deals display',
       closeAria: 'Close',
       langAria: 'Switch language'
     }
   };
 
-  // 日期戳
   const now = new Date();
-  document.getElementById('updateStamp').textContent = `${now.getMonth() + 1}/${now.getDate()} 🆕`;
+  document.getElementById('updateStamp').textContent = (now.getMonth() + 1) + '/' + now.getDate() + ' 🆕';
 
-  // 音效
   let audioCtx = null;
   let soundOn = true;
 
@@ -212,9 +215,9 @@
   function playShuffle() {
     if (!soundOn) return;
     const ctx = ensureCtx();
-    const now = ctx.currentTime;
-    [560, 720, 900, 1080].forEach((f, i) => {
-      const t = now + i * 0.045;
+    const nowT = ctx.currentTime;
+    [560, 720, 900, 1080].forEach(function (f, i) {
+      const t = nowT + i * 0.045;
       const o = ctx.createOscillator();
       const g = ctx.createGain();
       o.type = 'square';
@@ -232,37 +235,30 @@
   function playCasinoShuffle() {
     if (!soundOn) return;
     const ctx = ensureCtx();
-    const now = ctx.currentTime;
-
-    // 白噪声"唰"一声，模拟一叠牌快速划过（riffle shuffle）
+    const nowT = ctx.currentTime;
     const duration = 0.22;
     const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
-      const decay = 1 - i / bufferSize;
-      data[i] = (Math.random() * 2 - 1) * decay;
+      data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
     }
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
-
     const bandpass = ctx.createBiquadFilter();
     bandpass.type = 'bandpass';
-    bandpass.frequency.setValueAtTime(2600, now);
+    bandpass.frequency.setValueAtTime(2600, nowT);
     bandpass.Q.value = 0.8;
-
     const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.24, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
+    noiseGain.gain.setValueAtTime(0.24, nowT);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, nowT + duration);
     noise.connect(bandpass);
     bandpass.connect(noiseGain);
     noiseGain.connect(ctx.destination);
-    noise.start(now);
-    noise.stop(now + duration);
+    noise.start(nowT);
+    noise.stop(nowT + duration);
 
-    // 落牌的一声轻响，收尾
-    const thumpT = now + duration * 0.72;
+    const thumpT = nowT + duration * 0.72;
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.type = 'triangle';
@@ -277,44 +273,56 @@
     o.stop(thumpT + 0.13);
   }
 
-  const soundToggle = document.getElementById('soundToggle');
-  soundToggle.addEventListener('click', () => {
-    soundOn = !soundOn;
-    soundToggle.textContent = soundOn ? '🔊' : '🔇';
-    if (soundOn) ensureCtx();
-  });
+  function syncSoundButtons() {
+    const icon = soundOn ? '🔊' : '🔇';
+    soundToggle.textContent = icon;
+    if (soundToggleLand) soundToggleLand.textContent = icon;
+  }
 
-  // 中英文切换
+  const soundToggle = document.getElementById('soundToggle');
+  const soundToggleLand = document.getElementById('soundToggleLand');
+  function toggleSound() {
+    soundOn = !soundOn;
+    syncSoundButtons();
+    if (soundOn) ensureCtx();
+  }
+  soundToggle.addEventListener('click', toggleSound);
+  if (soundToggleLand) soundToggleLand.addEventListener('click', toggleSound);
+
   const langToggle = document.getElementById('langToggle');
   const analysisTitleEl = document.querySelector('.analysis-title');
   const switchLeftEl = document.querySelector('.switch-option-left');
   const switchRightEl = document.querySelector('.switch-option-right');
+  const landscapeSwitch = document.getElementById('landscapeSwitch');
+  const trigger = document.getElementById('analysisTrigger');
+  const triggerLand = document.getElementById('analysisTriggerLand');
+  const closeBtn = document.getElementById('analysisClose');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const refreshBtnLand = document.getElementById('refreshBtnLand');
 
   function applyLang() {
     const t = UI_TEXT[uiLang];
     document.documentElement.lang = uiLang;
-
     langToggle.textContent = uiLang === 'zh' ? '🇨🇳' : '🇨🇦';
     langToggle.setAttribute('aria-label', t.langAria);
-
     landscapeSwitch.setAttribute('aria-label', t.switchAria);
     switchLeftEl.textContent = t.switchLeft;
     switchRightEl.textContent = t.switchRight;
-
     trigger.setAttribute('aria-label', t.analysisAria);
+    if (triggerLand) triggerLand.setAttribute('aria-label', t.analysisAria);
     soundToggle.setAttribute('aria-label', t.soundAria);
+    if (soundToggleLand) soundToggleLand.setAttribute('aria-label', t.soundAria);
+    refreshBtn.setAttribute('aria-label', t.refreshAria);
+    if (refreshBtnLand) refreshBtnLand.setAttribute('aria-label', t.refreshAria);
     closeBtn.setAttribute('aria-label', t.closeAria);
-
     analysisTitleEl.textContent = t.analysisTitle;
-    document.querySelectorAll('.analysis-tab').forEach(btn => {
+    document.querySelectorAll('.analysis-tab').forEach(function (btn) {
       const key = btn.dataset.tab;
       if (t.tabs[key]) btn.textContent = t.tabs[key];
     });
-
     if (window.SupermarketDeals && typeof window.SupermarketDeals.setLang === 'function') {
       window.SupermarketDeals.setLang(uiLang);
     }
-
     if (analysisData) {
       renderTab();
     } else {
@@ -323,14 +331,21 @@
     }
   }
 
-  langToggle.addEventListener('click', () => {
+  langToggle.addEventListener('click', function () {
     uiLang = uiLang === 'zh' ? 'en' : 'zh';
     saveLang(uiLang);
     applyLang();
   });
 
-  // 华超 / 西超切换
-  const landscapeSwitch = document.getElementById('landscapeSwitch');
+  function doRefresh() {
+    if (window.SupermarketDeals && typeof window.SupermarketDeals.refreshDisplay === 'function') {
+      window.SupermarketDeals.refreshDisplay();
+      playShuffle();
+    }
+  }
+  refreshBtn.addEventListener('click', function (e) { e.stopPropagation(); doRefresh(); });
+  if (refreshBtnLand) refreshBtnLand.addEventListener('click', function (e) { e.stopPropagation(); doRefresh(); });
+
   const sections = {
     chinese: document.getElementById('chinese-section'),
     western: document.getElementById('western-section')
@@ -352,7 +367,7 @@
     const from = current, to = target;
     decks[from].classList.add('shuffling');
     decks[to].classList.add('shuffling');
-    setTimeout(() => {
+    setTimeout(function () {
       sections[from].classList.remove('active-section');
       sections[to].classList.add('active-section');
       void decks[to].offsetWidth;
@@ -363,58 +378,57 @@
     }, 200);
   }
 
-  landscapeSwitch.addEventListener('click', () => {
+  landscapeSwitch.addEventListener('click', function () {
     switchTo(current === 'chinese' ? 'western' : 'chinese');
   });
   updateLandscapeSwitch();
 
-  window.addEventListener('load', () => {
-    setTimeout(() => {
+  window.addEventListener('load', function () {
+    setTimeout(function () {
       decks.chinese.classList.remove('shuffling');
       decks.western.classList.remove('shuffling');
     }, 260);
   });
 
-  // 横屏：华超西超不再分组左右并排，5 张牌拼成一个长方形（一张全露出，其余叠在后面各露出一小条）
-
   function shuffleArr(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+      const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
     }
     return a;
   }
 
-  // 横屏牌序：index 0 = 最前面全露出的那张，后面依次每张露出左边约 25%
   let landscapeOrder = [];
 
   function initLandscapeOrder() {
     const all = Array.from(document.querySelectorAll('.card'));
-    const front = all.find(c => c.dataset.storeId === 'foodbasics') || all[0];
-    const rest = shuffleArr(all.filter(c => c !== front));
-    landscapeOrder = [front, ...rest];
+    const front = all.find(function (c) { return c.dataset.storeId === 'foodbasics'; }) || all[0];
+    const rest = shuffleArr(all.filter(function (c) { return c !== front; }));
+    landscapeOrder = [front].concat(rest);
   }
 
   function layoutLandscapeCards() {
     const n = landscapeOrder.length;
     const centerSlot = (n - 1) / 2;
-    landscapeOrder.forEach((card, k) => {
+    landscapeOrder.forEach(function (card, k) {
       card.style.setProperty('--r', '0deg');
       card.style.setProperty('--slot-offset', String(centerSlot - k));
       card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.25)');
-      card.style.setProperty('--stack-ty', '0px');
-      card.style.zIndex = String(n - k);
+      card.style.setProperty('--stack-ty', k === 0 ? 'calc(var(--card-w) * -0.06)' : '0px');
+      card.style.zIndex = String(n - k + 10);
+      card.classList.toggle('landscape-front', k === 0);
     });
   }
 
   function clearLandscapeCards() {
-    document.querySelectorAll('.card').forEach(card => {
+    document.querySelectorAll('.card').forEach(function (card) {
       card.style.removeProperty('--r');
       card.style.removeProperty('--slot-offset');
       card.style.removeProperty('--stack-tx');
       card.style.removeProperty('--stack-ty');
       card.style.removeProperty('z-index');
+      card.classList.remove('landscape-front');
     });
   }
 
@@ -450,16 +464,15 @@
   orientationMQ.addEventListener('change', syncOrientationLayout);
   syncOrientationLayout();
 
-  document.getElementById('landscapePrev').addEventListener('click', e => {
+  document.getElementById('landscapePrev').addEventListener('click', function (e) {
     e.stopPropagation();
     cycleLandscape(-1);
   });
-  document.getElementById('landscapeNext').addEventListener('click', e => {
+  document.getElementById('landscapeNext').addEventListener('click', function (e) {
     e.stopPropagation();
     cycleLandscape(1);
   });
 
-  // 卡片弹出（竖屏）
   const frameEl = document.getElementById('frame');
 
   function syncFramePoppedState() {
@@ -467,7 +480,7 @@
   }
 
   function popCard(card) {
-    document.querySelectorAll('.card.popped').forEach(c => {
+    document.querySelectorAll('.card.popped').forEach(function (c) {
       if (c !== card) c.classList.remove('popped');
     });
     card.classList.toggle('popped');
@@ -475,8 +488,8 @@
     playTick();
   }
 
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', e => {
+  document.querySelectorAll('.card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
       e.stopPropagation();
       if (orientationMQ.matches) {
         if (landscapeOrder[0] !== card) bringCardToFrontLandscape(card);
@@ -486,20 +499,17 @@
     });
   });
 
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.card.popped').forEach(c => c.classList.remove('popped'));
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.card.popped').forEach(function (c) { c.classList.remove('popped'); });
     syncFramePoppedState();
   });
 
-  // 数据分析弹层
-  // 店名固定：直接读 deals.js 里的 STORE_CONFIG，按华超/西超分组显示，不随语言切换翻译
   function storeName(id) {
-    const cfg = (window.SupermarketDeals && window.SupermarketDeals.config || []).find(s => s.id === id);
+    const cfg = (window.SupermarketDeals && window.SupermarketDeals.config || []).find(function (s) { return s.id === id; });
     if (!cfg) return id;
     return cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
   }
 
-  // 分析面板内容双语：{en, cn} 对象按当前语言取值；cn 缺失时查 deals.js 里的翻译记忆库
   function analysisText(val) {
     if (val && typeof val === 'object') {
       const en = val.en || '';
@@ -534,51 +544,57 @@
 
   function benchmarkLabel(id) {
     const items = (window.SupermarketDeals && window.SupermarketDeals.benchmarkItems) || [];
-    const found = items.find(i => i.id === id);
+    const found = items.find(function (i) { return i.id === id; });
     if (!found) return id;
     return (uiLang === 'zh' ? found.cn : found.en) || found.en || found.cn || id;
   }
 
   function esc(s) {
-    return String(s).replace(/[&<>"']/g, c =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
-    );
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
   }
 
-  const trigger = document.getElementById('analysisTrigger');
   const overlay = document.getElementById('analysisOverlay');
-  const closeBtn = document.getElementById('analysisClose');
   const tabsWrap = document.getElementById('analysisTabs');
   const body = document.getElementById('analysisBody');
   let analysisData = null;
-  let allDealsData = null; // 全量 deals，供「全部特价」Tab
+  let allDealsData = null;
   let activeTab = 'allDeals';
 
   function row(label, text) {
-    return `<div class="analysis-row"><span class="analysis-row-store">${esc(label)}</span><span class="analysis-row-text">${esc(text)}</span></div>`;
+    return '<div class="analysis-row"><span class="analysis-row-store">' + esc(label) + '</span><span class="analysis-row-text">' + esc(text) + '</span></div>';
   }
 
   function renderBestDeals(data) {
-    return Object.entries(data || {}).map(([s, t]) => row(storeName(s), analysisText(t))).join('');
+    return Object.entries(data || {}).map(function (pair) {
+      return row(storeName(pair[0]), analysisText(pair[1]));
+    }).join('');
   }
 
   function renderDiscounts(list) {
     if (!list || !list.length) return '';
-    return list.map(d =>
-      `<div class="analysis-row"><span class="analysis-row-store">${esc(storeName(d.store))}</span><span class="analysis-row-text">${esc(analysisText(d.item))} <b class="analysis-pct">-${d.discountPct}%</b></span></div>`
-    ).join('');
+    return list.map(function (d) {
+      return '<div class="analysis-row"><span class="analysis-row-store">' + esc(storeName(d.store)) + '</span><span class="analysis-row-text">' + esc(analysisText(d.item)) + ' <b class="analysis-pct">-' + d.discountPct + '%</b></span></div>';
+    }).join('');
   }
 
   function renderCategoryWinners(data) {
-    return Object.entries(data || {}).map(([cat, t]) => row(labelText(CATEGORY_LABELS, cat), analysisText(t))).join('');
+    return Object.entries(data || {}).map(function (pair) {
+      return row(labelText(CATEGORY_LABELS, pair[0]), analysisText(pair[1]));
+    }).join('');
   }
 
   function renderCheapest(data, benchmarks) {
-    let html = Object.entries(data || {}).map(([k, t]) => row(labelText(SUMMARY_LABELS, k), analysisText(t))).join('');
+    let html = Object.entries(data || {}).map(function (pair) {
+      return row(labelText(SUMMARY_LABELS, pair[0]), analysisText(pair[1]));
+    }).join('');
     const b = Object.entries(benchmarks || {});
     if (b.length) {
-      html += `<div class="analysis-subhead">${UI_TEXT[uiLang].benchmarkHead}</div>`;
-      html += b.map(([k, t]) => row(benchmarkLabel(k), analysisText(t))).join('');
+      html += '<div class="analysis-subhead">' + UI_TEXT[uiLang].benchmarkHead + '</div>';
+      html += b.map(function (pair) {
+        return row(benchmarkLabel(pair[0]), analysisText(pair[1]));
+      }).join('');
     }
     return html;
   }
@@ -595,24 +611,23 @@
   function renderAllDeals(dealsMap) {
     if (!dealsMap || typeof dealsMap !== 'object') return '';
     const storeIds = (window.SupermarketDeals && window.SupermarketDeals.config || [])
-      .map(s => s.id)
-      .filter(id => dealsMap[id] && dealsMap[id].length);
-    // 也包含 config 里没有但数据里有的店
-    Object.keys(dealsMap).forEach(id => {
-      if (!storeIds.includes(id) && dealsMap[id] && dealsMap[id].length) storeIds.push(id);
+      .map(function (s) { return s.id; })
+      .filter(function (id) { return dealsMap[id] && dealsMap[id].length; });
+    Object.keys(dealsMap).forEach(function (id) {
+      if (storeIds.indexOf(id) === -1 && dealsMap[id] && dealsMap[id].length) storeIds.push(id);
     });
     if (!storeIds.length) return '';
-    return storeIds.map(sid => {
+    return storeIds.map(function (sid) {
       const list = dealsMap[sid] || [];
-      const rows = list.map(d => {
+      const rows = list.map(function (d) {
         const name = dealItemText(d.item);
         const price = d.price || '';
         const pct = (typeof d.discountPct === 'number')
-          ? ` <b class="analysis-pct">-${d.discountPct}%</b>` : '';
+          ? ' <b class="analysis-pct">-' + d.discountPct + '%</b>' : '';
         const star = d.featured ? '★ ' : '';
-        return `<div class="analysis-row"><span class="analysis-row-store">${esc(star + name)}</span><span class="analysis-row-text">${esc(price)}${pct}</span></div>`;
+        return '<div class="analysis-row"><span class="analysis-row-store">' + esc(star + name) + '</span><span class="analysis-row-text">' + esc(price) + pct + '</span></div>';
       }).join('');
-      return `<div class="analysis-subhead">${esc(storeName(sid))} · ${list.length}</div>${rows}`;
+      return '<div class="analysis-subhead">' + esc(storeName(sid)) + ' · ' + list.length + '</div>' + rows;
     }).join('');
   }
 
@@ -621,7 +636,7 @@
     if (activeTab === 'allDeals') {
       html = renderAllDeals(allDealsData);
     } else if (!analysisData) {
-      body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].empty}</p>`;
+      body.innerHTML = '<p class="analysis-empty">' + UI_TEXT[uiLang].empty + '</p>';
       return;
     } else if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
     else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
@@ -629,53 +644,55 @@
     else if (activeTab === 'cheapestStoreSummary') {
       html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
     }
-    body.innerHTML = html || `<p class="analysis-empty">${UI_TEXT[uiLang].empty}</p>`;
+    body.innerHTML = html || '<p class="analysis-empty">' + UI_TEXT[uiLang].empty + '</p>';
   }
 
-  tabsWrap.addEventListener('click', e => {
+  tabsWrap.addEventListener('click', function (e) {
     const btn = e.target.closest('.analysis-tab');
     if (!btn) return;
-    tabsWrap.querySelectorAll('.analysis-tab').forEach(b => b.classList.remove('active'));
+    tabsWrap.querySelectorAll('.analysis-tab').forEach(function (b) { b.classList.remove('active'); });
     btn.classList.add('active');
     activeTab = btn.dataset.tab;
     renderTab();
   });
 
   function loadAnalysis() {
-    body.innerHTML = `<p class="analysis-loading">${UI_TEXT[uiLang].loading}</p>`;
+    body.innerHTML = '<p class="analysis-loading">' + UI_TEXT[uiLang].loading + '</p>';
     const fromCache = window.SupermarketDeals && typeof window.SupermarketDeals.getData === 'function'
       ? window.SupermarketDeals.getData() : null;
     const ready = (window.SupermarketDeals && window.SupermarketDeals.ready)
       ? window.SupermarketDeals.ready()
       : Promise.resolve(fromCache);
 
-    const apply = (json) => {
+    function apply(json) {
       if (!json) throw new Error('no data');
       analysisData = json.analysis || {};
       allDealsData = json.deals || {};
       renderTab();
-    };
+    }
 
-    ready.then(data => {
+    ready.then(function (data) {
       if (data && data.deals) {
         apply(data);
       } else {
         return fetch('./deals-data.json', { cache: 'no-store' })
-          .then(r => r.json())
+          .then(function (r) { return r.json(); })
           .then(apply);
       }
-    }).catch(() => {
-      body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].failed}</p>`;
+    }).catch(function () {
+      body.innerHTML = '<p class="analysis-empty">' + UI_TEXT[uiLang].failed + '</p>';
     });
   }
 
-  trigger.addEventListener('click', e => {
-    e.stopPropagation();
+  function openAnalysis(e) {
+    if (e) e.stopPropagation();
     overlay.classList.add('open');
     if (!analysisData) loadAnalysis();
-  });
-  closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
-  overlay.addEventListener('click', e => {
+  }
+  trigger.addEventListener('click', openAnalysis);
+  if (triggerLand) triggerLand.addEventListener('click', openAnalysis);
+  closeBtn.addEventListener('click', function () { overlay.classList.remove('open'); });
+  overlay.addEventListener('click', function (e) {
     if (e.target === overlay) overlay.classList.remove('open');
   });
 

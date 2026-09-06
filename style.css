@@ -1,10 +1,10 @@
+
 :root {
   --felt: #1a3322;
   --felt-2: #152a1c;
   --gold: #d4af37;
   --gold-soft: rgba(212, 175, 55, .55);
   --ink: #243242;
-  /* 竖屏：单组扇形独占整屏宽度，卡宽按视口宽度换算（52vw 减去左右呼吸边距） */
   --card-w: clamp(150px, calc(52vw - 15px), 210px);
   --card-h: calc(var(--card-w) * 1.661);
   --pivot: calc(var(--card-w) * 2.204);
@@ -153,7 +153,6 @@ body {
 
 .fan-wrap {
   position: relative;
-  /* 0.208 ≈ sin(12°)：卡片扇面最大摆角，2 张/3 张牌都用同一摆角，宽度公式通用 */
   width: calc(var(--card-w) + 2 * var(--pivot) * 0.208);
   height: calc(var(--card-h) + var(--card-w) * 0.186);
   padding-top: calc(var(--card-w) * 0.119);
@@ -199,11 +198,9 @@ body {
   z-index: 0;
 }
 
-/* 华超（冠业 A♥ + 百福 A♠）一对A：2 张牌对称摆开 */
 .cn-theme .card:nth-child(1) { --r: -12deg; z-index: 1; }
 .cn-theme .card:nth-child(2) { --r: 12deg; z-index: 2; }
 
-/* 西超（FreshCo/Food Basics/No Frills）三条K：3 张牌左右对称 + 居中一张 */
 .en-theme .card:nth-child(1) { --r: -12deg; z-index: 1; }
 .en-theme .card:nth-child(2) { --r: 0deg; z-index: 2; }
 .en-theme .card:nth-child(3) { --r: 12deg; z-index: 3; }
@@ -248,7 +245,6 @@ body {
   margin-top: 1px;
 }
 
-/* 花色配色跟着每张牌自己的花色走（红桃/方块=红，黑桃/梅花=黑），不再跟着华超/西超分组 */
 .card.suit-red .suit-corner,
 .card.suit-red .center-logo { color: #c0392b; }
 
@@ -392,7 +388,6 @@ body {
   transition: background .15s ease;
 }
 
-/* 按钮配色跟着每张牌自己的花色走，和上面的 suit-corner/center-logo 一致 */
 .suit-red .flyer-btn { color: #c0392b; }
 .suit-red .flyer-btn:hover { background: rgba(192, 57, 43, .14); }
 .suit-black .flyer-btn { color: #2c3e50; }
@@ -406,7 +401,9 @@ body {
   opacity: .9;
 }
 
-.sound-toggle {
+.sound-toggle,
+.refresh-btn,
+.analysis-trigger {
   position: static;
   flex-shrink: 0;
   width: 34px;
@@ -420,6 +417,8 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 0;
+  font-family: inherit;
 }
 
 .lang-toggle {
@@ -443,11 +442,11 @@ body {
 }
 
 .landscape-arrow { display: none; }
+.landscape-controls { display: none; }
+.landscape-only { display: none; }
 
 @media (orientation: portrait) {
   .frame { gap: 14px; }
-
-  /* frame gap is 14px; pull back to 3px between topline and switch-container */
   .topline { margin-bottom: -11px; }
 
   .stage {
@@ -476,16 +475,17 @@ body {
     display: flex;
     margin-top: 2px;
   }
+
+  .landscape-controls { display: none; }
 }
 
 @media (orientation: landscape) {
   :root {
-    /* 横屏：长方形叠牌，卡片尽量放大——同时满足宽度(2张卡+两侧箭头区)与高度(减去上方控制栏)两个约束 */
     --card-w: clamp(
       110px,
       min(
-        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 32px - 100px) / 2),
-        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 84px) / 1.661)
+        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 32px - 90px) / 2),
+        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 48px) / 1.661)
       ),
       210px
     );
@@ -493,33 +493,35 @@ body {
     --peek: calc(var(--card-w) * 0.25);
   }
 
+  body { align-items: center; }
+
   .frame {
-    padding: 8px 16px;
-    gap: 6px;
+    padding: 6px 12px;
+    gap: 4px;
+    justify-content: center;
+    min-height: 100%;
   }
 
-  .topline {
-    gap: 6px;
-  }
-
-  .switch-container {
-    display: flex;
-    gap: 8px;
-  }
-
-  .switch-container .switch-btn { display: none; }
-
-  /* 横屏不显示 TP 制作签名，只保留时间戳 + 语言切换，紧凑放在卡片上方 */
+  .topline { gap: 6px; }
+  .switch-container { display: none; }
   .signature { display: none; }
 
   .sound-toggle,
-  .analysis-trigger {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
+  .analysis-trigger,
+  .refresh-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
   }
 
-  /* 横屏：不分组，5 张牌拼成一个长方形——最前一张全露出，其余每张只露出左边约 25%（花色+牌名） */
+  .stage-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+  }
+
   .stage {
     position: relative;
     width: calc(var(--card-w) * 2);
@@ -530,55 +532,66 @@ body {
   .fan-section {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
+    transform: none;
+    opacity: 1;
+    pointer-events: none;
   }
 
-  .stage-row {
+  .fan-wrap {
+    width: 100%;
+    height: 100%;
+    padding-top: 0;
+  }
+
+  .card-deck {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .card {
+    pointer-events: auto;
+    top: 0;
+  }
+
+  .card.landscape-front {
+    box-shadow: -4px 10px 24px rgba(0, 0, 0, .42);
+  }
+
+  .landscape-controls {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    flex-shrink: 0;
   }
+
+  .landscape-only { display: flex; }
 
   .landscape-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 1px solid var(--gold-soft);
     background: rgba(0, 0, 0, .35);
     color: var(--gold);
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1;
     cursor: pointer;
     padding: 0;
   }
 
   .landscape-arrow:active { transform: scale(.92); }
-}
-
-
-/* —— 数据分析弹层 —— */
-
-.analysis-trigger {
-  position: static;
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-soft);
-  background: rgba(0, 0, 0, .35);
-  color: var(--gold);
-  font-size: 17px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  #landscapePrev { display: flex; }
 }
 
 .analysis-overlay {
@@ -600,7 +613,6 @@ body {
 }
 
 .analysis-panel {
-  /* 固定高度：同一空间、切换 Tab 不跳动 */
   width: 100%;
   max-width: 480px;
   height: min(72vh, 560px);
@@ -614,7 +626,6 @@ body {
   transform: translateY(100%);
   transition: transform .28s cubic-bezier(.34, 1.56, .64, 1);
   overflow: hidden;
-  /* 底部呼吸空间 + 安全区 */
   padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
 }
@@ -623,7 +634,6 @@ body {
   transform: translateY(0);
 }
 
-/* 顶部滑杆（拖动手柄） */
 .analysis-handle {
   flex-shrink: 0;
   width: 40px;
@@ -707,17 +717,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* 轻微滑杆，不刺眼 */
   scrollbar-width: thin;
   scrollbar-color: rgba(212, 175, 55, .35) transparent;
 }
 
-.analysis-body::-webkit-scrollbar {
-  width: 4px;
-}
-.analysis-body::-webkit-scrollbar-track {
-  background: transparent;
-}
+.analysis-body::-webkit-scrollbar { width: 4px; }
+.analysis-body::-webkit-scrollbar-track { background: transparent; }
 .analysis-body::-webkit-scrollbar-thumb {
   background: rgba(212, 175, 55, .35);
   border-radius: 999px;
@@ -772,15 +777,9 @@ body {
     max-width: 420px;
     height: min(78vh, 420px);
   }
-  .analysis-handle {
-    margin: 8px auto 0;
-  }
-  .analysis-header {
-    padding: 4px 14px 6px;
-  }
-  .analysis-tabs {
-    padding: 0 12px 8px;
-  }
+  .analysis-handle { margin: 8px auto 0; }
+  .analysis-header { padding: 4px 14px 6px; }
+  .analysis-tabs { padding: 0 12px 8px; }
   .analysis-body {
     padding: 2px 12px 6px;
     gap: 6px;
