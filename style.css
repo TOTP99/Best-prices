@@ -4,9 +4,10 @@
   --gold: #d4af37;
   --gold-soft: rgba(212, 175, 55, .55);
   --ink: #243242;
-  --card-w: 118px;
-  --card-h: 196px;
-  --pivot: 260px;
+  /* 竖屏：单组扇形独占整屏宽度，卡宽按视口宽度换算（52vw 减去左右呼吸边距） */
+  --card-w: clamp(150px, calc(52vw - 15px), 210px);
+  --card-h: calc(var(--card-w) * 1.661);
+  --pivot: calc(var(--card-w) * 2.204);
 }
 
 * { box-sizing: border-box; }
@@ -152,9 +153,10 @@ body {
 
 .fan-wrap {
   position: relative;
-  width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-  height: calc(var(--card-h) + 22px);
-  padding-top: 14px;
+  /* 0.208 ≈ sin(12°)：卡片扇面最大摆角，2 张/3 张牌都用同一摆角，宽度公式通用 */
+  width: calc(var(--card-w) + 2 * var(--pivot) * 0.208);
+  height: calc(var(--card-h) + var(--card-w) * 0.186);
+  padding-top: calc(var(--card-w) * 0.119);
 }
 
 .card-deck { position: absolute; inset: 0; }
@@ -167,20 +169,20 @@ body {
 
 .card {
   position: absolute;
-  top: 14px;
+  top: calc(var(--card-w) * 0.119);
   left: 50%;
   width: var(--card-w);
   height: var(--card-h);
   margin-left: calc(var(--card-w) / -2);
   background: #fffdf8;
-  border-radius: 9px;
+  border-radius: calc(var(--card-w) * 0.06);
   border: 1px solid #e3ddce;
   box-shadow: -3px 5px 12px rgba(0, 0, 0, .3);
   transform-origin: 50% var(--pivot);
-  transform: rotate(var(--r)) translateY(0) scale(1);
+  transform: rotate(var(--r)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(1);
   transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
   cursor: pointer;
-  padding: 10px 9px 8px;
+  padding: calc(var(--card-w) * 0.085) calc(var(--card-w) * 0.076) calc(var(--card-w) * 0.068);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -197,20 +199,23 @@ body {
   z-index: 0;
 }
 
-.card:nth-child(1) { --r: -22deg; z-index: 1; }
-.card:nth-child(2) { --r: -11deg; z-index: 2; }
-.card:nth-child(3) { --r: 0deg; z-index: 3; }
-.card:nth-child(4) { --r: 11deg; z-index: 4; }
-.card:nth-child(5) { --r: 22deg; z-index: 5; }
+/* 华超（冠业 A♥ + 百福 A♠）一对A：2 张牌对称摆开 */
+.cn-theme .card:nth-child(1) { --r: -12deg; z-index: 1; }
+.cn-theme .card:nth-child(2) { --r: 12deg; z-index: 2; }
+
+/* 西超（FreshCo/Food Basics/No Frills）三条K：3 张牌左右对称 + 居中一张 */
+.en-theme .card:nth-child(1) { --r: -12deg; z-index: 1; }
+.en-theme .card:nth-child(2) { --r: 0deg; z-index: 2; }
+.en-theme .card:nth-child(3) { --r: 12deg; z-index: 3; }
 
 .card:hover {
-  transform: rotate(var(--r)) translateY(-22px) scale(1.1);
+  transform: rotate(var(--r)) translate(var(--stack-tx, 0px), calc(var(--stack-ty, 0px) - var(--card-w) * 0.186)) scale(1.1);
   box-shadow: -4px 10px 22px rgba(0, 0, 0, .4);
   z-index: 20;
 }
 
 .card.popped {
-  transform: rotate(0deg) translateY(-42px) scale(1.12) !important;
+  transform: rotate(0deg) translate(0px, calc(var(--card-w) * -0.356)) scale(1.12) !important;
   box-shadow: -6px 16px 32px rgba(0, 0, 0, .45) !important;
   transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .35s ease !important;
   z-index: 1000 !important;
@@ -223,11 +228,11 @@ body {
   flex-direction: column;
   align-items: center;
   font-weight: 900;
-  font-size: 13px;
+  font-size: calc(var(--card-w) * 0.11);
   line-height: 1.05;
 }
 
-.suit-corner.top-left { position: absolute; top: 7px; left: 7px; }
+.suit-corner.top-left { position: absolute; top: calc(var(--card-w) * 0.06); left: calc(var(--card-w) * 0.06); }
 .suit-corner.bottom-right { display: none; }
 
 .suit-corner .rank-suit {
@@ -236,25 +241,26 @@ body {
 
 .freshness-stars {
   color: #27ae60;
-  font-size: 8px;
+  font-size: calc(var(--card-w) * 0.068);
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1;
   margin-top: 1px;
 }
 
-.hearts-theme .suit-corner,
-.hearts-theme .center-logo { color: #c0392b; }
+/* 花色配色跟着每张牌自己的花色走（红桃/方块=红，黑桃/梅花=黑），不再跟着华超/西超分组 */
+.card.suit-red .suit-corner,
+.card.suit-red .center-logo { color: #c0392b; }
 
-.clubs-theme .suit-corner,
-.clubs-theme .center-logo { color: #2c3e50; }
+.card.suit-black .suit-corner,
+.card.suit-black .center-logo { color: #2c3e50; }
 
 .center-logo {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 64px;
+  font-size: calc(var(--card-w) * 0.54);
   opacity: .045;
   z-index: 0;
   pointer-events: none;
@@ -263,7 +269,7 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  margin-top: 16px;
+  margin-top: calc(var(--card-w) * 0.135);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -271,8 +277,8 @@ body {
 }
 
 .supermarket-name {
-  margin: 0 0 5px;
-  font-size: 12.5px;
+  margin: 0 0 calc(var(--card-w) * 0.042);
+  font-size: calc(var(--card-w) * 0.106);
   font-weight: 700;
   color: var(--ink);
   letter-spacing: .2px;
@@ -285,11 +291,11 @@ body {
   flex: 1;
   min-height: 0;
   margin: 0;
-  padding-top: 5px;
+  padding-top: calc(var(--card-w) * 0.042);
   border-top: 1px solid rgba(44, 62, 80, .12);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: calc(var(--card-w) * 0.034);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -337,17 +343,17 @@ body {
 .deal-item {
   flex: 1;
   min-width: 0;
-  font-size: 8.6px;
+  font-size: calc(var(--card-w) * 0.073);
   color: #5a6472;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.clubs-theme .deal-row { align-items: flex-start; }
+.en-theme .deal-row { align-items: flex-start; }
 
-.clubs-theme .deal-item {
-  font-size: 7.4px;
+.en-theme .deal-item {
+  font-size: calc(var(--card-w) * 0.063);
   line-height: 1.15;
   white-space: normal;
   display: -webkit-box;
@@ -359,25 +365,25 @@ body {
 
 .deal-price {
   flex-shrink: 0;
-  font-size: 9.6px;
+  font-size: calc(var(--card-w) * 0.081);
   font-weight: 700;
 }
 
-.clubs-theme .deal-price {
+.en-theme .deal-price {
   margin-top: 1px;
   color: #0984e3;
 }
 
-.hearts-theme .deal-price { color: #d63031; }
+.cn-theme .deal-price { color: #d63031; }
 
 .flyer-btn {
   flex-shrink: 0;
-  margin-top: 6px;
-  padding: 4px 0;
+  margin-top: calc(var(--card-w) * 0.051);
+  padding: calc(var(--card-w) * 0.034) 0;
   width: 100%;
   border: none;
   border-radius: 5px;
-  font-size: 8.4px;
+  font-size: calc(var(--card-w) * 0.071);
   font-weight: 700;
   letter-spacing: .2px;
   font-family: inherit;
@@ -386,10 +392,11 @@ body {
   transition: background .15s ease;
 }
 
-.hearts-theme .flyer-btn { color: #c0392b; }
-.hearts-theme .flyer-btn:hover { background: rgba(192, 57, 43, .14); }
-.clubs-theme .flyer-btn { color: #2c3e50; }
-.clubs-theme .flyer-btn:hover { background: rgba(44, 62, 80, .14); }
+/* 按钮配色跟着每张牌自己的花色走，和上面的 suit-corner/center-logo 一致 */
+.suit-red .flyer-btn { color: #c0392b; }
+.suit-red .flyer-btn:hover { background: rgba(192, 57, 43, .14); }
+.suit-black .flyer-btn { color: #2c3e50; }
+.suit-black .flyer-btn:hover { background: rgba(44, 62, 80, .14); }
 
 .signature {
   font-size: 12.5px;
@@ -444,8 +451,8 @@ body {
   .stage {
     flex-direction: column;
     align-items: center;
-    width: calc(var(--card-w) + 2 * var(--pivot) * 0.38);
-    height: calc(var(--card-h) + 22px + 26px);
+    width: calc(var(--card-w) + 2 * var(--pivot) * 0.208);
+    height: calc(var(--card-h) + var(--card-w) * 0.186 + var(--card-w) * 0.22);
   }
 
   .fan-section {
@@ -471,7 +478,8 @@ body {
 
 @media (orientation: landscape) {
   :root {
-    --card-w: clamp(70px, 13vw, 100px);
+    /* 横屏两组扇形并排：卡宽按视口宽度换算（26vw 减去两组间隙与边距的分摊） */
+    --card-w: clamp(90px, calc(26vw - 17px), 190px);
     --card-h: calc(var(--card-w) * 1.661);
     --pivot: calc(var(--card-w) * 2.204);
   }
@@ -515,14 +523,20 @@ body {
     gap: 6px;
   }
 
+  /* 横屏：不再左右分组，5 张牌混在一起叠成一堆 */
   .stage {
-    flex-direction: row;
-    gap: clamp(20px, 5vw, 48px);
-    align-items: flex-start;
-    justify-content: center;
+    position: relative;
+    width: calc(var(--card-w) + 2 * var(--pivot) * 0.208);
+    height: calc(var(--card-h) + var(--card-w) * 0.186);
   }
 
-  .fan-section { display: flex; }
+  .fan-section {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
 }
 
 /* —— 数据分析弹层 —— */

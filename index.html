@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Poker Fan Supermarkets / 扑克同花顺切换</title>
+<title>Poker Fan Supermarkets / 扑克超市特价牌局</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,8 +19,8 @@
   <div class="switch-container">
     <button class="switch-btn western-active" id="landscapeSwitch" aria-label="切换华超/西超" aria-pressed="true">
       <span class="switch-track">
-        <span class="switch-option switch-option-left">♥ 华超</span>
-        <span class="switch-option switch-option-right">♣ 西超</span>
+        <span class="switch-option switch-option-left">华超</span>
+        <span class="switch-option switch-option-right">西超</span>
         <span class="switch-thumb"></span>
       </span>
     </button>
@@ -32,56 +32,26 @@
 
     <section class="fan-section" id="chinese-section">
       <div class="fan-wrap">
-        <div class="card-deck hearts-theme shuffling" id="chinese-deck">
+        <div class="card-deck cn-theme shuffling" id="chinese-deck">
 
-          <div class="card" data-store-id="tnt16">
-            <div class="suit-corner top-left"><span>10</span><span>♥</span></div>
-            <div class="center-logo">♥</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>10</span><span>♥</span></div>
-          </div>
-
-          <div class="card" data-store-id="guanye">
-            <div class="suit-corner top-left"><span>J</span><span>♥</span></div>
-            <div class="center-logo">♥</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>J</span><span>♥</span></div>
-          </div>
-
-          <div class="card" data-store-id="dingtai">
-            <div class="suit-corner top-left"><span>Q</span><span>♥</span></div>
-            <div class="center-logo">♥</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>Q</span><span>♥</span></div>
-          </div>
-
-          <div class="card" data-store-id="fuyao">
-            <div class="suit-corner top-left"><span>K</span><span>♥</span></div>
-            <div class="center-logo">♥</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>K</span><span>♥</span></div>
-          </div>
-
-          <div class="card" data-store-id="dingxian">
+          <div class="card suit-red" data-store-id="guanye">
             <div class="suit-corner top-left"><span>A</span><span>♥</span></div>
             <div class="center-logo">♥</div>
             <div class="content">
               <h3 class="supermarket-name">加载中…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>A</span><span>♥</span></div>
+            <div class="suit-corner bottom-right"></div>
+          </div>
+
+          <div class="card suit-black" data-store-id="baifu">
+            <div class="suit-corner top-left"><span>A</span><span>♠</span></div>
+            <div class="center-logo">♠</div>
+            <div class="content">
+              <h3 class="supermarket-name">加载中…</h3>
+              <div class="deals"></div>
+            </div>
+            <div class="suit-corner bottom-right"></div>
           </div>
 
         </div>
@@ -90,56 +60,36 @@
 
     <section class="fan-section active-section" id="western-section">
       <div class="fan-wrap">
-        <div class="card-deck clubs-theme shuffling" id="western-deck">
+        <div class="card-deck en-theme shuffling" id="western-deck">
 
-          <div class="card" data-store-id="walmart">
-            <div class="suit-corner top-left"><span>10</span><span>♣</span></div>
-            <div class="center-logo">♣</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>10</span><span>♣</span></div>
-          </div>
-
-          <div class="card" data-store-id="freshco">
-            <div class="suit-corner top-left"><span>J</span><span>♣</span></div>
-            <div class="center-logo">♣</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>J</span><span>♣</span></div>
-          </div>
-
-          <div class="card" data-store-id="costco">
-            <div class="suit-corner top-left"><span>Q</span><span>♣</span></div>
-            <div class="center-logo">♣</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-            <div class="suit-corner bottom-right"><span>Q</span><span>♣</span></div>
-          </div>
-
-          <div class="card" data-store-id="nofrills">
+          <div class="card suit-black" data-store-id="freshco">
             <div class="suit-corner top-left"><span>K</span><span>♣</span></div>
             <div class="center-logo">♣</div>
             <div class="content">
               <h3 class="supermarket-name">Loading…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>K</span><span>♣</span></div>
+            <div class="suit-corner bottom-right"></div>
           </div>
 
-          <div class="card" data-store-id="foodbasics">
-            <div class="suit-corner top-left"><span>A</span><span>♣</span></div>
-            <div class="center-logo">♣</div>
+          <div class="card suit-red" data-store-id="foodbasics">
+            <div class="suit-corner top-left"><span>K</span><span>♦</span></div>
+            <div class="center-logo">♦</div>
             <div class="content">
               <h3 class="supermarket-name">Loading…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"><span>A</span><span>♣</span></div>
+            <div class="suit-corner bottom-right"></div>
+          </div>
+
+          <div class="card suit-black" data-store-id="nofrills">
+            <div class="suit-corner top-left"><span>K</span><span>♠</span></div>
+            <div class="center-logo">♠</div>
+            <div class="content">
+              <h3 class="supermarket-name">Loading…</h3>
+              <div class="deals"></div>
+            </div>
+            <div class="suit-corner bottom-right"></div>
           </div>
 
         </div>
@@ -158,7 +108,8 @@
       <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
     </div>
     <div class="analysis-tabs" id="analysisTabs">
-      <button class="analysis-tab active" data-tab="bestDeals" type="button">⭐ Best Deals</button>
+      <button class="analysis-tab active" data-tab="allDeals" type="button">📋 All</button>
+      <button class="analysis-tab" data-tab="bestDeals" type="button">⭐ Best Deals</button>
       <button class="analysis-tab" data-tab="deepestDiscounts" type="button">📉 Discounts</button>
       <button class="analysis-tab" data-tab="categoryWinners" type="button">🏆 Category Winners</button>
       <button class="analysis-tab" data-tab="cheapestStoreSummary" type="button">🏪 Cheapest Stores</button>
@@ -191,13 +142,13 @@
   const UI_TEXT = {
     zh: {
       analysisTitle: '📊 数据分析',
-      tabs: { bestDeals: '⭐ 精选特价', deepestDiscounts: '📉 折扣力度', categoryWinners: '🏆 品类冠军', cheapestStoreSummary: '🏪 最低价店铺' },
+      tabs: { allDeals: '📋 全部特价', bestDeals: '⭐ 精选特价', deepestDiscounts: '📉 折扣力度', categoryWinners: '🏆 品类冠军', cheapestStoreSummary: '🏪 最低价店铺' },
       loading: '加载中…',
       empty: '暂无数据',
       failed: '数据加载失败',
       benchmarkHead: '基准价对比',
-      switchLeft: '♥ 华超',
-      switchRight: '♣ 西超',
+      switchLeft: '华超',
+      switchRight: '西超',
       switchAria: '切换华超/西超',
       analysisAria: '数据分析',
       soundAria: '音效开关',
@@ -206,13 +157,13 @@
     },
     en: {
       analysisTitle: '📊 Analysis',
-      tabs: { bestDeals: '⭐ Best Deals', deepestDiscounts: '📉 Discounts', categoryWinners: '🏆 Category Winners', cheapestStoreSummary: '🏪 Cheapest Stores' },
+      tabs: { allDeals: '📋 All Deals', bestDeals: '⭐ Best Deals', deepestDiscounts: '📉 Discounts', categoryWinners: '🏆 Category Winners', cheapestStoreSummary: '🏪 Cheapest Stores' },
       loading: 'Loading…',
       empty: 'No data',
       failed: 'Failed to load',
       benchmarkHead: 'Benchmark Comparison',
-      switchLeft: '♥ CN',
-      switchRight: '♣ West',
+      switchLeft: 'CN',
+      switchRight: 'West',
       switchAria: 'Switch Chinese/Western',
       analysisAria: 'Analysis',
       soundAria: 'Sound toggle',
@@ -270,6 +221,54 @@
       o.start(t);
       o.stop(t + 0.06);
     });
+  }
+
+  function playCasinoShuffle() {
+    if (!soundOn) return;
+    const ctx = ensureCtx();
+    const now = ctx.currentTime;
+
+    // 白噪声"唰"一声，模拟一叠牌快速划过（riffle shuffle）
+    const duration = 0.22;
+    const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      const decay = 1 - i / bufferSize;
+      data[i] = (Math.random() * 2 - 1) * decay;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const bandpass = ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.setValueAtTime(2600, now);
+    bandpass.Q.value = 0.8;
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.24, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    noise.connect(bandpass);
+    bandpass.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+    noise.start(now);
+    noise.stop(now + duration);
+
+    // 落牌的一声轻响，收尾
+    const thumpT = now + duration * 0.72;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(180, thumpT);
+    o.frequency.exponentialRampToValueAtTime(90, thumpT + 0.09);
+    g.gain.setValueAtTime(0.0001, thumpT);
+    g.gain.linearRampToValueAtTime(0.2, thumpT + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, thumpT + 0.12);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start(thumpT);
+    o.stop(thumpT + 0.13);
   }
 
   const soundToggle = document.getElementById('soundToggle');
@@ -370,11 +369,62 @@
     }, 260);
   });
 
+  // 横屏：华超西超不再分组左右并排，5 张牌随机混在一起叠成一堆
+  let landscapeZCounter = 0;
+
+  function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function applyLandscapeStack() {
+    const cards = shuffleArr(Array.from(document.querySelectorAll('.card')));
+    cards.forEach((card, i) => {
+      const angle = (Math.random() * 22 - 11).toFixed(1);
+      const tx = (Math.random() * 14 - 7).toFixed(1);
+      const ty = (Math.random() * 10 - 5).toFixed(1);
+      card.style.setProperty('--r', angle + 'deg');
+      card.style.setProperty('--stack-tx', tx + 'px');
+      card.style.setProperty('--stack-ty', ty + 'px');
+      card.style.zIndex = String(i + 1);
+    });
+    landscapeZCounter = cards.length;
+  }
+
+  function clearLandscapeStack() {
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.removeProperty('--r');
+      card.style.removeProperty('--stack-tx');
+      card.style.removeProperty('--stack-ty');
+      card.style.removeProperty('z-index');
+    });
+  }
+
+  const orientationMQ = window.matchMedia('(orientation: landscape)');
+  function syncOrientationLayout() {
+    if (orientationMQ.matches) {
+      applyLandscapeStack();
+    } else {
+      clearLandscapeStack();
+    }
+  }
+  orientationMQ.addEventListener('change', syncOrientationLayout);
+  syncOrientationLayout();
+
   // 卡片弹出
   const frameEl = document.getElementById('frame');
 
   function syncFramePoppedState() {
     frameEl.classList.toggle('has-popped', !!document.querySelector('.card.popped'));
+  }
+
+  function bringCardToFront(card) {
+    landscapeZCounter += 1;
+    card.style.zIndex = String(landscapeZCounter);
   }
 
   function popCard(card) {
@@ -383,7 +433,13 @@
     });
     card.classList.toggle('popped');
     syncFramePoppedState();
-    playTick();
+
+    if (window.matchMedia('(orientation: landscape)').matches) {
+      bringCardToFront(card);
+      playCasinoShuffle();
+    } else {
+      playTick();
+    }
   }
 
   document.querySelectorAll('.card').forEach(card => {
@@ -458,7 +514,8 @@
   const tabsWrap = document.getElementById('analysisTabs');
   const body = document.getElementById('analysisBody');
   let analysisData = null;
-  let activeTab = 'bestDeals';
+  let allDealsData = null; // 全量 deals，供「全部特价」Tab
+  let activeTab = 'allDeals';
 
   function row(label, text) {
     return `<div class="analysis-row"><span class="analysis-row-store">${esc(label)}</span><span class="analysis-row-text">${esc(text)}</span></div>`;
@@ -489,10 +546,47 @@
     return html;
   }
 
+  function dealItemText(item) {
+    if (item && typeof item === 'object') {
+      const en = item.en || '';
+      const cn = item.cn || en;
+      return uiLang === 'zh' ? (cn || en) : (en || cn);
+    }
+    return String(item || '');
+  }
+
+  function renderAllDeals(dealsMap) {
+    if (!dealsMap || typeof dealsMap !== 'object') return '';
+    const storeIds = (window.SupermarketDeals && window.SupermarketDeals.config || [])
+      .map(s => s.id)
+      .filter(id => dealsMap[id] && dealsMap[id].length);
+    // 也包含 config 里没有但数据里有的店
+    Object.keys(dealsMap).forEach(id => {
+      if (!storeIds.includes(id) && dealsMap[id] && dealsMap[id].length) storeIds.push(id);
+    });
+    if (!storeIds.length) return '';
+    return storeIds.map(sid => {
+      const list = dealsMap[sid] || [];
+      const rows = list.map(d => {
+        const name = dealItemText(d.item);
+        const price = d.price || '';
+        const pct = (typeof d.discountPct === 'number')
+          ? ` <b class="analysis-pct">-${d.discountPct}%</b>` : '';
+        const star = d.featured ? '★ ' : '';
+        return `<div class="analysis-row"><span class="analysis-row-store">${esc(star + name)}</span><span class="analysis-row-text">${esc(price)}${pct}</span></div>`;
+      }).join('');
+      return `<div class="analysis-subhead">${esc(storeName(sid))} · ${list.length}</div>${rows}`;
+    }).join('');
+  }
+
   function renderTab() {
-    if (!analysisData) return;
     let html = '';
-    if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
+    if (activeTab === 'allDeals') {
+      html = renderAllDeals(allDealsData);
+    } else if (!analysisData) {
+      body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].empty}</p>`;
+      return;
+    } else if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
     else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
     else if (activeTab === 'categoryWinners') html = renderCategoryWinners(analysisData.categoryWinners);
     else if (activeTab === 'cheapestStoreSummary') {
@@ -512,15 +606,30 @@
 
   function loadAnalysis() {
     body.innerHTML = `<p class="analysis-loading">${UI_TEXT[uiLang].loading}</p>`;
-    fetch('deals-data.json', { cache: 'no-store' })
-      .then(r => r.json())
-      .then(json => {
-        analysisData = json.analysis || {};
-        renderTab();
-      })
-      .catch(() => {
-        body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].failed}</p>`;
-      });
+    const fromCache = window.SupermarketDeals && typeof window.SupermarketDeals.getData === 'function'
+      ? window.SupermarketDeals.getData() : null;
+    const ready = (window.SupermarketDeals && window.SupermarketDeals.ready)
+      ? window.SupermarketDeals.ready()
+      : Promise.resolve(fromCache);
+
+    const apply = (json) => {
+      if (!json) throw new Error('no data');
+      analysisData = json.analysis || {};
+      allDealsData = json.deals || {};
+      renderTab();
+    };
+
+    ready.then(data => {
+      if (data && data.deals) {
+        apply(data);
+      } else {
+        return fetch('./deals-data.json', { cache: 'no-store' })
+          .then(r => r.json())
+          .then(apply);
+      }
+    }).catch(() => {
+      body.innerHTML = `<p class="analysis-empty">${UI_TEXT[uiLang].failed}</p>`;
+    });
   }
 
   trigger.addEventListener('click', e => {

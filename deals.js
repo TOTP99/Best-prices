@@ -1,16 +1,18 @@
 /* deals.js — 数据来源：deals-data.json（每周只改该文件） */
 (function () {
+  const SUIT_INFO = {
+    hearts:   { symbol: '♥', color: 'red' },
+    diamonds: { symbol: '♦', color: 'red' },
+    clubs:    { symbol: '♣', color: 'black' },
+    spades:   { symbol: '♠', color: 'black' }
+  };
+
   const STORE_CONFIG = [
-    { id: 'tnt16', group: 'chinese', rank: '10', nameCN: 'T&T 16街', nameEN: 'T&T Supermarket', url: 'https://tntsupermarket.com/weekly-flyer' },
-    { id: 'guanye', group: 'chinese', rank: 'J', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' },
-    { id: 'dingtai', group: 'chinese', rank: 'Q', nameCN: '鼎泰Hwy7', nameEN: 'Foody Hwy7 Supermarket', url: 'https://goflyer.ca/store/tone-tai-supermarket' },
-    { id: 'fuyao', group: 'chinese', rank: 'K', nameCN: '福耀Hwy7', nameEN: 'Winco Food Mart', url: 'https://goflyer.ca/store/winco-food-mart' },
-    { id: 'dingxian', group: 'chinese', rank: 'A', nameCN: '鼎鲜Woodbine', nameEN: 'Full Fresh Supermarket', url: 'https://goflyer.ca/store/full-fresh-supermarket' },
-    { id: 'walmart', group: 'western', rank: '10', nameCN: 'Walmart', nameEN: 'Walmart', url: 'https://www.walmart.ca/flyer' },
-    { id: 'freshco', group: 'western', rank: 'J', nameCN: 'FreshCo', nameEN: 'FreshCo', url: 'https://www.freshco.com/weekly-flyer/' },
-    { id: 'costco', group: 'western', rank: 'Q', nameCN: 'Costco', nameEN: 'Costco', url: 'https://www.costco.ca/warehouse-locations/1-yorktech-dr-markham-on.html' },
-    { id: 'nofrills', group: 'western', rank: 'K', nameCN: 'No Frills', nameEN: 'No Frills', url: 'https://www.nofrills.ca/flyer.en.html' },
-    { id: 'foodbasics', group: 'western', rank: 'A', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' }
+    { id: 'guanye', group: 'chinese', rank: 'A', suit: 'hearts', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' },
+    { id: 'baifu', group: 'chinese', rank: 'A', suit: 'spades', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
+    { id: 'freshco', group: 'western', rank: 'K', suit: 'clubs', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
+    { id: 'foodbasics', group: 'western', rank: 'K', suit: 'diamonds', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
+    { id: 'nofrills', group: 'western', rank: 'K', suit: 'spades', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' }
   ];
 
   const BENCHMARK_ITEMS = [
@@ -175,7 +177,7 @@
     return Math.max(0, Math.min(5, 5 - Math.round((today - day) / 86400000)));
   }
 
-  function pickBestFour(list) {
+  function pickBestSix(list) {
     if (!Array.isArray(list)) return [];
     return [...list].sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
@@ -183,7 +185,7 @@
         return b.discountPct - a.discountPct;
       }
       return 0;
-    }).slice(0, 4);
+    }).slice(0, 6);
   }
 
   async function loadData() {
@@ -201,8 +203,10 @@
     const card = document.querySelector(`.card[data-store-id="${store.id}"]`);
     if (!card) return;
 
-    const isCN = store.group === 'chinese';
-    const suit = isCN ? '♥' : '♣';
+    const suitInfo = SUIT_INFO[store.suit] || SUIT_INFO.spades;
+    const suit = suitInfo.symbol;
+    card.classList.toggle('suit-red', suitInfo.color === 'red');
+    card.classList.toggle('suit-black', suitInfo.color === 'black');
     card.dataset.url = store.url;
 
     // 左上角：点数+花色连写，星标紧跟 → A♥★★★★★；右下角去掉（避免挡 Full Flyer）
@@ -215,7 +219,11 @@
     const bottomRight = card.querySelector('.suit-corner.bottom-right');
     if (bottomRight) bottomRight.innerHTML = '';
 
+    const centerLogo = card.querySelector('.center-logo');
+    if (centerLogo) centerLogo.textContent = suit;
+
     // 店名固定按华超/西超分组显示，不随语言切换变化
+    const isCN = store.group === 'chinese';
     const nameEl = card.querySelector('.supermarket-name');
     if (nameEl) nameEl.textContent = isCN ? store.nameCN : store.nameEN;
 
@@ -223,14 +231,14 @@
     if (!dealsEl) return;
     dealsEl.innerHTML = '';
 
-    pickBestFour(deals).forEach((deal, i) => {
+    pickBestSix(deals).forEach((deal, i) => {
       const row = document.createElement('div');
       row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
       row.innerHTML = `<span class="deal-item">${itemText(deal.item)}</span><span class="deal-price">${deal.price}</span>`;
       dealsEl.appendChild(row);
     });
 
-    (highlights || []).slice(0, 2).forEach(hl => {
+    (highlights || []).slice(0, 1).forEach(hl => {
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
       const hlText = cardLang === 'zh' ? hl.cn : hl.en;
@@ -292,6 +300,7 @@
     refresh: init,
     setLang,
     getLang: () => cardLang,
+    getData: () => lastDataset,
     glossary: ITEM_GLOSSARY,
     addToGlossary(en, cn) { ITEM_GLOSSARY[normalizeKey(en)] = cn; }
   };
