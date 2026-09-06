@@ -442,6 +442,8 @@ body {
   white-space: nowrap;
 }
 
+.landscape-arrow { display: none; }
+
 @media (orientation: portrait) {
   .frame { gap: 14px; }
 
@@ -478,44 +480,17 @@ body {
 
 @media (orientation: landscape) {
   :root {
-    /* 横屏两组扇形并排：卡宽按视口宽度换算（26vw 减去两组间隙与边距的分摊） */
-    --card-w: clamp(90px, calc(26vw - 17px), 190px);
+    /* 横屏：长方形叠牌，卡片尽量放大——同时满足宽度(2张卡+两侧箭头区)与高度(减去上方控制栏)两个约束 */
+    --card-w: clamp(
+      110px,
+      min(
+        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 32px - 100px) / 2),
+        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 84px) / 1.661)
+      ),
+      210px
+    );
     --card-h: calc(var(--card-w) * 1.661);
-    --pivot: calc(var(--card-w) * 2.204);
-  }
-
-  .switch-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    position: fixed;
-    left: 50%;
-    top: calc(50% + 26px);
-    transform: translateX(-50%);
-    z-index: 950;
-  }
-
-  .switch-container .switch-btn { display: none; }
-
-  .topline {
-    flex-direction: column;
-    gap: 2px;
-    position: fixed;
-    left: 50%;
-    top: calc(50% + 26px);
-    transform: translate(-50%, calc(-100% - 3px));
-    z-index: 950;
-  }
-
-  /* 横屏不显示 TP 制作签名，只保留时间戳 + 语言切换 */
-  .signature { display: none; }
-
-  /* 横屏下翻译键挪到时间戳上方，并再上移 1.5px */
-  .lang-toggle {
-    order: -1;
-    position: relative;
-    top: -1.5px;
+    --peek: calc(var(--card-w) * 0.25);
   }
 
   .frame {
@@ -523,11 +498,33 @@ body {
     gap: 6px;
   }
 
-  /* 横屏：不再左右分组，5 张牌混在一起叠成一堆 */
+  .topline {
+    gap: 6px;
+  }
+
+  .switch-container {
+    display: flex;
+    gap: 8px;
+  }
+
+  .switch-container .switch-btn { display: none; }
+
+  /* 横屏不显示 TP 制作签名，只保留时间戳 + 语言切换，紧凑放在卡片上方 */
+  .signature { display: none; }
+
+  .sound-toggle,
+  .analysis-trigger {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  /* 横屏：不分组，5 张牌拼成一个长方形——最前一张全露出，其余每张只露出左边约 25%（花色+牌名） */
   .stage {
     position: relative;
-    width: calc(var(--card-w) + 2 * var(--pivot) * 0.208);
-    height: calc(var(--card-h) + var(--card-w) * 0.186);
+    width: calc(var(--card-w) * 2);
+    height: var(--card-h);
+    flex-shrink: 0;
   }
 
   .fan-section {
@@ -537,7 +534,34 @@ body {
     transform: translateX(-50%);
     display: flex;
   }
+
+  .stage-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .landscape-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-soft);
+    background: rgba(0, 0, 0, .35);
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .landscape-arrow:active { transform: scale(.92); }
 }
+
 
 /* —— 数据分析弹层 —— */
 

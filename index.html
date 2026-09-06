@@ -28,7 +28,10 @@
     <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
   </div>
 
-  <div class="stage">
+  <div class="stage-row" id="stageRow">
+    <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">⬅️</button>
+
+    <div class="stage">
 
     <section class="fan-section" id="chinese-section">
       <div class="fan-wrap">
@@ -96,6 +99,9 @@
       </div>
     </section>
 
+    </div>
+
+    <button class="landscape-arrow" id="landscapeNext" type="button" aria-label="下一张">➡️</button>
   </div>
 
 </div>
@@ -369,8 +375,7 @@
     }, 260);
   });
 
-  // 横屏：华超西超不再分组左右并排，5 张牌随机混在一起叠成一堆
-  let landscapeZCounter = 0;
+  // 横屏：华超西超不再分组左右并排，5 张牌拼成一个长方形（一张全露出，其余叠在后面各露出一小条）
 
   function shuffleArr(arr) {
     const a = arr.slice();
@@ -381,50 +386,84 @@
     return a;
   }
 
-  function applyLandscapeStack() {
-    const cards = shuffleArr(Array.from(document.querySelectorAll('.card')));
-    cards.forEach((card, i) => {
-      const angle = (Math.random() * 22 - 11).toFixed(1);
-      const tx = (Math.random() * 14 - 7).toFixed(1);
-      const ty = (Math.random() * 10 - 5).toFixed(1);
-      card.style.setProperty('--r', angle + 'deg');
-      card.style.setProperty('--stack-tx', tx + 'px');
-      card.style.setProperty('--stack-ty', ty + 'px');
-      card.style.zIndex = String(i + 1);
-    });
-    landscapeZCounter = cards.length;
+  // 横屏牌序：index 0 = 最前面全露出的那张，后面依次每张露出左边约 25%
+  let landscapeOrder = [];
+
+  function initLandscapeOrder() {
+    const all = Array.from(document.querySelectorAll('.card'));
+    const front = all.find(c => c.dataset.storeId === 'foodbasics') || all[0];
+    const rest = shuffleArr(all.filter(c => c !== front));
+    landscapeOrder = [front, ...rest];
   }
 
-  function clearLandscapeStack() {
+  function layoutLandscapeCards() {
+    const n = landscapeOrder.length;
+    const centerSlot = (n - 1) / 2;
+    landscapeOrder.forEach((card, k) => {
+      card.style.setProperty('--r', '0deg');
+      card.style.setProperty('--slot-offset', String(centerSlot - k));
+      card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.25)');
+      card.style.setProperty('--stack-ty', '0px');
+      card.style.zIndex = String(n - k);
+    });
+  }
+
+  function clearLandscapeCards() {
     document.querySelectorAll('.card').forEach(card => {
       card.style.removeProperty('--r');
+      card.style.removeProperty('--slot-offset');
       card.style.removeProperty('--stack-tx');
       card.style.removeProperty('--stack-ty');
       card.style.removeProperty('z-index');
     });
   }
 
+  function cycleLandscape(direction) {
+    if (landscapeOrder.length < 2) return;
+    if (direction > 0) {
+      landscapeOrder.push(landscapeOrder.shift());
+    } else {
+      landscapeOrder.unshift(landscapeOrder.pop());
+    }
+    layoutLandscapeCards();
+    playCasinoShuffle();
+  }
+
+  function bringCardToFrontLandscape(card) {
+    const idx = landscapeOrder.indexOf(card);
+    if (idx <= 0) return;
+    landscapeOrder.splice(idx, 1);
+    landscapeOrder.unshift(card);
+    layoutLandscapeCards();
+    playCasinoShuffle();
+  }
+
   const orientationMQ = window.matchMedia('(orientation: landscape)');
   function syncOrientationLayout() {
     if (orientationMQ.matches) {
-      applyLandscapeStack();
+      initLandscapeOrder();
+      layoutLandscapeCards();
     } else {
-      clearLandscapeStack();
+      clearLandscapeCards();
     }
   }
   orientationMQ.addEventListener('change', syncOrientationLayout);
   syncOrientationLayout();
 
-  // 卡片弹出
+  document.getElementById('landscapePrev').addEventListener('click', e => {
+    e.stopPropagation();
+    cycleLandscape(-1);
+  });
+  document.getElementById('landscapeNext').addEventListener('click', e => {
+    e.stopPropagation();
+    cycleLandscape(1);
+  });
+
+  // 卡片弹出（竖屏）
   const frameEl = document.getElementById('frame');
 
   function syncFramePoppedState() {
     frameEl.classList.toggle('has-popped', !!document.querySelector('.card.popped'));
-  }
-
-  function bringCardToFront(card) {
-    landscapeZCounter += 1;
-    card.style.zIndex = String(landscapeZCounter);
   }
 
   function popCard(card) {
@@ -433,19 +472,17 @@
     });
     card.classList.toggle('popped');
     syncFramePoppedState();
-
-    if (window.matchMedia('(orientation: landscape)').matches) {
-      bringCardToFront(card);
-      playCasinoShuffle();
-    } else {
-      playTick();
-    }
+    playTick();
   }
 
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', e => {
       e.stopPropagation();
-      popCard(card);
+      if (orientationMQ.matches) {
+        if (landscapeOrder[0] !== card) bringCardToFrontLandscape(card);
+      } else {
+        popCard(card);
+      }
     });
   });
 
