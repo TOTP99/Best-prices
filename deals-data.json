@@ -1,95 +1,120 @@
 {
   "deals": {
     "guanye": [
-      {"item":{"en":"Frozen Saury Fish","cn":"冷冻秋刀鱼"},"price":"$1.69/lb","featured":true,"discountPct":43.5},
-      {"item":{"en":"Sea Cucumber","cn":"海参"},"price":"$22.00/lb","discountPct":21.4},
-      {"item":{"en":"Live Tilapia","cn":"活罗非鱼"},"price":"$7.99/lb","discountPct":27.3},
-      {"item":{"en":"Live Canada Lobster 4–6lb","cn":"加拿大活龙虾 4-6磅"},"price":"$13.99/lb","discountPct":12.5},
-      {"item":{"en":"Live Blue Crab","cn":"活蓝蟹"},"price":"$8.99/lb","discountPct":18},
-      {"item":{"en":"Pork Chop","cn":"猪排"},"price":"$3.49/lb","discountPct":15}
+      { "item": { "en": "Saury Fish" }, "price": "$1.69/lb", "featured": true, "discountPct": 43.5 },
+      { "item": { "en": "Sea Cucumber" }, "price": "$22.00/lb", "discountPct": 21.4 },
+      { "item": { "en": "Tilapia" }, "price": "$7.99/lb", "discountPct": 27.3 },
+      { "item": { "en": "Lobster" }, "price": "$13.99/lb (4–6lb)", "discountPct": 12.5 },
+      { "item": { "en": "Blue Crab" }, "price": "$8.99/lb", "discountPct": 18 },
+      { "item": { "en": "Pork Chop" }, "price": "$3.49/lb", "discountPct": 15 }
     ],
+
     "baifu": [
-      {"item":{"en":"Korean Cabbage","cn":"高丽菜"},"price":"19¢/lb","featured":true,"discountPct":80.8},
-      {"item":{"en":"Aroy-D Thai Rice Sticks 454g","cn":"Aroy-D泰国尖竹汶粿条 454g"},"price":"99¢","discountPct":66.9},
-      {"item":{"en":"Haday Premium Light Soy Sauce 500ml","cn":"海天鲜味生抽 500ml"},"price":"99¢","discountPct":66.9},
-      {"item":{"en":"KSF Classic Instant Noodles 5×103g","cn":"康师傅经典方便面 5×103g"},"price":"$1.99","discountPct":60.1},
-      {"item":{"en":"Vietnamese Banana","cn":"越南蕉"},"price":"88¢/lb","discountPct":44.7},
-      {"item":{"en":"Pork Loin Bone","cn":"猪扒骨"},"price":"89¢/lb","discountPct":31},
-      {"item":{"en":"U.S. Fuji Apples","cn":"美国富士苹果"},"price":"$1.09/lb","discountPct":45.2},
-      {"item":{"en":"Elephant Thai Sour Mustard 300g","cn":"象牌泰国酸芥菜 300g"},"price":"99¢","discountPct":50.3},
-      {"item":{"en":"Live Tilapia","cn":"游水白立"},"price":"$7.99/lb","discountPct":27.3},
-      {"item":{"en":"Holiday Luncheon Meat 340g","cn":"假日午餐肉 340g"},"price":"$1.99","discountPct":33.4}
+      { "item": { "en": "Korean Cabbage" }, "price": "19¢/lb", "featured": true, "discountPct": 80.8 },
+      { "item": { "en": "Rice Sticks" }, "price": "99¢ (454g)", "discountPct": 66.9 },
+      { "item": { "en": "Light Soy Sauce" }, "price": "99¢ (500ml)", "discountPct": 66.9 },
+      { "item": { "en": "Instant Noodles" }, "price": "$1.99 (5×103g)", "discountPct": 60.1 },
+      { "item": { "en": "Bananas" }, "price": "88¢/lb", "discountPct": 44.7 },
+      { "item": { "en": "Pork Bone" }, "price": "89¢/lb", "discountPct": 31 },
+      { "item": { "en": "Apples" }, "price": "$1.09/lb", "discountPct": 45.2 },
+      { "item": { "en": "Sour Mustard" }, "price": "99¢ (300g)", "discountPct": 50.3 },
+      { "item": { "en": "Tilapia" }, "price": "$7.99/lb", "discountPct": 27.3 },
+      { "item": { "en": "Luncheon Meat" }, "price": "$1.99 (340g)", "discountPct": 33.4 }
     ],
+
     "freshco": [
-      {"item":{"en":"Cantaloupe (Large)","cn":"哈密瓜（大）"},"price":"$1.88","featured":true},
-      {"item":{"en":"30 Eggs (Member)","cn":"30枚鸡蛋（会员价）"},"price":"$6.99"},
-      {"item":{"en":"8 Chicken Drumsticks","cn":"鸡腿 8只装"},"price":"$5.00"},
-      {"item":{"en":"Hotdog","cn":"热狗"},"price":"$2.99"},
-      {"item":{"en":"Bananas","cn":"香蕉"},"price":"59¢/lb"},
-      {"item":{"en":"Ground Beef","cn":"免治牛肉"},"price":"$4.99/lb"}
+      { "item": { "en": "Cantaloupe" }, "price": "$1.88 (Large)", "featured": true },
+      { "item": { "en": "Eggs" }, "price": "$6.99 (30pcs, Member)" },
+      { "item": { "en": "Chicken Drumsticks" }, "price": "$5.00 (8pcs)" },
+      { "item": { "en": "Hotdog" }, "price": "$2.99" },
+      { "item": { "en": "Bananas" }, "price": "59¢/lb" },
+      { "item": { "en": "Ground Beef" }, "price": "$4.99/lb" }
     ],
+
     "foodbasics": [
-      {"item":{"en":"10lb Potatoes","cn":"土豆 10磅装"},"price":"$1.88","featured":true},
-      {"item":{"en":"Juice (Medium Bottle)","cn":"果汁（中瓶装）"},"price":"$1.25"},
-      {"item":{"en":"Chicken Breast","cn":"鸡胸肉"},"price":"$4.98/lb"},
-      {"item":{"en":"Fresh Salmon Fillet","cn":"新鲜三文鱼柳"},"price":"$9.99/lb"},
-      {"item":{"en":"White Bread","cn":"白面包"},"price":"$1.67"},
-      {"item":{"en":"2% Milk 4L","cn":"2%牛奶 4L"},"price":"$5.49"}
+      { "item": { "en": "Potatoes" }, "price": "$1.88 (10lb)", "featured": true },
+      { "item": { "en": "Juice" }, "price": "$1.25 (Medium Bottle)" },
+      { "item": { "en": "Chicken Breast" }, "price": "$4.98/lb" },
+      { "item": { "en": "Salmon Fillet" }, "price": "$9.99/lb" },
+      { "item": { "en": "White Bread" }, "price": "$1.67" },
+      { "item": { "en": "2% Milk" }, "price": "$5.49 (4L)" }
     ],
+
     "nofrills": [
-      {"item":{"en":"Ocean’s Tuna Can","cn":"Ocean's金枪鱼罐头"},"price":"$1.00","featured":true},
-      {"item":{"en":"Pork Chop","cn":"猪排"},"price":"$2.22/lb"},
-      {"item":{"en":"Watermelon","cn":"西瓜"},"price":"$3.44"},
-      {"item":{"en":"Sweet Oranges 2lb","cn":"甜橙 2磅装"},"price":"$2.99"},
-      {"item":{"en":"Avocado","cn":"牛油果"},"price":"$1.28"},
-      {"item":{"en":"Chicken Wings","cn":"鸡翅"},"price":"$3.99/lb"}
+      { "item": { "en": "Tuna" }, "price": "$1.00 (Can)", "featured": true },
+      { "item": { "en": "Pork Chop" }, "price": "$2.22/lb" },
+      { "item": { "en": "Watermelon" }, "price": "$3.44" },
+      { "item": { "en": "Oranges" }, "price": "$2.99 (2lb)" },
+      { "item": { "en": "Avocado" }, "price": "$1.28" },
+      { "item": { "en": "Chicken Wings" }, "price": "$3.99/lb" }
     ]
   },
+
   "benchmarkPrices": {
-    "guanye": {"salmon":{"value":9.99,"display":"$9.99/lb"}},
-    "baifu": {"banana":{"value":0.88,"display":"88¢/lb"},"porkchop":{"value":0.89,"display":"89¢/lb"}},
-    "foodbasics": {"salmon":{"value":9.99,"display":"$9.99/lb"},"chocolate":{"value":7.98,"display":"$7.98 (50pcs)"}},
-    "freshco": {"eggs":{"value":6.99,"display":"$6.99 (30pcs)"}}
+    "guanye": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" }
+    },
+    "baifu": {
+      "banana": { "value": 0.88, "display": "88¢/lb" },
+      "porkchop": { "value": 0.89, "display": "89¢/lb" }
+    },
+    "foodbasics": {
+      "salmon": { "value": 9.99, "display": "$9.99/lb" },
+      "chocolate": { "value": 7.98, "display": "$7.98 (50pcs)" }
+    },
+    "freshco": {
+      "eggs": { "value": 6.99, "display": "$6.99 (30pcs)" }
+    }
   },
+
   "updatedAt": {
-    "guanye":"2026-09-04","baifu":"2026-09-04","freshco":"2026-09-04","foodbasics":"2026-09-04","nofrills":"2026-09-04"
+    "guanye": "2026-09-04",
+    "baifu": "2026-09-04",
+    "freshco": "2026-09-04",
+    "foodbasics": "2026-09-04",
+    "nofrills": "2026-09-04"
   },
+
   "analysis": {
     "bestDeals": {
-      "guanye":{"en":"Frozen Saury Fish $1.69/lb (43.5% off)","cn":"冷冻秋刀鱼 $1.69/lb（省43.5%）"},
-      "baifu":{"en":"Korean Cabbage 19¢/lb (80.8% off)","cn":"高丽菜 19¢/lb（省80.8%）"},
-      "freshco":{"en":"Cantaloupe $1.88","cn":"哈密瓜 $1.88"},
-      "foodbasics":{"en":"10lb Potatoes $1.88","cn":"土豆10磅 $1.88"},
-      "nofrills":{"en":"Ocean’s Tuna $1.00","cn":"Ocean's金枪鱼罐头 $1.00"}
+      "guanye": { "en": "Saury Fish $1.69/lb (43.5% off)", "cn": "秋刀鱼 $1.69/lb（省43.5%）" },
+      "baifu": { "en": "Korean Cabbage 19¢/lb (80.8% off)", "cn": "高丽菜 19¢/lb（省80.8%）" },
+      "freshco": { "en": "Cantaloupe $1.88", "cn": "哈密瓜 $1.88" },
+      "foodbasics": { "en": "Potatoes 10lb $1.88", "cn": "土豆10磅 $1.88" },
+      "nofrills": { "en": "Tuna $1.00", "cn": "金枪鱼 $1.00" }
     },
+
     "deepestDiscounts": [
-      {"item":{"en":"Korean Cabbage","cn":"高丽菜"},"store":"baifu","discountPct":80.8},
-      {"item":{"en":"Aroy-D Thai Rice Sticks 454g","cn":"Aroy-D泰国尖竹汶粿条 454g"},"store":"baifu","discountPct":66.9},
-      {"item":{"en":"Haday Premium Light Soy Sauce 500ml","cn":"海天鲜味生抽 500ml"},"store":"baifu","discountPct":66.9},
-      {"item":{"en":"KSF Classic Instant Noodles 5×103g","cn":"康师傅经典方便面 5×103g"},"store":"baifu","discountPct":60.1},
-      {"item":{"en":"Elephant Thai Sour Mustard 300g","cn":"象牌泰国酸芥菜 300g"},"store":"baifu","discountPct":50.3},
-      {"item":{"en":"U.S. Fuji Apples","cn":"美国富士苹果"},"store":"baifu","discountPct":45.2},
-      {"item":{"en":"Vietnamese Banana","cn":"越南蕉"},"store":"baifu","discountPct":44.7},
-      {"item":{"en":"Frozen Saury Fish","cn":"冷冻秋刀鱼"},"store":"guanye","discountPct":43.5}
+      { "item": { "en": "Korean Cabbage" }, "store": "baifu", "discountPct": 80.8 },
+      { "item": { "en": "Rice Sticks" }, "store": "baifu", "discountPct": 66.9 },
+      { "item": { "en": "Light Soy Sauce" }, "store": "baifu", "discountPct": 66.9 },
+      { "item": { "en": "Instant Noodles" }, "store": "baifu", "discountPct": 60.1 },
+      { "item": { "en": "Sour Mustard" }, "store": "baifu", "discountPct": 50.3 },
+      { "item": { "en": "Apples" }, "store": "baifu", "discountPct": 45.2 },
+      { "item": { "en": "Bananas" }, "store": "baifu", "discountPct": 44.7 },
+      { "item": { "en": "Saury Fish" }, "store": "guanye", "discountPct": 43.5 }
     ],
+
     "categoryWinners": {
-      "meat":{"en":"Pork Loin Bone 89¢/lb (Baifu)","cn":"猪扒骨 89¢/lb（百福）"},
-      "seafood":{"en":"Frozen Saury Fish $1.69/lb (Guan Ye)","cn":"冷冻秋刀鱼 $1.69/lb（冠业）"},
-      "produce":{"en":"Korean Cabbage 19¢/lb (Baifu)","cn":"高丽菜 19¢/lb（百福）"},
-      "staples":{"en":"Aroy-D / Haday Soy 99¢ (Baifu)","cn":"Aroy-D粿条 / 海天生抽 99¢（百福）"}
+      "meat": { "en": "Pork Bone 89¢/lb (Baifu)", "cn": "猪骨 89¢/lb（百福）" },
+      "seafood": { "en": "Saury Fish $1.69/lb (Guan Ye)", "cn": "秋刀鱼 $1.69/lb（冠业）" },
+      "produce": { "en": "Korean Cabbage 19¢/lb (Baifu)", "cn": "高丽菜 19¢/lb（百福）" },
+      "staples": { "en": "Rice Sticks / Soy Sauce 99¢ (Baifu)", "cn": "粿条 / 生抽 99¢（百福）" }
     },
+
     "benchmarksComparison": {
-      "banana":{"en":"Baifu lowest (88¢/lb)","cn":"百福最低（88¢/lb）"},
-      "porkchop":{"en":"Baifu lowest (89¢/lb)","cn":"百福最低（89¢/lb）"},
-      "salmon":{"en":"Guan Ye & Food Basics tie ($9.99/lb)","cn":"冠业与Food Basics打平（$9.99/lb）"},
-      "eggs":{"en":"FreshCo lowest ($6.99 / 30pcs)","cn":"FreshCo最低（$6.99 / 30枚）"},
-      "chocolate":{"en":"Food Basics lowest ($7.98 / 50pcs)","cn":"Food Basics最低（$7.98 / 50粒）"}
+      "banana": { "en": "Baifu lowest (88¢/lb)", "cn": "百福最低（88¢/lb）" },
+      "porkchop": { "en": "Baifu lowest (89¢/lb)", "cn": "百福最低（89¢/lb）" },
+      "salmon": { "en": "Guan Ye & Food Basics tie ($9.99/lb)", "cn": "冠业与Food Basics打平（$9.99/lb）" },
+      "eggs": { "en": "FreshCo lowest ($6.99 / 30pcs)", "cn": "FreshCo最低（$6.99 / 30枚）" },
+      "chocolate": { "en": "Food Basics lowest ($7.98 / 50pcs)", "cn": "Food Basics最低（$7.98 / 50粒）" }
     },
+
     "cheapestStoreSummary": {
-      "overallCheapestProduce":{"en":"Baifu — Korean Cabbage 19¢/lb & Banana 88¢/lb","cn":"百福 — 高丽菜 19¢/lb & 香蕉 88¢/lb"},
-      "overallCheapestMeat":{"en":"Baifu — Pork Loin Bone 89¢/lb","cn":"百福 — 猪扒骨 89¢/lb"},
-      "overallCheapestSeafood":{"en":"Guan Ye — Saury $1.69/lb","cn":"冠业 — 秋刀鱼 $1.69/lb"},
-      "overallCheapestStaples":{"en":"Baifu — Aroy-D & Haday Soy 99¢","cn":"百福 — Aroy-D粿条 & 海天生抽 99¢"}
+      "overallCheapestProduce": { "en": "Baifu — Korean Cabbage 19¢/lb & Bananas 88¢/lb", "cn": "百福 — 高丽菜 19¢/lb & 香蕉 88¢/lb" },
+      "overallCheapestMeat": { "en": "Baifu — Pork Bone 89¢/lb", "cn": "百福 — 猪骨 89¢/lb" },
+      "overallCheapestSeafood": { "en": "Guan Ye — Saury Fish $1.69/lb", "cn": "冠业 — 秋刀鱼 $1.69/lb" },
+      "overallCheapestStaples": { "en": "Baifu — Rice Sticks & Soy Sauce 99¢", "cn": "百福 — 粿条 & 生抽 99¢" }
     }
   }
 }

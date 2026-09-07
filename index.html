@@ -30,7 +30,9 @@
   </div>
 
   <div class="stage-row" id="stageRow">
-    <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">⬅️</button>
+    <div class="landscape-left" id="landscapeLeft">
+      <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">⬅️</button>
+    </div>
 
     <div class="stage">
 
@@ -103,7 +105,6 @@
     </div>
 
     <div class="landscape-controls" id="landscapeControls">
-      <button class="landscape-arrow" id="landscapeNext" type="button" aria-label="下一张">➡️</button>
       <button class="analysis-trigger landscape-only" id="analysisTriggerLand" aria-label="数据分析">📊</button>
       <button class="refresh-btn landscape-only" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
       <button class="sound-toggle landscape-only" id="soundToggleLand" aria-label="音效开关">🔊</button>
@@ -408,17 +409,31 @@
     landscapeOrder = [front].concat(rest);
   }
 
-  function layoutLandscapeCards() {
+  function layoutLandscapeCards(animate) {
     const n = landscapeOrder.length;
     const centerSlot = (n - 1) / 2;
     landscapeOrder.forEach(function (card, k) {
+      if (animate) {
+        card.style.transitionDelay = (k * 0.028) + 's';
+      } else {
+        card.style.transitionDelay = '0s';
+      }
       card.style.setProperty('--r', '0deg');
       card.style.setProperty('--slot-offset', String(centerSlot - k));
-      card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.25)');
-      card.style.setProperty('--stack-ty', k === 0 ? 'calc(var(--card-w) * -0.06)' : '0px');
+      card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.22)');
+      card.style.setProperty('--stack-ty', '0px');
+      card.style.setProperty('--stack-scale', k === 0 ? '1.04' : '1');
       card.style.zIndex = String(n - k + 10);
       card.classList.toggle('landscape-front', k === 0);
     });
+    if (animate) {
+      clearTimeout(layoutLandscapeCards._delayReset);
+      layoutLandscapeCards._delayReset = setTimeout(function () {
+        landscapeOrder.forEach(function (card) {
+          card.style.transitionDelay = '0s';
+        });
+      }, 420);
+    }
   }
 
   function clearLandscapeCards() {
@@ -427,7 +442,9 @@
       card.style.removeProperty('--slot-offset');
       card.style.removeProperty('--stack-tx');
       card.style.removeProperty('--stack-ty');
+      card.style.removeProperty('--stack-scale');
       card.style.removeProperty('z-index');
+      card.style.transitionDelay = '0s';
       card.classList.remove('landscape-front');
     });
   }
@@ -439,7 +456,7 @@
     } else {
       landscapeOrder.unshift(landscapeOrder.pop());
     }
-    layoutLandscapeCards();
+    layoutLandscapeCards(true);
     playCasinoShuffle();
   }
 
@@ -448,16 +465,33 @@
     if (idx <= 0) return;
     landscapeOrder.splice(idx, 1);
     landscapeOrder.unshift(card);
-    layoutLandscapeCards();
+    layoutLandscapeCards(true);
     playCasinoShuffle();
   }
 
   const orientationMQ = window.matchMedia('(orientation: landscape)');
+  const landscapeLeft = document.getElementById('landscapeLeft');
+  const toplineEl = document.getElementById('topline');
+  const updateStampEl = document.getElementById('updateStamp');
+  const langToggleEl = document.getElementById('langToggle');
+
   function syncOrientationLayout() {
     if (orientationMQ.matches) {
+      if (landscapeLeft && updateStampEl && !landscapeLeft.contains(updateStampEl)) {
+        landscapeLeft.appendChild(updateStampEl);
+      }
+      if (landscapeLeft && langToggleEl && !landscapeLeft.contains(langToggleEl)) {
+        landscapeLeft.appendChild(langToggleEl);
+      }
       initLandscapeOrder();
-      layoutLandscapeCards();
+      layoutLandscapeCards(false);
     } else {
+      if (toplineEl && updateStampEl && !toplineEl.contains(updateStampEl)) {
+        toplineEl.appendChild(updateStampEl);
+      }
+      if (toplineEl && langToggleEl && !toplineEl.contains(langToggleEl)) {
+        toplineEl.appendChild(langToggleEl);
+      }
       clearLandscapeCards();
     }
   }
@@ -467,10 +501,6 @@
   document.getElementById('landscapePrev').addEventListener('click', function (e) {
     e.stopPropagation();
     cycleLandscape(-1);
-  });
-  document.getElementById('landscapeNext').addEventListener('click', function (e) {
-    e.stopPropagation();
-    cycleLandscape(1);
   });
 
   const frameEl = document.getElementById('frame');

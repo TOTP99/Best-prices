@@ -178,8 +178,9 @@ body {
   border: 1px solid #e3ddce;
   box-shadow: -3px 5px 12px rgba(0, 0, 0, .3);
   transform-origin: 50% var(--pivot);
-  transform: rotate(var(--r)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(1);
-  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+  transform: rotate(var(--r)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(var(--stack-scale, 1));
+  transition: transform .34s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease, z-index 0s;
+  will-change: transform;
   cursor: pointer;
   padding: calc(var(--card-w) * 0.085) calc(var(--card-w) * 0.076) calc(var(--card-w) * 0.068);
   display: flex;
@@ -209,6 +210,16 @@ body {
   transform: rotate(var(--r)) translate(var(--stack-tx, 0px), calc(var(--stack-ty, 0px) - var(--card-w) * 0.186)) scale(1.1);
   box-shadow: -4px 10px 22px rgba(0, 0, 0, .4);
   z-index: 20;
+}
+
+@media (orientation: landscape) {
+  .card:hover {
+    transform: rotate(var(--r)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(var(--stack-scale, 1));
+    box-shadow: -3px 5px 12px rgba(0, 0, 0, .3);
+  }
+  .card.landscape-front:hover {
+    box-shadow: -4px 10px 22px rgba(0, 0, 0, .42);
+  }
 }
 
 .card.popped {
@@ -444,6 +455,7 @@ body {
 .landscape-arrow { display: none; }
 .landscape-controls { display: none; }
 .landscape-only { display: none; }
+.landscape-left { display: none; }
 
 @media (orientation: portrait) {
   .frame { gap: 14px; }
@@ -482,35 +494,35 @@ body {
 @media (orientation: landscape) {
   :root {
     --card-w: clamp(
-      110px,
+      108px,
       min(
-        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 32px - 90px) / 2),
-        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 48px) / 1.661)
+        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 56px - 108px) / 2),
+        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) / 1.661)
       ),
-      210px
+      200px
     );
     --card-h: calc(var(--card-w) * 1.661);
-    --peek: calc(var(--card-w) * 0.25);
+    --peek: calc(var(--card-w) * 0.22);
   }
 
   body { align-items: center; }
 
   .frame {
-    padding: 6px 12px;
-    gap: 4px;
+    padding: 8px max(14px, env(safe-area-inset-right, 0px)) 8px max(14px, env(safe-area-inset-left, 0px));
+    gap: 0;
     justify-content: center;
     min-height: 100%;
   }
 
-  .topline { gap: 6px; }
+  .topline { display: none; }
   .switch-container { display: none; }
   .signature { display: none; }
 
   .sound-toggle,
   .analysis-trigger,
   .refresh-btn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     font-size: 15px;
   }
 
@@ -518,13 +530,42 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 18px;
     flex: 1;
+    width: 100%;
+  }
+
+  .landscape-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-shrink: 0;
+    width: 48px;
+  }
+
+  .landscape-left .update-stamp {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(212, 175, 55, .9);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 48px;
+    white-space: normal;
+    letter-spacing: .15px;
+  }
+
+  .landscape-left .lang-toggle {
+    font-size: 20px;
+    padding: 2px 0 0;
+    line-height: 1;
+    opacity: .95;
   }
 
   .stage {
     position: relative;
-    width: calc(var(--card-w) * 2);
+    width: calc(var(--card-w) * 1.88);
     height: var(--card-h);
     flex-shrink: 0;
   }
@@ -556,10 +597,13 @@ body {
   .card {
     pointer-events: auto;
     top: 0;
+    transition:
+      transform .38s cubic-bezier(.22, 1, .36, 1),
+      box-shadow .32s ease;
   }
 
   .card.landscape-front {
-    box-shadow: -4px 10px 24px rgba(0, 0, 0, .42);
+    box-shadow: -4px 10px 22px rgba(0, 0, 0, .42);
   }
 
   .landscape-controls {
@@ -567,8 +611,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 16px;
     flex-shrink: 0;
+    width: 48px;
   }
 
   .landscape-only { display: flex; }
