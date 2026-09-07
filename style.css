@@ -182,10 +182,11 @@ body {
   transition: transform .34s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease, z-index 0s;
   will-change: transform;
   cursor: pointer;
-  padding: calc(var(--card-w) * 0.085) calc(var(--card-w) * 0.076) calc(var(--card-w) * 0.068);
+  padding: calc(var(--card-w) * 0.062) calc(var(--card-w) * 0.062) calc(var(--card-w) * 0.048);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: 1.5px solid rgba(212, 175, 55, .35);
 }
 
 .card::before {
@@ -276,7 +277,7 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  margin-top: calc(var(--card-w) * 0.135);
+  margin-top: calc(var(--card-w) * 0.095);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -284,11 +285,11 @@ body {
 }
 
 .supermarket-name {
-  margin: 0 0 calc(var(--card-w) * 0.042);
-  font-size: calc(var(--card-w) * 0.106);
+  margin: 0 0 calc(var(--card-w) * 0.028);
+  font-size: calc(var(--card-w) * 0.092);
   font-weight: 700;
   color: var(--ink);
-  letter-spacing: .2px;
+  letter-spacing: .15px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -298,11 +299,11 @@ body {
   flex: 1;
   min-height: 0;
   margin: 0;
-  padding-top: calc(var(--card-w) * 0.042);
-  border-top: 1px solid rgba(44, 62, 80, .12);
+  padding-top: calc(var(--card-w) * 0.024);
+  border-top: 1px solid rgba(212, 175, 55, .22);
   display: flex;
   flex-direction: column;
-  gap: calc(var(--card-w) * 0.034);
+  gap: calc(var(--card-w) * 0.018);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -312,22 +313,34 @@ body {
 
 .deal-row {
   display: flex;
-  align-items: baseline;
-  gap: 5px;
+  align-items: flex-start;
+  gap: 4px;
   flex-shrink: 0;
+  border-radius: 4px;
+  padding: 2px 3px;
+  margin: 0 -2px;
+}
+
+/* Priority / basic items (eggs, salmon, tomatoes…) — soft yellow wash */
+.deal-row.priority {
+  background: linear-gradient(90deg, rgba(255, 236, 160, .42), rgba(255, 245, 200, .12) 90%);
+  border-left: 2px solid rgba(212, 175, 55, .45);
+}
+
+/* Benchmark / special price highlight — soft blue wash (no 🆕⬇️) */
+.deal-row.benchmark {
+  background: linear-gradient(90deg, rgba(180, 220, 255, .38), rgba(210, 235, 255, .1) 90%);
+  border-left: 2px solid rgba(100, 160, 220, .4);
 }
 
 .deal-row.featured {
-  background: linear-gradient(90deg, rgba(212, 175, 55, .18), transparent 85%);
-  border-radius: 4px;
-  margin: -1px -3px 0;
-  padding: 1px 3px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, .2), transparent 85%);
 }
 
 .deal-row.featured .deal-item::before {
   content: "★ ";
   color: var(--gold);
-  font-size: 8px;
+  font-size: 7px;
 }
 
 .deal-row.featured .deal-item {
@@ -335,33 +348,17 @@ body {
   font-weight: 600;
 }
 
-.deal-row.benchmark {
-  background: linear-gradient(90deg, rgba(39, 174, 96, .2), transparent 85%);
-  border-radius: 4px;
-  margin: -1px -3px 0;
-  padding: 1px 3px;
-}
-
 .deal-row.benchmark .deal-item,
-.deal-row.benchmark .deal-price { color: #1e7e4a; }
+.deal-row.benchmark .deal-price { color: #1e5a8a; }
 
 .deal-row.benchmark .deal-item { font-weight: 700; }
 
 .deal-item {
   flex: 1;
   min-width: 0;
-  font-size: calc(var(--card-w) * 0.073);
-  color: #5a6472;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.en-theme .deal-row { align-items: flex-start; }
-
-.en-theme .deal-item {
-  font-size: calc(var(--card-w) * 0.063);
-  line-height: 1.15;
+  font-size: calc(var(--card-w) * 0.060);
+  color: #4a5568;
+  line-height: 1.2;
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -370,39 +367,56 @@ body {
   text-overflow: ellipsis;
 }
 
+.en-theme .deal-row { align-items: flex-start; }
+
+.en-theme .deal-item {
+  font-size: calc(var(--card-w) * 0.056);
+  line-height: 1.18;
+}
+
 .deal-price {
   flex-shrink: 0;
-  font-size: calc(var(--card-w) * 0.081);
+  font-size: calc(var(--card-w) * 0.060);
   font-weight: 700;
+  color: #c0392b;
+  margin-top: 1px;
+  letter-spacing: -0.2px;
 }
 
 .en-theme .deal-price {
-  margin-top: 1px;
-  color: #0984e3;
+  font-size: calc(var(--card-w) * 0.056);
 }
 
-.cn-theme .deal-price { color: #d63031; }
+.cn-theme .deal-price { color: #c0392b; }
 
 .flyer-btn {
   flex-shrink: 0;
-  margin-top: calc(var(--card-w) * 0.051);
-  padding: calc(var(--card-w) * 0.034) 0;
+  margin-top: calc(var(--card-w) * 0.030);
+  padding: calc(var(--card-w) * 0.026) 0;
   width: 100%;
-  border: none;
-  border-radius: 5px;
-  font-size: calc(var(--card-w) * 0.071);
+  border: 1px solid rgba(212, 175, 55, .28);
+  border-radius: 6px;
+  font-size: calc(var(--card-w) * 0.058);
   font-weight: 700;
-  letter-spacing: .2px;
+  letter-spacing: .25px;
   font-family: inherit;
   cursor: pointer;
-  background: rgba(44, 62, 80, .07);
-  transition: background .15s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(248,246,240,.35));
+  color: #2c3e50;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
 }
 
-.suit-red .flyer-btn { color: #c0392b; }
-.suit-red .flyer-btn:hover { background: rgba(192, 57, 43, .14); }
+.suit-red .flyer-btn { color: #a93226; }
+.suit-red .flyer-btn:hover {
+  background: rgba(192, 57, 43, .1);
+  border-color: rgba(192, 57, 43, .35);
+}
 .suit-black .flyer-btn { color: #2c3e50; }
-.suit-black .flyer-btn:hover { background: rgba(44, 62, 80, .14); }
+.suit-black .flyer-btn:hover {
+  background: rgba(44, 62, 80, .1);
+  border-color: rgba(44, 62, 80, .3);
+}
 
 .signature {
   font-size: 12.5px;
@@ -493,16 +507,17 @@ body {
 
 @media (orientation: landscape) {
   :root {
+    /* width +20%, height -15% → aspect ≈ 1.176 */
     --card-w: clamp(
-      108px,
+      130px,
       min(
-        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 56px - 108px) / 2),
-        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) / 1.661)
+        calc((100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 56px - 100px) / 1.9),
+        calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) / 1.176)
       ),
-      200px
+      240px
     );
-    --card-h: calc(var(--card-w) * 1.661);
-    --peek: calc(var(--card-w) * 0.22);
+    --card-h: calc(var(--card-w) * 1.176);
+    --peek: calc(var(--card-w) * 0.20);
   }
 
   body { align-items: center; }
@@ -565,7 +580,7 @@ body {
 
   .stage {
     position: relative;
-    width: calc(var(--card-w) * 1.88);
+    width: calc(var(--card-w) * 1.95);
     height: var(--card-h);
     flex-shrink: 0;
   }

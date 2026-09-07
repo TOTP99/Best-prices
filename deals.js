@@ -99,24 +99,45 @@
     return a;
   }
 
-  function pickDisplayFive(list) {
+  const MAX_DISPLAY = 6;
+
+  function itemKey(deal) {
+    const { en, cn } = itemEnCn(deal.item);
+    return normalizeKey(en || cn || '');
+  }
+
+  /* Select up to MAX_DISPLAY unique deals. Priority first, then random fill. */
+  function pickDisplayItems(list) {
     if (!Array.isArray(list) || !list.length) return [];
+
+    // Strict uniqueness by normalized item key
+    const seen = new Set();
+    const unique = [];
+    list.forEach(d => {
+      const k = itemKey(d);
+      if (!k || seen.has(k)) return;
+      seen.add(k);
+      unique.push(d);
+    });
+
     const priority = [];
     const rest = [];
-    list.forEach(d => (isPriorityDeal(d) ? priority : rest).push(d));
+    unique.forEach(d => (isPriorityDeal(d) ? priority : rest).push(d));
+
     priority.sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
       return (b.discountPct || 0) - (a.discountPct || 0);
     });
-    const chosen = priority.slice(0, 5);
-    if (chosen.length < 5) {
+
+    const chosen = priority.slice(0, MAX_DISPLAY);
+    if (chosen.length < MAX_DISPLAY) {
       const fillers = shuffleArr(rest);
       fillers.sort((a, b) => {
         if (a.featured !== b.featured) return a.featured ? -1 : 1;
         return 0;
       });
       for (const d of fillers) {
-        if (chosen.length >= 5) break;
+        if (chosen.length >= MAX_DISPLAY) break;
         chosen.push(d);
       }
     }
@@ -191,20 +212,33 @@
     if (!dealsEl) return;
     dealsEl.innerHTML = '';
 
-    pickDisplayFive(deals).forEach((deal, i) => {
+    const displayed = pickDisplayItems(deals);
+    const displayedKeys = new Set(displayed.map(itemKey));
+
+    displayed.forEach((deal, i) => {
       const row = document.createElement('div');
-      row.className = 'deal-row' + (i === 0 && deal.featured ? ' featured' : '');
+      const classes = ['deal-row'];
+      if (isPriorityDeal(deal)) classes.push('priority');
+      if (i === 0 && deal.featured) classes.push('featured');
+      row.className = classes.join(' ');
       const { cn, en } = itemEnCn(deal.item);
       const text = window.SupermarketDeals.getLang() === 'zh' ? cn : en;
       row.innerHTML = '<span class="deal-item">' + text + '</span><span class="deal-price">' + deal.price + '</span>';
       dealsEl.appendChild(row);
     });
 
+    /* Benchmark highlight: soft blue, no 🆕⬇️. Skip if already shown as priority. */
     (highlights || []).slice(0, 1).forEach(hl => {
+      const hlKey = normalizeKey(hl.en || hl.cn || '');
+      if (displayedKeys.has(hlKey)) return; // already on card as basic item
+      // also skip if the highlight itself matches a priority keyword
+      const fakeDeal = { item: { en: hl.en, cn: hl.cn } };
+      if (isPriorityDeal(fakeDeal)) return;
+
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
       const hlText = window.SupermarketDeals.getLang() === 'zh' ? hl.cn : hl.en;
-      row.innerHTML = '<span class="deal-item">' + hlText + ' ⬇️🆕</span><span class="deal-price">' + hl.display + '</span>';
+      row.innerHTML = '<span class="deal-item">' + hlText + '</span><span class="deal-price">' + hl.display + '</span>';
       dealsEl.appendChild(row);
     });
 
