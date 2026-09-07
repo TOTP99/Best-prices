@@ -37,21 +37,45 @@ body::before {
   z-index: 0;
 }
 
-/* Subtle Canadian motifs */
+/* Staggered maple / cat / fish / tag motifs */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.07;
+  opacity: 0.10;
   background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d4af37' d='M50 6l7 20h21l-17 13 7 20-18-12-18 12 7-20-17-13h21z'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d4af37' d='M50 10l5 16h17l-14 10 5 16-13-9-13 9 5-16-14-10h17z'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23c9a227' d='M50 14l4 12h13l-10 8 4 12-11-7-11 7 4-12-10-8h13z'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23b8941f' d='M50 18l3 9h10l-8 6 3 9-8-5-8 5 3-9-8-6h10z'/></svg>"),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d4af37' d='M50 8l6 18h19l-15 12 6 18-16-11-16 11 6-18-15-12h19z'/></svg>"),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23d4af37' d='M50 12l5 15h16l-13 10 5 15-13-9-13 9 5-15-13-10h16z'/></svg>"),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><ellipse fill='%23d4af37' cx='32' cy='40' rx='18' ry='12'/><circle fill='%23d4af37' cx='22' cy='28' r='8'/><circle fill='%23d4af37' cx='42' cy='28' r='8'/><path fill='%23d4af37' d='M14 26c-6-2-10 4-6 8M50 26c6-2 10 4 6 8'/></svg>");
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><ellipse fill='%23d4af37' cx='32' cy='40' rx='16' ry='11'/><circle fill='%23d4af37' cx='22' cy='28' r='7'/><circle fill='%23d4af37' cx='42' cy='28' r='7'/><path fill='%23d4af37' d='M16 26c-5-2-8 3-5 7M48 26c5-2 8 3 5 7'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40'><ellipse fill='%23d4af37' cx='36' cy='20' rx='28' ry='12'/><path fill='%23d4af37' d='M60 20l14-10v20z'/><circle fill='%231a3322' cx='22' cy='17' r='2.5'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path fill='%23d4af37' d='M6 18l14-12h22v36H20z'/><circle fill='%231a3322' cx='16' cy='18' r='3'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23c9a227' d='M50 12l5 15h16l-13 10 5 15-13-9-13 9 5-15-13-10h16z'/></svg>");
   background-repeat: no-repeat;
-  background-size: 48px 48px, 36px 36px, 56px 56px;
-  background-position: 8% 18%, 92% 72%, 78% 12%;
+  background-size:
+    58px 58px,
+    38px 38px,
+    26px 26px,
+    16px 16px,
+    44px 44px,
+    40px 40px,
+    52px 26px,
+    20px 20px,
+    22px 22px;
+  background-position:
+    5% 12%,
+    90% 18%,
+    14% 82%,
+    70% 70%,
+    48% 6%,
+    92% 78%,
+    8% 52%,
+    82% 42%,
+    30% 30%;
 }
 
 body {
@@ -449,7 +473,6 @@ body {
   opacity: .9;
 }
 
-/* Icon buttons — poker-suit bordered tiles */
 .icon-btn,
 .sound-toggle,
 .refresh-btn,
@@ -555,10 +578,6 @@ body {
 
 @media (orientation: landscape) {
   :root {
-    /*
-      横屏：高度 ≤ 可用视口约 78%，上下留白，避免顶底被挡。
-      宽高比约 1.35（略扁），便于 6–8 条商品。
-    */
     --card-h: clamp(
       150px,
       calc((100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 28px) * 0.78),
