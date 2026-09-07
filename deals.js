@@ -44,6 +44,10 @@
     ['cucumber', 'cucumbers', '黄瓜']
   ];
 
+  /* 显示条数：至少 6，最多 8（在保证呼吸感前提下尽量多） */
+  const MIN_DISPLAY = 6;
+  const MAX_DISPLAY = 8;
+
   /* 外部商品库（items.js） */
   function getGlossary() {
     return (window.SupermarketItems && window.SupermarketItems.glossary) || {};
@@ -99,18 +103,15 @@
     return a;
   }
 
-  const MAX_DISPLAY = 6;
-
   function itemKey(deal) {
     const { en, cn } = itemEnCn(deal.item);
     return normalizeKey(en || cn || '');
   }
 
-  /* Select up to MAX_DISPLAY unique deals. Priority first, then random fill. */
+  /* 严格去重；优先项先占位；有数据时至少 6 条，最多 8 条 */
   function pickDisplayItems(list) {
     if (!Array.isArray(list) || !list.length) return [];
 
-    // Strict uniqueness by normalized item key
     const seen = new Set();
     const unique = [];
     list.forEach(d => {
@@ -129,15 +130,19 @@
       return (b.discountPct || 0) - (a.discountPct || 0);
     });
 
-    const chosen = priority.slice(0, MAX_DISPLAY);
-    if (chosen.length < MAX_DISPLAY) {
+    const fillTo = unique.length >= MIN_DISPLAY
+      ? Math.min(unique.length, MAX_DISPLAY)
+      : unique.length;
+
+    const chosen = priority.slice(0, fillTo);
+    if (chosen.length < fillTo) {
       const fillers = shuffleArr(rest);
       fillers.sort((a, b) => {
         if (a.featured !== b.featured) return a.featured ? -1 : 1;
         return 0;
       });
       for (const d of fillers) {
-        if (chosen.length >= MAX_DISPLAY) break;
+        if (chosen.length >= fillTo) break;
         chosen.push(d);
       }
     }
@@ -164,6 +169,7 @@
     return winners;
   }
 
+  /* 最多 3 星；每过 2 天减 1 星 */
   function freshnessStars(updatedAt) {
     if (!updatedAt) return 0;
     const d = new Date(updatedAt + 'T00:00:00');
@@ -171,7 +177,11 @@
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    return Math.max(0, Math.min(5, 5 - Math.round((today - day) / 86400000)));
+    const days = Math.round((today - day) / 86400000);
+    if (days <= 0) return 3;
+    if (days <= 2) return 2;
+    if (days <= 4) return 1;
+    return 0;
   }
 
   async function loadData() {
@@ -199,7 +209,9 @@
     const starsHTML = stars > 0 ? '<span class="freshness-stars">' + '★'.repeat(stars) + '</span>' : '';
     const topLeft = card.querySelector('.suit-corner.top-left');
     if (topLeft) {
-      topLeft.innerHTML = '<span class="rank-suit">' + store.rank + suit + '</span>' + starsHTML;
+      // 单行：点数 + 花色 + 星号（星号紧跟花色后）
+      topLeft.innerHTML =
+        '<span class="rank-suit">' + store.rank + suit + '</span>' + starsHTML;
     }
 
     const centerLogo = card.querySelector('.center-logo');
@@ -227,11 +239,10 @@
       dealsEl.appendChild(row);
     });
 
-    /* Benchmark highlight: soft blue, no 🆕⬇️. Skip if already shown as priority. */
+    /* 基准高亮：淡蓝底，无 🆕⬇️；已是优先项则跳过 */
     (highlights || []).slice(0, 1).forEach(hl => {
       const hlKey = normalizeKey(hl.en || hl.cn || '');
-      if (displayedKeys.has(hlKey)) return; // already on card as basic item
-      // also skip if the highlight itself matches a priority keyword
+      if (displayedKeys.has(hlKey)) return;
       const fakeDeal = { item: { en: hl.en, cn: hl.cn } };
       if (isPriorityDeal(fakeDeal)) return;
 

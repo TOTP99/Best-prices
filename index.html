@@ -13,7 +13,6 @@
   <div class="topline" id="topline">
     <span class="signature">TP🐈🏷️</span>
     <span class="update-stamp" id="updateStamp"></span>
-    <button class="lang-toggle" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
   </div>
 
   <div class="switch-container">
@@ -24,9 +23,12 @@
         <span class="switch-thumb"></span>
       </span>
     </button>
-    <button class="analysis-trigger" id="analysisTrigger" aria-label="数据分析">📊</button>
-    <button class="refresh-btn" id="refreshBtn" type="button" aria-label="刷新商品显示">🔄</button>
-    <button class="sound-toggle" id="soundToggle" aria-label="音效开关">🔊</button>
+    <div class="icon-row" id="iconRow">
+      <button class="icon-btn refresh-btn suit-spade" id="refreshBtn" type="button" aria-label="刷新商品显示">🔄</button>
+      <button class="icon-btn analysis-trigger suit-heart" id="analysisTrigger" aria-label="数据分析">📊</button>
+      <button class="icon-btn lang-toggle suit-diamond" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
+      <button class="icon-btn sound-toggle suit-club" id="soundToggle" aria-label="音效开关">🔊</button>
+    </div>
   </div>
 
   <div class="stage-row" id="stageRow">
@@ -105,9 +107,9 @@
     </div>
 
     <div class="landscape-controls" id="landscapeControls">
-      <button class="analysis-trigger landscape-only" id="analysisTriggerLand" aria-label="数据分析">📊</button>
-      <button class="refresh-btn landscape-only" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
-      <button class="sound-toggle landscape-only" id="soundToggleLand" aria-label="音效开关">🔊</button>
+      <button class="icon-btn analysis-trigger landscape-only suit-heart" id="analysisTriggerLand" aria-label="数据分析">📊</button>
+      <button class="icon-btn refresh-btn landscape-only suit-spade" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
+      <button class="icon-btn sound-toggle landscape-only suit-club" id="soundToggleLand" aria-label="音效开关">🔊</button>
     </div>
   </div>
 
@@ -475,6 +477,7 @@
   const toplineEl = document.getElementById('topline');
   const updateStampEl = document.getElementById('updateStamp');
   const langToggleEl = document.getElementById('langToggle');
+  const iconRowEl = document.getElementById('iconRow');
 
   function syncOrientationLayout() {
     if (orientationMQ.matches) {
@@ -490,8 +493,10 @@
       if (toplineEl && updateStampEl && !toplineEl.contains(updateStampEl)) {
         toplineEl.appendChild(updateStampEl);
       }
-      if (toplineEl && langToggleEl && !toplineEl.contains(langToggleEl)) {
-        toplineEl.appendChild(langToggleEl);
+      if (iconRowEl && langToggleEl && !iconRowEl.contains(langToggleEl)) {
+        const soundBtn = document.getElementById('soundToggle');
+        if (soundBtn) iconRowEl.insertBefore(langToggleEl, soundBtn);
+        else iconRowEl.appendChild(langToggleEl);
       }
       clearLandscapeCards();
     }
