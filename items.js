@@ -46,6 +46,25 @@
     "watermelon": "西瓜",
 
     /* ===========================
+       2026-09-09 新增（Food Basics / No Frills / FreshCo 9月10-16特价）
+       =========================== */
+
+    "eye of round roast": "牛霖烤肉",
+    "pork tenderloin": "猪柳",
+    "pork loin": "猪展肉",
+    "grapes": "葡萄",
+    "yogurt": "酸奶",
+    "carrots": "胡萝卜",
+    "onions": "洋葱",
+    "chicken wieners": "鸡肉热狗肠",
+    "cauliflower": "椰菜花",
+    "bell pepper": "甜椒",
+    "butter": "牛油",
+    "blackberries": "黑莓",
+    "romaine hearts": "罗马生菜心",
+    "sweet corn": "甜玉米",
+
+    /* ===========================
        预存词库（供以后新品类使用，未在本周数据中出现，暂未改动）
        =========================== */
 
