@@ -1,12 +1,14 @@
 {
   "deals": {
     "guanye": [
-      { "item": { "en": "Saury Fish" }, "price": "$1.69/lb", "featured": true, "discountPct": 43.5 },
-      { "item": { "en": "Sea Cucumber" }, "price": "$22.00/lb", "discountPct": 21.4 },
-      { "item": { "en": "Tilapia" }, "price": "$7.99/lb", "discountPct": 27.3 },
-      { "item": { "en": "Lobster" }, "price": "$13.99/lb (4–6lb)", "discountPct": 12.5 },
-      { "item": { "en": "Blue Crab" }, "price": "$8.99/lb", "discountPct": 18 },
-      { "item": { "en": "Pork Chop" }, "price": "$3.49/lb", "discountPct": 15 }
+      { "item": { "en": "Hami Melon" }, "price": "69¢/lb", "featured": true, "discountPct": 50.4 },
+      { "item": { "en": "Spring Lamb" }, "price": "$6.99/lb", "discountPct": 36.4 },
+      { "item": { "en": "Chicken Wings" }, "price": "$2.59/lb", "discountPct": 35.1 },
+      { "item": { "en": "Beef Steak AAA" }, "price": "$13.99/lb", "discountPct": 30 },
+      { "item": { "en": "Muscadine Grapes" }, "price": "$2.99", "discountPct": 25.1 },
+      { "item": { "en": "Lean Pork" }, "price": "$2.39/lb", "discountPct": 20.1 },
+      { "item": { "en": "Tango Mandarin" }, "price": "$1.59", "discountPct": 20.1 },
+      { "item": { "en": "Black Angus Beef Chunk Roll" }, "price": "$8.99/lb", "discountPct": 10 }
     ],
 
     "baifu": [
@@ -74,7 +76,7 @@
   },
 
   "updatedAt": {
-    "guanye": "2026-09-04",
+    "guanye": "2026-09-10",
     "baifu": "2026-09-04",
     "freshco": "2026-09-09",
     "foodbasics": "2026-09-09",
@@ -83,7 +85,7 @@
 
   "analysis": {
     "bestDeals": {
-      "guanye": { "en": "Saury Fish $1.69/lb (43.5% off)", "cn": "秋刀鱼 $1.69/lb（省43.5%）" },
+      "guanye": { "en": "Hami Melon 69¢/lb (50.4% off)", "cn": "哈密瓜 69¢/lb（省50.4%）" },
       "baifu": { "en": "Korean Cabbage 19¢/lb (80.8% off)", "cn": "高丽菜 19¢/lb（省80.8%）" },
       "freshco": { "en": "Pork Loin $1.99/lb", "cn": "猪展肉 $1.99/lb" },
       "foodbasics": { "en": "Ground Beef $5.88/lb & Grapes $1.48/lb", "cn": "免治牛肉 $5.88/lb & 葡萄 $1.48/lb" },
@@ -95,17 +97,17 @@
       { "item": { "en": "Rice Sticks" }, "store": "baifu", "discountPct": 66.9 },
       { "item": { "en": "Light Soy Sauce" }, "store": "baifu", "discountPct": 66.9 },
       { "item": { "en": "Instant Noodles" }, "store": "baifu", "discountPct": 60.1 },
-      { "item": { "en": "Chicken Wings" }, "store": "nofrills", "discountPct": 46 },
+      { "item": { "en": "Hami Melon" }, "store": "guanye", "discountPct": 50.4 },
       { "item": { "en": "Sour Mustard" }, "store": "baifu", "discountPct": 50.3 },
+      { "item": { "en": "Chicken Wings" }, "store": "nofrills", "discountPct": 46 },
       { "item": { "en": "Apples" }, "store": "baifu", "discountPct": 45.2 },
-      { "item": { "en": "Chicken Wings" }, "store": "freshco", "discountPct": 44.5 },
       { "item": { "en": "Bananas" }, "store": "baifu", "discountPct": 44.7 },
-      { "item": { "en": "Saury Fish" }, "store": "guanye", "discountPct": 43.5 }
+      { "item": { "en": "Chicken Wings" }, "store": "freshco", "discountPct": 44.5 }
     ],
 
     "categoryWinners": {
       "meat": { "en": "Pork Bone 89¢/lb (Baifu)", "cn": "猪骨 89¢/lb（百福）" },
-      "seafood": { "en": "Saury Fish $1.69/lb (Guan Ye)", "cn": "秋刀鱼 $1.69/lb（冠业）" },
+      "seafood": { "en": "Tilapia $7.99/lb (Baifu)", "cn": "罗非鱼 $7.99/lb（百福）" },
       "produce": { "en": "Korean Cabbage 19¢/lb (Baifu)", "cn": "高丽菜 19¢/lb（百福）" },
       "staples": { "en": "Rice Sticks / Soy Sauce 99¢ (Baifu)", "cn": "粿条 / 生抽 99¢（百福）" }
     },
@@ -121,7 +123,7 @@
     "cheapestStoreSummary": {
       "overallCheapestProduce": { "en": "Baifu — Korean Cabbage 19¢/lb & Bananas 88¢/lb", "cn": "百福 — 高丽菜 19¢/lb & 香蕉 88¢/lb" },
       "overallCheapestMeat": { "en": "Baifu — Pork Bone 89¢/lb", "cn": "百福 — 猪骨 89¢/lb" },
-      "overallCheapestSeafood": { "en": "Guan Ye — Saury Fish $1.69/lb", "cn": "冠业 — 秋刀鱼 $1.69/lb" },
+      "overallCheapestSeafood": { "en": "Baifu — Tilapia $7.99/lb", "cn": "百福 — 罗非鱼 $7.99/lb" },
       "overallCheapestStaples": { "en": "Baifu — Rice Sticks & Soy Sauce 99¢", "cn": "百福 — 粿条 & 生抽 99¢" }
     }
   }
