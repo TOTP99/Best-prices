@@ -172,7 +172,32 @@
     "kevins baked cheese cake": "Kevin's 芝士蛋糕",
     "larooca cake slices": "Larooca 蛋糕片",
     "tan hue vien snow flake cake": "天惠雪花饼",
-    "egg tarts": "蛋挞"
+    "egg tarts": "蛋挞",
+
+    /* ===========================
+       2026-09-11 新增（百福 9月11-17特价）
+       =========================== */
+
+    "broccoli": "西兰花",
+    "pork spare ribs": "排骨",
+    "ground lean pork": "瘦肉碎",
+    "mini cucumbers": "迷你青瓜",
+    "salmon steaks": "三文鱼扒",
+    "pork ham meat": "猪后腿肉",
+    "bok choy sum": "白菜芯",
+    "shanghai bok choy": "上海白菜",
+    "kabocha squash": "西人南瓜",
+    "taro": "大芋头",
+    "coral trout": "东星斑",
+    "whiting": "竹签鱼",
+    "sole fish": "挞沙",
+    "sea urchin": "海胆",
+    "yellow croaker": "黄旗斑",
+    "beef back ribs": "牛排骨",
+    "beef finger meat": "牛坑腩",
+    "chicken mid wings": "鸡中翅",
+    "grade u duck": "U级鸭",
+    "chinese sausage": "腊肠"
   };
 
   window.SupermarketItems = {
