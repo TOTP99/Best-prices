@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="stage-row" id="stageRow">
+  <div class="stage-row">
     <div class="landscape-left" id="landscapeLeft">
       <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">⬅️</button>
     </div>
@@ -49,7 +49,6 @@
               <h3 class="supermarket-name">加载中…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"></div>
           </div>
 
           <div class="card suit-black" data-store-id="baifu">
@@ -59,7 +58,6 @@
               <h3 class="supermarket-name">加载中…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"></div>
           </div>
 
         </div>
@@ -77,7 +75,6 @@
               <h3 class="supermarket-name">Loading…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"></div>
           </div>
 
           <div class="card suit-red" data-store-id="foodbasics">
@@ -87,7 +84,6 @@
               <h3 class="supermarket-name">Loading…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"></div>
           </div>
 
           <div class="card suit-black" data-store-id="nofrills">
@@ -97,7 +93,6 @@
               <h3 class="supermarket-name">Loading…</h3>
               <div class="deals"></div>
             </div>
-            <div class="suit-corner bottom-right"></div>
           </div>
 
         </div>
@@ -106,7 +101,7 @@
 
     </div>
 
-    <div class="landscape-controls" id="landscapeControls">
+    <div class="landscape-controls">
       <button class="icon-btn analysis-trigger landscape-only suit-heart" id="analysisTriggerLand" aria-label="数据分析">📊</button>
       <button class="icon-btn refresh-btn landscape-only suit-spade" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
       <button class="icon-btn sound-toggle landscape-only suit-club" id="soundToggleLand" aria-label="音效开关">🔊</button>
@@ -330,7 +325,7 @@
     if (analysisData) {
       renderTab();
     } else {
-      const p = body.querySelector('.analysis-loading, .analysis-empty, .analysis-failed');
+      const p = body.querySelector('.analysis-loading, .analysis-empty');
       if (p) p.textContent = t.loading;
     }
   }
@@ -549,12 +544,14 @@
   function analysisText(val) {
     if (val && typeof val === 'object') {
       const en = val.en || '';
-      const cn = val.cn || (window.SupermarketDeals && window.SupermarketDeals.glossary[String(en).trim().toLowerCase()]) || en;
+      const gloss = window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary();
+      const cn = val.cn || (gloss && gloss[String(en).trim().toLowerCase()]) || en;
       return (uiLang === 'zh' ? cn : en) || en || cn || '';
     }
     if (val == null) return '';
     const en = String(val);
-    const cn = (window.SupermarketDeals && window.SupermarketDeals.glossary[en.trim().toLowerCase()]) || en;
+    const gloss = window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary();
+    const cn = (gloss && gloss[en.trim().toLowerCase()]) || en;
     return uiLang === 'zh' ? cn : en;
   }
 
