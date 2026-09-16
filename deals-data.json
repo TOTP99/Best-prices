@@ -135,29 +135,36 @@
     "freshco": [
       {
         "item": {
-          "en": "Pork Loin"
+          "en": "Grapes"
         },
-        "price": "$1.99/lb",
+        "price": "$1.44/lb",
+        "featured": true,
+        "discountPct": 63
+      },
+      {
+        "item": {
+          "en": "Bok Choy"
+        },
+        "price": "88¢/lb",
         "featured": true
       },
       {
         "item": {
-          "en": "Grapes"
+          "en": "Napa Cabbage"
         },
-        "price": "$1.77/lb"
+        "price": "88¢/lb"
       },
       {
         "item": {
-          "en": "Chicken Wings"
+          "en": "Chicken Breast"
         },
-        "price": "$9.99",
-        "discountPct": 44.5
+        "price": "$10 (boneless skinless)"
       },
       {
         "item": {
-          "en": "Strawberries"
+          "en": "Apples"
         },
-        "price": "$4.99"
+        "price": "$1.49 (Gala/McIntosh)"
       },
       {
         "item": {
@@ -167,95 +174,120 @@
       },
       {
         "item": {
-          "en": "Cauliflower"
+          "en": "Cucumbers"
         },
-        "price": "$3.44"
+        "price": "$1.49 (seedless)"
       },
       {
         "item": {
-          "en": "Bell Pepper"
+          "en": "Asian Yellow Pears"
         },
-        "price": "$1.99/lb"
+        "price": "$1.48/lb"
       },
       {
         "item": {
-          "en": "Butter"
+          "en": "Schneiders Bacon"
         },
-        "price": "$5.99"
+        "price": "$3.99",
+        "discountPct": 57
+      },
+      {
+        "item": {
+          "en": "Instant Noodles"
+        },
+        "price": "$2.98 (Indomie)"
       }
     ],
     "foodbasics": [
       {
         "item": {
-          "en": "Ground Beef"
+          "en": "Sirloin Tip Roast"
         },
-        "price": "$5.88/lb",
+        "price": "$6.88/lb",
         "featured": true
       },
       {
         "item": {
-          "en": "Grapes"
+          "en": "Cauliflower"
         },
-        "price": "$1.48/lb",
+        "price": "$1.25 each",
         "featured": true
       },
       {
         "item": {
-          "en": "Tomatoes"
+          "en": "Apples"
         },
-        "price": "88¢/lb"
+        "price": "$2.98 (3lb local)"
       },
       {
         "item": {
-          "en": "Cucumbers"
+          "en": "Janes Chicken"
         },
-        "price": "88¢/lb"
+        "price": "$5.55 (fried chicken pieces)"
+      },
+      {
+        "item": {
+          "en": "Coca-Cola"
+        },
+        "price": "$7.48"
       },
       {
         "item": {
           "en": "Yogurt"
         },
-        "price": "$5.98"
+        "price": "$5.99 (Liberte Greek)"
       },
       {
         "item": {
-          "en": "Onions"
+          "en": "Villaggio Bread"
         },
-        "price": "$1.99 each"
+        "price": "$2.99"
       },
       {
         "item": {
-          "en": "Carrots"
+          "en": "Butter"
         },
-        "price": "$1.99 each"
-      },
-      {
-        "item": {
-          "en": "Chicken Wieners"
-        },
-        "price": "$1.99"
+        "price": "$4.99"
       }
     ],
     "nofrills": [
       {
         "item": {
-          "en": "Eye of Round Roast"
+          "en": "Grapes"
         },
-        "price": "$5.88/lb",
+        "price": "$1.49/lb",
         "featured": true
       },
       {
         "item": {
-          "en": "Pork Tenderloin"
+          "en": "Pork Loin"
         },
-        "price": "$3.28/lb",
-        "discountPct": 25
+        "price": "$1.99/lb",
+        "featured": true
       },
       {
         "item": {
-          "en": "Potatoes"
+          "en": "Napa Cabbage"
         },
-        "price": "$1.99 (10lb)"
+        "price": "98¢"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$5.99 (halal)"
+      },
+      {
+        "item": {
+          "en": "Lean Ground Pork"
+        },
+        "price": "$4"
+      },
+      {
+        "item": {
+          "en": "Broccoli"
+        },
+        "price": "$1.44"
       },
       {
         "item": {
@@ -265,28 +297,21 @@
       },
       {
         "item": {
-          "en": "Chicken Wings"
+          "en": "Potatoes"
         },
-        "price": "$6.99",
-        "discountPct": 46
+        "price": "$3.99 (10lb)"
       },
       {
         "item": {
-          "en": "Grapes"
+          "en": "Red Onions"
         },
-        "price": "$4.99 (2L)"
+        "price": "$5.99 (10lb bag)"
       },
       {
         "item": {
-          "en": "Tomatoes"
+          "en": "Pork Belly"
         },
-        "price": "$4.99 (3L)"
-      },
-      {
-        "item": {
-          "en": "Avocado"
-        },
-        "price": "$2.99 (6pk)"
+        "price": "$5.48"
       }
     ]
   },
@@ -327,9 +352,9 @@
   "updatedAt": {
     "guanye": "2026-09-10",
     "baifu": "2026-09-11",
-    "freshco": "2026-09-09",
-    "foodbasics": "2026-09-09",
-    "nofrills": "2026-09-09"
+    "freshco": "2026-09-16",
+    "foodbasics": "2026-09-16",
+    "nofrills": "2026-09-16"
   },
   "analysis": {
     "bestDeals": {
@@ -342,16 +367,16 @@
         "cn": "西兰花 99¢/lb（省50%）& 粿条 99¢"
       },
       "freshco": {
-        "en": "Pork Loin $1.99/lb",
-        "cn": "猪展肉 $1.99/lb"
+        "en": "Grapes $1.44/lb (63% off) & Bok Choy/Napa 88¢/lb",
+        "cn": "葡萄 $1.44/lb（省63%）& 白菜/绍菜 88¢/lb"
       },
       "foodbasics": {
-        "en": "Ground Beef $5.88/lb & Grapes $1.48/lb",
-        "cn": "免治牛肉 $5.88/lb & 葡萄 $1.48/lb"
+        "en": "Sirloin Tip Roast $6.88/lb & Cauliflower $1.25 each",
+        "cn": "西冷烤牛肉尖 $6.88/lb & 椰菜花 $1.25/颗"
       },
       "nofrills": {
-        "en": "Eye of Round Roast $5.88/lb",
-        "cn": "牛霖烤肉 $5.88/lb"
+        "en": "Pork Loin $1.99/lb & Grapes $1.49/lb",
+        "cn": "猪展肉 $1.99/lb & 葡萄 $1.49/lb"
       }
     },
     "deepestDiscounts": [
@@ -361,6 +386,20 @@
         },
         "store": "baifu",
         "discountPct": 66.9
+      },
+      {
+        "item": {
+          "en": "Grapes"
+        },
+        "store": "freshco",
+        "discountPct": 63
+      },
+      {
+        "item": {
+          "en": "Schneiders Bacon"
+        },
+        "store": "freshco",
+        "discountPct": 57
       },
       {
         "item": {
@@ -382,20 +421,6 @@
         },
         "store": "baifu",
         "discountPct": 44.7
-      },
-      {
-        "item": {
-          "en": "Chicken Wings"
-        },
-        "store": "nofrills",
-        "discountPct": 46
-      },
-      {
-        "item": {
-          "en": "Chicken Wings"
-        },
-        "store": "freshco",
-        "discountPct": 44.5
       },
       {
         "item": {
@@ -428,16 +453,16 @@
     ],
     "categoryWinners": {
       "meat": {
-        "en": "Chicken Drumsticks $1.39/lb (Baifu)",
-        "cn": "鸡腿 $1.39/lb（百福）"
+        "en": "Pork Loin $1.99/lb (No Frills) / Chicken Drumsticks $1.39/lb (Baifu)",
+        "cn": "猪展肉 $1.99/lb（No Frills）/ 鸡腿 $1.39/lb（百福）"
       },
       "seafood": {
         "en": "Salmon Steaks $5.99/lb (Baifu)",
         "cn": "三文鱼扒 $5.99/lb（百福）"
       },
       "produce": {
-        "en": "Broccoli 99¢/lb (Baifu)",
-        "cn": "西兰花 99¢/lb（百福）"
+        "en": "Bok Choy/Napa 88¢/lb (FreshCo) & Broccoli 99¢/lb (Baifu)",
+        "cn": "白菜/绍菜 88¢/lb（FreshCo）& 西兰花 99¢/lb（百福）"
       },
       "staples": {
         "en": "Rice Sticks 99¢ (Baifu)",
@@ -468,12 +493,12 @@
     },
     "cheapestStoreSummary": {
       "overallCheapestProduce": {
-        "en": "Baifu — Broccoli 99¢/lb & Napa 59¢/lb",
-        "cn": "百福 — 西兰花 99¢/lb & 绍菜 59¢/lb"
+        "en": "FreshCo — Bok Choy/Napa 88¢/lb & Grapes $1.44/lb",
+        "cn": "FreshCo — 白菜/绍菜 88¢/lb & 葡萄 $1.44/lb"
       },
       "overallCheapestMeat": {
-        "en": "Baifu — Chicken Drumsticks $1.39/lb",
-        "cn": "百福 — 鸡腿 $1.39/lb"
+        "en": "No Frills — Pork Loin $1.99/lb / Baifu — Chicken Drumsticks $1.39/lb",
+        "cn": "No Frills — 猪展肉 $1.99/lb / 百福 — 鸡腿 $1.39/lb"
       },
       "overallCheapestSeafood": {
         "en": "Baifu — Salmon Steaks $5.99/lb",

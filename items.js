@@ -66,6 +66,24 @@
     "sweet corn": "甜玉米",
 
     /* ===========================
+       2026-09-16 新增（Food Basics / No Frills / FreshCo 9月17-23特价）
+       =========================== */
+
+    "sirloin tip roast": "西冷烤牛肉尖",
+    "janes chicken": "Janes炸鸡粒",
+    "coca-cola": "可口可乐",
+    "villaggio bread": "Villaggio面包",
+    "bok choy": "白菜",
+    "asian yellow pears": "亚洲黄梨",
+    "honey pomelo": "蜜柚",
+    "red onions": "红洋葱",
+    "pork belly": "五花肉",
+    "lean ground pork": "瘦猪肉碎",
+    "schneiders bacon": "Schneiders培根",
+
+
+
+    /* ===========================
        2026-09-10 新增（冠业超市 9月11-17特价）
        =========================== */
 
