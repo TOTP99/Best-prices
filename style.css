@@ -294,13 +294,14 @@ body {
   line-height: 1;
 }
 
-.freshness-stars {
-  color: #27ae60;
-  font-size: calc(var(--card-w) * 0.052);
-  font-weight: 700;
-  letter-spacing: -0.6px;
+.flyer-period {
+  font-size: calc(var(--card-w) * 0.038);
+  font-weight: 600;
+  letter-spacing: 0;
   line-height: 1;
-  margin-left: 1px;
+  margin-left: 3px;
+  opacity: .8;
+  white-space: nowrap;
 }
 
 .card.suit-red .suit-corner,

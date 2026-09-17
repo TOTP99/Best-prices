@@ -169,21 +169,6 @@
     return winners;
   }
 
-  /* 最多 3 星；每过 2 天减 1 星 */
-  function freshnessStars(updatedAt) {
-    if (!updatedAt) return 0;
-    const d = new Date(updatedAt + 'T00:00:00');
-    if (isNaN(d.getTime())) return 0;
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    const days = Math.round((today - day) / 86400000);
-    if (days <= 0) return 3;
-    if (days <= 2) return 2;
-    if (days <= 4) return 1;
-    return 0;
-  }
-
   async function loadData() {
     try {
       const res = await fetch('./deals-data.json', { cache: 'no-store' });
@@ -195,7 +180,7 @@
     }
   }
 
-  function renderStore(store, deals, highlights, updatedAt) {
+  function renderStore(store, deals, highlights, flyerPeriod) {
     const card = document.querySelector('.card[data-store-id="' + store.id + '"]');
     if (!card) return;
 
@@ -205,13 +190,12 @@
     card.classList.toggle('suit-black', suitInfo.color === 'black');
     card.dataset.url = store.url;
 
-    const stars = freshnessStars(updatedAt);
-    const starsHTML = stars > 0 ? '<span class="freshness-stars">' + '★'.repeat(stars) + '</span>' : '';
+    const periodHTML = flyerPeriod ? '<span class="flyer-period">' + flyerPeriod + '</span>' : '';
     const topLeft = card.querySelector('.suit-corner.top-left');
     if (topLeft) {
-      // 单行：点数 + 花色 + 星号（星号紧跟花色后）
+      // 单行：点数 + 花色 + flyer 有效期（紧跟花色后）
       topLeft.innerHTML =
-        '<span class="rank-suit">' + store.rank + suit + '</span>' + starsHTML;
+        '<span class="rank-suit">' + store.rank + suit + '</span>' + periodHTML;
     }
 
     const centerLogo = card.querySelector('.center-logo');
@@ -279,10 +263,10 @@
     const src = dataset || lastDataset;
     const deals = (src && src.deals) || {};
     const prices = (src && src.benchmarkPrices) || {};
-    const updated = (src && src.updatedAt) || {};
+    const flyerPeriods = (src && src.flyerPeriod) || {};
     const winners = computeBenchmarkWinners(prices);
     STORE_CONFIG.forEach(function (s) {
-      renderStore(s, deals[s.id] || [], winners[s.id], updated[s.id]);
+      renderStore(s, deals[s.id] || [], winners[s.id], flyerPeriods[s.id]);
     });
   }
 

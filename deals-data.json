@@ -349,12 +349,12 @@
       }
     }
   },
-  "updatedAt": {
-    "guanye": "2026-09-10",
-    "baifu": "2026-09-11",
-    "freshco": "2026-09-16",
-    "foodbasics": "2026-09-16",
-    "nofrills": "2026-09-16"
+  "flyerPeriod": {
+    "guanye": "Sep 11-17",
+    "baifu": "Sep 11-17",
+    "freshco": "Sep 17-23",
+    "foodbasics": "Sep 17-23",
+    "nofrills": "Sep 17-23"
   },
   "analysis": {
     "bestDeals": {
