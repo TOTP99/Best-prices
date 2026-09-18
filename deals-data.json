@@ -220,7 +220,595 @@
         "price": "$13.99/ea (1lb)"
       }
     ],
-    "sunfood": [
+    "freshco": [
+      {
+        "item": {
+          "en": "Bok Choy"
+        },
+        "price": "88¢/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Asian Yellow Pears"
+        },
+        "price": "$1.48/lb"
+      },
+      {
+        "item": {
+          "en": "Honey Pomelo"
+        },
+        "price": "$2.98/ea"
+      },
+      {
+        "item": {
+          "en": "Grapes"
+        },
+        "price": "$1.44/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Apples"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Tomatoes"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Cucumbers"
+        },
+        "price": "$1.49/ea"
+      },
+      {
+        "item": {
+          "en": "Romaine Hearts"
+        },
+        "price": "$3.99 (3pk)"
+      },
+      {
+        "item": {
+          "en": "Cilantro"
+        },
+        "price": "99¢"
+      },
+      {
+        "item": {
+          "en": "Raspberries"
+        },
+        "price": "$1.99 (170g)"
+      },
+      {
+        "item": {
+          "en": "Salad Kit"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$10 (4pk, member)"
+      },
+      {
+        "item": {
+          "en": "Bacon"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Ham"
+        },
+        "price": "$8.99 (600g)"
+      },
+      {
+        "item": {
+          "en": "Basa Steaks"
+        },
+        "price": "$3.88 (500g, frozen)"
+      },
+      {
+        "item": {
+          "en": "Sourdough Bread"
+        },
+        "price": "$3.00"
+      },
+      {
+        "item": {
+          "en": "Vegetable Oil"
+        },
+        "price": "$5.99 (3L, member)"
+      },
+      {
+        "item": {
+          "en": "Evaporated Milk"
+        },
+        "price": "$1.69 (354ml)"
+      },
+      {
+        "item": {
+          "en": "Jasmine Rice"
+        },
+        "price": "$15.98 (7kg)"
+      },
+      {
+        "item": {
+          "en": "Coca-Cola"
+        },
+        "price": "$1.99 (2L)"
+      },
+      {
+        "item": {
+          "en": "Mooncakes"
+        },
+        "price": "$13.88 (640g)"
+      },
+      {
+        "item": {
+          "en": "Udon Noodles"
+        },
+        "price": "$3.98 (1.15kg)"
+      },
+      {
+        "item": {
+          "en": "Instant Noodles"
+        },
+        "price": "$2.98 (400-425g)"
+      },
+      {
+        "item": {
+          "en": "Dumplings"
+        },
+        "price": "$2.88 (380-450g)"
+      },
+      {
+        "item": {
+          "en": "Scallion Pancakes"
+        },
+        "price": "$2.48 (450g)"
+      },
+      {
+        "item": {
+          "en": "Chestnuts"
+        },
+        "price": "$1.28 (100g)"
+      },
+      {
+        "item": {
+          "en": "Soy Sauce"
+        },
+        "price": "$5.88 (1.9L)"
+      },
+      {
+        "item": {
+          "en": "Coconut Milk"
+        },
+        "price": "$1.88 (400ml)"
+      },
+      {
+        "item": {
+          "en": "Sriracha"
+        },
+        "price": "$5.98 (714ml)"
+      },
+      {
+        "item": {
+          "en": "Honey"
+        },
+        "price": "$8.98 (1kg)"
+      },
+      {
+        "item": {
+          "en": "Chicken Broth"
+        },
+        "price": "$1.18 (412ml)"
+      },
+      {
+        "item": {
+          "en": "Mayonnaise"
+        },
+        "price": "$5.98 (450g)"
+      }
+    ],
+    "nofrills": [
+      {
+        "item": {
+          "en": "Green Cabbage"
+        },
+        "price": "49¢/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Royal Gala Apples"
+        },
+        "price": "77¢/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Napa Cabbage"
+        },
+        "price": "98¢/lb"
+      },
+      {
+        "item": {
+          "en": "Grapes"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Broccoli"
+        },
+        "price": "$1.44/ea"
+      },
+      {
+        "item": {
+          "en": "Sweet Potatoes"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$1.88/lb"
+      },
+      {
+        "item": {
+          "en": "Dragon Fruit"
+        },
+        "price": "$1.98/ea"
+      },
+      {
+        "item": {
+          "en": "Asian Yellow Pears"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Guava"
+        },
+        "price": "$4.48/lb"
+      },
+      {
+        "item": {
+          "en": "Pomelo"
+        },
+        "price": "$2.98/ea"
+      },
+      {
+        "item": {
+          "en": "Limes"
+        },
+        "price": "59¢/ea"
+      },
+      {
+        "item": {
+          "en": "Kiwi"
+        },
+        "price": "79¢/ea"
+      },
+      {
+        "item": {
+          "en": "Cantaloupe"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Watermelon"
+        },
+        "price": "$4.99/ea (11lb)"
+      },
+      {
+        "item": {
+          "en": "Blueberries"
+        },
+        "price": "$3.99 (6oz)"
+      },
+      {
+        "item": {
+          "en": "Strawberries"
+        },
+        "price": "$4.99 (1lb)"
+      },
+      {
+        "item": {
+          "en": "Oranges"
+        },
+        "price": "$4.99 (4lb)"
+      },
+      {
+        "item": {
+          "en": "Mandarin"
+        },
+        "price": "$6.99 (4lb)"
+      },
+      {
+        "item": {
+          "en": "Lemon"
+        },
+        "price": "$3.99 (2lb)"
+      },
+      {
+        "item": {
+          "en": "Avocado"
+        },
+        "price": "$3.99 (5pk)"
+      },
+      {
+        "item": {
+          "en": "Potatoes"
+        },
+        "price": "$3.99 (10lb)"
+      },
+      {
+        "item": {
+          "en": "Onions"
+        },
+        "price": "$2.99 (3lb)"
+      },
+      {
+        "item": {
+          "en": "Red Onions"
+        },
+        "price": "$5.99 (10lb)"
+      },
+      {
+        "item": {
+          "en": "Carrots"
+        },
+        "price": "$3.99 (2lb mini)"
+      },
+      {
+        "item": {
+          "en": "Celery"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Cauliflower"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Mushrooms"
+        },
+        "price": "$2.49 (227g)"
+      },
+      {
+        "item": {
+          "en": "Mini Cucumbers"
+        },
+        "price": "$2.49 (6pk)"
+      },
+      {
+        "item": {
+          "en": "Pumpkin"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Lettuce"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Cilantro"
+        },
+        "price": "$1.29"
+      },
+      {
+        "item": {
+          "en": "Green Onions"
+        },
+        "price": "99¢"
+      },
+      {
+        "item": {
+          "en": "Romaine Hearts"
+        },
+        "price": "$3.99 (3pk)"
+      },
+      {
+        "item": {
+          "en": "Green Pepper"
+        },
+        "price": "$4.00 (2.5lb)"
+      },
+      {
+        "item": {
+          "en": "Pork Loin"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Whole Chicken"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$5.99/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Belly"
+        },
+        "price": "$5.48/lb"
+      },
+      {
+        "item": {
+          "en": "Duck"
+        },
+        "price": "$3.88/lb (frozen)"
+      },
+      {
+        "item": {
+          "en": "Beef Stir-Fry Strips"
+        },
+        "price": "$13.00/lb"
+      },
+      {
+        "item": {
+          "en": "Lean Ground Pork"
+        },
+        "price": "$4.00 (450g)"
+      },
+      {
+        "item": {
+          "en": "Hotdog"
+        },
+        "price": "$3.75 (375g)"
+      },
+      {
+        "item": {
+          "en": "Pork Back Ribs"
+        },
+        "price": "$9.99 (680g, frozen)"
+      },
+      {
+        "item": {
+          "en": "Shrimp"
+        },
+        "price": "$6.00 (400g, frozen)"
+      },
+      {
+        "item": {
+          "en": "Clam Meat"
+        },
+        "price": "$5.50 (340g, frozen)"
+      },
+      {
+        "item": {
+          "en": "Edamame"
+        },
+        "price": "$2.28 (frozen)"
+      },
+      {
+        "item": {
+          "en": "Luncheon Meat"
+        },
+        "price": "$3.88 (340g)"
+      },
+      {
+        "item": {
+          "en": "Instant Noodles"
+        },
+        "price": "$2.88 (5x80g)"
+      },
+      {
+        "item": {
+          "en": "Jasmine Rice"
+        },
+        "price": "$12.88 (8kg)"
+      },
+      {
+        "item": {
+          "en": "Sardines"
+        },
+        "price": "88¢ (155g)"
+      },
+      {
+        "item": {
+          "en": "Chicken Broth"
+        },
+        "price": "88¢ (412ml)"
+      },
+      {
+        "item": {
+          "en": "Soy Sauce"
+        },
+        "price": "$5.88 (1.9L)"
+      },
+      {
+        "item": {
+          "en": "Butter"
+        },
+        "price": "$4.99 (454g)"
+      }
+    ],
+    "foodbasics": [
+      {
+        "item": {
+          "en": "Mango"
+        },
+        "price": "98¢/ea",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Cauliflower"
+        },
+        "price": "$1.25/ea",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Sirloin Tip Roast"
+        },
+        "price": "$6.88/lb"
+      },
+      {
+        "item": {
+          "en": "Apples"
+        },
+        "price": "$2.98 (3lb bag)"
+      },
+      {
+        "item": {
+          "en": "Bell Pepper"
+        },
+        "price": "$3.98 (2.5lb)"
+      },
+      {
+        "item": {
+          "en": "Janes Chicken"
+        },
+        "price": "$5.55"
+      },
+      {
+        "item": {
+          "en": "Villaggio Bread"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Coca-Cola"
+        },
+        "price": "$7.48 (12pk)"
+      },
+      {
+        "item": {
+          "en": "Chicken Broth"
+        },
+        "price": "$1.49"
+      },
+      {
+        "item": {
+          "en": "Yogurt"
+        },
+        "price": "$6.99 (Greek)"
+      }
+    ],
+    "baifu": [
       {
         "item": {
           "en": "Winter Melon"
@@ -588,11 +1176,17 @@
   "benchmarkPrices": {},
   "flyerPeriod": {
     "guanye": "Sep 18-24",
-    "sunfood": "Sep 18-24"
+    "freshco": "Sep 17-23",
+    "nofrills": "Sep 17-23",
+    "foodbasics": "Sep 17-23",
+    "baifu": "Sep 18-24"
   },
   "updatedAt": {
     "guanye": "2026-09-18",
-    "sunfood": "2026-09-18"
+    "freshco": "2026-09-18",
+    "nofrills": "2026-09-18",
+    "foodbasics": "2026-09-18",
+    "baifu": "2026-09-18"
   },
   "analysis": {
     "bestDeals": {
@@ -600,7 +1194,19 @@
         "en": "Korean Cabbage 29¢/lb & Chicken Drumsticks $1.59/lb",
         "cn": "高丽菜 29¢/lb & 鸡腿 $1.59/lb"
       },
-      "sunfood": {
+      "freshco": {
+        "en": "Bok Choy 88¢/lb & Grapes $1.44/lb",
+        "cn": "白菜 88¢/lb & 葡萄 $1.44/lb"
+      },
+      "nofrills": {
+        "en": "Green Cabbage 49¢/lb & Royal Gala Apples 77¢/lb",
+        "cn": "高丽菜 49¢/lb & 皇家嘎啦苹果 77¢/lb"
+      },
+      "foodbasics": {
+        "en": "Mango 98¢/ea & Cauliflower $1.25/ea",
+        "cn": "芒果 98¢/个 & 椰菜花 $1.25/个"
+      },
+      "baifu": {
         "en": "Kabocha Squash 39¢/lb & Winter Melon 49¢/lb",
         "cn": "西人南瓜 39¢/lb & 冬瓜 49¢/lb"
       }

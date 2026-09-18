@@ -151,6 +151,47 @@
     "mooncakes": "月饼",
 
     /* ===========================
+       2026-09-18 新增（FreshCo / No Frills / Food Basics 9月17-23特价）
+       =========================== */
+
+    "basa steaks": "巴沙鱼扒",
+    "jasmine rice": "茉莉香米",
+    "udon noodles": "乌冬面",
+    "scallion pancakes": "葱油饼",
+    "chestnuts": "板栗",
+    "soy sauce": "酱油",
+    "coconut milk": "椰浆",
+    "sriracha": "是拉差辣酱",
+    "honey": "蜂蜜",
+    "chicken broth": "鸡汤",
+    "mayonnaise": "蛋黄酱",
+    "vegetable oil": "植物油",
+    "bacon": "培根",
+    "raspberries": "覆盆子",
+    "sourdough bread": "酸种面包",
+    "ham": "火腿",
+    "evaporated milk": "淡奶",
+    "salad kit": "沙拉包",
+    "green cabbage": "圆白菜",
+    "whole chicken": "整鸡",
+    "blueberries": "蓝莓",
+    "sweet potatoes": "红薯",
+    "limes": "青柠",
+    "kiwi": "奇异果",
+    "green onions": "葱",
+    "pumpkin": "南瓜",
+    "lettuce": "生菜",
+    "beef stir-fry strips": "牛肉丝",
+    "shrimp": "虾",
+    "duck": "鸭",
+    "clam meat": "蛤蜊肉",
+    "sardines": "沙丁鱼",
+    "edamame": "毛豆",
+    "guava": "番石榴",
+    "mango": "芒果",
+    "royal gala apples": "皇家嘎啦苹果",
+
+    /* ===========================
        2026-09-10 新增（冠业超市 9月11-17特价）
        =========================== */
 
