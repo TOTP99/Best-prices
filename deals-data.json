@@ -3,511 +3,611 @@
     "guanye": [
       {
         "item": {
-          "en": "Hami Melon"
-        },
-        "price": "69¢/lb",
-        "featured": true,
-        "discountPct": 50.4
-      },
-      {
-        "item": {
-          "en": "Spring Lamb"
-        },
-        "price": "$6.99/lb",
-        "discountPct": 36.4
-      },
-      {
-        "item": {
-          "en": "Chicken Wings"
+          "en": "Pork Shoulder Blade"
         },
         "price": "$2.59/lb",
-        "discountPct": 35.1
+        "featured": true
       },
       {
         "item": {
-          "en": "Beef Steak AAA"
+          "en": "Pork Shoulder Butt"
         },
-        "price": "$13.99/lb",
-        "discountPct": 30
-      },
-      {
-        "item": {
-          "en": "Muscadine Grapes"
-        },
-        "price": "$2.99",
-        "discountPct": 25.1
-      },
-      {
-        "item": {
-          "en": "Lean Pork"
-        },
-        "price": "$2.39/lb",
-        "discountPct": 20.1
-      },
-      {
-        "item": {
-          "en": "Tango Mandarin"
-        },
-        "price": "$1.59",
-        "discountPct": 20.1
-      },
-      {
-        "item": {
-          "en": "Black Angus Beef Chunk Roll"
-        },
-        "price": "$8.99/lb",
-        "discountPct": 10
-      }
-    ],
-    "baifu": [
-      {
-        "item": {
-          "en": "Broccoli"
-        },
-        "price": "99¢/lb",
-        "featured": true,
-        "discountPct": 50.3
+        "price": "$2.59/lb"
       },
       {
         "item": {
           "en": "Chicken Drumsticks"
         },
-        "price": "$1.39/lb",
-        "discountPct": 30.2
-      },
-      {
-        "item": {
-          "en": "Rice Sticks"
-        },
-        "price": "99¢ (454g)",
-        "discountPct": 66.9
-      },
-      {
-        "item": {
-          "en": "Pork Spare Ribs"
-        },
-        "price": "$2.99/lb",
-        "discountPct": 25.1
-      },
-      {
-        "item": {
-          "en": "Ground Lean Pork"
-        },
-        "price": "$2.59/lb",
-        "discountPct": 13.4
-      },
-      {
-        "item": {
-          "en": "Napa Cabbage"
-        },
-        "price": "59¢/lb",
-        "discountPct": 40.4
-      },
-      {
-        "item": {
-          "en": "Mini Cucumbers"
-        },
-        "price": "88¢/lb",
-        "discountPct": 44.7
-      },
-      {
-        "item": {
-          "en": "Salmon Steaks"
-        },
-        "price": "$5.99/lb",
-        "discountPct": 40.0
-      },
-      {
-        "item": {
-          "en": "Tilapia"
-        },
-        "price": "$7.99/lb",
-        "discountPct": 27.3
-      },
-      {
-        "item": {
-          "en": "Pork Ham Meat"
-        },
-        "price": "$2.29/lb",
-        "discountPct": 17.9
-      }
-    ],
-    "freshco": [
-      {
-        "item": {
-          "en": "Grapes"
-        },
-        "price": "$1.44/lb",
-        "featured": true,
-        "discountPct": 63
-      },
-      {
-        "item": {
-          "en": "Bok Choy"
-        },
-        "price": "88¢/lb",
+        "price": "$1.59/lb",
         "featured": true
       },
       {
         "item": {
-          "en": "Napa Cabbage"
+          "en": "Butter Chicken"
         },
-        "price": "88¢/lb"
+        "price": "$12.99/ea"
       },
       {
         "item": {
-          "en": "Chicken Breast"
+          "en": "Beef Shank"
         },
-        "price": "$10 (boneless skinless)"
+        "price": "$6.59/lb"
       },
       {
         "item": {
-          "en": "Apples"
+          "en": "Beef Steak AAA"
         },
-        "price": "$1.49 (Gala/McIntosh)"
+        "price": "$13.99/lb"
       },
       {
         "item": {
-          "en": "Tomatoes"
+          "en": "Beef Rib Finger Meat"
         },
-        "price": "$1.49"
+        "price": "$8.99/lb"
       },
       {
         "item": {
-          "en": "Cucumbers"
+          "en": "Young Duck"
         },
-        "price": "$1.49 (seedless)"
+        "price": "$15.99/ea"
       },
       {
         "item": {
-          "en": "Asian Yellow Pears"
+          "en": "BBQ Beef Short Ribs"
         },
-        "price": "$1.48/lb"
-      },
-      {
-        "item": {
-          "en": "Schneiders Bacon"
-        },
-        "price": "$3.99",
-        "discountPct": 57
-      },
-      {
-        "item": {
-          "en": "Instant Noodles"
-        },
-        "price": "$2.98 (Indomie)"
-      }
-    ],
-    "foodbasics": [
-      {
-        "item": {
-          "en": "Sirloin Tip Roast"
-        },
-        "price": "$6.88/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Cauliflower"
-        },
-        "price": "$1.25 each",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Apples"
-        },
-        "price": "$2.98 (3lb local)"
-      },
-      {
-        "item": {
-          "en": "Janes Chicken"
-        },
-        "price": "$5.55 (fried chicken pieces)"
-      },
-      {
-        "item": {
-          "en": "Coca-Cola"
-        },
-        "price": "$7.48"
-      },
-      {
-        "item": {
-          "en": "Yogurt"
-        },
-        "price": "$5.99 (Liberte Greek)"
-      },
-      {
-        "item": {
-          "en": "Villaggio Bread"
-        },
-        "price": "$2.99"
-      },
-      {
-        "item": {
-          "en": "Butter"
-        },
-        "price": "$4.99"
-      }
-    ],
-    "nofrills": [
-      {
-        "item": {
-          "en": "Grapes"
-        },
-        "price": "$1.49/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Pork Loin"
-        },
-        "price": "$1.99/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Napa Cabbage"
-        },
-        "price": "98¢"
-      },
-      {
-        "item": {
-          "en": "Chicken Breast"
-        },
-        "price": "$5.99 (halal)"
-      },
-      {
-        "item": {
-          "en": "Lean Ground Pork"
-        },
-        "price": "$4"
-      },
-      {
-        "item": {
-          "en": "Broccoli"
-        },
-        "price": "$1.44"
-      },
-      {
-        "item": {
-          "en": "Watermelon"
-        },
-        "price": "$4.99 (11lb avg)"
-      },
-      {
-        "item": {
-          "en": "Potatoes"
-        },
-        "price": "$3.99 (10lb)"
-      },
-      {
-        "item": {
-          "en": "Red Onions"
-        },
-        "price": "$5.99 (10lb bag)"
-      },
-      {
-        "item": {
-          "en": "Pork Belly"
-        },
-        "price": "$5.48"
-      }
-    ]
-  },
-  "benchmarkPrices": {
-    "guanye": {
-      "salmon": {
-        "value": 9.99,
-        "display": "$9.99/lb"
-      }
-    },
-    "baifu": {
-      "banana": {
-        "value": 0.88,
-        "display": "88¢/lb"
-      },
-      "porkchop": {
-        "value": 0.89,
-        "display": "89¢/lb"
-      }
-    },
-    "foodbasics": {
-      "salmon": {
-        "value": 9.99,
-        "display": "$9.99/lb"
-      },
-      "chocolate": {
-        "value": 7.98,
-        "display": "$7.98 (50pcs)"
-      }
-    },
-    "freshco": {
-      "eggs": {
-        "value": 6.99,
-        "display": "$6.99 (30pcs)"
-      }
-    }
-  },
-  "flyerPeriod": {
-    "guanye": "Sep 11-17",
-    "baifu": "Sep 11-17",
-    "freshco": "Sep 17-23",
-    "foodbasics": "Sep 17-23",
-    "nofrills": "Sep 17-23"
-  },
-  "analysis": {
-    "bestDeals": {
-      "guanye": {
-        "en": "Hami Melon 69¢/lb (50.4% off)",
-        "cn": "哈密瓜 69¢/lb（省50.4%）"
-      },
-      "baifu": {
-        "en": "Broccoli 99¢/lb (50% off) & Rice Sticks 99¢",
-        "cn": "西兰花 99¢/lb（省50%）& 粿条 99¢"
-      },
-      "freshco": {
-        "en": "Grapes $1.44/lb (63% off) & Bok Choy/Napa 88¢/lb",
-        "cn": "葡萄 $1.44/lb（省63%）& 白菜/绍菜 88¢/lb"
-      },
-      "foodbasics": {
-        "en": "Sirloin Tip Roast $6.88/lb & Cauliflower $1.25 each",
-        "cn": "西冷烤牛肉尖 $6.88/lb & 椰菜花 $1.25/颗"
-      },
-      "nofrills": {
-        "en": "Pork Loin $1.99/lb & Grapes $1.49/lb",
-        "cn": "猪展肉 $1.99/lb & 葡萄 $1.49/lb"
-      }
-    },
-    "deepestDiscounts": [
-      {
-        "item": {
-          "en": "Rice Sticks"
-        },
-        "store": "baifu",
-        "discountPct": 66.9
-      },
-      {
-        "item": {
-          "en": "Grapes"
-        },
-        "store": "freshco",
-        "discountPct": 63
-      },
-      {
-        "item": {
-          "en": "Schneiders Bacon"
-        },
-        "store": "freshco",
-        "discountPct": 57
-      },
-      {
-        "item": {
-          "en": "Hami Melon"
-        },
-        "store": "guanye",
-        "discountPct": 50.4
-      },
-      {
-        "item": {
-          "en": "Broccoli"
-        },
-        "store": "baifu",
-        "discountPct": 50.3
-      },
-      {
-        "item": {
-          "en": "Mini Cucumbers"
-        },
-        "store": "baifu",
-        "discountPct": 44.7
-      },
-      {
-        "item": {
-          "en": "Napa Cabbage"
-        },
-        "store": "baifu",
-        "discountPct": 40.4
-      },
-      {
-        "item": {
-          "en": "Salmon Steaks"
-        },
-        "store": "baifu",
-        "discountPct": 40.0
+        "price": "$5.99/lb"
       },
       {
         "item": {
           "en": "Spring Lamb"
         },
-        "store": "guanye",
-        "discountPct": 36.4
+        "price": "$6.99/lb"
       },
       {
         "item": {
-          "en": "Chicken Wings"
+          "en": "Beef Chunk Roll"
         },
-        "store": "guanye",
-        "discountPct": 35.1
+        "price": "$8.99/lb"
+      },
+      {
+        "item": {
+          "en": "Lamb Shoulder"
+        },
+        "price": "$8.99/lb"
+      },
+      {
+        "item": {
+          "en": "Lamb Shanks"
+        },
+        "price": "$6.99/lb"
+      },
+      {
+        "item": {
+          "en": "BBQ Pork Belly"
+        },
+        "price": "$5.99/lb"
+      },
+      {
+        "item": {
+          "en": "Beef Brisket"
+        },
+        "price": "$8.99/lb"
+      },
+      {
+        "item": {
+          "en": "Beef Chuck Rib"
+        },
+        "price": "$15.99/lb"
+      },
+      {
+        "item": {
+          "en": "Korean Cabbage"
+        },
+        "price": "29¢/lb"
+      },
+      {
+        "item": {
+          "en": "Oranges"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Red Pepper"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Tong Ho"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Baby Napa"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Carrots"
+        },
+        "price": "79¢/lb"
+      },
+      {
+        "item": {
+          "en": "Mandarin"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Honey Pomelo"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Lemon"
+        },
+        "price": "$1.00/pk"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$1.59/lb"
+      },
+      {
+        "item": {
+          "en": "Mustard Greens"
+        },
+        "price": "$1.59/lb"
+      },
+      {
+        "item": {
+          "en": "Water Chestnut"
+        },
+        "price": "$1.79/lb"
+      },
+      {
+        "item": {
+          "en": "Butterfish"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Blue Crab"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Spanish Mackerel"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Cherrystone Clams"
+        },
+        "price": "$6.49/lb"
+      },
+      {
+        "item": {
+          "en": "Sea Urchin"
+        },
+        "price": "$6.99/lb"
+      },
+      {
+        "item": {
+          "en": "Dungeness Crab"
+        },
+        "price": "$12.99/lb"
+      },
+      {
+        "item": {
+          "en": "White Eel"
+        },
+        "price": "$11.99/lb"
+      },
+      {
+        "item": {
+          "en": "Oyster Meat"
+        },
+        "price": "$13.99/ea (1lb)"
       }
     ],
-    "categoryWinners": {
-      "meat": {
-        "en": "Pork Loin $1.99/lb (No Frills) / Chicken Drumsticks $1.39/lb (Baifu)",
-        "cn": "猪展肉 $1.99/lb（No Frills）/ 鸡腿 $1.39/lb（百福）"
+    "sunfood": [
+      {
+        "item": {
+          "en": "Winter Melon"
+        },
+        "price": "49¢/lb",
+        "featured": true
       },
-      "seafood": {
-        "en": "Salmon Steaks $5.99/lb (Baifu)",
-        "cn": "三文鱼扒 $5.99/lb（百福）"
+      {
+        "item": {
+          "en": "Bok Choy"
+        },
+        "price": "89¢/lb",
+        "featured": true
       },
-      "produce": {
-        "en": "Bok Choy/Napa 88¢/lb (FreshCo) & Broccoli 99¢/lb (Baifu)",
-        "cn": "白菜/绍菜 88¢/lb（FreshCo）& 西兰花 99¢/lb（百福）"
+      {
+        "item": {
+          "en": "Kabocha Squash"
+        },
+        "price": "39¢/lb"
       },
-      "staples": {
-        "en": "Rice Sticks 99¢ (Baifu)",
-        "cn": "粿条 99¢（百福）"
+      {
+        "item": {
+          "en": "Napa Cabbage"
+        },
+        "price": "69¢/lb"
+      },
+      {
+        "item": {
+          "en": "Carrots"
+        },
+        "price": "69¢/lb"
+      },
+      {
+        "item": {
+          "en": "Oranges"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Bell Pepper"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Kohlrabi"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Apples"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Yu Choy"
+        },
+        "price": "$1.88/lb"
+      },
+      {
+        "item": {
+          "en": "Dragon Fruit"
+        },
+        "price": "$2.29/lb"
+      },
+      {
+        "item": {
+          "en": "Peanuts"
+        },
+        "price": "$2.39/lb"
+      },
+      {
+        "item": {
+          "en": "Eggplant"
+        },
+        "price": "$1.39/lb"
+      },
+      {
+        "item": {
+          "en": "Celery"
+        },
+        "price": "$1.39/ea"
+      },
+      {
+        "item": {
+          "en": "King Oyster Mushrooms"
+        },
+        "price": "$1.39/ea"
+      },
+      {
+        "item": {
+          "en": "Garlic Stem"
+        },
+        "price": "$1.29/ea"
+      },
+      {
+        "item": {
+          "en": "Beech Mushrooms"
+        },
+        "price": "2/$1.80"
+      },
+      {
+        "item": {
+          "en": "Pomelo"
+        },
+        "price": "$2.88/ea"
+      },
+      {
+        "item": {
+          "en": "Golden Kiwi"
+        },
+        "price": "$8.99/ea"
+      },
+      {
+        "item": {
+          "en": "Fragrant Pears"
+        },
+        "price": "$12.99/box"
+      },
+      {
+        "item": {
+          "en": "Pork Ham Bone"
+        },
+        "price": "69¢/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Chop"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Loin"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Back Ribs"
+        },
+        "price": "$4.29/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Tenderloin"
+        },
+        "price": "$4.29/lb"
+      },
+      {
+        "item": {
+          "en": "Beef Short Ribs"
+        },
+        "price": "$5.99/lb"
+      },
+      {
+        "item": {
+          "en": "Beef Striploin"
+        },
+        "price": "$12.99/lb"
+      },
+      {
+        "item": {
+          "en": "Beef Tripe"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$5.99/lb"
+      },
+      {
+        "item": {
+          "en": "Butter Chicken"
+        },
+        "price": "$12.99/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Mid Wings"
+        },
+        "price": "$9.99/ea"
+      },
+      {
+        "item": {
+          "en": "Lamb Shanks"
+        },
+        "price": "$9.99/ea"
+      },
+      {
+        "item": {
+          "en": "Abalone"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Sea Eel"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Butterfish"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "White Perch"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Spanish Mackerel"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Sea Bream"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Salmon Fillet"
+        },
+        "price": "$14.99/lb"
+      },
+      {
+        "item": {
+          "en": "Yellow Croaker"
+        },
+        "price": "$17.99/lb (steak)"
+      },
+      {
+        "item": {
+          "en": "Dungeness Crab"
+        },
+        "price": "$12.99/lb"
+      },
+      {
+        "item": {
+          "en": "Sea Urchin"
+        },
+        "price": "$19.99/ea (108g)"
+      },
+      {
+        "item": {
+          "en": "Grouper"
+        },
+        "price": "$8.99/lb"
+      },
+      {
+        "item": {
+          "en": "Pomfret"
+        },
+        "price": "$9.99/ea (1.1kg)"
+      },
+      {
+        "item": {
+          "en": "Basa Fillets"
+        },
+        "price": "$4.99/ea (800g)"
+      },
+      {
+        "item": {
+          "en": "Black Tiger Shrimp"
+        },
+        "price": "$6.99/ea (400g)"
+      },
+      {
+        "item": {
+          "en": "Razor Clams"
+        },
+        "price": "$4.99/ea (340g)"
+      },
+      {
+        "item": {
+          "en": "Mussels"
+        },
+        "price": "$8.99/ea (800g)"
+      },
+      {
+        "item": {
+          "en": "Shrimp Dumplings"
+        },
+        "price": "$3.99/ea (300g)"
+      },
+      {
+        "item": {
+          "en": "Cuttlefish Cakes"
+        },
+        "price": "$3.99/ea (500g)"
+      },
+      {
+        "item": {
+          "en": "Dumplings"
+        },
+        "price": "$3.99/ea (600g)"
+      },
+      {
+        "item": {
+          "en": "Cup Noodles"
+        },
+        "price": "79¢/ea (108g)"
+      },
+      {
+        "item": {
+          "en": "Instant Noodles"
+        },
+        "price": "$4.99/ea (5x114g)"
+      },
+      {
+        "item": {
+          "en": "Rice Vermicelli"
+        },
+        "price": "99¢/ea (400g)"
+      },
+      {
+        "item": {
+          "en": "Japanese Curry"
+        },
+        "price": "2/$5 (140g)"
+      },
+      {
+        "item": {
+          "en": "Shiitake Mushrooms"
+        },
+        "price": "$7.99/ea (400g)"
+      },
+      {
+        "item": {
+          "en": "Pearl Barley"
+        },
+        "price": "$1.79/lb"
+      },
+      {
+        "item": {
+          "en": "Honey Dates"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Salted Eggs"
+        },
+        "price": "7/$2.99"
+      },
+      {
+        "item": {
+          "en": "Mooncakes"
+        },
+        "price": "$44/ea (740g)"
+      }
+    ]
+  },
+  "benchmarkPrices": {},
+  "flyerPeriod": {
+    "guanye": "Sep 18-24",
+    "sunfood": "Sep 18-24"
+  },
+  "updatedAt": {
+    "guanye": "2026-09-18",
+    "sunfood": "2026-09-18"
+  },
+  "analysis": {
+    "bestDeals": {
+      "guanye": {
+        "en": "Korean Cabbage 29¢/lb & Chicken Drumsticks $1.59/lb",
+        "cn": "高丽菜 29¢/lb & 鸡腿 $1.59/lb"
+      },
+      "sunfood": {
+        "en": "Kabocha Squash 39¢/lb & Winter Melon 49¢/lb",
+        "cn": "西人南瓜 39¢/lb & 冬瓜 49¢/lb"
       }
     },
-    "benchmarksComparison": {
-      "banana": {
-        "en": "Baifu lowest (88¢/lb)",
-        "cn": "百福最低（88¢/lb）"
-      },
-      "porkchop": {
-        "en": "Baifu lowest (89¢/lb)",
-        "cn": "百福最低（89¢/lb）"
-      },
-      "salmon": {
-        "en": "Guan Ye & Food Basics tie ($9.99/lb)",
-        "cn": "冠业与Food Basics打平（$9.99/lb）"
-      },
-      "eggs": {
-        "en": "FreshCo lowest ($6.99 / 30pcs)",
-        "cn": "FreshCo最低（$6.99 / 30枚）"
-      },
-      "chocolate": {
-        "en": "Food Basics lowest ($7.98 / 50pcs)",
-        "cn": "Food Basics最低（$7.98 / 50粒）"
-      }
-    },
-    "cheapestStoreSummary": {
-      "overallCheapestProduce": {
-        "en": "FreshCo — Bok Choy/Napa 88¢/lb & Grapes $1.44/lb",
-        "cn": "FreshCo — 白菜/绍菜 88¢/lb & 葡萄 $1.44/lb"
-      },
-      "overallCheapestMeat": {
-        "en": "No Frills — Pork Loin $1.99/lb / Baifu — Chicken Drumsticks $1.39/lb",
-        "cn": "No Frills — 猪展肉 $1.99/lb / 百福 — 鸡腿 $1.39/lb"
-      },
-      "overallCheapestSeafood": {
-        "en": "Baifu — Salmon Steaks $5.99/lb",
-        "cn": "百福 — 三文鱼扒 $5.99/lb"
-      },
-      "overallCheapestStaples": {
-        "en": "Baifu — Rice Sticks 99¢",
-        "cn": "百福 — 粿条 99¢"
-      }
-    }
+    "deepestDiscounts": [],
+    "categoryWinners": {},
+    "benchmarksComparison": {},
+    "cheapestStoreSummary": {}
   }
 }
