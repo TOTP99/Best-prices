@@ -1204,9 +1204,145 @@
         "cn": "西人南瓜 39¢/lb & 冬瓜 49¢/lb"
       }
     },
-    "deepestDiscounts": [],
-    "categoryWinners": {},
-    "benchmarksComparison": {},
-    "cheapestStoreSummary": {}
+    "deepestDiscounts": [
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Kabocha Squash",
+          "cn": "西人南瓜"
+        },
+        "discountPct": 70
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Winter Melon",
+          "cn": "冬瓜"
+        },
+        "discountPct": 69
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Cup Noodles",
+          "cn": "杯面"
+        },
+        "discountPct": 69
+      },
+      {
+        "store": "freshco",
+        "item": {
+          "en": "Grapes",
+          "cn": "葡萄"
+        },
+        "discountPct": 63
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Sea Urchin",
+          "cn": "海胆"
+        },
+        "discountPct": 60
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Kohlrabi",
+          "cn": "球茎甘蓝"
+        },
+        "discountPct": 51
+      },
+      {
+        "store": "nofrills",
+        "item": {
+          "en": "Green Cabbage",
+          "cn": "圆白菜"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Rice Vermicelli",
+          "cn": "排粉"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Abalone",
+          "cn": "鲍鱼"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Sea Bream",
+          "cn": "海银立"
+        },
+        "discountPct": 50
+      }
+    ],
+    "categoryWinners": {
+      "meat": {
+        "en": "Chicken Drumsticks $1.59/lb (First Choice)",
+        "cn": "鸡腿 $1.59/lb（冠业）"
+      },
+      "seafood": {
+        "en": "Abalone 99¢/lb (Sunfood)",
+        "cn": "鲍鱼 99¢/lb（百福）"
+      },
+      "produce": {
+        "en": "Kabocha Squash 39¢/lb (Sunfood)",
+        "cn": "西人南瓜 39¢/lb（百福）"
+      },
+      "staples": {
+        "en": "Cup Noodles 79¢ (Sunfood)",
+        "cn": "杯面 79¢（百福）"
+      }
+    },
+    "benchmarksComparison": {
+      "grape": {
+        "en": "FreshCo $1.44/lb (No Frills $1.49/lb)",
+        "cn": "FreshCo $1.44/lb（No Frills $1.49/lb）"
+      },
+      "orange": {
+        "en": "Sunfood 88¢/lb (First Choice 99¢/lb)",
+        "cn": "百福 88¢/lb（冠业 99¢/lb）"
+      },
+      "tomato": {
+        "en": "FreshCo $1.49/lb",
+        "cn": "FreshCo $1.49/lb"
+      },
+      "porkchop": {
+        "en": "Sunfood $1.99/lb",
+        "cn": "百福 $1.99/lb"
+      },
+      "salmon": {
+        "en": "Sunfood $14.99/lb",
+        "cn": "百福 $14.99/lb"
+      }
+    },
+    "cheapestStoreSummary": {
+      "overallCheapestProduce": {
+        "en": "Sunfood — Kabocha Squash 39¢/lb, Winter Melon 49¢/lb, Carrots 69¢/lb",
+        "cn": "百福 — 西人南瓜 39¢/lb、冬瓜 49¢/lb、胡萝卜 69¢/lb"
+      },
+      "overallCheapestMeat": {
+        "en": "First Choice — Chicken Drumsticks $1.59/lb, Pork Shoulder $2.59/lb",
+        "cn": "冠业 — 鸡腿 $1.59/lb、猪肩肉 $2.59/lb"
+      },
+      "overallCheapestSeafood": {
+        "en": "Sunfood — Abalone 99¢/lb, Sea Eel $2.99/lb, Butterfish $2.99/lb",
+        "cn": "百福 — 鲍鱼 99¢/lb、海鳗 $2.99/lb、瓜子鱼 $2.99/lb"
+      },
+      "overallCheapestStaples": {
+        "en": "Sunfood — Cup Noodles 79¢, Rice Vermicelli 99¢",
+        "cn": "百福 — 杯面 79¢、排粉 99¢"
+      }
+    }
   }
 }
