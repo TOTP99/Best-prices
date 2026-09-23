@@ -118,11 +118,11 @@
       <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
     </div>
     <div class="analysis-tabs" id="analysisTabs">
-      <button class="analysis-tab active" data-tab="allDeals" type="button">📋 All</button>
-      <button class="analysis-tab" data-tab="bestDeals" type="button">⭐ Best Deals</button>
-      <button class="analysis-tab" data-tab="deepestDiscounts" type="button">📉 Discounts</button>
-      <button class="analysis-tab" data-tab="categoryWinners" type="button">🏆 Category Winners</button>
-      <button class="analysis-tab" data-tab="cheapestStoreSummary" type="button">🏪 Cheapest Stores</button>
+      <button class="analysis-tab active" data-tab="allDeals" type="button">全部</button>
+      <button class="analysis-tab" data-tab="bestDeals" type="button">精选</button>
+      <button class="analysis-tab" data-tab="deepestDiscounts" type="button">折扣</button>
+      <button class="analysis-tab" data-tab="categoryWinners" type="button">品类</button>
+      <button class="analysis-tab" data-tab="cheapestStoreSummary" type="button">最低价</button>
     </div>
     <div class="analysis-body" id="analysisBody">
       <p class="analysis-loading">加载中…</p>
@@ -150,7 +150,7 @@
   const UI_TEXT = {
     zh: {
       analysisTitle: '数据分析',
-      tabs: { allDeals: '📋 全部特价', bestDeals: '⭐ 精选特价', deepestDiscounts: '📉 折扣力度', categoryWinners: '🏆 品类冠军', cheapestStoreSummary: '🏪 最低价店铺' },
+      tabs: { allDeals: '全部特价', bestDeals: '精选特价', deepestDiscounts: '折扣力度', categoryWinners: '品类冠军', cheapestStoreSummary: '最低价店铺' },
       loading: '加载中…',
       empty: '暂无数据',
       failed: '数据加载失败',
@@ -166,7 +166,7 @@
     },
     en: {
       analysisTitle: 'Analysis',
-      tabs: { allDeals: '📋 All Deals', bestDeals: '⭐ Best Deals', deepestDiscounts: '📉 Discounts', categoryWinners: '🏆 Category Winners', cheapestStoreSummary: '🏪 Cheapest Stores' },
+      tabs: { allDeals: 'All Deals', bestDeals: 'Best Deals', deepestDiscounts: 'Discounts', categoryWinners: 'Category Winners', cheapestStoreSummary: 'Cheapest Stores' },
       loading: 'Loading…',
       empty: 'No data',
       failed: 'Failed to load',
@@ -657,7 +657,7 @@
         const price = d.price || '';
         const pct = (typeof d.discountPct === 'number')
           ? ' <b class="analysis-pct">-' + d.discountPct + '%</b>' : '';
-        const star = d.featured ? '★ ' : '';
+        const star = d.featured ? '* ' : '';
         return '<div class="analysis-row"><span class="analysis-row-store">' + esc(star + name) + '</span><span class="analysis-row-text">' + esc(price) + pct + '</span></div>';
       }).join('');
       return '<div class="analysis-subhead">' + esc(storeName(sid)) + ' · ' + list.length + '</div>' + rows;

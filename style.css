@@ -383,7 +383,7 @@ body {
 }
 
 .deal-row.featured .deal-item::before {
-  content: "★ ";
+  content: "* ";
   color: var(--gold);
   font-size: 7px;
 }
