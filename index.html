@@ -24,16 +24,16 @@
       </span>
     </button>
     <div class="icon-row" id="iconRow">
-      <button class="icon-btn refresh-btn suit-spade" id="refreshBtn" type="button" aria-label="刷新商品显示">🔄</button>
-      <button class="icon-btn analysis-trigger suit-heart" id="analysisTrigger" aria-label="数据分析">📊</button>
-      <button class="icon-btn lang-toggle suit-diamond" id="langToggle" type="button" aria-label="切换中英文">🇨🇳</button>
-      <button class="icon-btn sound-toggle suit-club" id="soundToggle" aria-label="音效开关">🔊</button>
+      <button class="icon-btn refresh-btn suit-spade" id="refreshBtn" type="button" aria-label="刷新商品显示">↻</button>
+      <button class="icon-btn analysis-trigger suit-heart" id="analysisTrigger" aria-label="数据分析">Σ</button>
+      <button class="icon-btn lang-toggle suit-diamond" id="langToggle" type="button" aria-label="切换中英文">中</button>
+      <button class="icon-btn sound-toggle suit-club" id="soundToggle" aria-label="音效开关">♪</button>
     </div>
   </div>
 
   <div class="stage-row">
     <div class="landscape-left" id="landscapeLeft">
-      <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">⬅️</button>
+      <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">◀</button>
     </div>
 
     <div class="stage">
@@ -102,9 +102,9 @@
     </div>
 
     <div class="landscape-controls">
-      <button class="icon-btn analysis-trigger landscape-only suit-heart" id="analysisTriggerLand" aria-label="数据分析">📊</button>
-      <button class="icon-btn refresh-btn landscape-only suit-spade" id="refreshBtnLand" type="button" aria-label="刷新商品显示">🔄</button>
-      <button class="icon-btn sound-toggle landscape-only suit-club" id="soundToggleLand" aria-label="音效开关">🔊</button>
+      <button class="icon-btn analysis-trigger landscape-only suit-heart" id="analysisTriggerLand" aria-label="数据分析">Σ</button>
+      <button class="icon-btn refresh-btn landscape-only suit-spade" id="refreshBtnLand" type="button" aria-label="刷新商品显示">↻</button>
+      <button class="icon-btn sound-toggle landscape-only suit-club" id="soundToggleLand" aria-label="音效开关">♪</button>
     </div>
   </div>
 
@@ -114,7 +114,7 @@
   <div class="analysis-panel" role="dialog" aria-modal="true" aria-label="数据分析">
     <div class="analysis-handle" aria-hidden="true"></div>
     <div class="analysis-header">
-      <h2 class="analysis-title">📊 数据分析</h2>
+      <h2 class="analysis-title">数据分析</h2>
       <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
     </div>
     <div class="analysis-tabs" id="analysisTabs">
@@ -149,7 +149,7 @@
 
   const UI_TEXT = {
     zh: {
-      analysisTitle: '📊 数据分析',
+      analysisTitle: '数据分析',
       tabs: { allDeals: '📋 全部特价', bestDeals: '⭐ 精选特价', deepestDiscounts: '📉 折扣力度', categoryWinners: '🏆 品类冠军', cheapestStoreSummary: '🏪 最低价店铺' },
       loading: '加载中…',
       empty: '暂无数据',
@@ -165,7 +165,7 @@
       langAria: '切换中英文'
     },
     en: {
-      analysisTitle: '📊 Analysis',
+      analysisTitle: 'Analysis',
       tabs: { allDeals: '📋 All Deals', bestDeals: '⭐ Best Deals', deepestDiscounts: '📉 Discounts', categoryWinners: '🏆 Category Winners', cheapestStoreSummary: '🏪 Cheapest Stores' },
       loading: 'Loading…',
       empty: 'No data',
@@ -273,7 +273,7 @@
   }
 
   function syncSoundButtons() {
-    const icon = soundOn ? '🔊' : '🔇';
+    const icon = soundOn ? '♪' : '✕';
     soundToggle.textContent = icon;
     if (soundToggleLand) soundToggleLand.textContent = icon;
   }
@@ -302,7 +302,7 @@
   function applyLang() {
     const t = UI_TEXT[uiLang];
     document.documentElement.lang = uiLang;
-    langToggle.textContent = uiLang === 'zh' ? '🇨🇳' : '🇨🇦';
+    langToggle.textContent = uiLang === 'zh' ? '中' : 'EN';
     langToggle.setAttribute('aria-label', t.langAria);
     landscapeSwitch.setAttribute('aria-label', t.switchAria);
     switchLeftEl.textContent = t.switchLeft;
