@@ -3,126 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Poker Fan Supermarkets / 扑克超市特价牌局</title>
+<meta name="theme-color" content="#0a1f14">
+<title>扑克特价 · Poker Deals</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="frame" id="frame">
-
-  <div class="topline" id="topline">
-    <span class="signature">TP🐈🏷️</span>
-    <span class="update-stamp" id="updateStamp"></span>
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-suit" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C9 7 4 10 4 14.5 4 17.6 6.4 20 9.5 20c1.5 0 2.9-.6 3.9-1.6L12 22l-1.4-3.6c1-1 2.4-1.6 3.9-1.6 3.1 0 5.5-2.4 5.5-5.5C20 10 15 7 12 2z"/></svg>
+    <div class="brand-text"><strong>扑克特价</strong><span>POKER DEALS</span></div>
   </div>
+  <div class="updated"><span class="updated-label" id="updatedLabel">更新</span><span id="updateStamp">–</span></div>
+</header>
 
-  <div class="switch-container">
-    <button class="switch-btn western-active" id="landscapeSwitch" aria-label="切换华超/西超" aria-pressed="true">
-      <span class="switch-track">
-        <span class="switch-option switch-option-left">华超</span>
-        <span class="switch-option switch-option-right">西超</span>
-        <span class="switch-thumb"></span>
-      </span>
+<div class="toolbar">
+  <div class="segmented" id="groupSwitch" role="tablist" aria-label="切换华超/西超">
+    <span class="seg-thumb" aria-hidden="true"></span>
+    <button type="button" class="seg-btn" data-g="chinese" role="tab" aria-selected="false">华超</button>
+    <button type="button" class="seg-btn on" data-g="western" role="tab" aria-selected="true">西超</button>
+  </div>
+  <div class="actions">
+    <button type="button" class="icon-btn" id="refreshBtn" aria-label="重新选品">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
     </button>
-    <div class="icon-row" id="iconRow">
-      <button class="icon-btn refresh-btn suit-spade" id="refreshBtn" type="button" aria-label="刷新商品显示">↻</button>
-      <button class="icon-btn analysis-trigger suit-heart" id="analysisTrigger" aria-label="数据分析">Σ</button>
-      <button class="icon-btn lang-toggle suit-diamond" id="langToggle" type="button" aria-label="切换中英文">中</button>
-      <button class="icon-btn sound-toggle suit-club" id="soundToggle" aria-label="音效开关">♪</button>
-    </div>
+    <button type="button" class="icon-btn" id="analysisBtn" aria-label="数据分析">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></svg>
+    </button>
+    <button type="button" class="icon-btn lang" id="langBtn" aria-label="切换中英文">中</button>
+    <button type="button" class="icon-btn" id="soundBtn" aria-label="音效开关">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="waves" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="waves" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
   </div>
-
-  <div class="stage-row">
-    <div class="landscape-left" id="landscapeLeft">
-      <button class="landscape-arrow" id="landscapePrev" type="button" aria-label="上一张">◀</button>
-    </div>
-
-    <div class="stage">
-
-    <section class="fan-section" id="chinese-section">
-      <div class="fan-wrap">
-        <div class="card-deck cn-theme shuffling" id="chinese-deck">
-
-          <div class="card suit-red" data-store-id="guanye">
-            <div class="suit-corner top-left"><span>A</span><span>♥</span></div>
-            <div class="center-logo">♥</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-          </div>
-
-          <div class="card suit-black" data-store-id="baifu">
-            <div class="suit-corner top-left"><span>A</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
-            <div class="content">
-              <h3 class="supermarket-name">加载中…</h3>
-              <div class="deals"></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="fan-section active-section" id="western-section">
-      <div class="fan-wrap">
-        <div class="card-deck en-theme shuffling" id="western-deck">
-
-          <div class="card suit-black" data-store-id="freshco">
-            <div class="suit-corner top-left"><span>K</span><span>♣</span></div>
-            <div class="center-logo">♣</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-          </div>
-
-          <div class="card suit-red" data-store-id="foodbasics">
-            <div class="suit-corner top-left"><span>K</span><span>♦</span></div>
-            <div class="center-logo">♦</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-          </div>
-
-          <div class="card suit-black" data-store-id="nofrills">
-            <div class="suit-corner top-left"><span>K</span><span>♠</span></div>
-            <div class="center-logo">♠</div>
-            <div class="content">
-              <h3 class="supermarket-name">Loading…</h3>
-              <div class="deals"></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    </div>
-
-    <div class="landscape-controls">
-      <button class="icon-btn analysis-trigger landscape-only suit-heart" id="analysisTriggerLand" aria-label="数据分析">Σ</button>
-      <button class="icon-btn refresh-btn landscape-only suit-spade" id="refreshBtnLand" type="button" aria-label="刷新商品显示">↻</button>
-      <button class="icon-btn sound-toggle landscape-only suit-club" id="soundToggleLand" aria-label="音效开关">♪</button>
-    </div>
-  </div>
-
 </div>
 
+<main class="stage" id="stage">
+  <button type="button" class="prev-btn" id="prevBtn" aria-label="上一张牌">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5 8 12l6.5 7"/></svg>
+  </button>
+
+  <section class="fan" id="fan-chinese" aria-label="华超">
+    <article class="card" data-store-id="guanye" tabindex="0" aria-label="冠业">
+      <div class="corner tl" aria-hidden="true"><span class="rank">A</span><span class="suit">♥</span></div>
+      <div class="corner br" aria-hidden="true"><span class="rank">A</span><span class="suit">♥</span></div>
+      <div class="pip" aria-hidden="true">♥</div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="store-name">加载中…</h3>
+          <span class="flyer-period"></span>
+        </div>
+        <div class="deals"></div>
+      </div>
+    </article>
+    <article class="card" data-store-id="baifu" tabindex="0" aria-label="百福">
+      <div class="corner tl" aria-hidden="true"><span class="rank">A</span><span class="suit">♠</span></div>
+      <div class="corner br" aria-hidden="true"><span class="rank">A</span><span class="suit">♠</span></div>
+      <div class="pip" aria-hidden="true">♠</div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="store-name">加载中…</h3>
+          <span class="flyer-period"></span>
+        </div>
+        <div class="deals"></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="fan on" id="fan-western" aria-label="西超">
+    <article class="card" data-store-id="freshco" tabindex="0" aria-label="FreshCo">
+      <div class="corner tl" aria-hidden="true"><span class="rank">K</span><span class="suit">♣</span></div>
+      <div class="corner br" aria-hidden="true"><span class="rank">K</span><span class="suit">♣</span></div>
+      <div class="pip" aria-hidden="true">♣</div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="store-name">Loading…</h3>
+          <span class="flyer-period"></span>
+        </div>
+        <div class="deals"></div>
+      </div>
+    </article>
+    <article class="card" data-store-id="foodbasics" tabindex="0" aria-label="Food Basics">
+      <div class="corner tl" aria-hidden="true"><span class="rank">K</span><span class="suit">♦</span></div>
+      <div class="corner br" aria-hidden="true"><span class="rank">K</span><span class="suit">♦</span></div>
+      <div class="pip" aria-hidden="true">♦</div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="store-name">Loading…</h3>
+          <span class="flyer-period"></span>
+        </div>
+        <div class="deals"></div>
+      </div>
+    </article>
+    <article class="card" data-store-id="nofrills" tabindex="0" aria-label="No Frills">
+      <div class="corner tl" aria-hidden="true"><span class="rank">K</span><span class="suit">♠</span></div>
+      <div class="corner br" aria-hidden="true"><span class="rank">K</span><span class="suit">♠</span></div>
+      <div class="pip" aria-hidden="true">♠</div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="store-name">Loading…</h3>
+          <span class="flyer-period"></span>
+        </div>
+        <div class="deals"></div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<div class="stage-backdrop" id="stageBackdrop"></div>
+
 <div class="analysis-overlay" id="analysisOverlay">
-  <div class="analysis-panel" role="dialog" aria-modal="true" aria-label="数据分析">
+  <div class="analysis-panel" role="dialog" aria-modal="true" aria-labelledby="analysisTitle">
     <div class="analysis-handle" aria-hidden="true"></div>
     <div class="analysis-header">
-      <h2 class="analysis-title">数据分析</h2>
-      <button class="analysis-close" id="analysisClose" aria-label="关闭">✕</button>
+      <h2 class="analysis-title" id="analysisTitle">数据分析</h2>
+      <button type="button" class="analysis-close" id="analysisClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
-    <div class="analysis-tabs" id="analysisTabs">
-      <button class="analysis-tab active" data-tab="allDeals" type="button">全部</button>
-      <button class="analysis-tab" data-tab="bestDeals" type="button">精选</button>
-      <button class="analysis-tab" data-tab="deepestDiscounts" type="button">折扣</button>
-      <button class="analysis-tab" data-tab="categoryWinners" type="button">品类</button>
-      <button class="analysis-tab" data-tab="cheapestStoreSummary" type="button">最低价</button>
+    <div class="analysis-tabs" id="analysisTabs" role="tablist">
+      <button type="button" class="analysis-tab active" data-tab="allDeals" role="tab" aria-selected="true">全部</button>
+      <button type="button" class="analysis-tab" data-tab="bestDeals" role="tab" aria-selected="false">精选</button>
+      <button type="button" class="analysis-tab" data-tab="deepestDiscounts" role="tab" aria-selected="false">折扣</button>
+      <button type="button" class="analysis-tab" data-tab="categoryWinners" role="tab" aria-selected="false">品类</button>
+      <button type="button" class="analysis-tab" data-tab="cheapestStoreSummary" role="tab" aria-selected="false">最低价</button>
     </div>
     <div class="analysis-body" id="analysisBody">
       <p class="analysis-loading">加载中…</p>
@@ -132,605 +135,6 @@
 
 <script src="items.js"></script>
 <script src="deals.js"></script>
-<script>
-(function () {
-  const LANG_STORAGE_KEY = 'poker-fan-lang';
-  function readSavedLang() {
-    try {
-      const v = localStorage.getItem(LANG_STORAGE_KEY);
-      return (v === 'zh' || v === 'en') ? v : null;
-    } catch { return null; }
-  }
-  function saveLang(v) {
-    try { localStorage.setItem(LANG_STORAGE_KEY, v); } catch {}
-  }
-
-  let uiLang = readSavedLang() || 'zh';
-
-  const UI_TEXT = {
-    zh: {
-      analysisTitle: '数据分析',
-      tabs: { allDeals: '全部特价', bestDeals: '精选特价', deepestDiscounts: '折扣力度', categoryWinners: '品类冠军', cheapestStoreSummary: '最低价店铺' },
-      loading: '加载中…',
-      empty: '暂无数据',
-      failed: '数据加载失败',
-      benchmarkHead: '基准价对比',
-      switchLeft: '华超',
-      switchRight: '西超',
-      switchAria: '切换华超/西超',
-      analysisAria: '数据分析',
-      soundAria: '音效开关',
-      refreshAria: '刷新商品显示',
-      closeAria: '关闭',
-      langAria: '切换中英文'
-    },
-    en: {
-      analysisTitle: 'Analysis',
-      tabs: { allDeals: 'All Deals', bestDeals: 'Best Deals', deepestDiscounts: 'Discounts', categoryWinners: 'Category Winners', cheapestStoreSummary: 'Cheapest Stores' },
-      loading: 'Loading…',
-      empty: 'No data',
-      failed: 'Failed to load',
-      benchmarkHead: 'Benchmark Comparison',
-      switchLeft: 'CN',
-      switchRight: 'West',
-      switchAria: 'Switch Chinese/Western',
-      analysisAria: 'Analysis',
-      soundAria: 'Sound toggle',
-      refreshAria: 'Refresh deals display',
-      closeAria: 'Close',
-      langAria: 'Switch language'
-    }
-  };
-
-  const now = new Date();
-  document.getElementById('updateStamp').textContent = (now.getMonth() + 1) + '/' + now.getDate();
-
-  let audioCtx = null;
-  let soundOn = true;
-
-  function ensureCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    return audioCtx;
-  }
-
-  function playTick() {
-    if (!soundOn) return;
-    const ctx = ensureCtx();
-    const t = ctx.currentTime;
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'sine';
-    o.frequency.setValueAtTime(720, t);
-    o.frequency.exponentialRampToValueAtTime(980, t + 0.05);
-    g.gain.setValueAtTime(0.16, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-    o.connect(g);
-    g.connect(ctx.destination);
-    o.start(t);
-    o.stop(t + 0.1);
-  }
-
-  function playShuffle() {
-    if (!soundOn) return;
-    const ctx = ensureCtx();
-    const nowT = ctx.currentTime;
-    [560, 720, 900, 1080].forEach(function (f, i) {
-      const t = nowT + i * 0.045;
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'square';
-      o.frequency.setValueAtTime(f, t);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.08, t + 0.008);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-      o.connect(g);
-      g.connect(ctx.destination);
-      o.start(t);
-      o.stop(t + 0.06);
-    });
-  }
-
-  function playCasinoShuffle() {
-    if (!soundOn) return;
-    const ctx = ensureCtx();
-    const nowT = ctx.currentTime;
-    const duration = 0.22;
-    const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
-    }
-    const noise = ctx.createBufferSource();
-    noise.buffer = buffer;
-    const bandpass = ctx.createBiquadFilter();
-    bandpass.type = 'bandpass';
-    bandpass.frequency.setValueAtTime(2600, nowT);
-    bandpass.Q.value = 0.8;
-    const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.24, nowT);
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, nowT + duration);
-    noise.connect(bandpass);
-    bandpass.connect(noiseGain);
-    noiseGain.connect(ctx.destination);
-    noise.start(nowT);
-    noise.stop(nowT + duration);
-
-    const thumpT = nowT + duration * 0.72;
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'triangle';
-    o.frequency.setValueAtTime(180, thumpT);
-    o.frequency.exponentialRampToValueAtTime(90, thumpT + 0.09);
-    g.gain.setValueAtTime(0.0001, thumpT);
-    g.gain.linearRampToValueAtTime(0.2, thumpT + 0.008);
-    g.gain.exponentialRampToValueAtTime(0.0001, thumpT + 0.12);
-    o.connect(g);
-    g.connect(ctx.destination);
-    o.start(thumpT);
-    o.stop(thumpT + 0.13);
-  }
-
-  function syncSoundButtons() {
-    const icon = soundOn ? '♪' : '✕';
-    soundToggle.textContent = icon;
-    if (soundToggleLand) soundToggleLand.textContent = icon;
-  }
-
-  const soundToggle = document.getElementById('soundToggle');
-  const soundToggleLand = document.getElementById('soundToggleLand');
-  function toggleSound() {
-    soundOn = !soundOn;
-    syncSoundButtons();
-    if (soundOn) ensureCtx();
-  }
-  soundToggle.addEventListener('click', toggleSound);
-  if (soundToggleLand) soundToggleLand.addEventListener('click', toggleSound);
-
-  const langToggle = document.getElementById('langToggle');
-  const analysisTitleEl = document.querySelector('.analysis-title');
-  const switchLeftEl = document.querySelector('.switch-option-left');
-  const switchRightEl = document.querySelector('.switch-option-right');
-  const landscapeSwitch = document.getElementById('landscapeSwitch');
-  const trigger = document.getElementById('analysisTrigger');
-  const triggerLand = document.getElementById('analysisTriggerLand');
-  const closeBtn = document.getElementById('analysisClose');
-  const refreshBtn = document.getElementById('refreshBtn');
-  const refreshBtnLand = document.getElementById('refreshBtnLand');
-
-  function applyLang() {
-    const t = UI_TEXT[uiLang];
-    document.documentElement.lang = uiLang;
-    langToggle.textContent = uiLang === 'zh' ? '中' : 'EN';
-    langToggle.setAttribute('aria-label', t.langAria);
-    landscapeSwitch.setAttribute('aria-label', t.switchAria);
-    switchLeftEl.textContent = t.switchLeft;
-    switchRightEl.textContent = t.switchRight;
-    trigger.setAttribute('aria-label', t.analysisAria);
-    if (triggerLand) triggerLand.setAttribute('aria-label', t.analysisAria);
-    soundToggle.setAttribute('aria-label', t.soundAria);
-    if (soundToggleLand) soundToggleLand.setAttribute('aria-label', t.soundAria);
-    refreshBtn.setAttribute('aria-label', t.refreshAria);
-    if (refreshBtnLand) refreshBtnLand.setAttribute('aria-label', t.refreshAria);
-    closeBtn.setAttribute('aria-label', t.closeAria);
-    analysisTitleEl.textContent = t.analysisTitle;
-    document.querySelectorAll('.analysis-tab').forEach(function (btn) {
-      const key = btn.dataset.tab;
-      if (t.tabs[key]) btn.textContent = t.tabs[key];
-    });
-    if (window.SupermarketDeals && typeof window.SupermarketDeals.setLang === 'function') {
-      window.SupermarketDeals.setLang(uiLang);
-    }
-    if (analysisData) {
-      renderTab();
-    } else {
-      const p = body.querySelector('.analysis-loading, .analysis-empty');
-      if (p) p.textContent = t.loading;
-    }
-  }
-
-  langToggle.addEventListener('click', function () {
-    uiLang = uiLang === 'zh' ? 'en' : 'zh';
-    saveLang(uiLang);
-    applyLang();
-  });
-
-  function doRefresh() {
-    if (window.SupermarketDeals && typeof window.SupermarketDeals.refreshDisplay === 'function') {
-      window.SupermarketDeals.refreshDisplay();
-      playShuffle();
-    }
-  }
-  refreshBtn.addEventListener('click', function (e) { e.stopPropagation(); doRefresh(); });
-  if (refreshBtnLand) refreshBtnLand.addEventListener('click', function (e) { e.stopPropagation(); doRefresh(); });
-
-  const sections = {
-    chinese: document.getElementById('chinese-section'),
-    western: document.getElementById('western-section')
-  };
-  const decks = {
-    chinese: document.getElementById('chinese-deck'),
-    western: document.getElementById('western-deck')
-  };
-  let current = 'western';
-
-  function updateLandscapeSwitch() {
-    landscapeSwitch.classList.toggle('western-active', current === 'western');
-    landscapeSwitch.setAttribute('aria-pressed', current === 'western' ? 'true' : 'false');
-  }
-
-  function switchTo(target) {
-    if (target === current) return;
-    playShuffle();
-    const from = current, to = target;
-    decks[from].classList.add('shuffling');
-    decks[to].classList.add('shuffling');
-    setTimeout(function () {
-      sections[from].classList.remove('active-section');
-      sections[to].classList.add('active-section');
-      void decks[to].offsetWidth;
-      decks[from].classList.remove('shuffling');
-      decks[to].classList.remove('shuffling');
-      current = target;
-      updateLandscapeSwitch();
-    }, 200);
-  }
-
-  landscapeSwitch.addEventListener('click', function () {
-    switchTo(current === 'chinese' ? 'western' : 'chinese');
-  });
-  updateLandscapeSwitch();
-
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      decks.chinese.classList.remove('shuffling');
-      decks.western.classList.remove('shuffling');
-    }, 260);
-  });
-
-  function shuffleArr(arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  let landscapeOrder = [];
-
-  function initLandscapeOrder() {
-    const all = Array.from(document.querySelectorAll('.card'));
-    const front = all.find(function (c) { return c.dataset.storeId === 'foodbasics'; }) || all[0];
-    const rest = shuffleArr(all.filter(function (c) { return c !== front; }));
-    landscapeOrder = [front].concat(rest);
-  }
-
-  function layoutLandscapeCards(animate) {
-    const n = landscapeOrder.length;
-    const centerSlot = (n - 1) / 2;
-    landscapeOrder.forEach(function (card, k) {
-      if (animate) {
-        card.style.transitionDelay = (k * 0.028) + 's';
-      } else {
-        card.style.transitionDelay = '0s';
-      }
-      card.style.setProperty('--r', '0deg');
-      card.style.setProperty('--slot-offset', String(centerSlot - k));
-      card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.22)');
-      card.style.setProperty('--stack-ty', '0px');
-      card.style.setProperty('--stack-scale', k === 0 ? '1.04' : '1');
-      card.style.zIndex = String(n - k + 10);
-      card.classList.toggle('landscape-front', k === 0);
-    });
-    if (animate) {
-      clearTimeout(layoutLandscapeCards._delayReset);
-      layoutLandscapeCards._delayReset = setTimeout(function () {
-        landscapeOrder.forEach(function (card) {
-          card.style.transitionDelay = '0s';
-        });
-      }, 420);
-    }
-  }
-
-  function clearLandscapeCards() {
-    document.querySelectorAll('.card').forEach(function (card) {
-      card.style.removeProperty('--r');
-      card.style.removeProperty('--slot-offset');
-      card.style.removeProperty('--stack-tx');
-      card.style.removeProperty('--stack-ty');
-      card.style.removeProperty('--stack-scale');
-      card.style.removeProperty('z-index');
-      card.style.transitionDelay = '0s';
-      card.classList.remove('landscape-front');
-    });
-  }
-
-  function cycleLandscape(direction) {
-    if (landscapeOrder.length < 2) return;
-    if (direction > 0) {
-      landscapeOrder.push(landscapeOrder.shift());
-    } else {
-      landscapeOrder.unshift(landscapeOrder.pop());
-    }
-    layoutLandscapeCards(true);
-    playCasinoShuffle();
-  }
-
-  function bringCardToFrontLandscape(card) {
-    const idx = landscapeOrder.indexOf(card);
-    if (idx <= 0) return;
-    landscapeOrder.splice(idx, 1);
-    landscapeOrder.unshift(card);
-    layoutLandscapeCards(true);
-    playCasinoShuffle();
-  }
-
-  const orientationMQ = window.matchMedia('(orientation: landscape)');
-  const landscapeLeft = document.getElementById('landscapeLeft');
-  const toplineEl = document.getElementById('topline');
-  const updateStampEl = document.getElementById('updateStamp');
-  const langToggleEl = document.getElementById('langToggle');
-  const iconRowEl = document.getElementById('iconRow');
-
-  function syncOrientationLayout() {
-    if (orientationMQ.matches) {
-      if (landscapeLeft && updateStampEl && !landscapeLeft.contains(updateStampEl)) {
-        landscapeLeft.appendChild(updateStampEl);
-      }
-      if (landscapeLeft && langToggleEl && !landscapeLeft.contains(langToggleEl)) {
-        landscapeLeft.appendChild(langToggleEl);
-      }
-      initLandscapeOrder();
-      layoutLandscapeCards(false);
-    } else {
-      if (toplineEl && updateStampEl && !toplineEl.contains(updateStampEl)) {
-        toplineEl.appendChild(updateStampEl);
-      }
-      if (iconRowEl && langToggleEl && !iconRowEl.contains(langToggleEl)) {
-        const soundBtn = document.getElementById('soundToggle');
-        if (soundBtn) iconRowEl.insertBefore(langToggleEl, soundBtn);
-        else iconRowEl.appendChild(langToggleEl);
-      }
-      clearLandscapeCards();
-    }
-  }
-  orientationMQ.addEventListener('change', syncOrientationLayout);
-  syncOrientationLayout();
-
-  document.getElementById('landscapePrev').addEventListener('click', function (e) {
-    e.stopPropagation();
-    cycleLandscape(-1);
-  });
-
-  const frameEl = document.getElementById('frame');
-
-  function syncFramePoppedState() {
-    frameEl.classList.toggle('has-popped', !!document.querySelector('.card.popped'));
-  }
-
-  function popCard(card) {
-    document.querySelectorAll('.card.popped').forEach(function (c) {
-      if (c !== card) c.classList.remove('popped');
-    });
-    card.classList.toggle('popped');
-    syncFramePoppedState();
-    playTick();
-  }
-
-  document.querySelectorAll('.card').forEach(function (card) {
-    card.addEventListener('click', function (e) {
-      e.stopPropagation();
-      if (orientationMQ.matches) {
-        if (landscapeOrder[0] !== card) bringCardToFrontLandscape(card);
-      } else {
-        popCard(card);
-      }
-    });
-  });
-
-  document.addEventListener('click', function () {
-    document.querySelectorAll('.card.popped').forEach(function (c) { c.classList.remove('popped'); });
-    syncFramePoppedState();
-  });
-
-  function storeName(id) {
-    const cfg = (window.SupermarketDeals && window.SupermarketDeals.config || []).find(function (s) { return s.id === id; });
-    if (!cfg) return id;
-    return cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
-  }
-
-  function analysisText(val) {
-    if (val && typeof val === 'object') {
-      const en = val.en || '';
-      const gloss = window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary();
-      const cn = val.cn || (gloss && gloss[String(en).trim().toLowerCase()]) || en;
-      return (uiLang === 'zh' ? cn : en) || en || cn || '';
-    }
-    if (val == null) return '';
-    const en = String(val);
-    const gloss = window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary();
-    const cn = (gloss && gloss[en.trim().toLowerCase()]) || en;
-    return uiLang === 'zh' ? cn : en;
-  }
-
-  const CATEGORY_LABELS = {
-    meat: { en: 'Meat', cn: '肉类' },
-    seafood: { en: 'Seafood', cn: '海鲜' },
-    produce: { en: 'Produce', cn: '蔬果' },
-    staples: { en: 'Staples', cn: '干货调味' }
-  };
-
-  const SUMMARY_LABELS = {
-    overallCheapestProduce: { en: 'Cheapest Produce', cn: '蔬果最低价' },
-    overallCheapestMeat: { en: 'Cheapest Meat', cn: '肉类最低价' },
-    overallCheapestSeafood: { en: 'Cheapest Seafood', cn: '海鲜最低价' },
-    overallCheapestStaples: { en: 'Cheapest Staples', cn: '干货最低价' }
-  };
-
-  function labelText(map, key) {
-    const m = map[key];
-    if (!m) return key;
-    return (uiLang === 'zh' ? m.cn : m.en) || m.en || m.cn || key;
-  }
-
-  function benchmarkLabel(id) {
-    const items = (window.SupermarketDeals && window.SupermarketDeals.benchmarkItems) || [];
-    const found = items.find(function (i) { return i.id === id; });
-    if (!found) return id;
-    return (uiLang === 'zh' ? found.cn : found.en) || found.en || found.cn || id;
-  }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
-    });
-  }
-
-  const overlay = document.getElementById('analysisOverlay');
-  const tabsWrap = document.getElementById('analysisTabs');
-  const body = document.getElementById('analysisBody');
-  let analysisData = null;
-  let allDealsData = null;
-  let activeTab = 'allDeals';
-
-  function row(label, text) {
-    return '<div class="analysis-row"><span class="analysis-row-store">' + esc(label) + '</span><span class="analysis-row-text">' + esc(text) + '</span></div>';
-  }
-
-  function renderBestDeals(data) {
-    return Object.entries(data || {}).map(function (pair) {
-      return row(storeName(pair[0]), analysisText(pair[1]));
-    }).join('');
-  }
-
-  function renderDiscounts(list) {
-    if (!list || !list.length) return '';
-    return list.map(function (d) {
-      return '<div class="analysis-row"><span class="analysis-row-store">' + esc(storeName(d.store)) + '</span><span class="analysis-row-text">' + esc(analysisText(d.item)) + ' <b class="analysis-pct">-' + d.discountPct + '%</b></span></div>';
-    }).join('');
-  }
-
-  function renderCategoryWinners(data) {
-    return Object.entries(data || {}).map(function (pair) {
-      return row(labelText(CATEGORY_LABELS, pair[0]), analysisText(pair[1]));
-    }).join('');
-  }
-
-  function renderCheapest(data, benchmarks) {
-    let html = Object.entries(data || {}).map(function (pair) {
-      return row(labelText(SUMMARY_LABELS, pair[0]), analysisText(pair[1]));
-    }).join('');
-    const b = Object.entries(benchmarks || {});
-    if (b.length) {
-      html += '<div class="analysis-subhead">' + UI_TEXT[uiLang].benchmarkHead + '</div>';
-      html += b.map(function (pair) {
-        return row(benchmarkLabel(pair[0]), analysisText(pair[1]));
-      }).join('');
-    }
-    return html;
-  }
-
-  function dealItemText(item) {
-    if (item && typeof item === 'object') {
-      const en = item.en || '';
-      const cn = item.cn || en;
-      return uiLang === 'zh' ? (cn || en) : (en || cn);
-    }
-    return String(item || '');
-  }
-
-  function renderAllDeals(dealsMap) {
-    if (!dealsMap || typeof dealsMap !== 'object') return '';
-    const storeIds = (window.SupermarketDeals && window.SupermarketDeals.config || [])
-      .map(function (s) { return s.id; })
-      .filter(function (id) { return dealsMap[id] && dealsMap[id].length; });
-    Object.keys(dealsMap).forEach(function (id) {
-      if (storeIds.indexOf(id) === -1 && dealsMap[id] && dealsMap[id].length) storeIds.push(id);
-    });
-    if (!storeIds.length) return '';
-    return storeIds.map(function (sid) {
-      const list = dealsMap[sid] || [];
-      const rows = list.map(function (d) {
-        const name = dealItemText(d.item);
-        const price = d.price || '';
-        const pct = (typeof d.discountPct === 'number')
-          ? ' <b class="analysis-pct">-' + d.discountPct + '%</b>' : '';
-        const star = d.featured ? '* ' : '';
-        return '<div class="analysis-row"><span class="analysis-row-store">' + esc(star + name) + '</span><span class="analysis-row-text">' + esc(price) + pct + '</span></div>';
-      }).join('');
-      return '<div class="analysis-subhead">' + esc(storeName(sid)) + ' · ' + list.length + '</div>' + rows;
-    }).join('');
-  }
-
-  function renderTab() {
-    let html = '';
-    if (activeTab === 'allDeals') {
-      html = renderAllDeals(allDealsData);
-    } else if (!analysisData) {
-      body.innerHTML = '<p class="analysis-empty">' + UI_TEXT[uiLang].empty + '</p>';
-      return;
-    } else if (activeTab === 'bestDeals') html = renderBestDeals(analysisData.bestDeals);
-    else if (activeTab === 'deepestDiscounts') html = renderDiscounts(analysisData.deepestDiscounts);
-    else if (activeTab === 'categoryWinners') html = renderCategoryWinners(analysisData.categoryWinners);
-    else if (activeTab === 'cheapestStoreSummary') {
-      html = renderCheapest(analysisData.cheapestStoreSummary, analysisData.benchmarksComparison);
-    }
-    body.innerHTML = html || '<p class="analysis-empty">' + UI_TEXT[uiLang].empty + '</p>';
-  }
-
-  tabsWrap.addEventListener('click', function (e) {
-    const btn = e.target.closest('.analysis-tab');
-    if (!btn) return;
-    tabsWrap.querySelectorAll('.analysis-tab').forEach(function (b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    activeTab = btn.dataset.tab;
-    renderTab();
-  });
-
-  function loadAnalysis() {
-    body.innerHTML = '<p class="analysis-loading">' + UI_TEXT[uiLang].loading + '</p>';
-    const fromCache = window.SupermarketDeals && typeof window.SupermarketDeals.getData === 'function'
-      ? window.SupermarketDeals.getData() : null;
-    const ready = (window.SupermarketDeals && window.SupermarketDeals.ready)
-      ? window.SupermarketDeals.ready()
-      : Promise.resolve(fromCache);
-
-    function apply(json) {
-      if (!json) throw new Error('no data');
-      analysisData = json.analysis || {};
-      allDealsData = json.deals || {};
-      renderTab();
-    }
-
-    ready.then(function (data) {
-      if (data && data.deals) {
-        apply(data);
-      } else {
-        return fetch('./deals-data.json', { cache: 'no-store' })
-          .then(function (r) { return r.json(); })
-          .then(apply);
-      }
-    }).catch(function () {
-      body.innerHTML = '<p class="analysis-empty">' + UI_TEXT[uiLang].failed + '</p>';
-    });
-  }
-
-  function openAnalysis(e) {
-    if (e) e.stopPropagation();
-    overlay.classList.add('open');
-    if (!analysisData) loadAnalysis();
-  }
-  trigger.addEventListener('click', openAnalysis);
-  if (triggerLand) triggerLand.addEventListener('click', openAnalysis);
-  closeBtn.addEventListener('click', function () { overlay.classList.remove('open'); });
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
-
-  applyLang();
-})();
-</script>
+<script src="app.js"></script>
 </body>
 </html>

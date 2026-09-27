@@ -190,18 +190,17 @@
     card.classList.toggle('suit-black', suitInfo.color === 'black');
     card.dataset.url = store.url;
 
-    const periodHTML = flyerPeriod ? '<span class="flyer-period">' + flyerPeriod + '</span>' : '';
-    const topLeft = card.querySelector('.suit-corner.top-left');
-    if (topLeft) {
-      // 单行：点数 + 花色 + flyer 有效期（紧跟花色后）
-      topLeft.innerHTML =
-        '<span class="rank-suit">' + store.rank + suit + '</span>' + periodHTML;
-    }
+    /* 真牌角标：左上 + 右下（旋转 180°） */
+    const cornerHTML = '<span class="rank">' + store.rank + '</span><span class="suit">' + suit + '</span>';
+    card.querySelectorAll('.corner').forEach(function (c) { c.innerHTML = cornerHTML; });
 
-    const centerLogo = card.querySelector('.center-logo');
-    if (centerLogo) centerLogo.textContent = suit;
+    const pip = card.querySelector('.pip');
+    if (pip) pip.textContent = suit;
 
-    const nameEl = card.querySelector('.supermarket-name');
+    const periodEl = card.querySelector('.flyer-period');
+    if (periodEl) periodEl.textContent = flyerPeriod || '';
+
+    const nameEl = card.querySelector('.store-name');
     if (nameEl) nameEl.textContent = store.group === 'chinese' ? store.nameCN : store.nameEN;
 
     const dealsEl = card.querySelector('.deals');
@@ -223,7 +222,7 @@
       dealsEl.appendChild(row);
     });
 
-    /* 基准高亮：淡蓝底，无 🆕⬇️；已是优先项则跳过 */
+    /* 基准高亮：蓝线；已是优先项则跳过 */
     (highlights || []).slice(0, 1).forEach(hl => {
       const hlKey = normalizeKey(hl.en || hl.cn || '');
       if (displayedKeys.has(hlKey)) return;
@@ -237,14 +236,14 @@
       dealsEl.appendChild(row);
     });
 
-    const content = card.querySelector('.content');
-    if (!content) return;
-    let btn = content.querySelector('.flyer-btn');
+    const cardBody = card.querySelector('.card-body');
+    if (!cardBody) return;
+    let btn = cardBody.querySelector('.flyer-btn');
     if (!btn) {
       btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'flyer-btn';
-      content.appendChild(btn);
+      cardBody.appendChild(btn);
     }
     btn.textContent = window.SupermarketDeals.getLang() === 'zh' ? '看完整 Flyer' : 'Full Flyer';
     btn.onclick = function (e) {
