@@ -29,11 +29,15 @@ GoFlyer 的商品自带中英文名、价格、单位、分类、折扣价；Fli
    仓库根/
      index.html  app.js  deals.js  items.js  deals-data.json  style.css
      updater/build.py  updater/flipp.py  updater/goflyer.py  updater/normalize.py
-     .github/workflows/weekly-deals.yml
+     .github/workflows/weekly-deals-western.yml
+     .github/workflows/weekly-deals-chinese.yml
    ```
-2. push 后，Actions 每周五美东上午 9 点自动跑，更新 `deals-data.json` 并提交。
-3. 想立刻跑一次：仓库 → Actions → "weekly deals update" → Run workflow。
-4. 每次运行的日志可在 Actions 那次运行的 Artifacts 里下载 `deals-run-log`。
+2. push 后自动跑（**旧的 `weekly-deals.yml` 要删掉**，不然周五还会全量跑一次）：
+   - `western deals update`：每周四美东上午 9 点，只更新 FreshCo / Food Basics / No Frills
+   - `chinese deals update`：每周六美东晚上 7 点，只更新 冠业 / 百福
+   - 每次只更新自己负责的店，别家店保留现有数据；`analysis` 用新数据 + 旧数据重算
+3. 想立刻跑一次：仓库 → Actions → 对应任务 → Run workflow。
+4. 每次运行的日志可在 Actions 那次运行的 Artifacts 里下载 `deals-run-log-western` / `deals-run-log-chinese`。
 
 不需要装任何依赖，纯 Python 标准库。
 
@@ -41,13 +45,17 @@ GoFlyer 的商品自带中英文名、价格、单位、分类、折扣价；Fli
 
 ```bash
 cd updater   # 或脚本所在目录
-python3 build.py                                  # 写默认位置
+python3 build.py                                  # 写默认位置（全部 5 家）
 DEALS_DATA_FILE=/tmp/test.json python3 build.py  # 试跑不碰真实文件
+python3 build.py --only freshco,foodbasics,nofrills  # 只更新西超三家
+python3 build.py --only guanye,baifu                 # 只更新华超两家
 ```
 
-可用环境变量：`DEALS_DATA_FILE`、`GLOSSARY_FILE`、`BACKUP_DIR`。
+可用环境变量：`DEALS_DATA_FILE`、`GLOSSARY_FILE`、`BACKUP_DIR`、`DEALS_ONLY_STORES`
+（等价于 `--only`）。
 
-建议每周 **周五上午** 跑（西超传单周四开、华超传单周五开，周五两边新数据最齐）。
+排期建议：**西超三家每周四早上**（传单周四开）、**华超两家每周六晚上**
+（传单周五开、周六新数据齐），分开跑，互不覆盖。
 
 ## 安全机制
 
@@ -56,7 +64,7 @@ DEALS_DATA_FILE=/tmp/test.json python3 build.py  # 试跑不碰真实文件
 - 先写临时文件再 `os.replace` 原子替换；写之前备份旧文件
 - 每店最多 50 条；`featured` 取折扣最大的 2 条（华超用传单自带的 topSale）
 - `analysis`（bestDeals / deepestDiscounts / categoryWinners /
-  cheapestStoreSummary / benchmarksComparison）每次重算
+  cheapestStoreSummary / benchmarksComparison）每次重算；分开跑时，未更新的店用旧数据参与重算（价格对比不受影响，折扣排行只反映本次抓到的店）
 - 无词库匹配的商品显示英文原名，日志列出清单供人工补词库
 
 ## 已知局限
