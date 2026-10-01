@@ -520,12 +520,8 @@
   document.querySelectorAll('#fan-store .card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.stopPropagation();
-      if (orientationMQ.matches) {
-        if (landscapeOrder[0] !== card) bringCardToFrontLandscape(card);
-        else openDeals('store', card.dataset.storeId);
-      } else {
-        openDeals('store', card.dataset.storeId);
-      }
+      /* 横屏三张并排：点牌直接开本店清单 */
+      openDeals('store', card.dataset.storeId);
     });
     card.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {

@@ -1103,58 +1103,15 @@ button { font-family: inherit; }
 /* ── 横屏 ───────────────────────────── */
 @media (orientation: landscape) {
   :root {
-    --card-w: clamp(104px, min(49dvh, (100vw - 170px) / 1.95), 200px);
+    /* 横屏三张并排：牌宽 = min(可用高 / 1.5, (可用宽 - 两条缝) / 3)，正好撑满 */
+    --lsc-gap: 12px;
+    --card-w: clamp(104px, min(calc((100dvh - 24px) / 1.5), calc((100vw - 48px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)) / 3)), 300px);
   }
 
   body { overflow: hidden; }
 
-  /* 横屏顶栏：左列 标题 / 小两号模式切换 / 更新日期，操作键在标题右侧垂直居中 */
-  .topbar {
-    max-width: none;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 12px;
-    row-gap: 4px;
-    align-items: center;
-    padding: calc(4px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
-  }
-  .brand { grid-column: 1; grid-row: 1; }
-  .brand-text strong { font-size: 14px; }
-  .brand-text span { display: none; }
-  .brand-suit { width: 18px; height: 18px; }
-
-  .toolbar { display: contents; }
-
-  .segmented {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: start;
-    width: 148px;
-    height: 26px;
-    padding: 2px;
-  }
-  .seg-thumb { top: 2px; bottom: 2px; left: 2px; width: calc(50% - 2px); }
-  .seg-btn { font-size: 11px; letter-spacing: 1px; text-indent: 1px; min-height: 0; }
-
-  .updated {
-    grid-column: 1;
-    grid-row: 3;
-    justify-self: start;
-    border: none;
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    font-size: 10.5px;
-  }
-  .updated #updateStamp { font-size: 11px; }
-
-  .actions {
-    grid-column: 2;
-    grid-row: 1 / -1;
-    align-self: center;
-    gap: 8px;
-  }
-  .icon-btn { width: 36px; height: 36px; }
+  /* 横屏：去开关去标题，只留三家西超扑克 */
+  .topbar { display: none; }
 
   .stage {
     max-width: none;
@@ -1162,33 +1119,36 @@ button { font-family: inherit; }
     padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
   }
 
-  /* 横屏：只有当前视图的扇区可见 */
-  .fan.on {
-    top: calc(50% - var(--card-h) / 2);
-    left: calc(50% - var(--card-w) * 1.95 / 2);
-    width: calc(var(--card-w) * 1.95);
-    height: var(--card-h);
-    transform: none;
+  /* 横屏：商店扇永远可见，三家西超并排；商品榜横屏隐藏 */
+  #fan-store {
     opacity: 1;
-    pointer-events: none;
-    transition: opacity .25s ease;
-  }
-  .fan .card { pointer-events: auto; }
-
-  .fan .card {
+    pointer-events: auto;
+    transform: none;
     top: 0;
-    transform: rotate(var(--r, 0deg)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(var(--stack-scale, 1));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--lsc-gap);
+  }
+  #fan-store .card {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-left: 0;
+    transform: none;
     transform-origin: 50% 50%;
+    z-index: auto !important;
+    flex: 0 0 auto;
+    pointer-events: auto;
   }
-  .fan.on .card:hover { transform: rotate(var(--r, 0deg)) translate(var(--stack-tx, 0px), var(--stack-ty, 0px)) scale(var(--stack-scale, 1)); }
-
-  .card.landscape-front {
-    box-shadow: 0 14px 34px rgba(0,0,0,.55), 0 0 26px rgba(212,175,55,.3);
+  #fan-store .card[data-store-id="guanye"],
+  #fan-store .card[data-store-id="baifu"] { display: none; }
+  #fan-store .card.landscape-front {
+    box-shadow: var(--shadow-card), inset 0 0 0 1px rgba(255, 255, 255, .7);
   }
-
-  .prev-btn { display: flex; }
-
-  .board { width: min(92vw, 640px); }
+  .board { display: none; }
 
   .analysis-panel { max-width: 430px; height: min(82dvh, 440px); }
   .deals-panel { max-width: 430px; height: var(--sheet-h, min(82dvh, 520px)); }
