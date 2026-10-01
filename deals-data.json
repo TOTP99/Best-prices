@@ -223,387 +223,332 @@
     "freshco": [
       {
         "item": {
-          "en": "Bok Choy"
-        },
-        "price": "88¢/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Asian Yellow Pears"
-        },
-        "price": "$1.48/lb"
-      },
-      {
-        "item": {
-          "en": "Honey Pomelo"
-        },
-        "price": "$2.98/ea"
-      },
-      {
-        "item": {
-          "en": "Grapes"
-        },
-        "price": "$1.44/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Apples"
-        },
-        "price": "$1.49/lb"
-      },
-      {
-        "item": {
           "en": "Tomatoes"
         },
-        "price": "$1.49/lb"
-      },
-      {
-        "item": {
-          "en": "Cucumbers"
-        },
-        "price": "$1.49/ea"
-      },
-      {
-        "item": {
-          "en": "Romaine Hearts"
-        },
-        "price": "$3.99 (3pk)"
-      },
-      {
-        "item": {
-          "en": "Cilantro"
-        },
-        "price": "99¢"
-      },
-      {
-        "item": {
-          "en": "Raspberries"
-        },
-        "price": "$1.99 (170g)"
-      },
-      {
-        "item": {
-          "en": "Salad Kit"
-        },
-        "price": "$3.99"
-      },
-      {
-        "item": {
-          "en": "Chicken Breast"
-        },
-        "price": "$10 (4pk, member)"
-      },
-      {
-        "item": {
-          "en": "Bacon"
-        },
-        "price": "$3.99"
-      },
-      {
-        "item": {
-          "en": "Ham"
-        },
-        "price": "$8.99 (600g)"
-      },
-      {
-        "item": {
-          "en": "Basa Steaks"
-        },
-        "price": "$3.88 (500g, frozen)"
-      },
-      {
-        "item": {
-          "en": "Sourdough Bread"
-        },
-        "price": "$3.00"
-      },
-      {
-        "item": {
-          "en": "Vegetable Oil"
-        },
-        "price": "$5.99 (3L, member)"
-      },
-      {
-        "item": {
-          "en": "Evaporated Milk"
-        },
-        "price": "$1.69 (354ml)"
-      },
-      {
-        "item": {
-          "en": "Jasmine Rice"
-        },
-        "price": "$15.98 (7kg)"
-      },
-      {
-        "item": {
-          "en": "Coca-Cola"
-        },
-        "price": "$1.99 (2L)"
-      },
-      {
-        "item": {
-          "en": "Mooncakes"
-        },
-        "price": "$13.88 (640g)"
-      },
-      {
-        "item": {
-          "en": "Udon Noodles"
-        },
-        "price": "$3.98 (1.15kg)"
-      },
-      {
-        "item": {
-          "en": "Instant Noodles"
-        },
-        "price": "$2.98 (400-425g)"
-      },
-      {
-        "item": {
-          "en": "Dumplings"
-        },
-        "price": "$2.88 (380-450g)"
-      },
-      {
-        "item": {
-          "en": "Scallion Pancakes"
-        },
-        "price": "$2.48 (450g)"
-      },
-      {
-        "item": {
-          "en": "Chestnuts"
-        },
-        "price": "$1.28 (100g)"
-      },
-      {
-        "item": {
-          "en": "Soy Sauce"
-        },
-        "price": "$5.88 (1.9L)"
-      },
-      {
-        "item": {
-          "en": "Coconut Milk"
-        },
-        "price": "$1.88 (400ml)"
-      },
-      {
-        "item": {
-          "en": "Sriracha"
-        },
-        "price": "$5.98 (714ml)"
-      },
-      {
-        "item": {
-          "en": "Honey"
-        },
-        "price": "$8.98 (1kg)"
-      },
-      {
-        "item": {
-          "en": "Chicken Broth"
-        },
-        "price": "$1.18 (412ml)"
-      },
-      {
-        "item": {
-          "en": "Mayonnaise"
-        },
-        "price": "$5.98 (450g)"
-      }
-    ],
-    "nofrills": [
-      {
-        "item": {
-          "en": "Green Cabbage"
-        },
-        "price": "49¢/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Royal Gala Apples"
-        },
-        "price": "77¢/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Napa Cabbage"
-        },
-        "price": "98¢/lb"
-      },
-      {
-        "item": {
-          "en": "Grapes"
-        },
-        "price": "$1.49/lb"
-      },
-      {
-        "item": {
-          "en": "Broccoli"
-        },
-        "price": "$1.44/ea"
-      },
-      {
-        "item": {
-          "en": "Sweet Potatoes"
-        },
-        "price": "$1.49/lb"
-      },
-      {
-        "item": {
-          "en": "Ginger"
-        },
-        "price": "$1.88/lb"
-      },
-      {
-        "item": {
-          "en": "Dragon Fruit"
-        },
-        "price": "$1.98/ea"
-      },
-      {
-        "item": {
-          "en": "Asian Yellow Pears"
-        },
-        "price": "$1.99/lb"
-      },
-      {
-        "item": {
-          "en": "Guava"
-        },
-        "price": "$4.48/lb"
-      },
-      {
-        "item": {
-          "en": "Pomelo"
-        },
-        "price": "$2.98/ea"
-      },
-      {
-        "item": {
-          "en": "Limes"
-        },
-        "price": "59¢/ea"
-      },
-      {
-        "item": {
-          "en": "Kiwi"
-        },
-        "price": "79¢/ea"
-      },
-      {
-        "item": {
-          "en": "Cantaloupe"
-        },
-        "price": "$3.99/ea"
-      },
-      {
-        "item": {
-          "en": "Watermelon"
-        },
-        "price": "$4.99/ea (11lb)"
-      },
-      {
-        "item": {
-          "en": "Blueberries"
-        },
-        "price": "$3.99 (6oz)"
-      },
-      {
-        "item": {
-          "en": "Strawberries"
-        },
-        "price": "$4.99 (1lb)"
+        "price": "$1.79 (540-796mL)"
       },
       {
         "item": {
           "en": "Oranges"
         },
-        "price": "$4.99 (4lb)"
+        "price": "$6.99 (100pk)"
       },
       {
         "item": {
-          "en": "Mandarin"
+          "en": "Grapes"
         },
-        "price": "$6.99 (4lb)"
+        "price": "$1.44/lb"
       },
       {
         "item": {
-          "en": "Lemon"
+          "en": "Eggs"
         },
-        "price": "$3.99 (2lb)"
+        "price": "$10.00 (600g)"
       },
       {
         "item": {
-          "en": "Avocado"
+          "en": "Ting"
         },
-        "price": "$3.99 (5pk)"
+        "price": "$0.69 (300ml)",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Turkey"
+        },
+        "price": "$2.49/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Mutti Pasta Sauce"
+        },
+        "price": "$4.99 (680mL)"
+      },
+      {
+        "item": {
+          "en": "Stove Top Stuffing Mix"
+        },
+        "price": "$1.29 (120g)"
+      },
+      {
+        "item": {
+          "en": "Ham"
+        },
+        "price": "$2.99/lb"
       },
       {
         "item": {
           "en": "Potatoes"
         },
-        "price": "$3.99 (10lb)"
+        "price": "$2.99 (454-650g)"
       },
       {
         "item": {
-          "en": "Onions"
+          "en": "Vachon Snack Cakes Hostess Craze Snack Cakes"
         },
-        "price": "$2.99 (3lb)"
+        "price": "$2.99 (250-336g)"
       },
       {
         "item": {
-          "en": "Red Onions"
+          "en": "Christie Crackers Selected Varieties Crispers Bits Bites"
         },
-        "price": "$5.99 (10lb)"
+        "price": "$1.99 (180g)"
       },
       {
         "item": {
-          "en": "Carrots"
+          "en": "Barilla Catelli Classic Smart Healthy Harvest Pasta"
         },
-        "price": "$3.99 (2lb mini)"
+        "price": "$1.69 (375-454g)"
       },
       {
         "item": {
-          "en": "Celery"
+          "en": "Armstrong Cheese Bars Shreds"
         },
-        "price": "$1.99/ea"
+        "price": "$4.88 (400g)"
       },
       {
         "item": {
-          "en": "Cauliflower"
+          "en": "Dunya Harvest Yellow Cornmeal"
         },
-        "price": "$3.99"
+        "price": "$1.50 (900g)"
       },
       {
         "item": {
-          "en": "Mushrooms"
+          "en": "Mott S Clamato Garden Cocktail"
         },
-        "price": "$2.49 (227g)"
+        "price": "$3.49 (1.89L)"
       },
       {
         "item": {
-          "en": "Mini Cucumbers"
+          "en": "Dare Ultimate Cookies Whippet"
         },
-        "price": "$2.49 (6pk)"
+        "price": "$2.99 (290-300g)"
       },
       {
         "item": {
-          "en": "Pumpkin"
+          "en": "Tostitos Sunchips"
         },
-        "price": "$2.99/ea"
+        "price": "$2.99 (205-300g)"
       },
       {
         "item": {
-          "en": "Lettuce"
+          "en": "Boursin Cheese Selected Varieties"
         },
-        "price": "$1.99/ea"
+        "price": "$4.99 (150g)"
+      },
+      {
+        "item": {
+          "en": "Philadelphia Cream Cheese"
+        },
+        "price": "$5.99 (450g)"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$10.00 (4pieces, member)"
+      },
+      {
+        "item": {
+          "en": "Compliments Dinner Rolls"
+        },
+        "price": "$2.00 (12pk)"
+      },
+      {
+        "item": {
+          "en": "Corn"
+        },
+        "price": "$4.49 (8pk)"
+      },
+      {
+        "item": {
+          "en": "Old El Paso Taco Shells Selected Varieties"
+        },
+        "price": "$2.99 (125-334g)"
+      },
+      {
+        "item": {
+          "en": "Robin Hood Gluten Free Flour"
+        },
+        "price": "$6.99 (907g)"
+      },
+      {
+        "item": {
+          "en": "Lay S Potato Chips Smartfood"
+        },
+        "price": "$2.75 (177-235g)"
+      },
+      {
+        "item": {
+          "en": "Grace Soups"
+        },
+        "price": "$0.99 (42-60g)"
+      },
+      {
+        "item": {
+          "en": "Dare Breton Vinta Crackers Dare Veggie Crisps"
+        },
+        "price": "$2.49 (173-225g)"
+      },
+      {
+        "item": {
+          "en": "Shrimp"
+        },
+        "price": "$5.00 (255g)"
+      },
+      {
+        "item": {
+          "en": "Compliments Pies Selected Varieties"
+        },
+        "price": "$5.00 (580-750g)"
+      },
+      {
+        "item": {
+          "en": "Tre Stelle Feta Tub Castello Blue Gorgonzola Cheese Wedge"
+        },
+        "price": "$4.99 (200g)"
+      },
+      {
+        "item": {
+          "en": "Bothwell Cheese Selected Varieties"
+        },
+        "price": "$5.00 (170g)"
+      },
+      {
+        "item": {
+          "en": "Kicking Horse Whole Bean Coffee"
+        },
+        "price": "$17.99 (454g)"
+      },
+      {
+        "item": {
+          "en": "Deep Bhindi Baby Okra Cut Okra"
+        },
+        "price": "$1.29 (340g)"
+      },
+      {
+        "item": {
+          "en": "Lavazza Espresso Bricks"
+        },
+        "price": "$5.99 (250g)"
+      },
+      {
+        "item": {
+          "en": "Chubby"
+        },
+        "price": "$0.50 (250mL)"
+      },
+      {
+        "item": {
+          "en": "Twinings Tea Bags"
+        },
+        "price": "$3.99 (20pk)"
+      },
+      {
+        "item": {
+          "en": "Grace Coconut Oil"
+        },
+        "price": "$7.99 (500mL)"
+      },
+      {
+        "item": {
+          "en": "Chapman S Canadian Collection Ice Cream Bars Markdale Creamery Ice Cream"
+        },
+        "price": "$3.99 (8x55mL)"
+      },
+      {
+        "item": {
+          "en": "Christie Cookies Selected Varieties Triscuits"
+        },
+        "price": "$2.79 (224-303g)"
+      },
+      {
+        "item": {
+          "en": "2% Milk"
+        },
+        "price": "$1.69 (500mL)"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$2.00 (400g)"
+      },
+      {
+        "item": {
+          "en": "Villaggio Bread"
+        },
+        "price": "$2.89 (550-675g, member)"
+      },
+      {
+        "item": {
+          "en": "Spinach"
+        },
+        "price": "$2.99 (800g)"
+      },
+      {
+        "item": {
+          "en": "Tata Iodised Sea Salt"
+        },
+        "price": "$1.49 (1kg)"
+      },
+      {
+        "item": {
+          "en": "Green Giant Valley Selections Vegetables"
+        },
+        "price": "$2.99 (750g)"
+      },
+      {
+        "item": {
+          "en": "Compliments Whipped Topping L Pie Shells Phyllo Pastry Sheets"
+        },
+        "price": "$2.99 (285-340g)"
+      },
+      {
+        "item": {
+          "en": "Nature Valley Sweet Salty Protein Fibre Bars"
+        },
+        "price": "$2.99 (125-226g)"
+      },
+      {
+        "item": {
+          "en": "Deluxe Biscuits Selected Varieties"
+        },
+        "price": "$4.49 (1kg)"
+      },
+      {
+        "item": {
+          "en": "Kasih Thyme"
+        },
+        "price": "$5.99 (450g)"
+      }
+    ],
+    "nofrills": [
+      {
+        "item": {
+          "en": "Tomatoes"
+        },
+        "price": "$1.99 (283G)"
+      },
+      {
+        "item": {
+          "en": "Eggs"
+        },
+        "price": "$6.99 (100G)"
+      },
+      {
+        "item": {
+          "en": "Robin Hood Five Roses Flour"
+        },
+        "price": "$4.50 (2.5KG, member)",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Tuna"
+        },
+        "price": "$1.00 (170g)"
       },
       {
         "item": {
@@ -613,613 +558,934 @@
       },
       {
         "item": {
-          "en": "Green Onions"
-        },
-        "price": "99¢"
-      },
-      {
-        "item": {
-          "en": "Romaine Hearts"
-        },
-        "price": "$3.99 (3pk)"
-      },
-      {
-        "item": {
-          "en": "Green Pepper"
-        },
-        "price": "$4.00 (2.5lb)"
-      },
-      {
-        "item": {
-          "en": "Pork Loin"
-        },
-        "price": "$1.99/lb"
-      },
-      {
-        "item": {
-          "en": "Whole Chicken"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Chicken Breast"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Belly"
-        },
-        "price": "$5.48/lb"
-      },
-      {
-        "item": {
-          "en": "Duck"
-        },
-        "price": "$3.88/lb (frozen)"
-      },
-      {
-        "item": {
-          "en": "Beef Stir-Fry Strips"
-        },
-        "price": "$13.00/lb"
-      },
-      {
-        "item": {
-          "en": "Lean Ground Pork"
-        },
-        "price": "$4.00 (450g)"
-      },
-      {
-        "item": {
-          "en": "Hotdog"
-        },
-        "price": "$3.75 (375g)"
-      },
-      {
-        "item": {
-          "en": "Pork Back Ribs"
-        },
-        "price": "$9.99 (680g, frozen)"
-      },
-      {
-        "item": {
-          "en": "Shrimp"
-        },
-        "price": "$6.00 (400g, frozen)"
-      },
-      {
-        "item": {
-          "en": "Clam Meat"
-        },
-        "price": "$5.50 (340g, frozen)"
-      },
-      {
-        "item": {
-          "en": "Edamame"
-        },
-        "price": "$2.28 (frozen)"
-      },
-      {
-        "item": {
-          "en": "Luncheon Meat"
-        },
-        "price": "$3.88 (340g)"
-      },
-      {
-        "item": {
-          "en": "Instant Noodles"
-        },
-        "price": "$2.88 (5x80g)"
-      },
-      {
-        "item": {
-          "en": "Jasmine Rice"
-        },
-        "price": "$12.88 (8kg)"
-      },
-      {
-        "item": {
-          "en": "Sardines"
-        },
-        "price": "88¢ (155g)"
-      },
-      {
-        "item": {
-          "en": "Chicken Broth"
-        },
-        "price": "88¢ (412ml)"
-      },
-      {
-        "item": {
-          "en": "Soy Sauce"
-        },
-        "price": "$5.88 (1.9L)"
-      },
-      {
-        "item": {
-          "en": "Butter"
-        },
-        "price": "$4.99 (454g)"
-      }
-    ],
-    "foodbasics": [
-      {
-        "item": {
-          "en": "Mango"
-        },
-        "price": "98¢/ea",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Cauliflower"
-        },
-        "price": "$1.25/ea",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Sirloin Tip Roast"
-        },
-        "price": "$6.88/lb"
-      },
-      {
-        "item": {
-          "en": "Apples"
-        },
-        "price": "$2.98 (3lb bag)"
-      },
-      {
-        "item": {
-          "en": "Bell Pepper"
-        },
-        "price": "$3.98 (2.5lb)"
-      },
-      {
-        "item": {
-          "en": "Janes Chicken"
-        },
-        "price": "$5.55"
-      },
-      {
-        "item": {
-          "en": "Villaggio Bread"
-        },
-        "price": "$2.99"
-      },
-      {
-        "item": {
-          "en": "Coca-Cola"
-        },
-        "price": "$7.48 (12pk)"
-      },
-      {
-        "item": {
-          "en": "Chicken Broth"
+          "en": "Broccoli"
         },
         "price": "$1.49"
       },
       {
         "item": {
-          "en": "Yogurt"
-        },
-        "price": "$6.99 (Greek)"
-      }
-    ],
-    "baifu": [
-      {
-        "item": {
-          "en": "Winter Melon"
-        },
-        "price": "49¢/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Bok Choy"
-        },
-        "price": "89¢/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Kabocha Squash"
-        },
-        "price": "39¢/lb"
-      },
-      {
-        "item": {
-          "en": "Napa Cabbage"
-        },
-        "price": "69¢/lb"
-      },
-      {
-        "item": {
-          "en": "Carrots"
-        },
-        "price": "69¢/lb"
-      },
-      {
-        "item": {
-          "en": "Oranges"
-        },
-        "price": "88¢/lb"
-      },
-      {
-        "item": {
-          "en": "Bell Pepper"
-        },
-        "price": "88¢/lb"
-      },
-      {
-        "item": {
-          "en": "Kohlrabi"
-        },
-        "price": "88¢/lb"
-      },
-      {
-        "item": {
-          "en": "Apples"
-        },
-        "price": "$1.29/lb"
-      },
-      {
-        "item": {
-          "en": "Yu Choy"
-        },
-        "price": "$1.88/lb"
-      },
-      {
-        "item": {
-          "en": "Dragon Fruit"
-        },
-        "price": "$2.29/lb"
-      },
-      {
-        "item": {
-          "en": "Peanuts"
-        },
-        "price": "$2.39/lb"
-      },
-      {
-        "item": {
-          "en": "Eggplant"
-        },
-        "price": "$1.39/lb"
-      },
-      {
-        "item": {
-          "en": "Celery"
-        },
-        "price": "$1.39/ea"
-      },
-      {
-        "item": {
-          "en": "King Oyster Mushrooms"
-        },
-        "price": "$1.39/ea"
-      },
-      {
-        "item": {
-          "en": "Garlic Stem"
-        },
-        "price": "$1.29/ea"
-      },
-      {
-        "item": {
-          "en": "Beech Mushrooms"
-        },
-        "price": "2/$1.80"
-      },
-      {
-        "item": {
-          "en": "Pomelo"
-        },
-        "price": "$2.88/ea"
-      },
-      {
-        "item": {
-          "en": "Golden Kiwi"
-        },
-        "price": "$8.99/ea"
-      },
-      {
-        "item": {
-          "en": "Fragrant Pears"
-        },
-        "price": "$12.99/box"
-      },
-      {
-        "item": {
-          "en": "Pork Ham Bone"
-        },
-        "price": "69¢/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Chop"
-        },
-        "price": "$1.99/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Loin"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Back Ribs"
-        },
-        "price": "$4.29/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Tenderloin"
-        },
-        "price": "$4.29/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Short Ribs"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Striploin"
-        },
-        "price": "$12.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Tripe"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Chicken Breast"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Butter Chicken"
-        },
-        "price": "$12.99/ea"
-      },
-      {
-        "item": {
-          "en": "Chicken Mid Wings"
-        },
-        "price": "$9.99/ea"
-      },
-      {
-        "item": {
-          "en": "Lamb Shanks"
-        },
-        "price": "$9.99/ea"
-      },
-      {
-        "item": {
-          "en": "Abalone"
-        },
-        "price": "99¢/lb"
-      },
-      {
-        "item": {
-          "en": "Sea Eel"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Butterfish"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "White Perch"
-        },
-        "price": "$3.99/lb"
-      },
-      {
-        "item": {
-          "en": "Spanish Mackerel"
-        },
-        "price": "$3.99/lb"
-      },
-      {
-        "item": {
-          "en": "Sea Bream"
-        },
-        "price": "$3.99/lb"
-      },
-      {
-        "item": {
-          "en": "Salmon Fillet"
-        },
-        "price": "$14.99/lb"
-      },
-      {
-        "item": {
-          "en": "Yellow Croaker"
-        },
-        "price": "$17.99/lb (steak)"
-      },
-      {
-        "item": {
-          "en": "Dungeness Crab"
-        },
-        "price": "$12.99/lb"
-      },
-      {
-        "item": {
-          "en": "Sea Urchin"
-        },
-        "price": "$19.99/ea (108g)"
-      },
-      {
-        "item": {
-          "en": "Grouper"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Pomfret"
-        },
-        "price": "$9.99/ea (1.1kg)"
-      },
-      {
-        "item": {
-          "en": "Basa Fillets"
-        },
-        "price": "$4.99/ea (800g)"
-      },
-      {
-        "item": {
-          "en": "Black Tiger Shrimp"
-        },
-        "price": "$6.99/ea (400g)"
-      },
-      {
-        "item": {
-          "en": "Razor Clams"
-        },
-        "price": "$4.99/ea (340g)"
-      },
-      {
-        "item": {
-          "en": "Mussels"
-        },
-        "price": "$8.99/ea (800g)"
-      },
-      {
-        "item": {
-          "en": "Shrimp Dumplings"
-        },
-        "price": "$3.99/ea (300g)"
-      },
-      {
-        "item": {
-          "en": "Cuttlefish Cakes"
-        },
-        "price": "$3.99/ea (500g)"
-      },
-      {
-        "item": {
-          "en": "Dumplings"
-        },
-        "price": "$3.99/ea (600g)"
-      },
-      {
-        "item": {
-          "en": "Cup Noodles"
-        },
-        "price": "79¢/ea (108g)"
-      },
-      {
-        "item": {
-          "en": "Instant Noodles"
-        },
-        "price": "$4.99/ea (5x114g)"
-      },
-      {
-        "item": {
-          "en": "Rice Vermicelli"
-        },
-        "price": "99¢/ea (400g)"
-      },
-      {
-        "item": {
-          "en": "Japanese Curry"
-        },
-        "price": "2/$5 (140g)"
-      },
-      {
-        "item": {
-          "en": "Shiitake Mushrooms"
-        },
-        "price": "$7.99/ea (400g)"
-      },
-      {
-        "item": {
-          "en": "Pearl Barley"
+          "en": "Hami Canary Melon"
         },
         "price": "$1.79/lb"
       },
       {
         "item": {
-          "en": "Honey Dates"
+          "en": "Dole Pineapple"
+        },
+        "price": "$1.97 (398ML)"
+      },
+      {
+        "item": {
+          "en": "Kale Curly Italian Parsley"
+        },
+        "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Corn"
+        },
+        "price": "$3.49 (454g)"
+      },
+      {
+        "item": {
+          "en": "Shrimp"
+        },
+        "price": "$3.49 (160G)"
+      },
+      {
+        "item": {
+          "en": "Ham"
+        },
+        "price": "$3.50 (165G)"
+      },
+      {
+        "item": {
+          "en": "Cantaloupe"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Avocado"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Cauliflower"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Garlic"
+        },
+        "price": "$3.99 (1KG)"
+      },
+      {
+        "item": {
+          "en": "Schneiders Bacon"
+        },
+        "price": "$4.00 (65G)"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$4.88/lb"
+      },
+      {
+        "item": {
+          "en": "Watermelon"
+        },
+        "price": "$5.99"
+      },
+      {
+        "item": {
+          "en": "Marcangelo Jumbo Pork Sausage"
+        },
+        "price": "$7.99 (675G)"
+      },
+      {
+        "item": {
+          "en": "Ground Beef"
+        },
+        "price": "$8.99/lb"
+      },
+      {
+        "item": {
+          "en": "Utility Turkey"
+        },
+        "price": "$18.00/ea"
+      },
+      {
+        "item": {
+          "en": "New Zealand Short Cut Lamb Leg"
+        },
+        "price": "$5.25/lb"
+      },
+      {
+        "item": {
+          "en": "Mushrooms"
+        },
+        "price": "$0.95 (284ML)"
+      },
+      {
+        "item": {
+          "en": "Heinz Beans Pasta"
+        },
+        "price": "$0.98 (398ML)"
+      },
+      {
+        "item": {
+          "en": "Rutabagas"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "2% Milk"
+        },
+        "price": "$1.00 (750ML)"
+      },
+      {
+        "item": {
+          "en": "Kd Macaroni Cheese"
+        },
+        "price": "$1.00 (156-175G)"
+      },
+      {
+        "item": {
+          "en": "Stove Top Stuffing Mix"
+        },
+        "price": "$1.29"
+      },
+      {
+        "item": {
+          "en": "Sweet Potatoes"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Green Onions"
+        },
+        "price": "$1.29"
+      },
+      {
+        "item": {
+          "en": "Carrots"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Cucumbers"
+        },
+        "price": "$1.49"
+      },
+      {
+        "item": {
+          "en": "Ocean Spray Cranberry Sauce"
+        },
+        "price": "$1.50 (240-355ML)"
+      },
+      {
+        "item": {
+          "en": "Campbell S Broth Concentrated Broth"
+        },
+        "price": "$1.50 (900ML)"
+      },
+      {
+        "item": {
+          "en": "Luncheon Meat"
+        },
+        "price": "$1.50 (340g)"
+      },
+      {
+        "item": {
+          "en": "Evaporated Milk"
+        },
+        "price": "$1.75 (354ML)"
+      },
+      {
+        "item": {
+          "en": "Butter"
+        },
+        "price": "$1.89 (400G)"
+      },
+      {
+        "item": {
+          "en": "Lantic Granulated Sugar"
+        },
+        "price": "$1.99 (2KG)"
+      },
+      {
+        "item": {
+          "en": "Shana Paratha Chapati"
+        },
+        "price": "$1.99 (400G)"
+      },
+      {
+        "item": {
+          "en": "Potatoes"
+        },
+        "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Yogurt"
+        },
+        "price": "$2.29 (750G)"
+      },
+      {
+        "item": {
+          "en": "Pears"
+        },
+        "price": "$2.49/lb"
+      },
+      {
+        "item": {
+          "en": "No Name Sour Cream"
+        },
+        "price": "$2.50 (500ML)"
+      },
+      {
+        "item": {
+          "en": "Mccain Superfries Specialty Fries Pockets"
+        },
+        "price": "$2.77 (454-800G)"
+      },
+      {
+        "item": {
+          "en": "Soyganic Organic Tofu"
+        },
+        "price": "$2.88 (350-500G)"
+      },
+      {
+        "item": {
+          "en": "Tre Stelle Cream Cheese"
+        },
+        "price": "$2.99 (200g)"
+      },
+      {
+        "item": {
+          "en": "Mini Cucumbers"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Black Plums Pc Plumcots"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Strawberries"
+        },
+        "price": "$2.99 (1LB)"
+      }
+    ],
+    "foodbasics": [
+      {
+        "item": {
+          "en": "Pork Chop"
+        },
+        "price": "$7.99/ea",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Salmon Fillet"
+        },
+        "price": "$11.99/lb"
+      },
+      {
+        "item": {
+          "en": "Grapes"
+        },
+        "price": "$1.77/lb"
+      },
+      {
+        "item": {
+          "en": "Oranges"
+        },
+        "price": "$2.98/ea"
+      },
+      {
+        "item": {
+          "en": "Broccoli"
+        },
+        "price": "99¢/ea"
+      },
+      {
+        "item": {
+          "en": "Selection Potato Chips"
+        },
+        "price": "$1.47/ea"
+      },
+      {
+        "item": {
+          "en": "Acorn Buttercup Butternut Spaghetti Squash"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Cilantro"
+        },
+        "price": "$1.49/ea"
+      },
+      {
+        "item": {
+          "en": "Ham"
+        },
+        "price": "$1.98/lb"
+      },
+      {
+        "item": {
+          "en": "Tuna"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Spinach"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Selection Pineapple"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Cantaloupe"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Cauliflower"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Drumsticks"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Combination Chops"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Dom Smoked Norwegian Steelhead Salmon"
+        },
+        "price": "$3.49/ea"
+      },
+      {
+        "item": {
+          "en": "Bacon"
+        },
+        "price": "$3.49/ea"
+      },
+      {
+        "item": {
+          "en": "Basa Fillets"
+        },
+        "price": "$3.49/ea"
+      },
+      {
+        "item": {
+          "en": "Avocado"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Corn"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Pork Loin"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Romaine Hearts"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Lemon"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Shrimp"
+        },
+        "price": "$5.44/ea"
+      },
+      {
+        "item": {
+          "en": "Ground Beef"
+        },
+        "price": "$5.48/lb"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$7.98/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Wings"
+        },
+        "price": "$7.99/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Breast"
+        },
+        "price": "$7.99/lb"
+      },
+      {
+        "item": {
+          "en": "New Zealand Short Cut Lamb Leg"
+        },
+        "price": "$5.98/lb"
+      },
+      {
+        "item": {
+          "en": "Irresistible Chicken Bites Gourmet Sausage Rolls Puff Pastry Appetizers"
+        },
+        "price": "$9.99/ea"
+      },
+      {
+        "item": {
+          "en": "Onions"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Kraft Dinner Clark Baked Beans"
+        },
+        "price": "$1.25/ea"
+      },
+      {
+        "item": {
+          "en": "Hami Canary Melons"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Sweet Potatoes"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "2% Milk"
+        },
+        "price": "$1.67/ea"
+      },
+      {
+        "item": {
+          "en": "De Cecco Pasta"
+        },
+        "price": "$1.98/ea"
+      },
+      {
+        "item": {
+          "en": "De Cecco Pasta Passata"
+        },
+        "price": "$1.98/ea"
+      },
+      {
+        "item": {
+          "en": "Pomegranates"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Clover Leaf Smoked Oysters"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Selection Rice Snacks"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Dare Christie Cookies"
+        },
+        "price": "$2.22/ea"
+      },
+      {
+        "item": {
+          "en": "Christie Dare Christie Cookies"
+        },
+        "price": "$2.22/ea"
+      },
+      {
+        "item": {
+          "en": "Quaker Dipps Chewy Bars"
+        },
+        "price": "$2.49"
+      },
+      {
+        "item": {
+          "en": "Irresistible Melba Toast"
+        },
+        "price": "$2.49/ea"
+      },
+      {
+        "item": {
+          "en": "Pringles Mingles Snacks"
+        },
+        "price": "$2.79/ea"
+      },
+      {
+        "item": {
+          "en": "Christie Bits Bites Crispers Snacks"
+        },
+        "price": "$2.79"
+      },
+      {
+        "item": {
+          "en": "French S Mustard"
+        },
+        "price": "$2.79/ea"
+      },
+      {
+        "item": {
+          "en": "Minute Rice Instant Rice"
+        },
+        "price": "$2.79/ea"
+      },
+      {
+        "item": {
+          "en": "Selection Snacks"
+        },
+        "price": "$2.88/ea"
+      }
+    ],
+    "baifu": [
+      {
+        "item": {
+          "en": "Grapes"
+        },
+        "price": "$7.99/ea"
+      },
+      {
+        "item": {
+          "en": "Hami Melon"
+        },
+        "price": "$1.99/ea",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Dried Glutens"
+        },
+        "price": "$0.99/ea",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Wuyang Flying Fish Ice Cream"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Cup Noodles"
+        },
+        "price": "$1.00/ea"
+      },
+      {
+        "item": {
+          "en": "Jellyfish Slices Seasoned"
+        },
+        "price": "$0.69/ea"
+      },
+      {
+        "item": {
+          "en": "2% Milk"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Korean Cabbage"
+        },
+        "price": "39¢/lb"
+      },
+      {
+        "item": {
+          "en": "Red Pepper"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Bok Choy"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Onions"
+        },
+        "price": "$0.99/ea"
+      },
+      {
+        "item": {
+          "en": "Apples"
+        },
+        "price": "99¢/lb"
+      },
+      {
+        "item": {
+          "en": "Duck"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Green Pepper"
+        },
+        "price": "$1.69/lb"
+      },
+      {
+        "item": {
+          "en": "Cauliflower"
+        },
+        "price": "$1.69/lb"
+      },
+      {
+        "item": {
+          "en": "Yellow Croaker"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Mushrooms"
+        },
+        "price": "$2.29/ea"
+      },
+      {
+        "item": {
+          "en": "Fish Crawfish Meat"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Dried Noodles In Bamboo"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Honey"
+        },
+        "price": "$5.99/ea"
+      },
+      {
+        "item": {
+          "en": "Shanghai Miu"
+        },
+        "price": "$1.39/lb"
+      },
+      {
+        "item": {
+          "en": "Sour Mustard"
+        },
+        "price": "$0.99/ea"
+      },
+      {
+        "item": {
+          "en": "Light Soy Sauce"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Fuzhou Handmade Vermicellis"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Durian Pulp"
+        },
+        "price": "$6.99/ea"
+      },
+      {
+        "item": {
+          "en": "Snowy Summer Fruits Gift Box"
+        },
+        "price": "$29.00/ea"
+      },
+      {
+        "item": {
+          "en": "Chinese Eggplant"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Pears"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Bulk Mung Beans"
+        },
+        "price": "$1.69/lb"
+      },
+      {
+        "item": {
+          "en": "Pork Intestine"
         },
         "price": "$1.99/lb"
       },
       {
         "item": {
-          "en": "Salted Eggs"
+          "en": "Sweet Potatoes"
         },
-        "price": "7/$2.99"
+        "price": "$2.39/lb"
       },
       {
         "item": {
-          "en": "Mooncakes"
+          "en": "Sole Fish"
         },
-        "price": "$44/ea (740g)"
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Chaplin"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Peanuts"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Haday Superior Oyster Sauce"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Bacon"
+        },
+        "price": "$3.99/ea"
+      },
+      {
+        "item": {
+          "en": "Golden Coins Dace Fish Black Beans"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Double Yolk Lotus Moon Cakes"
+        },
+        "price": "$39.99/ea"
+      },
+      {
+        "item": {
+          "en": "Chinese Okra"
+        },
+        "price": "$1.79/lb"
+      },
+      {
+        "item": {
+          "en": "Sea Urchin"
+        },
+        "price": "$25.00/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Wings"
+        },
+        "price": "$1.39/lb"
+      },
+      {
+        "item": {
+          "en": "Kungfu Sea Bass"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Selected Tea"
+        },
+        "price": "$4.99/ea"
+      },
+      {
+        "item": {
+          "en": "Lettuce"
+        },
+        "price": "$1.79/lb"
+      },
+      {
+        "item": {
+          "en": "South African Clementines"
+        },
+        "price": "$1.69/lb"
+      },
+      {
+        "item": {
+          "en": "Pomelo"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Clam Meat"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Basa Steaks"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Seven Baskets Seasoned Seaweed"
+        },
+        "price": "$5.99/ea"
+      },
+      {
+        "item": {
+          "en": "Abalone"
+        },
+        "price": "$8.99/ea"
       }
     ]
   },
   "benchmarkPrices": {},
   "flyerPeriod": {
     "guanye": "Sep 18-24",
-    "freshco": "Sep 17-23",
-    "nofrills": "Sep 17-23",
-    "foodbasics": "Sep 17-23",
-    "baifu": "Sep 18-24"
+    "freshco": "Oct 1-7",
+    "nofrills": "Oct 1-7",
+    "foodbasics": "Oct 1-7",
+    "baifu": "Sep 25-Oct 2"
   },
   "analysis": {
     "bestDeals": {
-      "guanye": {
-        "en": "Korean Cabbage 29¢/lb & Chicken Drumsticks $1.59/lb",
-        "cn": "高丽菜 29¢/lb & 鸡腿 $1.59/lb"
+      "baifu": {
+        "en": "Hami Melon $1.99/ea & Dried Glutens $0.99/ea",
+        "cn": "哈密瓜 $1.99/ea & 东明大桥火锅黄豆筋 $0.99/ea"
       },
       "freshco": {
-        "en": "Bok Choy 88¢/lb & Grapes $1.44/lb",
-        "cn": "白菜 88¢/lb & 葡萄 $1.44/lb"
-      },
-      "nofrills": {
-        "en": "Green Cabbage 49¢/lb & Royal Gala Apples 77¢/lb",
-        "cn": "高丽菜 49¢/lb & 皇家嘎啦苹果 77¢/lb"
+        "en": "Ting $0.69 (300ml) & Turkey $2.49/lb",
+        "cn": "Ting $0.69 (300ml) & Turkey $2.49/lb"
       },
       "foodbasics": {
-        "en": "Mango 98¢/ea & Cauliflower $1.25/ea",
-        "cn": "芒果 98¢/个 & 椰菜花 $1.25/个"
+        "en": "Broccoli 99¢/ea & Onions 99¢/lb",
+        "cn": "西兰花 99¢/ea & 洋葱 99¢/lb"
       },
-      "baifu": {
-        "en": "Kabocha Squash 39¢/lb & Winter Melon 49¢/lb",
-        "cn": "西人南瓜 39¢/lb & 冬瓜 49¢/lb"
+      "nofrills": {
+        "en": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & Mushrooms $0.95 (284ML)",
+        "cn": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & 蘑菇 $0.95 (284ML)"
       }
     },
     "deepestDiscounts": [
       {
         "store": "baifu",
         "item": {
-          "en": "Kabocha Squash",
-          "cn": "西人南瓜"
+          "en": "Hami Melon",
+          "cn": "哈密瓜"
         },
-        "discountPct": 70
+        "discountPct": 75
       },
       {
         "store": "baifu",
         "item": {
-          "en": "Winter Melon",
-          "cn": "冬瓜"
+          "en": "Dried Glutens",
+          "cn": "东明大桥火锅黄豆筋"
         },
-        "discountPct": 69
+        "discountPct": 67
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Wuyang Flying Fish Ice Cream",
+          "cn": "五羊牌飞鱼雪糕"
+        },
+        "discountPct": 67
       },
       {
         "store": "baifu",
@@ -1227,121 +1493,101 @@
           "en": "Cup Noodles",
           "cn": "杯面"
         },
-        "discountPct": 69
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Grapes",
-          "cn": "葡萄"
-        },
-        "discountPct": 63
+        "discountPct": 67
       },
       {
         "store": "baifu",
         "item": {
-          "en": "Sea Urchin",
-          "cn": "海胆"
+          "en": "Jellyfish Slices Seasoned",
+          "cn": "林生记精品海蜇丝"
+        },
+        "discountPct": 65
+      },
+      {
+        "store": "freshco",
+        "item": {
+          "en": "Ting",
+          "cn": "Ting"
+        },
+        "discountPct": 65
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "2% Milk",
+          "cn": "2%牛奶"
         },
         "discountPct": 60
       },
       {
         "store": "baifu",
         "item": {
-          "en": "Kohlrabi",
-          "cn": "球茎甘蓝"
+          "en": "Korean Cabbage",
+          "cn": "高丽菜"
+        },
+        "discountPct": 56
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Red Pepper",
+          "cn": "红椒"
+        },
+        "discountPct": 56
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Bok Choy",
+          "cn": "白菜"
         },
         "discountPct": 51
-      },
-      {
-        "store": "nofrills",
-        "item": {
-          "en": "Green Cabbage",
-          "cn": "圆白菜"
-        },
-        "discountPct": 50
-      },
-      {
-        "store": "baifu",
-        "item": {
-          "en": "Rice Vermicelli",
-          "cn": "排粉"
-        },
-        "discountPct": 50
-      },
-      {
-        "store": "baifu",
-        "item": {
-          "en": "Abalone",
-          "cn": "鲍鱼"
-        },
-        "discountPct": 50
-      },
-      {
-        "store": "baifu",
-        "item": {
-          "en": "Sea Bream",
-          "cn": "海银立"
-        },
-        "discountPct": 50
       }
     ],
     "categoryWinners": {
       "meat": {
-        "en": "Chicken Drumsticks $1.59/lb (First Choice)",
-        "cn": "鸡腿 $1.59/lb（冠业）"
+        "en": "Chicken Wings $1.39/lb (Sunfood)",
+        "cn": "鸡翅 $1.39/lb（百福）"
       },
       "seafood": {
-        "en": "Abalone 99¢/lb (Sunfood)",
-        "cn": "鲍鱼 99¢/lb（百福）"
+        "en": "Sole Fish $3.99/lb (Sunfood)",
+        "cn": "挞沙 $3.99/lb（百福）"
       },
       "produce": {
-        "en": "Kabocha Squash 39¢/lb (Sunfood)",
-        "cn": "西人南瓜 39¢/lb（百福）"
+        "en": "Korean Cabbage 39¢/lb (Sunfood)",
+        "cn": "高丽菜 39¢/lb（百福）"
       },
       "staples": {
-        "en": "Cup Noodles 79¢ (Sunfood)",
-        "cn": "杯面 79¢（百福）"
+        "en": "Jellyfish Slices Seasoned $0.69/ea (Sunfood)",
+        "cn": "林生记精品海蜇丝 $0.69/ea（百福）"
+      }
+    },
+    "cheapestStoreSummary": {
+      "overallCheapestMeat": {
+        "en": "Sunfood — Chicken Wings $1.39/lb, Pork Intestine $1.99/lb",
+        "cn": "百福 — 鸡翅 $1.39/lb、猪大肠 $1.99/lb"
+      },
+      "overallCheapestSeafood": {
+        "en": "Sunfood — Sole Fish $3.99/lb, Chaplin $3.99/lb",
+        "cn": "百福 — 挞沙 $3.99/lb、新鲜多春鱼 $3.99/lb"
+      },
+      "overallCheapestProduce": {
+        "en": "Sunfood — Korean Cabbage 39¢/lb, Red Pepper 88¢/lb, Bok Choy 88¢/lb",
+        "cn": "百福 — 高丽菜 39¢/lb、红椒 88¢/lb、白菜 88¢/lb"
+      },
+      "overallCheapestStaples": {
+        "en": "Sunfood — Jellyfish Slices Seasoned $0.69/ea, Dried Glutens $0.99/ea, Sour Mustard $0.99/ea",
+        "cn": "百福 — 林生记精品海蜇丝 $0.69/ea、东明大桥火锅黄豆筋 $0.99/ea、酸芥菜 $0.99/ea"
       }
     },
     "benchmarksComparison": {
       "grape": {
-        "en": "FreshCo $1.44/lb (No Frills $1.49/lb)",
-        "cn": "FreshCo $1.44/lb（No Frills $1.49/lb）"
-      },
-      "orange": {
-        "en": "Sunfood 88¢/lb (First Choice 99¢/lb)",
-        "cn": "百福 88¢/lb（冠业 99¢/lb）"
-      },
-      "tomato": {
-        "en": "FreshCo $1.49/lb",
-        "cn": "FreshCo $1.49/lb"
-      },
-      "porkchop": {
-        "en": "Sunfood $1.99/lb",
-        "cn": "百福 $1.99/lb"
+        "en": "FreshCo $1.44/lb (Food Basics $1.77/lb)",
+        "cn": "FreshCo $1.44/lb（Food Basics $1.77/lb）"
       },
       "salmon": {
-        "en": "Sunfood $14.99/lb",
-        "cn": "百福 $14.99/lb"
-      }
-    },
-    "cheapestStoreSummary": {
-      "overallCheapestProduce": {
-        "en": "Sunfood — Kabocha Squash 39¢/lb, Winter Melon 49¢/lb, Carrots 69¢/lb",
-        "cn": "百福 — 西人南瓜 39¢/lb、冬瓜 49¢/lb、胡萝卜 69¢/lb"
-      },
-      "overallCheapestMeat": {
-        "en": "First Choice — Chicken Drumsticks $1.59/lb, Pork Shoulder $2.59/lb",
-        "cn": "冠业 — 鸡腿 $1.59/lb、猪肩肉 $2.59/lb"
-      },
-      "overallCheapestSeafood": {
-        "en": "Sunfood — Abalone 99¢/lb, Sea Eel $2.99/lb, Butterfish $2.99/lb",
-        "cn": "百福 — 鲍鱼 99¢/lb、海鳗 $2.99/lb、瓜子鱼 $2.99/lb"
-      },
-      "overallCheapestStaples": {
-        "en": "Sunfood — Cup Noodles 79¢, Rice Vermicelli 99¢",
-        "cn": "百福 — 杯面 79¢、排粉 99¢"
+        "en": "Food Basics $11.99/lb",
+        "cn": "Food Basics $11.99/lb"
       }
     }
   }
