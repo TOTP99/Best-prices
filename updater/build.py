@@ -16,8 +16,12 @@ Output schema matches the app's deals-data.json:
 Fail-safe: a store whose fetch fails, whose items belong to an old flyer, or
 that yields too few usable items keeps its previous data. Writes are atomic
 (tmp + os.replace) with a timestamped backup.
+
+Partial updates: --only SID,SID... (or DEALS_ONLY_STORES env) updates just
+those stores; other stores keep their existing data, and the analysis section
+is rebuilt from fresh picks plus reconstructed candidates from the kept data.
 """
-import json, os, re, sys, shutil, datetime
+import json, os, re, sys, shutil, datetime, argparse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import flipp
@@ -98,6 +102,41 @@ def log(msg):
     line = f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {msg}"
     LOG.append(line)
     print(line, flush=True)
+
+
+def parse_price_str(s):
+    """Invert format_price/gf_price_str for analysis rebuilds on kept data.
+
+    '88¢/lb' -> (0.88, 'lb'); '$14.99/lb' -> (14.99, 'lb');
+    '7/$2.99' -> (2.99/7 per unit, 'ea'); '$2.99' -> (2.99, 'ea').
+    Returns (None, 'ea') when unparseable.
+    """
+    s = (s or "").strip()
+    s = re.sub(r"\s*\(.*\)\s*$", "", s)  # drop " (108g)" suffixes
+    m = re.match(r"^(\d+)\s*/\s*\$([\d.]+)$", s)
+    if m:
+        return float(m.group(2)) / int(m.group(1)), "ea"
+    m = re.match(r"^([\d.]+)\s*¢\s*(/lb|/ea)?$", s)
+    if m:
+        return float(m.group(1)) / 100, (m.group(2) or "/ea").lstrip("/")
+    m = re.match(r"^\$\s*([\d.]+)\s*(/lb|/ea)?$", s)
+    if m:
+        return float(m.group(1)), (m.group(2) or "/ea").lstrip("/")
+    return None, "ea"
+
+
+def old_deal_to_cand(d):
+    """Rebuild an approximate analysis candidate from a kept deals-data.json row.
+
+    Discount info is not recoverable, so disc=0: deepestDiscounts on a partial
+    run only reflects freshly fetched stores.
+    """
+    en = (d.get("item") or {}).get("en", "")
+    price = d.get("price", "")
+    val, unit = parse_price_str(price)
+    return {"en": en, "cn": None, "gkey": None, "price": price,
+            "price_val": val, "unit": unit, "disc": 0,
+            "cat": classify(None, en, None), "featured": bool(d.get("featured"))}
 
 
 def classify(gkey, en, gf_cats):
@@ -255,7 +294,11 @@ def period_str(vf, vt):
 # ---------------- analysis ----------------
 
 def build_analysis(all_picked):
-    """all_picked: {sid: [candidate,...]} for stores with fresh data."""
+    """all_picked: {sid: [candidate,...]} for all stores with data.
+
+    On a partial (--only) run, non-updated stores contribute reconstructed
+    candidates (disc=0, cn=None), so their deals still count for price
+    comparisons; discount rankings reflect freshly fetched stores only."""
     flat = [(sid, c) for sid, cs in all_picked.items() for c in cs]
 
     def loc(en, cn): return {"en": en, "cn": cn}
@@ -277,9 +320,11 @@ def build_analysis(all_picked):
     categoryWinners = {}
     for cat in ("meat", "seafood", "produce", "staples"):
         if cat == "staples":
-            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] != "lb"]
+            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] != "lb"
+              and c["price_val"] is not None]
         else:
-            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] == "lb"]
+            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] == "lb"
+              and c["price_val"] is not None]
         if not pool:
             continue
         sid, c = min(pool, key=lambda x: x[1]["price_val"])
@@ -292,9 +337,11 @@ def build_analysis(all_picked):
              "produce": "overallCheapestProduce", "staples": "overallCheapestStaples"}
     for cat, key in label.items():
         if cat == "staples":
-            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] != "lb"]
+            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] != "lb"
+              and c["price_val"] is not None]
         else:
-            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] == "lb"]
+            pool = [(s, c) for s, c in flat if c["cat"] == cat and c["unit"] == "lb"
+              and c["price_val"] is not None]
         if not pool:
             continue
         win_sid = min(pool, key=lambda x: x[1]["price_val"])[0]
@@ -329,8 +376,20 @@ def build_analysis(all_picked):
 
 
 def main():
+    ap = argparse.ArgumentParser(description="poker-deals weekly updater")
+    ap.add_argument("--only", default=os.environ.get("DEALS_ONLY_STORES", ""),
+                    help="comma-separated store ids to update (default: all). "
+                         "Others keep existing data.")
+    args = ap.parse_args()
+    only = [s.strip() for s in args.only.split(",") if s.strip()]
+    unknown = [s for s in only if s not in STORE_IDS]
+    if unknown:
+        print(f"unknown store ids: {', '.join(unknown)}", file=sys.stderr)
+        return 2
+    target = only or STORE_IDS
+
     today = datetime.date.today().isoformat()
-    log(f"run date: {today}")
+    log(f"run date: {today}; stores: {', '.join(target)}")
     os.makedirs(BACKUP_DIR, exist_ok=True)
     glossary = load_glossary(GLOSSARY_FILE)
     log(f"glossary: {len(glossary)} entries")
@@ -339,7 +398,7 @@ def main():
     fresh = {}   # sid -> (vf, vt, picked)
     failed = {}
 
-    for sid in STORE_IDS:
+    for sid in target:
         try:
             if sid in ("guanye", "baifu"):
                 cands, vf, vt = fetch_chinese(sid, today, glossary)
@@ -371,7 +430,19 @@ def main():
         out_period[sid] = period_str(vf, vt)
     out["deals"] = out_deals
     out["flyerPeriod"] = out_period
-    out["analysis"] = build_analysis({sid: p for sid, (_, _, p) in fresh.items()})
+    # analysis: fresh picks where updated, reconstructed candidates elsewhere
+    merged = {}
+    for sid in STORE_IDS:
+        if sid in fresh:
+            merged[sid] = fresh[sid][2]
+        elif out_deals.get(sid):
+            merged[sid] = [old_deal_to_cand(d) for d in out_deals[sid]]
+    out["analysis"] = build_analysis(merged)
+    try:
+        from zoneinfo import ZoneInfo
+        out["generatedAt"] = datetime.datetime.now(ZoneInfo("America/Toronto")).strftime("%Y-%m-%d")
+    except Exception:
+        out["generatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d")
 
     ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     shutil.copy2(DATA_FILE, os.path.join(BACKUP_DIR, f"deals-data.{ts}.json"))
