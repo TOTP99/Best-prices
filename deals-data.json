@@ -1445,21 +1445,25 @@
   },
   "analysis": {
     "bestDeals": {
+      "guanye": {
+        "en": "Korean Cabbage 29¢/lb & Carrots 79¢/lb",
+        "cn": "Korean Cabbage 29¢/lb & Carrots 79¢/lb"
+      },
       "baifu": {
         "en": "Hami Melon $1.99/ea & Dried Glutens $0.99/ea",
         "cn": "哈密瓜 $1.99/ea & 东明大桥火锅黄豆筋 $0.99/ea"
       },
       "freshco": {
-        "en": "Ting $0.69 (300ml) & Turkey $2.49/lb",
-        "cn": "Ting $0.69 (300ml) & Turkey $2.49/lb"
+        "en": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)",
+        "cn": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)"
       },
       "foodbasics": {
         "en": "Broccoli 99¢/ea & Onions 99¢/lb",
-        "cn": "西兰花 99¢/ea & 洋葱 99¢/lb"
+        "cn": "Broccoli 99¢/ea & Onions 99¢/lb"
       },
       "nofrills": {
-        "en": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & Mushrooms $0.95 (284ML)",
-        "cn": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & 蘑菇 $0.95 (284ML)"
+        "en": "Mushrooms $0.95 (284ML) & Heinz Beans Pasta $0.98 (398ML)",
+        "cn": "Mushrooms $0.95 (284ML) & Heinz Beans Pasta $0.98 (398ML)"
       }
     },
     "deepestDiscounts": [
@@ -1504,14 +1508,6 @@
         "discountPct": 65
       },
       {
-        "store": "freshco",
-        "item": {
-          "en": "Ting",
-          "cn": "Ting"
-        },
-        "discountPct": 65
-      },
-      {
         "store": "baifu",
         "item": {
           "en": "2% Milk",
@@ -1542,6 +1538,14 @@
           "cn": "白菜"
         },
         "discountPct": 51
+      },
+      {
+        "store": "baifu",
+        "item": {
+          "en": "Onions",
+          "cn": "洋葱"
+        },
+        "discountPct": 50
       }
     ],
     "categoryWinners": {
@@ -1550,12 +1554,12 @@
         "cn": "鸡翅 $1.39/lb（百福）"
       },
       "seafood": {
-        "en": "Sole Fish $3.99/lb (Sunfood)",
-        "cn": "挞沙 $3.99/lb（百福）"
+        "en": "Blue Crab $3.99/lb (First Choice)",
+        "cn": "Blue Crab $3.99/lb（冠业）"
       },
       "produce": {
-        "en": "Korean Cabbage 39¢/lb (Sunfood)",
-        "cn": "高丽菜 39¢/lb（百福）"
+        "en": "Korean Cabbage 29¢/lb (First Choice)",
+        "cn": "Korean Cabbage 29¢/lb（冠业）"
       },
       "staples": {
         "en": "Jellyfish Slices Seasoned $0.69/ea (Sunfood)",
@@ -1568,27 +1572,19 @@
         "cn": "百福 — 鸡翅 $1.39/lb、猪大肠 $1.99/lb"
       },
       "overallCheapestSeafood": {
-        "en": "Sunfood — Sole Fish $3.99/lb, Chaplin $3.99/lb",
-        "cn": "百福 — 挞沙 $3.99/lb、新鲜多春鱼 $3.99/lb"
+        "en": "First Choice — Blue Crab $3.99/lb, Spanish Mackerel $3.99/lb, Sea Urchin $6.99/lb",
+        "cn": "冠业 — Blue Crab $3.99/lb、Spanish Mackerel $3.99/lb、Sea Urchin $6.99/lb"
       },
       "overallCheapestProduce": {
-        "en": "Sunfood — Korean Cabbage 39¢/lb, Red Pepper 88¢/lb, Bok Choy 88¢/lb",
-        "cn": "百福 — 高丽菜 39¢/lb、红椒 88¢/lb、白菜 88¢/lb"
+        "en": "First Choice — Korean Cabbage 29¢/lb, Red Pepper 99¢/lb, Baby Napa 99¢/lb",
+        "cn": "冠业 — Korean Cabbage 29¢/lb、Red Pepper 99¢/lb、Baby Napa 99¢/lb"
       },
       "overallCheapestStaples": {
         "en": "Sunfood — Jellyfish Slices Seasoned $0.69/ea, Dried Glutens $0.99/ea, Sour Mustard $0.99/ea",
         "cn": "百福 — 林生记精品海蜇丝 $0.69/ea、东明大桥火锅黄豆筋 $0.99/ea、酸芥菜 $0.99/ea"
       }
     },
-    "benchmarksComparison": {
-      "grape": {
-        "en": "FreshCo $1.44/lb (Food Basics $1.77/lb)",
-        "cn": "FreshCo $1.44/lb（Food Basics $1.77/lb）"
-      },
-      "salmon": {
-        "en": "Food Basics $11.99/lb",
-        "cn": "Food Basics $11.99/lb"
-      }
-    }
-  }
+    "benchmarksComparison": {}
+  },
+  "generatedAt": "2026-10-01"
 }
