@@ -1,4 +1,4 @@
-/* app.js — 界面交互：分组切换、横屏叠牌、点开放大、音效、语言、数据分析
+/* app.js — 界面交互：分组切换、横屏叠牌、本店全清单、音效、语言、数据分析
    商品数据在 deals-data.json，中英文对照在 items.js，选品渲染在 deals.js */
 
 (function () {
@@ -23,16 +23,25 @@
       empty: '暂无数据',
       failed: '数据加载失败',
       benchmarkHead: '基准价对比',
-      switchLeft: '华超',
-      switchRight: '西超',
-      switchAria: '切换华超/西超',
+      switchLeft: '按商店',
+      switchRight: '按商品',
+      switchAria: '切换按商店/按商品',
+      compareTag: '5店比价',
+      validLabel: '有效期',
       updatedLabel: '更新',
       refreshAria: '重新选品',
       analysisAria: '数据分析',
       soundAria: '音效开关',
       closeAria: '关闭',
       langAria: '切换中英文',
-      prevAria: '上一张牌'
+      prevAria: '上一张牌',
+      searchPh: '搜索商品…',
+      sortDefault: '推荐',
+      sortDiscount: '折扣',
+      sortPrice: '价格',
+      dealsCount: function (n) { return '共' + n + '档'; },
+      dealsEmpty: '没有匹配的商品',
+      dealsFlyer: '看完整 Flyer'
     },
     en: {
       analysisTitle: 'Analysis',
@@ -41,16 +50,25 @@
       empty: 'No data',
       failed: 'Failed to load',
       benchmarkHead: 'Benchmark Comparison',
-      switchLeft: 'CN',
-      switchRight: 'West',
-      switchAria: 'Switch Chinese/Western stores',
+      switchLeft: 'Stores',
+      switchRight: 'Products',
+      switchAria: 'Switch stores/products view',
+      compareTag: '5 stores',
+      validLabel: 'Valid',
       updatedLabel: 'Updated',
       refreshAria: 'Reshuffle deals',
       analysisAria: 'Analysis',
       soundAria: 'Sound toggle',
       closeAria: 'Close',
       langAria: 'Switch language',
-      prevAria: 'Previous card'
+      prevAria: 'Previous card',
+      searchPh: 'Search deals…',
+      sortDefault: 'Top',
+      sortDiscount: 'Discount',
+      sortPrice: 'Price',
+      dealsCount: function (n) { return n + ' deals'; },
+      dealsEmpty: 'No matching deals',
+      dealsFlyer: 'Full Flyer'
     }
   };
 
@@ -137,31 +155,32 @@
   });
   syncSoundBtn();
 
-  /* ═══════════ 分组切换 ═══════════ */
+  /* ═══════════ 模式切换：按商店 / 按商品 ═══════════ */
   var groupSwitch = document.getElementById('groupSwitch');
-  var fans = {
-    chinese: document.getElementById('fan-chinese'),
-    western: document.getElementById('fan-western')
+  var views = {
+    store: document.getElementById('fan-store'),
+    product: document.getElementById('productBoard')
   };
-  var current = 'western';
+  var current = 'store';
 
   function setSwitchUI() {
     groupSwitch.dataset.active = current;
     groupSwitch.querySelectorAll('.seg-btn').forEach(function (btn) {
-      var on = btn.dataset.g === current;
+      var on = btn.dataset.m === current;
       btn.classList.toggle('on', on);
       btn.setAttribute('aria-selected', on ? 'true' : 'false');
     });
+    document.body.classList.toggle('mode-product', current === 'product');
   }
 
   function switchTo(target, silent) {
-    if (target === current || !fans[target]) return;
+    if (target === current || !views[target]) return;
     if (!silent) playShuffle();
-    var from = fans[current];
-    var to = fans[target];
+    var from = views[current];
+    var to = views[target];
     from.classList.add('shuffling');
     to.classList.add('shuffling');
-    closePopped();
+    closeDeals();
     setTimeout(function () {
       from.classList.remove('on');
       to.classList.add('on');
@@ -170,41 +189,234 @@
       to.classList.remove('shuffling');
       current = target;
       setSwitchUI();
+      if (orientationMQ.matches) syncLandscapeView();
     }, 200);
   }
 
   groupSwitch.addEventListener('click', function (e) {
     var btn = e.target.closest('.seg-btn');
-    if (btn) switchTo(btn.dataset.g);
+    if (btn) switchTo(btn.dataset.m);
   });
   setSwitchUI();
 
   window.addEventListener('load', function () {
     setTimeout(function () {
-      fans.chinese.classList.remove('shuffling');
-      fans.western.classList.remove('shuffling');
+      views.store.classList.remove('shuffling');
+      views.product.classList.remove('shuffling');
     }, 300);
   });
 
-  /* ═══════════ 点开放大（竖屏） ═══════════ */
-  var backdrop = document.getElementById('stageBackdrop');
-
-  function closePopped() {
-    document.querySelectorAll('.card.popped').forEach(function (c) { c.classList.remove('popped'); });
-    if (backdrop) backdrop.classList.remove('show');
-  }
-
-  function popCard(card) {
-    var was = card.classList.contains('popped');
-    closePopped();
-    if (!was) {
-      card.classList.add('popped');
-      if (backdrop) backdrop.classList.add('show');
-      playTick();
+  /* 比价榜点击/键盘：打开该商品的五店比价弹窗 */
+  views.product.addEventListener('click', function (e) {
+    if (e.target.closest('.p-retry')) return;
+    var block = e.target.closest('.product-block');
+    if (block && block.dataset.productId) openDeals('product', block.dataset.productId);
+  });
+  views.product.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var block = e.target.closest('.product-block');
+    if (block && block.dataset.productId) {
+      e.preventDefault();
+      openDeals('product', block.dataset.productId);
     }
+  });
+
+  /* ═══════════ 本店全部特价：底部弹窗 ═══════════ */
+  var dealsOverlay = document.getElementById('dealsOverlay');
+  var dealsTitle = document.getElementById('dealsTitle');
+  var dealsSuit = document.getElementById('dealsSuit');
+  var dealsPeriod = document.getElementById('dealsPeriod');
+  var dealsCount = document.getElementById('dealsCount');
+  var dealsSearch = document.getElementById('dealsSearch');
+  var dealsSort = document.getElementById('dealsSort');
+  var dealsList = document.getElementById('dealsList');
+  var dealsFlyerBtn = document.getElementById('dealsFlyerBtn');
+
+  var dealsMode = 'store'; /* 'store' | 'product' */
+  var dealsStoreId = null;
+  var dealsProductId = null;
+  var dealsSortMode = 'default';
+  var SUIT_SYMBOL = { hearts: '♥', diamonds: '♦', clubs: '♣', spades: '♠' };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
   }
 
-  if (backdrop) backdrop.addEventListener('click', closePopped);
+  function getGlossary() {
+    return (window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary()) || {};
+  }
+
+  function dealName(item) {
+    var gloss = getGlossary();
+    var en = (item && typeof item === 'object') ? (item.en || '') : String(item || '');
+    var cn = (item && typeof item === 'object' && item.cn) ? item.cn : (gloss[String(en).trim().toLowerCase()] || en);
+    var text = uiLang === 'zh' ? (cn || en) : (en || cn);
+    return { text: text, search: ((en || '') + ' ' + (cn || '')).toLowerCase() };
+  }
+
+  function storeCfg(id) {
+    var cfg = ((window.SupermarketDeals && window.SupermarketDeals.config) || [])
+      .filter(function (s) { return s.id === id; })[0];
+    return cfg || null;
+  }
+
+  function parsePrice(p) {
+    var m = /([\d.]+)\s*¢/.exec(String(p || ''));
+    if (m) return parseFloat(m[1]) / 100;
+    m = /([\d.]+)/.exec(String(p || ''));
+    return m ? parseFloat(m[1]) : Infinity;
+  }
+
+  function productCfg(pid) {
+    var list = (window.SupermarketDeals && window.SupermarketDeals.products) || [];
+    return list.filter(function (p) { return p.id === pid; })[0] || null;
+  }
+
+  function renderDealsList() {
+    var t = UI_TEXT[uiLang];
+    var isProduct = dealsMode === 'product';
+    var entries;
+    if (isProduct) {
+      entries = (window.SupermarketDeals && window.SupermarketDeals.getProductDeals)
+        ? window.SupermarketDeals.getProductDeals(dealsProductId).map(function (e) {
+            return { storeId: e.storeId, deal: e.deal };
+          })
+        : [];
+    } else {
+      entries = (window.SupermarketDeals && window.SupermarketDeals.getStoreDeals)
+        ? window.SupermarketDeals.getStoreDeals(dealsStoreId).map(function (d) {
+            return { storeId: dealsStoreId, deal: d };
+          })
+        : [];
+    }
+    var q = dealsSearch.value.trim().toLowerCase();
+    var list = entries.filter(function (e) {
+      if (!q) return true;
+      return dealName(e.deal.item).search.indexOf(q) !== -1;
+    });
+    if (dealsSortMode === 'discount') {
+      list = list.slice().sort(function (a, b) {
+        return ((typeof b.deal.discountPct === 'number' ? b.deal.discountPct : -1)) -
+               ((typeof a.deal.discountPct === 'number' ? a.deal.discountPct : -1));
+      });
+    } else if (dealsSortMode === 'price') {
+      list = list.slice().sort(function (a, b) {
+        return parsePrice(a.deal.price) - parsePrice(b.deal.price);
+      });
+    }
+    if (!list.length) {
+      dealsList.innerHTML = '<p class="deals-list-empty">' + esc(t.dealsEmpty) + '</p>';
+      return;
+    }
+    dealsList.innerHTML = list.map(function (e) {
+      var d = e.deal;
+      var nm = dealName(d.item);
+      var badge = (typeof d.discountPct === 'number' && d.discountPct > 0)
+        ? '<span class="deal-badge">-' + d.discountPct + '%</span>' : '';
+      var star = d.featured ? '★ ' : '';
+      var storeTag = isProduct
+        ? '<span class="deal-store">' + esc(storeName(e.storeId)) + '</span>' : '';
+      return '<div class="deal-row" role="listitem">' + storeTag + '<span class="deal-item">' + esc(star + nm.text) +
+        '</span>' + badge + '<span class="deal-price">' + esc(d.price || '') + '</span></div>';
+    }).join('');
+  }
+
+  function syncSheetHeight() {
+    try {
+      var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+      if (h) document.documentElement.style.setProperty('--sheet-h', Math.round(h * 0.86) + 'px');
+    } catch (e) {}
+  }
+  if (window.visualViewport && window.visualViewport.addEventListener) {
+    window.visualViewport.addEventListener('resize', syncSheetHeight);
+  }
+
+  function openDeals(kind, id, keepState) {
+    var t = UI_TEXT[uiLang];
+    dealsMode = kind;
+    if (!keepState) dealsSortMode = (kind === 'product') ? 'price' : 'default';
+    dealsSort.querySelectorAll('.deals-sort-btn').forEach(function (b) {
+      var on = b.dataset.sort === dealsSortMode;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (b.dataset.sort === 'default') b.style.display = (kind === 'product') ? 'none' : '';
+    });
+
+    var title, suitKey, period, n, flyerUrl;
+    if (kind === 'product') {
+      var pcfg = productCfg(id);
+      if (!pcfg) return;
+      dealsProductId = id;
+      dealsStoreId = null;
+      title = uiLang === 'zh' ? pcfg.cn : pcfg.en;
+      suitKey = pcfg.suit;
+      period = t.compareTag;
+      n = (window.SupermarketDeals.getProductDeals(id) || []).length;
+      flyerUrl = null;
+    } else {
+      var cfg = storeCfg(id);
+      if (!cfg) return;
+      dealsStoreId = id;
+      dealsProductId = null;
+      var data = (window.SupermarketDeals && window.SupermarketDeals.getData && window.SupermarketDeals.getData()) || {};
+      title = cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
+      suitKey = cfg.suit;
+      period = ((data.flyerPeriod || {})[id]) || '';
+      n = (window.SupermarketDeals.getStoreDeals(id) || []).length;
+      flyerUrl = cfg.url;
+    }
+
+    dealsTitle.textContent = title;
+    dealsSuit.textContent = SUIT_SYMBOL[suitKey] || '♠';
+    dealsSuit.className = 'deals-suit ' + ((suitKey === 'hearts' || suitKey === 'diamonds') ? 'red' : 'black');
+    dealsPeriod.textContent = period ? ((dealsMode === 'store' ? t.validLabel + ' ' : '') + period) : '';
+    dealsCount.textContent = n > 0 ? t.dealsCount(n) : '';
+    if (!keepState) dealsSearch.value = '';
+    dealsSearch.placeholder = t.searchPh;
+    dealsSearch.setAttribute('aria-label', t.searchPh);
+    if (flyerUrl) {
+      dealsFlyerBtn.style.display = '';
+      dealsFlyerBtn.textContent = t.dealsFlyer;
+      dealsFlyerBtn.onclick = function () {
+        window.open(flyerUrl, '_blank', 'noopener,noreferrer');
+      };
+    } else {
+      dealsFlyerBtn.style.display = 'none';
+      dealsFlyerBtn.onclick = null;
+    }
+    renderDealsList();
+    syncSheetHeight();
+    dealsOverlay.classList.add('open');
+    if (!keepState) playTick();
+  }
+
+  function closeDeals() {
+    dealsOverlay.classList.remove('open');
+    dealsMode = 'store';
+    dealsStoreId = null;
+    dealsProductId = null;
+  }
+
+  document.getElementById('dealsClose').addEventListener('click', closeDeals);
+  dealsOverlay.addEventListener('click', function (e) {
+    if (e.target === dealsOverlay) closeDeals();
+  });
+  dealsSearch.addEventListener('input', renderDealsList);
+  dealsSort.addEventListener('click', function (e) {
+    var btn = e.target.closest('.deals-sort-btn');
+    if (!btn) return;
+    dealsSort.querySelectorAll('.deals-sort-btn').forEach(function (b) {
+      b.classList.remove('on');
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('on');
+    btn.setAttribute('aria-selected', 'true');
+    dealsSortMode = btn.dataset.sort;
+    renderDealsList();
+    playTick();
+  });
 
   /* ═══════════ 横屏叠牌 ═══════════ */
   var orientationMQ = window.matchMedia('(orientation: landscape)');
@@ -221,8 +433,9 @@
   var landscapeOrder = [];
 
   function initLandscapeOrder() {
-    var all = Array.prototype.slice.call(document.querySelectorAll('.card'));
-    var front = all.filter(function (c) { return c.dataset.storeId === 'foodbasics'; })[0] || all[0];
+    var fan = document.getElementById('fan-store');
+    var all = fan ? Array.prototype.slice.call(fan.querySelectorAll('.card')) : [];
+    var front = all[0];
     var rest = shuffleArr(all.filter(function (c) { return c !== front; }));
     landscapeOrder = [front].concat(rest);
   }
@@ -276,11 +489,21 @@
     playCasinoShuffle();
   }
 
-  function syncOrientationLayout() {
-    closePopped();
-    if (orientationMQ.matches) {
+  /* 横屏：商店模式叠牌，商品模式直接显示比价榜 */
+  function syncLandscapeView() {
+    if (current === 'store') {
       initLandscapeOrder();
       layoutLandscapeCards(false);
+    } else {
+      clearLandscapeCards();
+      landscapeOrder = [];
+    }
+  }
+
+  function syncOrientationLayout() {
+    closeDeals();
+    if (orientationMQ.matches) {
+      syncLandscapeView();
     } else {
       clearLandscapeCards();
     }
@@ -294,13 +517,14 @@
     cycleLandscape(-1);
   });
 
-  document.querySelectorAll('.card').forEach(function (card) {
+  document.querySelectorAll('#fan-store .card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.stopPropagation();
       if (orientationMQ.matches) {
         if (landscapeOrder[0] !== card) bringCardToFrontLandscape(card);
+        else openDeals('store', card.dataset.storeId);
       } else {
-        popCard(card);
+        openDeals('store', card.dataset.storeId);
       }
     });
     card.addEventListener('keydown', function (e) {
@@ -328,20 +552,10 @@
   var allDealsData = null;
   var activeTab = 'allDeals';
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-
   function storeName(id) {
-    var cfg = ((window.SupermarketDeals && window.SupermarketDeals.config) || []).filter(function (s) { return s.id === id; })[0];
+    var cfg = storeCfg(id);
     if (!cfg) return id;
     return cfg.group === 'chinese' ? cfg.nameCN : cfg.nameEN;
-  }
-
-  function getGlossary() {
-    return (window.SupermarketDeals && window.SupermarketDeals.getGlossary && window.SupermarketDeals.getGlossary()) || {};
   }
 
   function analysisText(val) {
@@ -389,12 +603,7 @@
   }
 
   function dealItemText(item) {
-    if (item && typeof item === 'object') {
-      var en = item.en || '';
-      var cn = item.cn || en;
-      return uiLang === 'zh' ? (cn || en) : (en || cn);
-    }
-    return String(item || '');
+    return dealName(item).text;
   }
 
   function renderAllDeals(dealsMap) {
@@ -516,8 +725,8 @@
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
-      overlay.classList.remove('open');
-      closePopped();
+      if (dealsOverlay.classList.contains('open')) closeDeals();
+      else overlay.classList.remove('open');
     }
   });
 
@@ -530,12 +739,13 @@
     langBtn.textContent = uiLang === 'zh' ? '中' : 'EN';
     langBtn.setAttribute('aria-label', t.langAria);
     groupSwitch.setAttribute('aria-label', t.switchAria);
-    groupSwitch.querySelector('[data-g="chinese"]').textContent = t.switchLeft;
-    groupSwitch.querySelector('[data-g="western"]').textContent = t.switchRight;
+    groupSwitch.querySelector('[data-m="store"]').textContent = t.switchLeft;
+    groupSwitch.querySelector('[data-m="product"]').textContent = t.switchRight;
     document.getElementById('refreshBtn').setAttribute('aria-label', t.refreshAria);
     document.getElementById('analysisBtn').setAttribute('aria-label', t.analysisAria);
     soundBtn.setAttribute('aria-label', t.soundAria);
     document.getElementById('analysisClose').setAttribute('aria-label', t.closeAria);
+    document.getElementById('dealsClose').setAttribute('aria-label', t.closeAria);
     document.getElementById('prevBtn').setAttribute('aria-label', t.prevAria);
     document.getElementById('updatedLabel').textContent = t.updatedLabel;
     analysisTitleEl.textContent = t.analysisTitle;
@@ -543,10 +753,19 @@
       var key = btn.dataset.tab;
       if (t.tabs[key]) btn.textContent = t.tabs[key];
     });
+    dealsSort.querySelectorAll('.deals-sort-btn').forEach(function (btn) {
+      var key = btn.dataset.sort;
+      if (key === 'default') btn.textContent = t.sortDefault;
+      else if (key === 'discount') btn.textContent = t.sortDiscount;
+      else if (key === 'price') btn.textContent = t.sortPrice;
+    });
     if (window.SupermarketDeals && typeof window.SupermarketDeals.setLang === 'function') {
       window.SupermarketDeals.setLang(uiLang);
     }
     if (overlay.classList.contains('open')) renderTab();
+    if (dealsOverlay.classList.contains('open')) {
+      openDeals(dealsMode, dealsMode === 'product' ? dealsProductId : dealsStoreId, true);
+    }
   }
 
   langBtn.addEventListener('click', function () {
@@ -555,9 +774,23 @@
     applyLang();
   });
 
-  /* ═══════════ 顶栏日期 ═══════════ */
-  var now = new Date();
-  document.getElementById('updateStamp').textContent = (now.getMonth() + 1) + '/' + now.getDate();
+  /* ═══════════ 顶栏日期：数据真实生成时间 ═══════════ */
+  var updateStampEl = document.getElementById('updateStamp');
+
+  function fmtStamp(ymd) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(ymd || ''));
+    if (m) return parseInt(m[2], 10) + '/' + parseInt(m[3], 10);
+    var now = new Date();
+    return (now.getMonth() + 1) + '/' + now.getDate();
+  }
+
+  function setUpdateStamp(gen) {
+    updateStampEl.textContent = fmtStamp(gen);
+  }
+  setUpdateStamp(null);
+  document.addEventListener('poker-deals-data', function (e) {
+    setUpdateStamp(e && e.detail && e.detail.generatedAt);
+  });
 
   applyLang();
 })();

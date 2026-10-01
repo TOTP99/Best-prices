@@ -18,6 +18,23 @@
     { id: 'nofrills', group: 'western', rank: 'K', suit: 'spades', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' }
   ];
 
+  /* 商品配置（固定不变）：按商品模式的五张牌 */
+  const PRODUCT_CONFIG = [
+    { id: 'salmon', cn: '三文鱼', en: 'Salmon', re: /\bsalmon\b/i, rank: 'A', suit: 'hearts' },
+    { id: 'egg', cn: '鸡蛋', en: 'Eggs', re: /\beggs?\b/i, rank: 'K', suit: 'diamonds' },
+    { id: 'chocolate', cn: '黑巧克力', en: 'Dark Chocolate', re: /chocolate/i, rank: 'Q', suit: 'clubs' },
+    { id: 'bokchoy', cn: '白菜', en: 'Bok Choy', re: /bok choy|cabbage/i, rank: 'J', suit: 'spades' },
+    { id: 'lobster', cn: '龙虾', en: 'Lobster', re: /\blobster\b/i, rank: '10', suit: 'hearts' }
+  ];
+
+  /* 价格数值化：99¢/ea → 0.99，$2.49/lb → 2.49（跨店比价排序用） */
+  function priceValue(p) {
+    const m = /([\d.]+)\s*¢/.exec(String(p || ''));
+    if (m) return parseFloat(m[1]) / 100;
+    const m2 = /([\d.]+)/.exec(String(p || ''));
+    return m2 ? parseFloat(m2[1]) : Infinity;
+  }
+
   /* 基准商品（固定不变） */
   const BENCHMARK_ITEMS = [
     { id: 'eggs', cn: '鸡蛋', en: 'Eggs' },
@@ -53,8 +70,14 @@
     return (window.SupermarketItems && window.SupermarketItems.glossary) || {};
   }
 
-  function normalizeKey(s) {
-    return String(s || '').trim().toLowerCase();
+  /* HTML 转义：商品名/价格来自外部数据，拼 innerHTML 前必须转义 */
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function normalizeKey(s) {    return String(s || '').trim().toLowerCase();
   }
 
   function glossaryLookup(enText) {
@@ -180,6 +203,12 @@
     }
   }
 
+  function uiLangNow() {
+    try {
+      return (window.SupermarketDeals && window.SupermarketDeals.getLang() === 'en') ? 'en' : 'zh';
+    } catch (e) { return 'zh'; }
+  }
+
   function renderStore(store, deals, highlights, flyerPeriod) {
     const card = document.querySelector('.card[data-store-id="' + store.id + '"]');
     if (!card) return;
@@ -198,7 +227,15 @@
     if (pip) pip.textContent = suit;
 
     const periodEl = card.querySelector('.flyer-period');
-    if (periodEl) periodEl.textContent = flyerPeriod || '';
+    if (periodEl) periodEl.textContent = flyerPeriod ? ((uiLangNow() === 'zh' ? '有效期 ' : 'Valid ') + flyerPeriod) : '';
+
+    /* 本店特价总数：给用户"还有更多"的预期 */
+    const countEl = card.querySelector('.deal-count');
+    if (countEl) {
+      const n = Array.isArray(deals) ? deals.length : 0;
+      const lang = uiLangNow();
+      countEl.textContent = n > 0 ? (lang === 'zh' ? '共' + n + '档' : n + ' deals') : '';
+    }
 
     const nameEl = card.querySelector('.store-name');
     if (nameEl) nameEl.textContent = store.group === 'chinese' ? store.nameCN : store.nameEN;
@@ -206,6 +243,14 @@
     const dealsEl = card.querySelector('.deals');
     if (!dealsEl) return;
     dealsEl.innerHTML = '';
+
+    /* 空态：有结构但没商品 */
+    if (!Array.isArray(deals) || !deals.length) {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.className = 'deals-empty';
+      emptyDiv.textContent = uiLangNow() === 'zh' ? '本周暂无特价' : 'No deals this week';
+      dealsEl.appendChild(emptyDiv);
+    }
 
     const displayed = pickDisplayItems(deals);
     const displayedKeys = new Set(displayed.map(itemKey));
@@ -217,8 +262,11 @@
       if (i === 0 && deal.featured) classes.push('featured');
       row.className = classes.join(' ');
       const { cn, en } = itemEnCn(deal.item);
-      const text = window.SupermarketDeals.getLang() === 'zh' ? cn : en;
-      row.innerHTML = '<span class="deal-item">' + text + '</span><span class="deal-price">' + deal.price + '</span>';
+      const text = uiLangNow() === 'zh' ? cn : en;
+      const badge = (typeof deal.discountPct === 'number' && deal.discountPct > 0)
+        ? '<span class="deal-badge">-' + deal.discountPct + '%</span>' : '';
+      row.innerHTML = '<span class="deal-item">' + esc(text) + '</span>' + badge +
+        '<span class="deal-price">' + esc(deal.price || '') + '</span>';
       dealsEl.appendChild(row);
     });
 
@@ -231,8 +279,8 @@
 
       const row = document.createElement('div');
       row.className = 'deal-row benchmark';
-      const hlText = window.SupermarketDeals.getLang() === 'zh' ? hl.cn : hl.en;
-      row.innerHTML = '<span class="deal-item">' + hlText + '</span><span class="deal-price">' + hl.display + '</span>';
+      const hlText = uiLangNow() === 'zh' ? hl.cn : hl.en;
+      row.innerHTML = '<span class="deal-item">' + esc(hlText) + '</span><span class="deal-price">' + esc(hl.display || '') + '</span>';
       dealsEl.appendChild(row);
     });
 
@@ -245,13 +293,121 @@
       btn.className = 'flyer-btn';
       cardBody.appendChild(btn);
     }
-    btn.textContent = window.SupermarketDeals.getLang() === 'zh' ? '看完整 Flyer' : 'Full Flyer';
+    btn.textContent = uiLangNow() === 'zh' ? '看完整 Flyer' : 'Full Flyer';
     btn.onclick = function (e) {
       e.preventDefault();
       e.stopPropagation();
       const u = store.url || card.dataset.url;
       if (u) window.open(u, '_blank', 'noopener,noreferrer');
     };
+  }
+
+  /* 跨店取某商品的全部特价：[{storeId, deal}]，按价格从低到高 */
+  function getProductDeals(pid) {
+    const p = PRODUCT_CONFIG.filter(function (x) { return x.id === pid; })[0];
+    if (!p) return [];
+    const d = (lastDataset && lastDataset.deals) || {};
+    const out = [];
+    STORE_CONFIG.forEach(function (s) {
+      (d[s.id] || []).forEach(function (deal) {
+        const item = deal.item;
+        const en = (item && typeof item === 'object' && item.en) ? item.en : String(item || '');
+        if (p.re.test(en)) out.push({ storeId: s.id, deal: deal });
+      });
+    });
+    out.sort(function (a, b) { return priceValue(a.deal.price) - priceValue(b.deal.price); });
+    return out;
+  }
+
+  function productStoreName(storeId) {
+    const s = STORE_CONFIG.filter(function (x) { return x.id === storeId; })[0];
+    if (!s) return storeId;
+    return uiLangNow() === 'zh' ? s.nameCN : s.nameEN;
+  }
+
+  function renderProductBlock(p, matches, state) {
+    /* state: 'loading' | 'ready' | 'error' */
+    const board = document.getElementById('productBoard');
+    if (!board) return;
+    const lang = uiLangNow();
+
+    let block = board.querySelector('.product-block[data-product-id="' + p.id + '"]');
+    if (!block) {
+      block = document.createElement('article');
+      block.className = 'product-block';
+      block.dataset.productId = p.id;
+      block.tabIndex = 0;
+      block.setAttribute('role', 'button');
+      board.appendChild(block);
+    }
+
+    const suitInfo = SUIT_INFO[p.suit] || SUIT_INFO.spades;
+    block.classList.toggle('suit-red', suitInfo.color === 'red');
+    block.classList.toggle('suit-black', suitInfo.color === 'black');
+
+    const name = lang === 'zh' ? p.cn : p.en;
+    block.setAttribute('aria-label', name);
+
+    const tag = lang === 'zh' ? '5店比价' : '5 stores';
+    const count = (state === 'ready' && matches.length > 0)
+      ? (lang === 'zh' ? '共' + matches.length + '档' : matches.length + ' deals') : '';
+
+    /* 头部最低价总览：matches 已按价格升序，第一条即最低 */
+    let lowestHTML = '';
+    if (state === 'ready' && matches.length > 0) {
+      const m0 = matches[0];
+      const label = lang === 'zh' ? '最低' : 'Lowest';
+      lowestHTML = '<div class="product-lowest"><span class="lowest-label">' + esc(label) +
+        '</span><span class="lowest-price">' + esc(m0.deal.price || '') +
+        '</span><span class="lowest-store">' + esc(productStoreName(m0.storeId)) + '</span></div>';
+    }
+
+    let rowsHTML = '';
+    if (state === 'loading') {
+      rowsHTML = '<div class="p-empty">' + (lang === 'zh' ? '加载中…' : 'Loading…') + '</div>';
+    } else if (state === 'error') {
+      rowsHTML = '<div class="p-empty">' + (lang === 'zh' ? '数据没拿到' : 'Could not load data') + '</div>' +
+        '<button type="button" class="p-retry">' + (lang === 'zh' ? '点我重试' : 'Tap to retry') + '</button>';
+    } else if (!matches.length) {
+      /* 没货就空着，不凑数 */
+      rowsHTML = '<div class="p-empty">' + (lang === 'zh' ? '本周暂无特价' : 'No deals this week') + '</div>';
+    } else {
+      const minV = priceValue(matches[0].deal.price);
+      rowsHTML = matches.map(function (m) {
+        const ne = itemEnCn(m.deal.item);
+        const itemText = lang === 'zh' ? (ne.cn || ne.en) : (ne.en || ne.cn);
+        const isMin = priceValue(m.deal.price) === minV;
+        const lowBadge = isMin
+          ? '<span class="cheapest-badge">' + (lang === 'zh' ? '最低价' : 'Lowest') + '</span>' : '';
+        const disc = (typeof m.deal.discountPct === 'number' && m.deal.discountPct > 0)
+          ? '<span class="deal-badge">-' + m.deal.discountPct + '%</span>' : '';
+        return '<div class="p-row' + (isMin ? ' cheapest' : '') + '">' +
+          '<div class="p-left"><div class="p-store-line"><span class="p-store">' +
+          esc(productStoreName(m.storeId)) + '</span>' + lowBadge + '</div>' +
+          '<div class="p-item">' + esc(itemText) + '</div></div>' +
+          '<div class="p-right">' + disc + '<span class="p-price">' + esc(m.deal.price || '') + '</span></div>' +
+          '</div>';
+      }).join('');
+    }
+
+    block.innerHTML =
+      '<div class="product-block-head">' +
+        '<div class="product-block-titles"><h3 class="product-name">' + esc(name) + '</h3>' +
+        '<div class="product-sub"><span class="compare-tag">' + esc(tag) + '</span>' +
+        (count ? '<span class="deal-count">' + esc(count) + '</span>' : '') + '</div>' +
+        lowestHTML + '</div>' +
+        '<div class="product-suit" aria-hidden="true">' + suitInfo.symbol + '</div>' +
+        '<span class="product-chev" aria-hidden="true">›</span>' +
+      '</div>' +
+      '<div class="product-rows">' + rowsHTML + '</div>';
+
+    if (state === 'error') {
+      const btn = block.querySelector('.p-retry');
+      if (btn) btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        init();
+      });
+    }
   }
 
   let cardLang = 'zh';
@@ -267,6 +423,10 @@
     STORE_CONFIG.forEach(function (s) {
       renderStore(s, deals[s.id] || [], winners[s.id], flyerPeriods[s.id]);
     });
+    const pState = lastDataset ? 'ready' : 'loading';
+    PRODUCT_CONFIG.forEach(function (p) {
+      renderProductBlock(p, getProductDeals(p.id), pState);
+    });
   }
 
   function setLang(lang) {
@@ -279,9 +439,53 @@
     renderAll(lastDataset);
   }
 
+  function renderError() {
+    const lang = uiLangNow();
+    function paintError(card, nameSel, failText) {
+      if (!card) return;
+      const nameEl = card.querySelector(nameSel);
+      if (nameEl) nameEl.textContent = failText;
+      const dealsEl = card.querySelector('.deals');
+      if (dealsEl) {
+        dealsEl.innerHTML = '';
+        const errDiv = document.createElement('div');
+        errDiv.className = 'deals-error';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = lang === 'zh' ? '点我重试' : 'Tap to retry';
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          init();
+        });
+        errDiv.appendChild(document.createTextNode(lang === 'zh' ? '数据没拿到' : 'Could not load data'));
+        errDiv.appendChild(btn);
+        dealsEl.appendChild(errDiv);
+      }
+    }
+    STORE_CONFIG.forEach(function (s) {
+      paintError(
+        document.querySelector('.card[data-store-id="' + s.id + '"]'),
+        '.store-name',
+        lang === 'zh' ? '加载失败' : 'Failed to load'
+      );
+    });
+    PRODUCT_CONFIG.forEach(function (p) {
+      renderProductBlock(p, [], 'error');
+    });
+  }
+
   function init() {
     renderAll(null);
-    loadData().then(function (data) { if (data) renderAll(data); });
+    loadData().then(function (data) {
+      if (data) {
+        renderAll(data);
+        try {
+          document.dispatchEvent(new CustomEvent('poker-deals-data', { detail: data }));
+        } catch (e) {}
+      } else {
+        renderError();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -292,12 +496,18 @@
 
   window.SupermarketDeals = {
     config: STORE_CONFIG,
+    products: PRODUCT_CONFIG,
     benchmarkItems: BENCHMARK_ITEMS,
     refresh: init,
     refreshDisplay: refreshDisplay,
     setLang: setLang,
     getLang: function () { return cardLang; },
     getData: function () { return lastDataset; },
-    getGlossary: function () { return getGlossary(); }
+    getGlossary: function () { return getGlossary(); },
+    getStoreDeals: function (storeId) {
+      const d = (lastDataset && lastDataset.deals) || {};
+      return d[storeId] || [];
+    },
+    getProductDeals: getProductDeals
   };
 })();

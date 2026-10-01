@@ -20,8 +20,8 @@
 <div class="toolbar">
   <div class="segmented" id="groupSwitch" role="tablist" aria-label="切换华超/西超">
     <span class="seg-thumb" aria-hidden="true"></span>
-    <button type="button" class="seg-btn" data-g="chinese" role="tab" aria-selected="false">华超</button>
-    <button type="button" class="seg-btn on" data-g="western" role="tab" aria-selected="true">西超</button>
+    <button type="button" class="seg-btn on" data-m="store" role="tab" aria-selected="true">按商店</button>
+    <button type="button" class="seg-btn" data-m="product" role="tab" aria-selected="false">按商品</button>
   </div>
   <div class="actions">
     <button type="button" class="icon-btn" id="refreshBtn" aria-label="重新选品">
@@ -42,7 +42,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5 8 12l6.5 7"/></svg>
   </button>
 
-  <section class="fan" id="fan-chinese" aria-label="华超">
+  <section class="fan on" id="fan-store" aria-label="按商店">
     <article class="card" data-store-id="guanye" tabindex="0" aria-label="冠业">
       <div class="corner tl" aria-hidden="true"><span class="rank">A</span><span class="suit">♥</span></div>
       <div class="corner br" aria-hidden="true"><span class="rank">A</span><span class="suit">♥</span></div>
@@ -51,6 +51,7 @@
         <div class="card-head">
           <h3 class="store-name">加载中…</h3>
           <span class="flyer-period"></span>
+          <span class="deal-count"></span>
         </div>
         <div class="deals"></div>
       </div>
@@ -63,13 +64,11 @@
         <div class="card-head">
           <h3 class="store-name">加载中…</h3>
           <span class="flyer-period"></span>
+          <span class="deal-count"></span>
         </div>
         <div class="deals"></div>
       </div>
     </article>
-  </section>
-
-  <section class="fan on" id="fan-western" aria-label="西超">
     <article class="card" data-store-id="freshco" tabindex="0" aria-label="FreshCo">
       <div class="corner tl" aria-hidden="true"><span class="rank">K</span><span class="suit">♣</span></div>
       <div class="corner br" aria-hidden="true"><span class="rank">K</span><span class="suit">♣</span></div>
@@ -78,6 +77,7 @@
         <div class="card-head">
           <h3 class="store-name">Loading…</h3>
           <span class="flyer-period"></span>
+          <span class="deal-count"></span>
         </div>
         <div class="deals"></div>
       </div>
@@ -90,6 +90,7 @@
         <div class="card-head">
           <h3 class="store-name">Loading…</h3>
           <span class="flyer-period"></span>
+          <span class="deal-count"></span>
         </div>
         <div class="deals"></div>
       </div>
@@ -102,14 +103,46 @@
         <div class="card-head">
           <h3 class="store-name">Loading…</h3>
           <span class="flyer-period"></span>
+          <span class="deal-count"></span>
         </div>
         <div class="deals"></div>
       </div>
     </article>
   </section>
+
+  <section class="board" id="productBoard" aria-label="按商品">
+  </section>
 </main>
 
-<div class="stage-backdrop" id="stageBackdrop"></div>
+<div class="deals-overlay" id="dealsOverlay">
+  <div class="deals-panel" role="dialog" aria-modal="true" aria-labelledby="dealsTitle">
+    <div class="analysis-handle" aria-hidden="true"></div>
+    <div class="deals-header">
+      <div class="deals-title-wrap">
+        <span class="deals-suit" id="dealsSuit" aria-hidden="true">♥</span>
+        <div class="deals-title-text">
+          <h2 class="deals-title" id="dealsTitle">–</h2>
+          <div class="deals-meta"><span class="flyer-period" id="dealsPeriod"></span><span class="deals-count" id="dealsCount"></span></div>
+        </div>
+      </div>
+      <button type="button" class="deals-close" id="dealsClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="deals-tools">
+      <input class="deals-search" id="dealsSearch" type="search" autocomplete="off" aria-label="搜索商品">
+      <div class="deals-sort" id="dealsSort" role="tablist" aria-label="排序">
+        <button type="button" class="deals-sort-btn on" data-sort="default" role="tab" aria-selected="true">推荐</button>
+        <button type="button" class="deals-sort-btn" data-sort="discount" role="tab" aria-selected="false">折扣</button>
+        <button type="button" class="deals-sort-btn" data-sort="price" role="tab" aria-selected="false">价格</button>
+      </div>
+    </div>
+    <div class="deals-list" id="dealsList" role="list"></div>
+    <div class="deals-footer">
+      <button type="button" class="flyer-btn" id="dealsFlyerBtn">看完整 Flyer</button>
+    </div>
+  </div>
+</div>
 
 <div class="analysis-overlay" id="analysisOverlay">
   <div class="analysis-panel" role="dialog" aria-modal="true" aria-labelledby="analysisTitle">
