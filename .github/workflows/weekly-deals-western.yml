@@ -1,0 +1,44 @@
+name: western deals update
+
+on:
+  schedule:
+    # 每周四 13:00 UTC = 美东夏令时上午 9 点（冬令时上午 8 点）
+    # 西超传单周期 周四–周三，周四早上新传单已出
+    - cron: '0 13 * * 4'
+  # 允许在 Actions 页面手动点 Run workflow 立即跑一次
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: update western stores (FreshCo / Food Basics / No Frills)
+        run: |
+          DEALS_DATA_FILE=$GITHUB_WORKSPACE/deals-data.json \
+          GLOSSARY_FILE=$GITHUB_WORKSPACE/items.js \
+          BACKUP_DIR=$RUNNER_TEMP/deals-backups \
+          python3 updater/build.py --only freshco,foodbasics,nofrills
+
+      - name: upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deals-run-log-western
+          path: ${{ runner.temp }}/deals-backups/run-*.log
+
+      - name: commit updated deals-data.json
+        run: |
+          git config user.name "deals-bot"
+          git config user.email "deals-bot@users.noreply.github.com"
+          git add deals-data.json
+          git diff --cached --quiet || git commit -m "western deals update $(date -u +%F)"
+          git push
