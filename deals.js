@@ -219,9 +219,16 @@
     card.classList.toggle('suit-black', suitInfo.color === 'black');
     card.dataset.url = store.url;
 
-    /* 真牌角标：左上 + 右下（旋转 180°） */
-    const cornerHTML = '<span class="rank">' + store.rank + '</span><span class="suit">' + suit + '</span>';
-    card.querySelectorAll('.corner').forEach(function (c) { c.innerHTML = cornerHTML; });
+    /* 真牌角标：左上 + 右下（旋转 180°）；店名小字写在左上 A/K 右边，最多两行 */
+    const storeName = store.group === 'chinese' ? store.nameCN : store.nameEN;
+    const indexHTML = '<span class="rank">' + store.rank + '</span><span class="suit">' + suit + '</span>';
+    card.querySelectorAll('.corner').forEach(function (c) {
+      if (c.classList.contains('tl')) {
+        c.innerHTML = '<span class="corner-index">' + indexHTML + '</span><span class="store-tag">' + esc(storeName) + '</span>';
+      } else {
+        c.innerHTML = indexHTML;
+      }
+    });
 
     const pip = card.querySelector('.pip');
     if (pip) pip.textContent = suit;
@@ -236,9 +243,6 @@
       const lang = uiLangNow();
       countEl.textContent = n > 0 ? (lang === 'zh' ? '共' + n + '档' : n + ' deals') : '';
     }
-
-    const nameEl = card.querySelector('.store-name');
-    if (nameEl) nameEl.textContent = store.group === 'chinese' ? store.nameCN : store.nameEN;
 
     const dealsEl = card.querySelector('.deals');
     if (!dealsEl) return;
@@ -465,7 +469,7 @@
     STORE_CONFIG.forEach(function (s) {
       paintError(
         document.querySelector('.card[data-store-id="' + s.id + '"]'),
-        '.store-name',
+        '.corner.tl .store-tag',
         lang === 'zh' ? '加载失败' : 'Failed to load'
       );
     });
