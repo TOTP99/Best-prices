@@ -561,7 +561,7 @@
     function layoutFan() {
       order.forEach(function (card, i) {
         card.style.setProperty('--r', rotations[i] + 'deg');
-        card.style.zIndex = String(i + 1);
+        card.style.zIndex = String(5 - i);
       });
     }
 
