@@ -2,9 +2,9 @@ name: western deals update
 
 on:
   schedule:
-    # 每周四 13:00 UTC = 美东夏令时上午 9 点（冬令时上午 8 点）
+    # 每周四 12:00 UTC = 美东夏令时上午 8 点（冬令时上午 7 点）
     # 西超传单周期 周四–周三，周四早上新传单已出
-    - cron: '0 13 * * 4'
+    - cron: '0 12 * * 4'
   # 允许在 Actions 页面手动点 Run workflow 立即跑一次
   workflow_dispatch:
 

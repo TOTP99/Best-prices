@@ -2,9 +2,9 @@ name: chinese deals update
 
 on:
   schedule:
-    # 每周六 23:00 UTC = 美东夏令时晚上 7 点（冬令时晚上 6 点）
-    # 华超传单周期 周五–周四，周六晚上新一周数据已齐
-    - cron: '0 23 * * 6'
+    # 每周六 12:00 UTC = 美东夏令时上午 8 点（冬令时上午 7 点）
+    # 华超传单周期 周五–周四，周六早上新一周数据已齐
+    - cron: '0 12 * * 6'
   # 允许在 Actions 页面手动点 Run workflow 立即跑一次
   workflow_dispatch:
 
