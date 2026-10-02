@@ -259,6 +259,7 @@ button { font-family: inherit; }
   pointer-events: none;
 }
 
+#fan-store { touch-action: pan-y; }
 #fan-store .card:nth-child(1) { --r: -8deg; z-index: 1; }
 #fan-store .card:nth-child(2) { --r: -4deg; z-index: 2; }
 #fan-store .card:nth-child(3) { --r: 0deg; z-index: 3; }

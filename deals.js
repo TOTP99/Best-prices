@@ -11,11 +11,11 @@
 
   /* 店铺配置（固定不变） */
   const STORE_CONFIG = [
-    { id: 'foodbasics', group: 'western', rank: 'A', suit: 'spades', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
-    { id: 'freshco', group: 'western', rank: 'K', suit: 'spades', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
-    { id: 'nofrills', group: 'western', rank: 'Q', suit: 'spades', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' },
-    { id: 'baifu', group: 'chinese', rank: 'J', suit: 'spades', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
-    { id: 'guanye', group: 'chinese', rank: '10', suit: 'spades', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' }
+    { id: 'foodbasics', group: 'western', rank: 'A', suit: 'hearts', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
+    { id: 'freshco', group: 'western', rank: 'K', suit: 'hearts', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
+    { id: 'nofrills', group: 'western', rank: 'Q', suit: 'hearts', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' },
+    { id: 'baifu', group: 'chinese', rank: 'J', suit: 'hearts', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
+    { id: 'guanye', group: 'chinese', rank: '10', suit: 'hearts', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' }
   ];
 
   /* 商品配置（固定不变）：按商品模式的五张牌 */
@@ -24,7 +24,13 @@
     { id: 'egg', cn: '鸡蛋', en: 'Eggs', re: /\beggs?\b/i, rank: 'K', suit: 'diamonds' },
     { id: 'chocolate', cn: '黑巧克力', en: 'Dark Chocolate', re: /chocolate/i, rank: 'Q', suit: 'clubs' },
     { id: 'bokchoy', cn: '白菜', en: 'Bok Choy', re: /bok choy|cabbage/i, rank: 'J', suit: 'spades' },
-    { id: 'lobster', cn: '龙虾', en: 'Lobster', re: /\blobster\b/i, rank: '10', suit: 'hearts' }
+    { id: 'lobster', cn: '龙虾', en: 'Lobster', re: /\blobster\b/i, rank: '10', suit: 'hearts' },
+    { id: 'tomato', cn: '西红柿', en: 'Tomatoes', re: /tomato/i, rank: '9', suit: 'diamonds' },
+    { id: 'banana', cn: '香蕉', en: 'Bananas', re: /banana/i, rank: '8', suit: 'clubs' },
+    { id: 'cucumber', cn: '黄瓜', en: 'Cucumbers', re: /cucumber/i, rank: '7', suit: 'spades' },
+    { id: 'corn', cn: '玉米', en: 'Corn', re: /\bcorn\b/i, rank: '6', suit: 'hearts' },
+    { id: 'catfood', cn: '猫粮', en: 'Cat Food', re: /cat food/i, rank: '5', suit: 'diamonds' },
+    { id: 'catlitter', cn: '猫砂', en: 'Cat Litter', re: /litter/i, rank: '4', suit: 'clubs' }
   ];
 
   /* 价格数值化：99¢/ea → 0.99，$2.49/lb → 2.49（跨店比价排序用） */

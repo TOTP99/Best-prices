@@ -551,6 +551,69 @@
     });
   });
 
+  /* ── 竖屏扇形：手指左右滑动换牌 ── */
+  (function initFanSwipe() {
+    var fan = document.getElementById('fan-store');
+    if (!fan) return;
+    var rotations = [-8, -4, 0, 4, 8];
+    var order = Array.prototype.slice.call(fan.querySelectorAll('.card'));
+
+    function layoutFan() {
+      order.forEach(function (card, i) {
+        card.style.setProperty('--r', rotations[i] + 'deg');
+        card.style.zIndex = String(i + 1);
+      });
+    }
+
+    function rotateFan(dir) {
+      if (dir > 0) order.push(order.shift());   /* 左滑：头一张转到尾 */
+      else order.unshift(order.pop());          /* 右滑：尾一张转到头 */
+      layoutFan();
+      try { playCasinoShuffle(); } catch (e) {}
+    }
+
+    var startX = 0, startY = 0, swiping = false, tracking = false;
+
+    fan.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { tracking = false; return; }
+      var t = e.touches[0];
+      startX = t.clientX; startY = t.clientY;
+      swiping = false; tracking = true;
+    }, { passive: true });
+
+    fan.addEventListener('touchmove', function (e) {
+      if (!tracking) return;
+      var t = e.touches[0];
+      var dx = t.clientX - startX, dy = t.clientY - startY;
+      if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.2) swiping = true;
+    }, { passive: true });
+
+    function endTouch(e) {
+      if (!tracking) return;
+      tracking = false;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (swiping && Math.abs(dx) > 45) {
+        rotateFan(dx < 0 ? 1 : -1);
+        /* 保持 swiping=true，让接下来的 click 在 capture 阶段被吞掉 */
+      } else {
+        swiping = false;
+      }
+    }
+    fan.addEventListener('touchend', endTouch);
+    fan.addEventListener('touchcancel', function () { tracking = false; swiping = false; });
+
+    /* 滑动后的 click 不开弹窗（capture 先行拦截） */
+    fan.addEventListener('click', function (e) {
+      if (swiping) {
+        e.stopPropagation();
+        e.preventDefault();
+        swiping = false;
+      }
+    }, true);
+
+    layoutFan();
+  })();
+
   document.getElementById('refreshBtn').addEventListener('click', function (e) {
     e.stopPropagation();
     if (window.SupermarketDeals && typeof window.SupermarketDeals.refreshDisplay === 'function') {
