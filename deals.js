@@ -11,11 +11,11 @@
 
   /* 店铺配置（固定不变） */
   const STORE_CONFIG = [
-    { id: 'foodbasics', group: 'western', rank: 'A', suit: 'hearts', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
-    { id: 'freshco', group: 'western', rank: 'K', suit: 'hearts', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
-    { id: 'nofrills', group: 'western', rank: 'Q', suit: 'hearts', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' },
+    { id: 'guanye', group: 'chinese', rank: '10', suit: 'hearts', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' },
     { id: 'baifu', group: 'chinese', rank: 'J', suit: 'hearts', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
-    { id: 'guanye', group: 'chinese', rank: '10', suit: 'hearts', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' }
+    { id: 'nofrills', group: 'western', rank: 'Q', suit: 'hearts', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' },
+    { id: 'freshco', group: 'western', rank: 'K', suit: 'hearts', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
+    { id: 'foodbasics', group: 'western', rank: 'A', suit: 'hearts', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' }
   ];
 
   /* 商品配置（固定不变）：按商品模式的五张牌 */
