@@ -1531,105 +1531,105 @@
     "bestDeals": {
       "guanye": {
         "en": "Korean Cabbage 29¢/lb & Butternut Squash 39¢/lb",
-        "cn": "Korean Cabbage 29¢/lb & Butternut Squash 39¢/lb"
+        "cn": "高丽菜 29¢/lb & 葫芦瓜 39¢/lb"
       },
       "baifu": {
         "en": "Korean Cabbage 39¢/lb & Jellyfish Slices Seasoned $0.69/ea",
         "cn": "Korean Cabbage 39¢/lb & Jellyfish Slices Seasoned $0.69/ea"
       },
       "freshco": {
-        "en": "Ting $0.69 (300ml) & Turkey $2.49/lb",
-        "cn": "Ting $0.69 (300ml) & Turkey $2.49/lb"
+        "en": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)",
+        "cn": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)"
       },
       "foodbasics": {
         "en": "Broccoli 99¢/ea & Onions 99¢/lb",
-        "cn": "西兰花 99¢/ea & 洋葱 99¢/lb"
+        "cn": "Broccoli 99¢/ea & Onions 99¢/lb"
       },
       "nofrills": {
-        "en": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & Franco American Gravy $0.79 (284ML)",
-        "cn": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & Franco American Gravy $0.79 (284ML)"
+        "en": "Franco American Gravy $0.79 (284ML) & Mushrooms $0.95 (284ML)",
+        "cn": "Franco American Gravy $0.79 (284ML) & Mushrooms $0.95 (284ML)"
       }
     },
     "deepestDiscounts": [
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Ting",
-          "cn": "Ting"
+          "en": "Korean Cabbage",
+          "cn": "高丽菜"
         },
-        "discountPct": 65
+        "discountPct": 71
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Turkey",
-          "cn": "Turkey"
+          "en": "Butternut Squash",
+          "cn": "葫芦瓜"
+        },
+        "discountPct": 51
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Pork Stomach",
+          "cn": "新鲜猪肚"
         },
         "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Mutti Pasta Sauce",
-          "cn": "Mutti Pasta Sauce"
+          "en": "Soy Sauce",
+          "cn": "酱油"
         },
         "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Stove Top Stuffing Mix",
-          "cn": "Stove Top Stuffing Mix"
+          "en": "Korean Bbq Sauce",
+          "cn": "李锦记韩式烧烤酱"
         },
-        "discountPct": 48
+        "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Ham",
-          "cn": "火腿"
+          "en": "Apples",
+          "cn": "苹果"
+        },
+        "discountPct": 45
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Loose Walnut",
+          "cn": "散装核桃仁"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Peanuts",
+          "cn": "花生"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Salted Shao Xing Cooking Wine",
+          "cn": "塔牌咸绍兴花雕酒"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Osteomugil",
+          "cn": "花鼓漫台山显鱼"
         },
         "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Potatoes",
-          "cn": "土豆"
-        },
-        "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Christie Crackers Selected Varieties Crispers Bits Bites",
-          "cn": "Christie Crackers Selected Varieties Crispers Bits Bites"
-        },
-        "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Barilla Catelli Classic Smart Healthy Harvest Pasta",
-          "cn": "Barilla Catelli Classic Smart Healthy Harvest Pasta"
-        },
-        "discountPct": 39
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Mastro Baby Genoa Salami",
-          "cn": "Mastro Baby Genoa Salami"
-        },
-        "discountPct": 38
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Del Monte Vegetables",
-          "cn": "Del Monte Vegetables"
-        },
-        "discountPct": 36
       }
     ],
     "categoryWinners": {
@@ -1638,16 +1638,16 @@
         "cn": "Chicken Wings $1.39/lb（百福）"
       },
       "seafood": {
-        "en": "Sole Fish $3.99/lb (Sunfood)",
-        "cn": "Sole Fish $3.99/lb（百福）"
+        "en": "Snail $2.99/lb (First Choice)",
+        "cn": "生猛石螺 $2.99/lb（冠业）"
       },
       "produce": {
         "en": "Korean Cabbage 29¢/lb (First Choice)",
-        "cn": "Korean Cabbage 29¢/lb（冠业）"
+        "cn": "高丽菜 29¢/lb（冠业）"
       },
       "staples": {
         "en": "2% Milk $1.00 (750ML) (No Frills)",
-        "cn": "2%牛奶 $1.00 (750ML)（No Frills）"
+        "cn": "2% Milk $1.00 (750ML)（No Frills）"
       }
     },
     "cheapestStoreSummary": {
@@ -1656,26 +1656,26 @@
         "cn": "百福 — Chicken Wings $1.39/lb、Pork Intestine $1.99/lb"
       },
       "overallCheapestSeafood": {
-        "en": "Sunfood — Sole Fish $3.99/lb",
-        "cn": "百福 — Sole Fish $3.99/lb"
+        "en": "First Choice — Snail $2.99/lb, White Eel $4.99/lb",
+        "cn": "冠业 — 生猛石螺 $2.99/lb、白鳝 $4.99/lb"
       },
       "overallCheapestProduce": {
-        "en": "First Choice — Korean Cabbage 29¢/lb, Butternut Squash 39¢/lb, Red Pepper 99¢/lb",
-        "cn": "冠业 — Korean Cabbage 29¢/lb、Butternut Squash 39¢/lb、Red Pepper 99¢/lb"
+        "en": "First Choice — Korean Cabbage 29¢/lb, Butternut Squash 39¢/lb, Carrots 79¢/lb",
+        "cn": "冠业 — 高丽菜 29¢/lb、葫芦瓜 39¢/lb、胡萝卜 79¢/lb"
       },
       "overallCheapestStaples": {
         "en": "No Frills — 2% Milk $1.00 (750ML), Kd Macaroni Cheese $1.00 (156-175G), Ocean Spray Cranberry Sauce $1.50 (240-355ML)",
-        "cn": "No Frills — 2%牛奶 $1.00 (750ML)、Kd Macaroni Cheese $1.00 (156-175G)、Ocean Spray Cranberry Sauce $1.50 (240-355ML)"
+        "cn": "No Frills — 2% Milk $1.00 (750ML)、Kd Macaroni Cheese $1.00 (156-175G)、Ocean Spray Cranberry Sauce $1.50 (240-355ML)"
       }
     },
     "benchmarksComparison": {
-      "grape": {
-        "en": "FreshCo $1.44/lb (Food Basics $1.77/lb)",
-        "cn": "FreshCo $1.44/lb（Food Basics $1.77/lb）"
+      "orange": {
+        "en": "First Choice $1.59/lb",
+        "cn": "冠业 $1.59/lb"
       },
-      "salmon": {
-        "en": "Food Basics $11.99/lb",
-        "cn": "Food Basics $11.99/lb"
+      "porkchop": {
+        "en": "First Choice $1.88/lb",
+        "cn": "冠业 $1.88/lb"
       }
     }
   },
