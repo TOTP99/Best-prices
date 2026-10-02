@@ -400,8 +400,8 @@ button { font-family: inherit; }
 /* 横屏画卷：默认隐藏，横屏时全屏显示 */
 .landscape-art { display: none; }
 @keyframes kenburns {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  100% { transform: translate(-50%, -50%) scale(1.06); }
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
 }
 
 .deal-row {
@@ -1089,7 +1089,9 @@ button { font-family: inherit; }
   body { overflow: hidden; }
 
   .landscape-art {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     inset: 0;
     z-index: 1;
@@ -1097,12 +1099,9 @@ button { font-family: inherit; }
     background: #0b0b0e;
   }
   .landscape-art img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    flex-shrink: 0;
     max-height: 92dvh;
     max-width: 96vw;
-    transform: translate(-50%, -50%);
     animation: kenburns 26s ease-in-out infinite alternate;
     user-select: none;
     -webkit-user-drag: none;
