@@ -11,11 +11,11 @@
 
   /* 店铺配置（固定不变） */
   const STORE_CONFIG = [
-    { id: 'guanye', group: 'chinese', rank: 'A', suit: 'hearts', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' },
-    { id: 'baifu', group: 'chinese', rank: 'A', suit: 'spades', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
-    { id: 'freshco', group: 'western', rank: 'K', suit: 'clubs', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
-    { id: 'foodbasics', group: 'western', rank: 'K', suit: 'diamonds', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
-    { id: 'nofrills', group: 'western', rank: 'K', suit: 'spades', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' }
+    { id: 'foodbasics', group: 'western', rank: 'A', suit: 'spades', nameCN: 'Food Basics', nameEN: 'Food Basics', url: 'https://www.foodbasics.ca/flyer.en.html' },
+    { id: 'freshco', group: 'western', rank: 'K', suit: 'spades', nameCN: 'FreshCo McCowan', nameEN: 'FreshCo McCowan', url: 'https://www.freshco.com/weekly-flyer/' },
+    { id: 'nofrills', group: 'western', rank: 'Q', suit: 'spades', nameCN: 'No Frills Markham Road', nameEN: 'No Frills Markham Road', url: 'https://www.nofrills.ca/flyer.en.html' },
+    { id: 'baifu', group: 'chinese', rank: 'J', suit: 'spades', nameCN: '百福超市Denison', nameEN: 'Sunfood Supermarket', url: 'https://goflyer.ca/storedetails/sunfood-supermarket-markham?lang=en' },
+    { id: 'guanye', group: 'chinese', rank: '10', suit: 'spades', nameCN: '冠业Kennedy', nameEN: 'First Choice Supermarket', url: 'https://goflyer.ca/store/first-choice-supermarket' }
   ];
 
   /* 商品配置（固定不变）：按商品模式的五张牌 */
