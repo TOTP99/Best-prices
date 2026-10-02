@@ -218,7 +218,7 @@ button { font-family: inherit; }
 
 .fan {
   position: absolute;
-  top: 14px;
+  top: 32px;
   width: min(94vw, 430px);
   height: calc(var(--card-h) + 30px);
   opacity: 0;
@@ -259,11 +259,11 @@ button { font-family: inherit; }
   pointer-events: none;
 }
 
-#fan-store .card:nth-child(1) { --r: -14deg; z-index: 1; }
-#fan-store .card:nth-child(2) { --r: -7deg; z-index: 2; }
+#fan-store .card:nth-child(1) { --r: -8deg; z-index: 1; }
+#fan-store .card:nth-child(2) { --r: -4deg; z-index: 2; }
 #fan-store .card:nth-child(3) { --r: 0deg; z-index: 3; }
-#fan-store .card:nth-child(4) { --r: 7deg; z-index: 4; }
-#fan-store .card:nth-child(5) { --r: 14deg; z-index: 5; }
+#fan-store .card:nth-child(4) { --r: 4deg; z-index: 4; }
+#fan-store .card:nth-child(5) { --r: 8deg; z-index: 5; }
 
 .fan.on .card:hover {
   transform: rotate(var(--r, 0deg)) translateY(-10px);
@@ -396,6 +396,13 @@ button { font-family: inherit; }
   margin-top: 2px;
 }
 .deals::-webkit-scrollbar { display: none; }
+
+/* 横屏画卷：默认隐藏，横屏时全屏显示 */
+.landscape-art { display: none; }
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-1.5%, 1%); }
+}
 
 .deal-row {
   display: flex;
@@ -704,9 +711,6 @@ button { font-family: inherit; }
   cursor: pointer;
 }
 
-/* 商品模式下横屏：隐藏切牌按钮（榜单直接滚动） */
-.mode-product .prev-btn { display: none !important; }
-
 /* 精选：金星 + 金条高亮 */
 .deal-row.featured {
   background: linear-gradient(90deg, rgba(212,175,55,.22), rgba(212,175,55,.03) 85%);
@@ -739,28 +743,6 @@ button { font-family: inherit; }
   transition: background .15s, box-shadow .15s;
 }
 .flyer-btn:hover { background: rgba(212,175,55,.22); box-shadow: 0 0 8px rgba(212,175,55,.3); }
-
-/* 上一张（横屏） */
-.prev-btn {
-  display: none;
-  position: absolute;
-  left: 2px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 30;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-dim);
-  background: rgba(0, 0, 0, .45);
-  color: var(--gold);
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-.prev-btn svg { width: 20px; height: 20px; }
-.prev-btn:active { transform: translateY(-50%) scale(.92); }
 
 /* ── 数据分析 ───────────────────────── */
 .analysis-overlay {
@@ -1102,54 +1084,42 @@ button { font-family: inherit; }
 
 /* ── 横屏 ───────────────────────────── */
 @media (orientation: landscape) {
-  :root {
-    /* 横屏三张并排：牌宽 = min(可用高 / 1.5, (可用宽 - 两条缝) / 3)，正好撑满 */
-    --lsc-gap: 12px;
-    --card-w: clamp(104px, min(calc((100dvh - 24px) / 1.5), calc((100vw - 48px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)) / 3)), 300px);
-  }
-
+  /* 横屏：一幅画。旧 UI（顶栏/工具栏/牌桌）全藏 */
+  .topbar, .toolbar, .stage { display: none !important; }
   body { overflow: hidden; }
 
-  /* 横屏：去开关去标题，只留三家西超扑克 */
-  .topbar { display: none; }
-
-  .stage {
-    max-width: none;
-    align-items: center;
-    padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  .landscape-art {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: #0b0b0e;
   }
-
-  /* 横屏：商店扇永远可见，三家西超并排；商品榜横屏隐藏 */
-  #fan-store {
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-    top: 0;
+  .landscape-art img {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    animation: kenburns 26s ease-in-out infinite alternate;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  #petalCanvas {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--lsc-gap);
+    pointer-events: none;
   }
-  #fan-store .card {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin-left: 0;
-    transform: none;
-    transform-origin: 50% 50%;
-    z-index: auto !important;
-    flex: 0 0 auto;
-    pointer-events: auto;
+  /* 暗角：电影感 */
+  .landscape-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 105% at 50% 45%, transparent 55%, rgba(0, 0, 0, .5) 100%);
   }
-  #fan-store .card[data-store-id="guanye"],
-  #fan-store .card[data-store-id="baifu"] { display: none; }
-  #fan-store .card.landscape-front {
-    box-shadow: var(--shadow-card), inset 0 0 0 1px rgba(255, 255, 255, .7);
-  }
-  .board { display: none; }
-
-  .analysis-panel { max-width: 430px; height: min(82dvh, 440px); }
-  .deals-panel { max-width: 430px; height: var(--sheet-h, min(82dvh, 520px)); }
 }

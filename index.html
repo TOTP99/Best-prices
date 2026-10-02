@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a1f14">
-<title>扑克特价 · Poker Deals</title>
+<title>本周特价 · Weekly Deals</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
 <header class="topbar">
   <div class="brand">
     <svg class="brand-suit" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C9 7 4 10 4 14.5 4 17.6 6.4 20 9.5 20c1.5 0 2.9-.6 3.9-1.6L12 22l-1.4-3.6c1-1 2.4-1.6 3.9-1.6 3.1 0 5.5-2.4 5.5-5.5C20 10 15 7 12 2z"/></svg>
-    <div class="brand-text"><strong>扑克特价</strong><span>POKER DEALS</span></div>
+    <div class="brand-text"><strong>本周特价</strong><span>Weekly Deals</span></div>
   </div>
   <div class="updated"><span class="updated-label" id="updatedLabel">更新</span><span id="updateStamp">–</span></div>
 </header>
@@ -20,8 +20,8 @@
 <div class="toolbar">
   <div class="segmented" id="groupSwitch" role="tablist" aria-label="切换华超/西超">
     <span class="seg-thumb" aria-hidden="true"></span>
-    <button type="button" class="seg-btn on" data-m="store" role="tab" aria-selected="true">按商店</button>
-    <button type="button" class="seg-btn" data-m="product" role="tab" aria-selected="false">按商品</button>
+    <button type="button" class="seg-btn on" data-m="store" role="tab" aria-selected="true">商店</button>
+    <button type="button" class="seg-btn" data-m="product" role="tab" aria-selected="false">商品</button>
   </div>
   <div class="actions">
     <button type="button" class="icon-btn" id="refreshBtn" aria-label="重新选品">
@@ -38,11 +38,8 @@
 </div>
 
 <main class="stage" id="stage">
-  <button type="button" class="prev-btn" id="prevBtn" aria-label="上一张牌">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5 8 12l6.5 7"/></svg>
-  </button>
 
-  <section class="fan on" id="fan-store" aria-label="按商店">
+  <section class="fan on" id="fan-store" aria-label="商店">
     <article class="card" data-store-id="guanye" tabindex="0" aria-label="冠业">
       <div class="corner tl" aria-hidden="true"><span class="corner-index"><span class="rank">A</span><span class="suit">♥</span></span><span class="store-tag"></span></div>
       <div class="corner br" aria-hidden="true"><span class="rank">A</span><span class="suit">♥</span></div>
@@ -105,9 +102,15 @@
     </article>
   </section>
 
-  <section class="board" id="productBoard" aria-label="按商品">
+  <section class="board" id="productBoard" aria-label="商品">
   </section>
 </main>
+
+<!-- 横屏画卷：武士猫 + 樱花花瓣动画（仅横屏显示） -->
+<div class="landscape-art" id="landscapeArt" aria-hidden="true">
+  <img src="landscape-art.jpg" alt="" draggable="false">
+  <canvas id="petalCanvas"></canvas>
+</div>
 
 <div class="deals-overlay" id="dealsOverlay">
   <div class="deals-panel" role="dialog" aria-modal="true" aria-labelledby="dealsTitle">

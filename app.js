@@ -23,9 +23,9 @@
       empty: '暂无数据',
       failed: '数据加载失败',
       benchmarkHead: '基准价对比',
-      switchLeft: '按商店',
-      switchRight: '按商品',
-      switchAria: '切换按商店/按商品',
+      switchLeft: '商店',
+      switchRight: '商品',
+      switchAria: '切换商店/商品',
       compareTag: '5店比价',
       validLabel: '有效期',
       updatedLabel: '更新',
@@ -189,7 +189,6 @@
       to.classList.remove('shuffling');
       current = target;
       setSwitchUI();
-      if (orientationMQ.matches) syncLandscapeView();
     }, 200);
   }
 
@@ -430,97 +429,118 @@
     return a;
   }
 
-  var landscapeOrder = [];
-
-  function initLandscapeOrder() {
-    var fan = document.getElementById('fan-store');
-    var all = fan ? Array.prototype.slice.call(fan.querySelectorAll('.card')) : [];
-    var front = all[0];
-    var rest = shuffleArr(all.filter(function (c) { return c !== front; }));
-    landscapeOrder = [front].concat(rest);
-  }
-
-  function layoutLandscapeCards(animate) {
-    var n = landscapeOrder.length;
-    var centerSlot = (n - 1) / 2;
-    landscapeOrder.forEach(function (card, k) {
-      card.style.transitionDelay = animate ? (k * 0.028) + 's' : '0s';
-      card.style.setProperty('--r', '0deg');
-      card.style.setProperty('--slot-offset', String(centerSlot - k));
-      card.style.setProperty('--stack-tx', 'calc(var(--slot-offset) * var(--card-w) * 0.22)');
-      card.style.setProperty('--stack-ty', '0px');
-      card.style.setProperty('--stack-scale', k === 0 ? '1.05' : '1');
-      card.style.zIndex = String(n - k + 10);
-      card.classList.toggle('landscape-front', k === 0);
-    });
-    if (animate) {
-      clearTimeout(layoutLandscapeCards._t);
-      layoutLandscapeCards._t = setTimeout(function () {
-        landscapeOrder.forEach(function (card) { card.style.transitionDelay = '0s'; });
-      }, 450);
-    }
-  }
-
-  function clearLandscapeCards() {
-    document.querySelectorAll('.card').forEach(function (card) {
-      ['--r', '--slot-offset', '--stack-tx', '--stack-ty', '--stack-scale'].forEach(function (p) {
-        card.style.removeProperty(p);
-      });
-      card.style.removeProperty('z-index');
-      card.style.transitionDelay = '0s';
-      card.classList.remove('landscape-front');
-    });
-  }
-
-  function cycleLandscape(direction) {
-    if (landscapeOrder.length < 2) return;
-    if (direction > 0) landscapeOrder.push(landscapeOrder.shift());
-    else landscapeOrder.unshift(landscapeOrder.pop());
-    layoutLandscapeCards(true);
-    playCasinoShuffle();
-  }
-
-  function bringCardToFrontLandscape(card) {
-    var idx = landscapeOrder.indexOf(card);
-    if (idx <= 0) return;
-    landscapeOrder.splice(idx, 1);
-    landscapeOrder.unshift(card);
-    layoutLandscapeCards(true);
-    playCasinoShuffle();
-  }
-
-  /* 横屏：商店模式叠牌，商品模式直接显示比价榜 */
-  function syncLandscapeView() {
-    if (current === 'store') {
-      initLandscapeOrder();
-      layoutLandscapeCards(false);
-    } else {
-      clearLandscapeCards();
-      landscapeOrder = [];
-    }
-  }
-
   function syncOrientationLayout() {
     closeDeals();
-    if (orientationMQ.matches) {
-      syncLandscapeView();
-    } else {
-      clearLandscapeCards();
-    }
   }
   if (orientationMQ.addEventListener) orientationMQ.addEventListener('change', syncOrientationLayout);
   else if (orientationMQ.addListener) orientationMQ.addListener(syncOrientationLayout);
   syncOrientationLayout();
 
-  document.getElementById('prevBtn').addEventListener('click', function (e) {
-    e.stopPropagation();
-    cycleLandscape(-1);
-  });
+  /* ── 横屏画卷：樱花花瓣飘落（canvas，仅横屏运行时） ── */
+  (function initPetals() {
+    var canvas = document.getElementById('petalCanvas');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var petals = [];
+    var rafId = null;
+    var running = false;
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function makePetal(w, h, randomY) {
+      return {
+        x: Math.random() * w,
+        y: randomY ? Math.random() * h : -20 - Math.random() * h * 0.3,
+        size: 5 + Math.random() * 9,
+        speedY: 0.35 + Math.random() * 0.85,
+        swayAmp: 18 + Math.random() * 42,
+        swaySpd: 0.4 + Math.random() * 1.1,
+        phase: Math.random() * Math.PI * 2,
+        rot: Math.random() * Math.PI * 2,
+        rotSpd: (Math.random() - 0.5) * 0.025,
+        alpha: 0.45 + Math.random() * 0.4,
+        hue: 332 + Math.random() * 16
+      };
+    }
+
+    function drawPetal(p, w, h) {
+      p.y += p.speedY;
+      p.phase += 0.012 * p.swaySpd;
+      p.rot += p.rotSpd;
+      if (p.y > h + 24) {
+        var np = makePetal(w, h, false);
+        p.x = np.x; p.y = np.y; p.speedY = np.speedY;
+      }
+      var x = p.x + Math.sin(p.phase) * p.swayAmp * 0.35;
+      ctx.save();
+      ctx.translate(x, p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = 'hsl(' + p.hue + ', 85%, 83%)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size * 0.42, p.size * 0.68, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'hsl(' + p.hue + ', 78%, 70%)';
+      ctx.beginPath();
+      ctx.ellipse(0, p.size * 0.22, p.size * 0.26, p.size * 0.38, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function tick() {
+      if (!running) return;
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < petals.length; i++) drawPetal(petals[i], w, h);
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      resize();
+      var w = canvas.clientWidth || window.innerWidth;
+      var h = canvas.clientHeight || window.innerHeight;
+      var count = Math.max(12, Math.min(30, Math.floor(w * h / 28000)));
+      petals = [];
+      for (var i = 0; i < count; i++) petals.push(makePetal(w, h, true));
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      petals = [];
+    }
+
+    function syncPetals() {
+      var isLsc = false;
+      try { isLsc = window.matchMedia('(orientation: landscape)').matches; } catch (e) {}
+      if (isLsc) start(); else stop();
+    }
+
+    window.addEventListener('resize', function () { if (running) resize(); });
+    try {
+      var mq = window.matchMedia('(orientation: landscape)');
+      if (mq.addEventListener) mq.addEventListener('change', syncPetals);
+      else if (mq.addListener) mq.addListener(syncPetals);
+    } catch (e) {}
+    syncPetals();
+  })();
+
 
   document.querySelectorAll('#fan-store .card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.stopPropagation();
-      /* 横屏三张并排：点牌直接开本店清单 */
+      /* 点牌开本店清单 */
       openDeals('store', card.dataset.storeId);
     });
     card.addEventListener('keydown', function (e) {
@@ -742,7 +762,6 @@
     soundBtn.setAttribute('aria-label', t.soundAria);
     document.getElementById('analysisClose').setAttribute('aria-label', t.closeAria);
     document.getElementById('dealsClose').setAttribute('aria-label', t.closeAria);
-    document.getElementById('prevBtn').setAttribute('aria-label', t.prevAria);
     document.getElementById('updatedLabel').textContent = t.updatedLabel;
     analysisTitleEl.textContent = t.analysisTitle;
     tabsWrap.querySelectorAll('.analysis-tab').forEach(function (btn) {
