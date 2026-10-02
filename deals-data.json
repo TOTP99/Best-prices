@@ -3,113 +3,113 @@
     "guanye": [
       {
         "item": {
-          "en": "Pork Shoulder Blade"
+          "en": "Pork Chop"
         },
-        "price": "$2.59/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Pork Shoulder Butt"
-        },
-        "price": "$2.59/lb"
-      },
-      {
-        "item": {
-          "en": "Chicken Drumsticks"
-        },
-        "price": "$1.59/lb",
-        "featured": true
-      },
-      {
-        "item": {
-          "en": "Butter Chicken"
-        },
-        "price": "$12.99/ea"
-      },
-      {
-        "item": {
-          "en": "Beef Shank"
-        },
-        "price": "$6.59/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Steak AAA"
-        },
-        "price": "$13.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Rib Finger Meat"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Young Duck"
-        },
-        "price": "$15.99/ea"
-      },
-      {
-        "item": {
-          "en": "BBQ Beef Short Ribs"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Spring Lamb"
-        },
-        "price": "$6.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Chunk Roll"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Lamb Shoulder"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Lamb Shanks"
-        },
-        "price": "$6.99/lb"
-      },
-      {
-        "item": {
-          "en": "BBQ Pork Belly"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Brisket"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Beef Chuck Rib"
-        },
-        "price": "$15.99/lb"
-      },
-      {
-        "item": {
-          "en": "Korean Cabbage"
-        },
-        "price": "29¢/lb"
+        "price": "$1.88/lb"
       },
       {
         "item": {
           "en": "Oranges"
         },
-        "price": "99¢/lb"
+        "price": "$1.59/lb"
+      },
+      {
+        "item": {
+          "en": "Eggs"
+        },
+        "price": "$5.99/ea"
+      },
+      {
+        "item": {
+          "en": "Korean Cabbage"
+        },
+        "price": "29¢/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Butternut Squash"
+        },
+        "price": "39¢/lb",
+        "featured": true
+      },
+      {
+        "item": {
+          "en": "Pork Stomach"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Soy Sauce"
+        },
+        "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Korean Bbq Sauce"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Apples"
+        },
+        "price": "88¢/lb"
+      },
+      {
+        "item": {
+          "en": "Loose Walnut"
+        },
+        "price": "$4.99/lb"
+      },
+      {
+        "item": {
+          "en": "Peanuts"
+        },
+        "price": "$1.68/lb"
+      },
+      {
+        "item": {
+          "en": "Salted Shao Xing Cooking Wine"
+        },
+        "price": "$1.68"
+      },
+      {
+        "item": {
+          "en": "Osteomugil"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Hearttex Kitchen Wipes"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Freenow Coconut Beverage"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Shodoshima Rice Seasoning Series"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Paramount Food Honeycomb Bread Stick Series"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Hearttex Bathroom Tissue"
+        },
+        "price": "$5.99"
       },
       {
         "item": {
@@ -119,15 +119,39 @@
       },
       {
         "item": {
-          "en": "Tong Ho"
+          "en": "White Eel"
         },
-        "price": "99¢/lb"
+        "price": "$4.99/lb"
       },
       {
         "item": {
-          "en": "Baby Napa"
+          "en": "Konnyaku Yam Noodle"
         },
-        "price": "99¢/lb"
+        "price": "$1.88"
+      },
+      {
+        "item": {
+          "en": "Luckin Coffee Starbuck Coffee Drink Series"
+        },
+        "price": "$1.88/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Bouillon Powder"
+        },
+        "price": "$8.88"
+      },
+      {
+        "item": {
+          "en": "Sun Fung Chilli Ring"
+        },
+        "price": "$22.99"
+      },
+      {
+        "item": {
+          "en": "Jasmine Rice"
+        },
+        "price": "$12.99"
       },
       {
         "item": {
@@ -137,87 +161,147 @@
       },
       {
         "item": {
+          "en": "Sunrise Tofu Series"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Toast Sereis"
+        },
+        "price": "$3.99"
+      },
+      {
+        "item": {
+          "en": "Pumpkin"
+        },
+        "price": "$3.99/lb"
+      },
+      {
+        "item": {
+          "en": "Roasted Seaweed Snack"
+        },
+        "price": "$5.99"
+      },
+      {
+        "item": {
+          "en": "Coin Brand Fried Dace Salted Black Beans"
+        },
+        "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Fuzhou Vermicelli"
+        },
+        "price": "$4.88"
+      },
+      {
+        "item": {
+          "en": "Beef Steak"
+        },
+        "price": "$13.99/lb"
+      },
+      {
+        "item": {
+          "en": "Golden Star Salted Cooking Wine"
+        },
+        "price": "$4.99"
+      },
+      {
+        "item": {
+          "en": "Mussels"
+        },
+        "price": "$9.99"
+      },
+      {
+        "item": {
+          "en": "Bull Head Barbecue Sauce"
+        },
+        "price": "$9.99"
+      },
+      {
+        "item": {
+          "en": "Seafood Unagi Grilled Eel"
+        },
+        "price": "$9.99/ea"
+      },
+      {
+        "item": {
+          "en": "Taro"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Shanghai Miu"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Three Crab Fish Sauce"
+        },
+        "price": "$10.99"
+      },
+      {
+        "item": {
+          "en": "Yu Choy"
+        },
+        "price": "$1.49/lb"
+      },
+      {
+        "item": {
+          "en": "Pomegranate Soft Seed"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Snail"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Paramount Food Chicken Floss Cakes"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Famous House Grass Jelly Drink Series"
+        },
+        "price": "$5.99"
+      },
+      {
+        "item": {
+          "en": "Shrimp"
+        },
+        "price": "$19.00"
+      },
+      {
+        "item": {
+          "en": "Foojoy Dried White Fungus"
+        },
+        "price": "$4.58"
+      },
+      {
+        "item": {
           "en": "Mandarin"
         },
         "price": "$1.99/lb"
       },
       {
         "item": {
-          "en": "Honey Pomelo"
+          "en": "California Yam"
         },
-        "price": "$4.99/ea"
-      },
-      {
-        "item": {
-          "en": "Lemon"
-        },
-        "price": "$1.00/pk"
-      },
-      {
-        "item": {
-          "en": "Ginger"
-        },
-        "price": "$1.59/lb"
-      },
-      {
-        "item": {
-          "en": "Mustard Greens"
-        },
-        "price": "$1.59/lb"
+        "price": "$1.99/lb"
       },
       {
         "item": {
           "en": "Water Chestnut"
         },
-        "price": "$1.79/lb"
-      },
-      {
-        "item": {
-          "en": "Butterfish"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Blue Crab"
-        },
-        "price": "$3.99/lb"
-      },
-      {
-        "item": {
-          "en": "Spanish Mackerel"
-        },
-        "price": "$3.99/lb"
-      },
-      {
-        "item": {
-          "en": "Cherrystone Clams"
-        },
-        "price": "$6.49/lb"
-      },
-      {
-        "item": {
-          "en": "Sea Urchin"
-        },
-        "price": "$6.99/lb"
-      },
-      {
-        "item": {
-          "en": "Dungeness Crab"
-        },
-        "price": "$12.99/lb"
-      },
-      {
-        "item": {
-          "en": "White Eel"
-        },
-        "price": "$11.99/lb"
-      },
-      {
-        "item": {
-          "en": "Oyster Meat"
-        },
-        "price": "$13.99/ea (1lb)"
+        "price": "$1.99/lb"
       }
     ],
     "freshco": [
@@ -1437,7 +1521,7 @@
   },
   "benchmarkPrices": {},
   "flyerPeriod": {
-    "guanye": "Sep 18-24",
+    "guanye": "Oct 2-9",
     "freshco": "Oct 1-7",
     "nofrills": "Oct 1-7",
     "foodbasics": "Oct 1-7",
@@ -1446,106 +1530,106 @@
   "analysis": {
     "bestDeals": {
       "guanye": {
-        "en": "Korean Cabbage 29¢/lb & Carrots 79¢/lb",
-        "cn": "Korean Cabbage 29¢/lb & Carrots 79¢/lb"
+        "en": "Korean Cabbage 29¢/lb & Butternut Squash 39¢/lb",
+        "cn": "高丽菜 29¢/lb & 葫芦瓜 39¢/lb"
       },
       "baifu": {
         "en": "Korean Cabbage 39¢/lb & Jellyfish Slices Seasoned $0.69/ea",
         "cn": "Korean Cabbage 39¢/lb & Jellyfish Slices Seasoned $0.69/ea"
       },
       "freshco": {
-        "en": "Ting $0.69 (300ml) & Turkey $2.49/lb",
-        "cn": "Ting $0.69 (300ml) & Turkey $2.49/lb"
+        "en": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)",
+        "cn": "Chubby $0.50 (250mL) & Ting $0.69 (300ml)"
       },
       "foodbasics": {
         "en": "Broccoli 99¢/ea & Onions 99¢/lb",
-        "cn": "西兰花 99¢/ea & 洋葱 99¢/lb"
+        "cn": "Broccoli 99¢/ea & Onions 99¢/lb"
       },
       "nofrills": {
-        "en": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & Mushrooms $0.95 (284ML)",
-        "cn": "Robin Hood Five Roses Flour $4.50 (2.5KG, member) & 蘑菇 $0.95 (284ML)"
+        "en": "Mushrooms $0.95 (284ML) & Rutabagas 99¢/lb",
+        "cn": "Mushrooms $0.95 (284ML) & Rutabagas 99¢/lb"
       }
     },
     "deepestDiscounts": [
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Ting",
-          "cn": "Ting"
+          "en": "Korean Cabbage",
+          "cn": "高丽菜"
         },
-        "discountPct": 65
+        "discountPct": 71
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Turkey",
-          "cn": "Turkey"
+          "en": "Butternut Squash",
+          "cn": "葫芦瓜"
+        },
+        "discountPct": 51
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Pork Stomach",
+          "cn": "新鲜猪肚"
         },
         "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Mutti Pasta Sauce",
-          "cn": "Mutti Pasta Sauce"
+          "en": "Soy Sauce",
+          "cn": "酱油"
         },
         "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Stove Top Stuffing Mix",
-          "cn": "Stove Top Stuffing Mix"
+          "en": "Korean Bbq Sauce",
+          "cn": "李锦记韩式烧烤酱"
         },
-        "discountPct": 48
+        "discountPct": 50
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Ham",
-          "cn": "火腿"
+          "en": "Apples",
+          "cn": "苹果"
+        },
+        "discountPct": 45
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Loose Walnut",
+          "cn": "散装核桃仁"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Peanuts",
+          "cn": "花生"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Salted Shao Xing Cooking Wine",
+          "cn": "塔牌咸绍兴花雕酒"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Osteomugil",
+          "cn": "花鼓漫台山显鱼"
         },
         "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Potatoes",
-          "cn": "土豆"
-        },
-        "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Vachon Snack Cakes Hostess Craze Snack Cakes",
-          "cn": "Vachon Snack Cakes Hostess Craze Snack Cakes"
-        },
-        "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Christie Crackers Selected Varieties Crispers Bits Bites",
-          "cn": "Christie Crackers Selected Varieties Crispers Bits Bites"
-        },
-        "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Barilla Catelli Classic Smart Healthy Harvest Pasta",
-          "cn": "Barilla Catelli Classic Smart Healthy Harvest Pasta"
-        },
-        "discountPct": 39
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Armstrong Cheese Bars Shreds",
-          "cn": "Armstrong Cheese Bars Shreds"
-        },
-        "discountPct": 35
       }
     ],
     "categoryWinners": {
@@ -1554,16 +1638,16 @@
         "cn": "Chicken Wings $1.39/lb（百福）"
       },
       "seafood": {
-        "en": "Blue Crab $3.99/lb (First Choice)",
-        "cn": "Blue Crab $3.99/lb（冠业）"
+        "en": "Snail $2.99/lb (First Choice)",
+        "cn": "生猛石螺 $2.99/lb（冠业）"
       },
       "produce": {
         "en": "Korean Cabbage 29¢/lb (First Choice)",
-        "cn": "Korean Cabbage 29¢/lb（冠业）"
+        "cn": "高丽菜 29¢/lb（冠业）"
       },
       "staples": {
         "en": "2% Milk $1.00 (750ML) (No Frills)",
-        "cn": "2%牛奶 $1.00 (750ML)（No Frills）"
+        "cn": "2% Milk $1.00 (750ML)（No Frills）"
       }
     },
     "cheapestStoreSummary": {
@@ -1572,28 +1656,28 @@
         "cn": "百福 — Chicken Wings $1.39/lb、Pork Intestine $1.99/lb"
       },
       "overallCheapestSeafood": {
-        "en": "First Choice — Blue Crab $3.99/lb, Spanish Mackerel $3.99/lb, Sea Urchin $6.99/lb",
-        "cn": "冠业 — Blue Crab $3.99/lb、Spanish Mackerel $3.99/lb、Sea Urchin $6.99/lb"
+        "en": "First Choice — Snail $2.99/lb, White Eel $4.99/lb",
+        "cn": "冠业 — 生猛石螺 $2.99/lb、白鳝 $4.99/lb"
       },
       "overallCheapestProduce": {
-        "en": "First Choice — Korean Cabbage 29¢/lb, Red Pepper 99¢/lb, Baby Napa 99¢/lb",
-        "cn": "冠业 — Korean Cabbage 29¢/lb、Red Pepper 99¢/lb、Baby Napa 99¢/lb"
+        "en": "First Choice — Korean Cabbage 29¢/lb, Butternut Squash 39¢/lb, Carrots 79¢/lb",
+        "cn": "冠业 — 高丽菜 29¢/lb、葫芦瓜 39¢/lb、胡萝卜 79¢/lb"
       },
       "overallCheapestStaples": {
         "en": "No Frills — 2% Milk $1.00 (750ML), Kd Macaroni Cheese $1.00 (156-175G), Ocean Spray Cranberry Sauce $1.50 (240-355ML)",
-        "cn": "No Frills — 2%牛奶 $1.00 (750ML)、Kd Macaroni Cheese $1.00 (156-175G)、Ocean Spray Cranberry Sauce $1.50 (240-355ML)"
+        "cn": "No Frills — 2% Milk $1.00 (750ML)、Kd Macaroni Cheese $1.00 (156-175G)、Ocean Spray Cranberry Sauce $1.50 (240-355ML)"
       }
     },
     "benchmarksComparison": {
-      "grape": {
-        "en": "FreshCo $1.44/lb (Food Basics $1.77/lb)",
-        "cn": "FreshCo $1.44/lb（Food Basics $1.77/lb）"
+      "orange": {
+        "en": "First Choice $1.59/lb",
+        "cn": "冠业 $1.59/lb"
       },
-      "salmon": {
-        "en": "Food Basics $11.99/lb",
-        "cn": "Food Basics $11.99/lb"
+      "porkchop": {
+        "en": "First Choice $1.88/lb",
+        "cn": "冠业 $1.88/lb"
       }
     }
   },
-  "generatedAt": "2026-10-01"
+  "generatedAt": "2026-10-02"
 }
