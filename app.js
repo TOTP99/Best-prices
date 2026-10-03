@@ -34,7 +34,6 @@
       soundAria: '音效开关',
       closeAria: '关闭',
       langAria: '切换中英文',
-      prevAria: '上一张牌',
       searchPh: '搜索商品…',
       sortDefault: '推荐',
       sortDiscount: '折扣',
@@ -61,7 +60,6 @@
       soundAria: 'Sound toggle',
       closeAria: 'Close',
       langAria: 'Switch language',
-      prevAria: 'Previous card',
       searchPh: 'Search deals…',
       sortDefault: 'Top',
       sortDiscount: 'Discount',
@@ -419,15 +417,6 @@
 
   /* ═══════════ 横屏叠牌 ═══════════ */
   var orientationMQ = window.matchMedia('(orientation: landscape)');
-
-  function shuffleArr(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
 
   function syncOrientationLayout() {
     closeDeals();
