@@ -47,6 +47,41 @@ MAX_ITEMS_PER_STORE = 50
 BENCHMARK_GKEYS = {"eggs", "salmon fillet", "salmon", "tomatoes", "bananas",
                    "grapes", "chocolate", "pork chop", "oranges", "chicken wing"}
 
+def load_product_keywords():
+    """从网站 deals.js 的 PRODUCT_CONFIG 自动提取英文关键词。
+
+    网站加新商品时，updater 自动跟上，不用手动同步。
+    deals.js 与 updater/ 同在仓库根目录（../deals.js）。"""
+    kws = []
+    candidates = [
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "deals.js"),
+        os.path.join(APP_DIR, "deals.js"),
+    ]
+    for path in candidates:
+        if not os.path.exists(path):
+            continue
+        try:
+            src = open(path, encoding="utf-8").read()
+            m = re.search(r"PRODUCT_CONFIG\s*=\s*\[(.*?)\];", src, re.S)
+            if not m:
+                continue
+            # 提取 en: '...' 和 re: /.../i
+            for em in re.findall(r"en:\s*'([^']+)'", m.group(1)):
+                kws.append(em.lower())
+            for rm in re.findall(r"re:\s*/([^/]+)/i", m.group(1)):
+                # 去掉 \b 等正则符号，取纯单词
+                clean = re.sub(r"\\b|\^|\$|\(|\)|\||\?", " ", rm).strip()
+                clean = re.sub(r"\s+", " ", clean)
+                if clean and len(clean) > 1:
+                    kws.append(clean.lower())
+            if kws:
+                log(f"product keywords from deals.js: {len(kws)}")
+            break
+        except Exception as e:
+            log(f"load_product_keywords failed: {e}")
+    return kws
+
+
 QUERY_KEYWORDS = [
     "bok choy", "napa cabbage", "cabbage", "broccoli", "cauliflower", "carrots",
     "onions", "tomatoes", "cucumber", "lettuce", "romaine", "spinach",
@@ -63,6 +98,7 @@ QUERY_KEYWORDS = [
     "milk", "eggs", "butter", "cheese", "yogurt", "rice", "noodles",
     "soy sauce", "oil", "bread", "juice", "coca-cola", "coffee", "honey",
     "tofu", "frozen vegetables", "ice cream", "cookies", "chocolate",
+    "cat food", "cat litter", "kitty litter",
 ]
 
 SEAFOOD_WORDS = {"salmon", "shrimp", "crab", "lobster", "tuna", "mussel",
@@ -393,6 +429,14 @@ def main():
     os.makedirs(BACKUP_DIR, exist_ok=True)
     glossary = load_glossary(GLOSSARY_FILE)
     log(f"glossary: {len(glossary)} entries")
+    # 合并网站商品关键词（去重，保持原顺序）
+    auto_kws = load_product_keywords()
+    seen_kw = set(QUERY_KEYWORDS)
+    for kw in auto_kws:
+        if kw not in seen_kw:
+            QUERY_KEYWORDS.append(kw)
+            seen_kw.add(kw)
+    log(f"query keywords: {len(QUERY_KEYWORDS)}")
 
     old = json.load(open(DATA_FILE, encoding="utf-8"))
     fresh = {}   # sid -> (vf, vt, picked)
