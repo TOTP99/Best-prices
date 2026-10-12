@@ -41,15 +41,15 @@
       },
       {
         "item": {
-          "en": "Sun Fung Yellow Millet"
-        },
-        "price": "$5.99"
-      },
-      {
-        "item": {
           "en": "Sau Tao Noodle Series"
         },
         "price": "$5.99/ea"
+      },
+      {
+        "item": {
+          "en": "Sun Fung Yellow Millet"
+        },
+        "price": "$5.99"
       },
       {
         "item": {
@@ -107,13 +107,7 @@
       },
       {
         "item": {
-          "en": "Honey Dates"
-        },
-        "price": "$1.99/lb"
-      },
-      {
-        "item": {
-          "en": "Cooking Wine Series"
+          "en": "Haday Superior Oyster Sauce"
         },
         "price": "$1.99"
       },
@@ -125,7 +119,13 @@
       },
       {
         "item": {
-          "en": "Haday Superior Oyster Sauce"
+          "en": "Honey Dates"
+        },
+        "price": "$1.99/lb"
+      },
+      {
+        "item": {
+          "en": "Cooking Wine Series"
         },
         "price": "$1.99"
       },
@@ -173,15 +173,15 @@
       },
       {
         "item": {
-          "en": "Ginger"
-        },
-        "price": "$1.79/lb"
-      },
-      {
-        "item": {
           "en": "Beech Mushrooms"
         },
         "price": "$1.79"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$1.79/lb"
       },
       {
         "item": {
@@ -203,25 +203,25 @@
       },
       {
         "item": {
-          "en": "Merilin Grass Jelly Drink"
-        },
-        "price": "$4.99"
-      },
-      {
-        "item": {
           "en": "2% Milk"
         },
         "price": "$4.99"
       },
       {
         "item": {
-          "en": "Pork Shoulder Butt"
+          "en": "Merilin Grass Jelly Drink"
+        },
+        "price": "$4.99"
+      },
+      {
+        "item": {
+          "en": "Pork Shoulder Blade"
         },
         "price": "$2.59/lb"
       },
       {
         "item": {
-          "en": "Pork Shoulder Blade"
+          "en": "Pork Shoulder Butt"
         },
         "price": "$2.59/lb"
       },
@@ -275,12 +275,6 @@
       },
       {
         "item": {
-          "en": "Butter"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
           "en": "Snail"
         },
         "price": "$2.99/lb"
@@ -299,9 +293,15 @@
       },
       {
         "item": {
-          "en": "Seafood Snakehead Fish Fillet"
+          "en": "Butter"
         },
-        "price": "$2.99/ea"
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Natural Land Beancurd Roll"
+        },
+        "price": "$2.99"
       }
     ],
     "freshco": [
@@ -1684,5 +1684,5 @@
       }
     }
   },
-  "generatedAt": "2026-10-10"
+  "generatedAt": "2026-10-12"
 }
