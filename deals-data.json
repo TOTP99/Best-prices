@@ -3,281 +3,293 @@
     "guanye": [
       {
         "item": {
-          "en": "Oranges"
+          "en": "Eggs"
         },
-        "price": "$1.29/lb"
+        "price": "$4.99/ea"
       },
       {
         "item": {
-          "en": "Previously Leaf Fish"
+          "en": "Grapes"
         },
-        "price": "99¢/lb",
+        "price": "$2.59/lb"
+      },
+      {
+        "item": {
+          "en": "Merilin Fried Gluten Balls"
+        },
+        "price": "$0.88",
         "featured": true
       },
       {
         "item": {
-          "en": "Garden Lucky Candy"
+          "en": "Red Drago Tapioca Starch"
         },
-        "price": "$1.68",
+        "price": "$0.99/ea",
         "featured": true
       },
       {
         "item": {
-          "en": "Guava"
+          "en": "Pickled Mustard Flavor Biscuit Series"
         },
-        "price": "$1.68"
+        "price": "$1.99/ea"
       },
       {
         "item": {
-          "en": "Short Napa"
+          "en": "Oriental Orchard Pea Crisps Series"
         },
-        "price": "49¢/lb"
+        "price": "$1.99"
       },
       {
         "item": {
-          "en": "Bandit Fish"
-        },
-        "price": "$4.99/lb"
-      },
-      {
-        "item": {
-          "en": "Rose Brand White Glutinous Rice"
-        },
-        "price": "$4.99"
-      },
-      {
-        "item": {
-          "en": "Loose Walnut"
-        },
-        "price": "$4.99/lb"
-      },
-      {
-        "item": {
-          "en": "Pacific Cream Cracker Series"
-        },
-        "price": "$2.88"
-      },
-      {
-        "item": {
-          "en": "Instant Noodles"
-        },
-        "price": "$2.68"
-      },
-      {
-        "item": {
-          "en": "Longan"
-        },
-        "price": "$2.39/lb"
-      },
-      {
-        "item": {
-          "en": "Pork Large Intestine"
-        },
-        "price": "$2.99/lb"
-      },
-      {
-        "item": {
-          "en": "Lettuce"
-        },
-        "price": "$2.99/ea"
-      },
-      {
-        "item": {
-          "en": "Pun Chum Char Siu Sauce Series"
+          "en": "Merilin Red Fermented Beancurd"
         },
         "price": "$2.99"
       },
       {
         "item": {
-          "en": "Shrimp"
+          "en": "Lu Jia Shao Xing Cooking Wine"
         },
-        "price": "$15.00/lb"
+        "price": "$2.99"
       },
       {
         "item": {
-          "en": "Black Tea"
+          "en": "Soy Sauce"
         },
-        "price": "$9.99"
+        "price": "$4.99"
+      },
+      {
+        "item": {
+          "en": "Tak Shing Pickled Cabbage"
+        },
+        "price": "$19.99"
+      },
+      {
+        "item": {
+          "en": "Previously Pacific Saury"
+        },
+        "price": "$1.69/lb"
+      },
+      {
+        "item": {
+          "en": "Honey Pomelo"
+        },
+        "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Haday Soybean Paste Series"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Haday Superior Oyster Sauce"
+        },
+        "price": "$2.99"
+      },
+      {
+        "item": {
+          "en": "Deep Fried Dough Stick"
+        },
+        "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Chicken Drumsticks"
+        },
+        "price": "$1.59/lb"
       },
       {
         "item": {
           "en": "Yogurt"
         },
-        "price": "$1.88"
+        "price": "$12.88"
       },
       {
         "item": {
-          "en": "Tong Ho"
+          "en": "Huang Fei Hong Magic Chili"
+        },
+        "price": "$3.88"
+      },
+      {
+        "item": {
+          "en": "Mushrooms"
+        },
+        "price": "$16.88"
+      },
+      {
+        "item": {
+          "en": "Bok Choy"
+        },
+        "price": "79¢/lb"
+      },
+      {
+        "item": {
+          "en": "Shanghai Miu"
         },
         "price": "$1.19/lb"
       },
       {
         "item": {
-          "en": "Chicken Wings"
+          "en": "Pork Shoulder Butt"
         },
         "price": "$2.39/lb"
       },
       {
         "item": {
-          "en": "New Zealand Skin On Goat Shoulder Leg"
+          "en": "White Eel"
         },
-        "price": "$5.99/lb"
+        "price": "$7.99/lb"
       },
       {
         "item": {
-          "en": "Dong Hu Brand Superior Vinegar"
+          "en": "Edamame"
+        },
+        "price": "$1.99/ea"
+      },
+      {
+        "item": {
+          "en": "Greenmax Tapioca Starch"
         },
         "price": "$1.99"
       },
       {
         "item": {
-          "en": "Stone Crane Preserved Mustard"
-        },
-        "price": "$1.99"
-      },
-      {
-        "item": {
-          "en": "Loose Red Bean"
-        },
-        "price": "$1.99/lb"
-      },
-      {
-        "item": {
-          "en": "Peanuts"
+          "en": "Merilin Bean Curd Crust"
         },
         "price": "$3.99"
       },
       {
         "item": {
-          "en": "Loose Raw Cashew"
-        },
-        "price": "$5.99/lb"
-      },
-      {
-        "item": {
-          "en": "Yu Pin Fried Dace Black Beans"
+          "en": "Shodoshimo Instant Japanese Style Noodle Udon"
         },
         "price": "$1.99"
       },
       {
         "item": {
-          "en": "Shoo Loong Kan Hot Pot Soup Base Series"
+          "en": "Hi Hotpot Soup Base Series"
         },
-        "price": "$1.99"
+        "price": "$10.99"
       },
       {
         "item": {
-          "en": "Winter Melon"
+          "en": "Light Soy Sauce"
         },
-        "price": "88¢/lb"
+        "price": "$13.88"
       },
       {
         "item": {
-          "en": "Beech Mushrooms"
+          "en": "Macau Honghong Almond Cakes"
         },
-        "price": "$1.79"
+        "price": "$6.99/ea"
       },
       {
         "item": {
-          "en": "Grouper"
-        },
-        "price": "$8.99/lb"
-      },
-      {
-        "item": {
-          "en": "Prosper Unity Chinese Dried Dates Jujube"
-        },
-        "price": "$8.99"
-      },
-      {
-        "item": {
-          "en": "Chestnuts"
+          "en": "Chicken Broth"
         },
         "price": "$6.99"
       },
       {
         "item": {
-          "en": "Shanghai Bok Choy"
+          "en": "Baby Napa"
         },
         "price": "99¢/lb"
       },
       {
         "item": {
-          "en": "New Zealand Skin On Goat Belly"
+          "en": "Egg Tarts"
         },
-        "price": "$9.99/lb"
+        "price": "$4.99/ea"
       },
       {
         "item": {
-          "en": "Peng Sheng Sour Pickled Cabbage"
+          "en": "Abalone"
         },
-        "price": "$4.99"
+        "price": "$9.99/ea"
       },
       {
         "item": {
-          "en": "Corn"
+          "en": "Koiz Cheese Scallops Crab Shells"
         },
-        "price": "$4.99"
+        "price": "$9.99/ea"
       },
       {
         "item": {
-          "en": "Diamond Brand Salted Shaoxing Cooking Wine"
+          "en": "L A Longkou Vermicelli"
         },
-        "price": "$4.99"
+        "price": "$4.28"
       },
       {
         "item": {
-          "en": "Seafood Wasabi Octopus"
+          "en": "Taro"
+        },
+        "price": "$1.29/lb"
+      },
+      {
+        "item": {
+          "en": "Water Chestnut"
+        },
+        "price": "$1.88/lb"
+      },
+      {
+        "item": {
+          "en": "Seven Basket Grilled Eel"
         },
         "price": "$7.99/ea"
       },
       {
         "item": {
-          "en": "Spinach"
+          "en": "Avocado"
         },
-        "price": "$1.49/lb"
+        "price": "$2.99"
       },
       {
         "item": {
-          "en": "Purple Yam"
+          "en": "Winter Jujube"
         },
-        "price": "$1.79/lb"
+        "price": "$2.99/lb"
       },
       {
         "item": {
-          "en": "Seven Baskets Yam"
+          "en": "King Haccp Surimi Sticks"
         },
-        "price": "$2.99/ea"
+        "price": "$5.99/ea"
       },
       {
         "item": {
-          "en": "Pineapple Cut Squid"
+          "en": "Shrimp"
         },
-        "price": "$2.99/ea"
+        "price": "$19.00"
       },
       {
         "item": {
-          "en": "Arrowroot"
+          "en": "Y B Dried Bean Curd"
+        },
+        "price": "$4.58"
+      },
+      {
+        "item": {
+          "en": "California Bbq Yam"
         },
         "price": "$1.99/lb"
       },
       {
         "item": {
-          "en": "Fragrant Pears"
+          "en": "Mussels"
         },
-        "price": "$1.99/lb"
+        "price": "$9.99"
       },
       {
         "item": {
-          "en": "Clearwater Arctic Surf Clams"
+          "en": "Filled Fish Ball Series"
         },
-        "price": "$19.99/ea"
-      },
-      {
-        "item": {
-          "en": "Cauliflower"
-        },
-        "price": "$1.39/lb"
+        "price": "$19.99"
       },
       {
         "item": {
@@ -287,21 +299,9 @@
       },
       {
         "item": {
-          "en": "Chef Shuo Beef Lamb Offal Soup Series"
+          "en": "Pork Neck Meat"
         },
-        "price": "$6.99/ea"
-      },
-      {
-        "item": {
-          "en": "Ginger"
-        },
-        "price": "$1.79/lb"
-      },
-      {
-        "item": {
-          "en": "Seven Baskets Cooked Clam"
-        },
-        "price": "$2.99/ea"
+        "price": "$6.99/lb"
       }
     ],
     "freshco": [
@@ -1426,7 +1426,7 @@
   },
   "benchmarkPrices": {},
   "flyerPeriod": {
-    "guanye": "Oct 23-30",
+    "guanye": "Oct 30-Nov 6",
     "freshco": "Oct 15-Nov 11",
     "nofrills": "Oct 29-Nov 4",
     "foodbasics": "Oct 29-Nov 4",
@@ -1435,106 +1435,106 @@
   "analysis": {
     "bestDeals": {
       "guanye": {
-        "en": "Short Napa 49¢/lb & Winter Melon 88¢/lb",
-        "cn": "Short Napa 49¢/lb & Winter Melon 88¢/lb"
+        "en": "Merilin Fried Gluten Balls $0.88 & Red Drago Tapioca Starch $0.99/ea",
+        "cn": "美林油面筋 $0.88 & 红龙菱粉 $0.99/ea"
       },
       "baifu": {
         "en": "Nappa 59¢/lb & Pumpkin 69¢/lb",
         "cn": "Nappa 59¢/lb & Pumpkin 69¢/lb"
       },
       "freshco": {
-        "en": "Sunfeast Yippee Masala Noodles $1.49 (280g) & Apna Taste Samosas Selected Varieties $3.79 (550-600g)",
-        "cn": "Sunfeast Yippee Masala Noodles $1.49 (280g) & Apna Taste Samosas Selected Varieties $3.79 (550-600g)"
+        "en": "Deep Bhindi Baby Okra Cut Okra $1.29 & Sunfeast Yippee Masala Noodles $1.49 (280g)",
+        "cn": "Deep Bhindi Baby Okra Cut Okra $1.29 & Sunfeast Yippee Masala Noodles $1.49 (280g)"
       },
       "foodbasics": {
-        "en": "Juice $3.00/ea & Instant Noodles 40¢/ea",
-        "cn": "果汁 $3.00/ea & 方便面 40¢/ea"
+        "en": "Instant Noodles 40¢/ea & Maggi Noodles 44¢/ea",
+        "cn": "Instant Noodles 40¢/ea & Maggi Noodles 44¢/ea"
       },
       "nofrills": {
-        "en": "Bacon $4.00 (65g) & Cadbury Chocolate Bar $2.25 (90-105g, member)",
-        "cn": "培根 $4.00 (65g) & Cadbury Chocolate Bar $2.25 (90-105g, member)"
+        "en": "Instant Noodles $0.37 (85g) & Green Cabbage 99¢/lb",
+        "cn": "Instant Noodles $0.37 (85g) & Green Cabbage 99¢/lb"
       }
     },
     "deepestDiscounts": [
       {
-        "store": "nofrills",
+        "store": "guanye",
         "item": {
-          "en": "Bacon",
-          "cn": "培根"
+          "en": "Merilin Fried Gluten Balls",
+          "cn": "美林油面筋"
         },
-        "discountPct": 92
+        "discountPct": 56
       },
       {
-        "store": "freshco",
+        "store": "guanye",
         "item": {
-          "en": "Sunfeast Yippee Masala Noodles",
-          "cn": "Sunfeast Yippee Masala Noodles"
+          "en": "Red Drago Tapioca Starch",
+          "cn": "红龙菱粉"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Pickled Mustard Flavor Biscuit Series",
+          "cn": "超友味老坛酸菜味夹心饼干"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Oriental Orchard Pea Crisps Series",
+          "cn": "东方果园鲜制豌豆脆系列"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Merilin Red Fermented Beancurd",
+          "cn": "美林牌上海南乳"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Lu Jia Shao Xing Cooking Wine",
+          "cn": "绿佳绍兴花雕酒"
+        },
+        "discountPct": 50
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Soy Sauce",
+          "cn": "酱油"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Tak Shing Pickled Cabbage",
+          "cn": "德成秘制甜酸菜"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Previously Pacific Saury",
+          "cn": "鲜冻秋刀鱼"
+        },
+        "discountPct": 44
+      },
+      {
+        "store": "guanye",
+        "item": {
+          "en": "Honey Pomelo",
+          "cn": "蜜柚"
         },
         "discountPct": 40
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Apna Taste Samosas Selected Varieties",
-          "cn": "Apna Taste Samosas Selected Varieties"
-        },
-        "discountPct": 31
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Deep Bhindi Baby Okra Cut Okra",
-          "cn": "Deep Bhindi Baby Okra Cut Okra"
-        },
-        "discountPct": 28
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Juice",
-          "cn": "果汁"
-        },
-        "discountPct": 27
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Happy Dairy Paneer",
-          "cn": "Happy Dairy Paneer"
-        },
-        "discountPct": 27
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Tata Iodized Sea Salt",
-          "cn": "Tata Iodized Sea Salt"
-        },
-        "discountPct": 25
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Apna Taste Aloo Tikki Potato Patties Vegetable Spring Rolls",
-          "cn": "Apna Taste Aloo Tikki Potato Patties Vegetable Spring Rolls"
-        },
-        "discountPct": 25
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Deluxe Biscuits Selected Varieties",
-          "cn": "Deluxe Biscuits Selected Varieties"
-        },
-        "discountPct": 25
-      },
-      {
-        "store": "freshco",
-        "item": {
-          "en": "Aman S Brown White Sugar",
-          "cn": "Aman S Brown White Sugar"
-        },
-        "discountPct": 25
       }
     ],
     "categoryWinners": {
@@ -1543,16 +1543,16 @@
         "cn": "Chicken Wings $1.39/lb（百福）"
       },
       "seafood": {
-        "en": "Previously Leaf Fish 99¢/lb (First Choice)",
-        "cn": "Previously Leaf Fish 99¢/lb（冠业）"
+        "en": "Previously Pacific Saury $1.69/lb (First Choice)",
+        "cn": "鲜冻秋刀鱼 $1.69/lb（冠业）"
       },
       "produce": {
-        "en": "Short Napa 49¢/lb (First Choice)",
-        "cn": "Short Napa 49¢/lb（冠业）"
+        "en": "Bok Choy 79¢/lb (First Choice)",
+        "cn": "白菜 79¢/lb（冠业）"
       },
       "staples": {
-        "en": "Yogurt 99¢/ea (Food Basics)",
-        "cn": "酸奶 99¢/ea（Food Basics）"
+        "en": "Merilin Fried Gluten Balls $0.88 (First Choice)",
+        "cn": "美林油面筋 $0.88（冠业）"
       }
     },
     "cheapestStoreSummary": {
@@ -1561,28 +1561,24 @@
         "cn": "百福 — Chicken Wings $1.39/lb、Pork Intestine $1.99/lb、Pork Spare Ribs $2.99/lb"
       },
       "overallCheapestSeafood": {
-        "en": "First Choice — Previously Leaf Fish 99¢/lb, Bandit Fish $4.99/lb, Sea Bass $6.99/lb",
-        "cn": "冠业 — Previously Leaf Fish 99¢/lb、Bandit Fish $4.99/lb、Sea Bass $6.99/lb"
+        "en": "First Choice — Previously Pacific Saury $1.69/lb, Sea Bass $6.99/lb, White Eel $7.99/lb",
+        "cn": "冠业 — 鲜冻秋刀鱼 $1.69/lb、新鲜海青斑 $6.99/lb、白鳝 $7.99/lb"
       },
       "overallCheapestProduce": {
-        "en": "First Choice — Short Napa 49¢/lb, Winter Melon 88¢/lb, Shanghai Bok Choy 99¢/lb",
-        "cn": "冠业 — Short Napa 49¢/lb、Winter Melon 88¢/lb、Shanghai Bok Choy 99¢/lb"
+        "en": "First Choice — Bok Choy 79¢/lb, Baby Napa 99¢/lb, Shanghai Miu $1.19/lb",
+        "cn": "冠业 — 白菜 79¢/lb、娃娃菜 99¢/lb、上海苗 $1.19/lb"
       },
       "overallCheapestStaples": {
-        "en": "Food Basics — Yogurt 99¢/ea, Peace Tea Iced Tea $1.00/ea, 2% Milk $1.00/ea",
-        "cn": "Food Basics — 酸奶 99¢/ea、Peace Tea Iced Tea $1.00/ea、2%牛奶 $1.00/ea"
+        "en": "First Choice — Merilin Fried Gluten Balls $0.88, Red Drago Tapioca Starch $0.99/ea, Pickled Mustard Flavor Biscuit Series $1.99/ea",
+        "cn": "冠业 — 美林油面筋 $0.88、红龙菱粉 $0.99/ea、超友味老坛酸菜味夹心饼干 $1.99/ea"
       }
     },
     "benchmarksComparison": {
       "grape": {
-        "en": "Food Basics $3.00/lb",
-        "cn": "Food Basics $3.00/lb"
-      },
-      "salmon": {
-        "en": "No Frills $10.99/lb (Food Basics $12.00/lb)",
-        "cn": "No Frills $10.99/lb（Food Basics $12.00/lb）"
+        "en": "First Choice $2.59/lb",
+        "cn": "冠业 $2.59/lb"
       }
     }
   },
-  "generatedAt": "2026-10-29"
+  "generatedAt": "2026-10-31"
 }
