@@ -29,15 +29,15 @@
       },
       {
         "item": {
-          "en": "Pickled Mustard Flavor Biscuit Series"
-        },
-        "price": "$1.99/ea"
-      },
-      {
-        "item": {
           "en": "Oriental Orchard Pea Crisps Series"
         },
         "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Pickled Mustard Flavor Biscuit Series"
+        },
+        "price": "$1.99/ea"
       },
       {
         "item": {
@@ -77,13 +77,7 @@
       },
       {
         "item": {
-          "en": "Ginger"
-        },
-        "price": "$2.99"
-      },
-      {
-        "item": {
-          "en": "Haday Soybean Paste Series"
+          "en": "Deep Fried Dough Stick"
         },
         "price": "$2.99/ea"
       },
@@ -95,9 +89,15 @@
       },
       {
         "item": {
-          "en": "Deep Fried Dough Stick"
+          "en": "Haday Soybean Paste Series"
         },
         "price": "$2.99/ea"
+      },
+      {
+        "item": {
+          "en": "Ginger"
+        },
+        "price": "$2.99"
       },
       {
         "item": {
@@ -149,15 +149,15 @@
       },
       {
         "item": {
-          "en": "Edamame"
-        },
-        "price": "$1.99/ea"
-      },
-      {
-        "item": {
           "en": "Greenmax Tapioca Starch"
         },
         "price": "$1.99"
+      },
+      {
+        "item": {
+          "en": "Edamame"
+        },
+        "price": "$1.99/ea"
       },
       {
         "item": {
@@ -185,15 +185,15 @@
       },
       {
         "item": {
-          "en": "Macau Honghong Almond Cakes"
-        },
-        "price": "$6.99/ea"
-      },
-      {
-        "item": {
           "en": "Chicken Broth"
         },
         "price": "$6.99"
+      },
+      {
+        "item": {
+          "en": "Macau Honghong Almond Cakes"
+        },
+        "price": "$6.99/ea"
       },
       {
         "item": {
@@ -209,13 +209,13 @@
       },
       {
         "item": {
-          "en": "Abalone"
+          "en": "Koiz Cheese Scallops Crab Shells"
         },
         "price": "$9.99/ea"
       },
       {
         "item": {
-          "en": "Koiz Cheese Scallops Crab Shells"
+          "en": "Abalone"
         },
         "price": "$9.99/ea"
       },
@@ -245,15 +245,15 @@
       },
       {
         "item": {
-          "en": "Avocado"
-        },
-        "price": "$2.99"
-      },
-      {
-        "item": {
           "en": "Winter Jujube"
         },
         "price": "$2.99/lb"
+      },
+      {
+        "item": {
+          "en": "Avocado"
+        },
+        "price": "$2.99"
       },
       {
         "item": {
@@ -293,13 +293,13 @@
       },
       {
         "item": {
-          "en": "Sea Bass"
+          "en": "Pork Neck Meat"
         },
         "price": "$6.99/lb"
       },
       {
         "item": {
-          "en": "Pork Neck Meat"
+          "en": "Sea Bass"
         },
         "price": "$6.99/lb"
       }
@@ -1475,16 +1475,16 @@
       {
         "store": "guanye",
         "item": {
-          "en": "Pickled Mustard Flavor Biscuit Series",
-          "cn": "超友味老坛酸菜味夹心饼干"
+          "en": "Oriental Orchard Pea Crisps Series",
+          "cn": "东方果园鲜制豌豆脆系列"
         },
         "discountPct": 50
       },
       {
         "store": "guanye",
         "item": {
-          "en": "Oriental Orchard Pea Crisps Series",
-          "cn": "东方果园鲜制豌豆脆系列"
+          "en": "Pickled Mustard Flavor Biscuit Series",
+          "cn": "超友味老坛酸菜味夹心饼干"
         },
         "discountPct": 50
       },
@@ -1569,8 +1569,8 @@
         "cn": "冠业 — 白菜 79¢/lb、娃娃菜 99¢/lb、上海苗 $1.19/lb"
       },
       "overallCheapestStaples": {
-        "en": "First Choice — Merilin Fried Gluten Balls $0.88, Red Drago Tapioca Starch $0.99/ea, Pickled Mustard Flavor Biscuit Series $1.99/ea",
-        "cn": "冠业 — 美林油面筋 $0.88、红龙菱粉 $0.99/ea、超友味老坛酸菜味夹心饼干 $1.99/ea"
+        "en": "First Choice — Merilin Fried Gluten Balls $0.88, Red Drago Tapioca Starch $0.99/ea, Oriental Orchard Pea Crisps Series $1.99",
+        "cn": "冠业 — 美林油面筋 $0.88、红龙菱粉 $0.99/ea、东方果园鲜制豌豆脆系列 $1.99"
       }
     },
     "benchmarksComparison": {
@@ -1580,5 +1580,5 @@
       }
     }
   },
-  "generatedAt": "2026-10-31"
+  "generatedAt": "2026-11-02"
 }
